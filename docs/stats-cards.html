@@ -606,9 +606,12 @@
   </p>
 
   <div style="display:flex;gap:16px;align-items:flex-end;margin-bottom:12px;flex-wrap:wrap">
-    <div style="flex:1;min-width:220px">
-      <label for="cs-q" style="display:block;font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Search card</label>
-      <input id="cs-q" type="search" placeholder="e.g. Defy" style="width:100%;padding:7px 10px;border-radius:6px;background:var(--card-bg);color:var(--text-primary)">
+    <div style="flex:1;min-width:220px;display:flex;gap:8px;align-items:flex-end">
+      <div style="flex:1;min-width:0">
+        <label for="cs-q" style="display:block;font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Search card</label>
+        <input id="cs-q" type="search" placeholder="e.g. Defy" style="width:100%;padding:7px 10px;border-radius:6px;background:var(--card-bg);color:var(--text-primary)">
+      </div>
+      <button id="cs-clear-filters" type="button" class="clear-btn">Clear filters</button>
     </div>
 
     <div>
@@ -890,8 +893,6 @@
           
         </div>
       </details>
-
-      <button id="cs-clear-filters" type="button" class="clear-btn">Clear filters</button>
     </div>
   </div>
 

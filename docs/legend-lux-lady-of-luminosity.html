@@ -481,6 +481,9 @@
   .card-tile-lg { width: 183px; }
   .card-tile-lg img, .card-tile-lg .card-tile-noimg { width: 183px; }
   .card-tile-lg .card-tile-caption { max-width: 183px; }
+  /* Battlefields: always exactly 2 per row (base.html's
+     .card-grid-fill-landscape is auto-fit, as many as fit the width). */
+  .battlefields-grid { grid-template-columns: repeat(2, 1fr); }
   .block-title {
     font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
     margin: 0 0 10px; display: inline-block; background: linear-gradient(90deg,#C58900,#F27C00);
@@ -517,7 +520,7 @@
   <h2 class="deck-header-title">Lux, Lady of Luminosity</h2>
   <div class="deck-meta-row">
     <span class="deck-meta-chip">18 decks analyzed</span>
-    <span class="deck-meta-chip">36.4% win rate</span>
+    <span class="deck-meta-chip">46% win rate</span>
     <span class="deck-meta-chip">0.6% play rate</span>
     
       <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
@@ -842,7 +845,7 @@
 
 <div class="card">
   <h2 class="block-title">Battlefields</h2>
-  <div class="card-grid">
+  <div class="card-grid card-grid-fill-landscape battlefields-grid">
     
     
     <div class="card-tile card-tile-landscape" data-idx="50">

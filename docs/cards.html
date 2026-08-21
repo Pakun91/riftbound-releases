@@ -499,9 +499,12 @@
 
 <div class="card">
   <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px">
-    <div style="flex:1;min-width:220px">
-      <label for="q" style="display:block;font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Search card name</label>
-      <input id="q" type="search" placeholder="e.g. Stacked Deck" style="width:100%;padding:7px 10px;border-radius:6px;background:var(--card-bg);color:var(--text-primary)">
+    <div style="flex:1;min-width:220px;display:flex;gap:8px;align-items:flex-end">
+      <div style="flex:1;min-width:0">
+        <label for="q" style="display:block;font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Search card name</label>
+        <input id="q" type="search" placeholder="e.g. Stacked Deck" style="width:100%;padding:7px 10px;border-radius:6px;background:var(--card-bg);color:var(--text-primary)">
+      </div>
+      <button id="clear-filters" type="button" class="clear-btn">Clear filters</button>
     </div>
 
     <div>
@@ -609,8 +612,6 @@
         <button type="button" id="sort-dir" title="Toggle ascending/descending" style="padding:7px 12px;border-radius:6px;border:1px solid var(--border);background:var(--card-bg);color:var(--text-primary);font-size:13px;cursor:pointer">↓ Asc</button>
       </div>
     </div>
-
-    <button id="clear-filters" type="button" class="clear-btn">Clear filters</button>
   </div>
 
   <div class="muted" style="font-size:13px;margin-bottom:8px"><span id="visible-count"></span> of 1334 cards</div>
