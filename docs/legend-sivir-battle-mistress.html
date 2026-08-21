@@ -427,6 +427,16 @@
     .page-layout { flex-direction: column; }
     .sidebar { width: 100%; }
   }
+  @media (max-width: 600px) {
+    /* Only the Champion Unit section, not .card-tile-lg's other use as the
+       hero legend portrait above it (same class, different context) - 2
+       tiles side by side (50% - half the gap each) instead of the fixed
+       183px stacking to 1 per row on a phone. */
+    .champion-unit-grid .card-tile-lg { width: calc(50% - 6px); }
+    .champion-unit-grid .card-tile-lg img,
+    .champion-unit-grid .card-tile-lg .card-tile-noimg { width: 100%; }
+    .champion-unit-grid .card-tile-lg .card-tile-caption { max-width: 100%; }
+  }
   .chart-box {
     position: relative; background: var(--page); border: 1px solid var(--border); border-radius: 8px;
     padding: 10px 12px 12px; flex: 1 1 300px; max-width: 340px;
@@ -892,7 +902,7 @@
 
 <div class="card">
   <h2 class="block-title">Champion Unit</h2>
-  <div class="card-grid">
+  <div class="card-grid champion-unit-grid">
     
     
     <div class="card-tile card-tile-lg" data-idx="100">
