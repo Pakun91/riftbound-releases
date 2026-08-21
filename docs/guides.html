@@ -408,8 +408,18 @@
     .card-modal-body { padding: 14px 16px; gap: 16px; }
     .card-modal-art-col, .card-modal-art-col.landscape { flex: 0 1 auto; width: 100%; max-width: 260px; margin: 0 auto; }
     .card-modal-info { min-width: 0; }
-    .card-modal-grid { grid-template-columns: 1fr; }
     .deck-header-title { font-size: 22px; }
+    /* Every filter row on the site pushes its last group right with a plain
+       inline margin-left:auto - fine on desktop (lines it up against the
+       far edge), but once a row wraps onto several lines on a phone, that
+       same auto margin shoves whichever group ends up alone on its own line
+       over to the right (or centers it) instead of stacking flush left with
+       everything else. The [style*=] selector below catches every one of
+       them (they're plain inline styles) without needing a class/id added
+       to every template that has one; !important is required because a
+       plain inline style attribute otherwise outranks a stylesheet rule
+       regardless of selector. */
+    [style*="margin-left:auto"] { margin-left: 0 !important; }
   }
 
   
@@ -1024,19 +1034,34 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
   // 3D tilt-on-hover: rotate the art toward whichever corner the cursor is
   // over (max ~12deg either axis), snapping back via the CSS transition
   // above once the pointer leaves.
-  artCol.addEventListener('mousemove', function (e) {
+  function applyTilt(clientX, clientY) {
     const rect = tiltEl.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width;
-    const py = (e.clientY - rect.top) / rect.height;
+    const px = (clientX - rect.left) / rect.width;
+    const py = (clientY - rect.top) / rect.height;
     const rotateY = (px - 0.5) * 24;
     const rotateX = (0.5 - py) * 24;
     tiltEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     tiltEl.style.boxShadow = `${-rotateY}px ${rotateX}px 24px rgba(0,0,0,.35)`;
-  });
-  artCol.addEventListener('mouseleave', function () {
+  }
+  function resetTilt() {
     tiltEl.style.transform = 'rotateX(0deg) rotateY(0deg)';
     tiltEl.style.boxShadow = 'none';
-  });
+  }
+  artCol.addEventListener('mousemove', function (e) { applyTilt(e.clientX, e.clientY); });
+  artCol.addEventListener('mouseleave', resetTilt);
+  // Touch equivalent - mousemove/mouseleave never fire from a finger drag,
+  // so without this the tilt effect (and the flip button's hover-adjacent
+  // feel) was silent on a phone. preventDefault stops the drag from also
+  // scrolling the page behind the modal; {passive:false} is required for
+  // that to actually take effect (a touchmove listener is passive, and
+  // preventDefault a silent no-op, by default).
+  artCol.addEventListener('touchmove', function (e) {
+    if (!e.touches.length) return;
+    e.preventDefault();
+    applyTilt(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: false });
+  artCol.addEventListener('touchend', resetTilt);
+  artCol.addEventListener('touchcancel', resetTilt);
 
   tiles.forEach(function (tile) {
     tile.addEventListener('click', function () {

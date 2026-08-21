@@ -408,8 +408,18 @@
     .card-modal-body { padding: 14px 16px; gap: 16px; }
     .card-modal-art-col, .card-modal-art-col.landscape { flex: 0 1 auto; width: 100%; max-width: 260px; margin: 0 auto; }
     .card-modal-info { min-width: 0; }
-    .card-modal-grid { grid-template-columns: 1fr; }
     .deck-header-title { font-size: 22px; }
+    /* Every filter row on the site pushes its last group right with a plain
+       inline margin-left:auto - fine on desktop (lines it up against the
+       far edge), but once a row wraps onto several lines on a phone, that
+       same auto margin shoves whichever group ends up alone on its own line
+       over to the right (or centers it) instead of stacking flush left with
+       everything else. The [style*=] selector below catches every one of
+       them (they're plain inline styles) without needing a class/id added
+       to every template that has one; !important is required because a
+       plain inline style attribute otherwise outranks a stylesheet rule
+       regardless of selector. */
+    [style*="margin-left:auto"] { margin-left: 0 !important; }
   }
 
   
@@ -506,7 +516,7 @@
 <div class="card">
   <h2 class="deck-header-title">Azir, Emperor of the Sands</h2>
   <div class="deck-meta-row">
-    <span class="deck-meta-chip">104 decks analyzed</span>
+    <span class="deck-meta-chip">110 decks analyzed</span>
     <span class="deck-meta-chip">52.3% win rate</span>
     <span class="deck-meta-chip">3.5% play rate</span>
     
@@ -520,7 +530,7 @@
     
     <div class="card-grid" style="flex:0 0 auto">
       
-      <div class="card-tile card-tile-lg" data-idx="42">
+      <div class="card-tile card-tile-lg" data-idx="43">
         <div class="card-tile-img-wrap">
           
             <img src="https://static.dotgg.gg/riftbound/cards/SFD-247.webp" alt="Azir, Emperor of the Sands" loading="lazy">
@@ -546,7 +556,10 @@
         <line x1="18" y1="10.0" x2="282" y2="10.0" stroke="var(--gridline)" stroke-width="1" />
         
         
-        <polyline points="55.7,64.6 74.6,64.6 93.4,52.4 112.3,54.2 131.1,52.4 150.0,52.4 168.9,68.3 187.7,68.3 206.6,68.3 225.4,67.4 244.3,67.4 263.1,67.4 282.0,67.4" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        <polyline points="36.9,63.3 55.7,64.6 74.6,64.6 93.4,53.7 112.3,52.4 131.1,52.4 150.0,68.2 168.9,68.3 187.7,68.3 206.6,68.3 225.4,67.4 244.3,67.4 263.1,67.4" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        
+        <circle cx="36.9" cy="63.3" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="36.9" cy="63.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 55.6%"></circle>
         
         <circle cx="55.7" cy="64.6" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="55.7" cy="64.6" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 54.5%"></circle>
@@ -554,17 +567,17 @@
         <circle cx="74.6" cy="64.6" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="74.6" cy="64.6" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 54.5%"></circle>
         
-        <circle cx="93.4" cy="52.4" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="93.4" cy="52.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 64.7%"></circle>
+        <circle cx="93.4" cy="53.7" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="93.4" cy="53.7" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 63.6%"></circle>
         
-        <circle cx="112.3" cy="54.2" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="112.3" cy="54.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 63.2%"></circle>
+        <circle cx="112.3" cy="52.4" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="112.3" cy="52.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 64.7%"></circle>
         
         <circle cx="131.1" cy="52.4" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="131.1" cy="52.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 64.7%"></circle>
         
-        <circle cx="150.0" cy="52.4" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="150.0" cy="52.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 64.7%"></circle>
+        <circle cx="150.0" cy="68.2" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="150.0" cy="68.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 51.5%"></circle>
         
         <circle cx="168.9" cy="68.3" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="168.9" cy="68.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 51.4%"></circle>
@@ -584,15 +597,15 @@
         <circle cx="263.1" cy="67.4" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="263.1" cy="67.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 52.2%"></circle>
         
-        <circle cx="282.0" cy="67.4" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="282.0" cy="67.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 52.2%"></circle>
         
         
+        <polyline points="18.0,130.0 36.9,127.4 55.7,127.1 74.6,127.1 93.4,125.1 112.3,126.3 131.1,126.3 150.0,125.2 168.9,125.3 187.7,125.2 206.6,125.2 225.4,126.3 244.3,126.3 263.1,126.3 282.0,126.4" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
         
-        <polyline points="36.9,129.0 55.7,127.1 74.6,127.1 93.4,126.3 112.3,125.8 131.1,126.3 150.0,126.3 168.9,125.4 187.7,125.2 206.6,125.2 225.4,126.0 244.3,126.2 263.1,126.2 282.0,126.2" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        <circle cx="18.0" cy="130.0" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="18.0" cy="130.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 0.0%"></circle>
         
-        <circle cx="36.9" cy="129.0" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="36.9" cy="129.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 0.8%"></circle>
+        <circle cx="36.9" cy="127.4" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="36.9" cy="127.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.2%"></circle>
         
         <circle cx="55.7" cy="127.1" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="55.7" cy="127.1" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.4%"></circle>
@@ -600,20 +613,20 @@
         <circle cx="74.6" cy="127.1" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="74.6" cy="127.1" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.4%"></circle>
         
-        <circle cx="93.4" cy="126.3" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="93.4" cy="126.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.1%"></circle>
+        <circle cx="93.4" cy="125.1" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="93.4" cy="125.1" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 4.1%"></circle>
         
-        <circle cx="112.3" cy="125.8" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="112.3" cy="125.8" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.5%"></circle>
+        <circle cx="112.3" cy="126.3" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="112.3" cy="126.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.1%"></circle>
         
         <circle cx="131.1" cy="126.3" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="131.1" cy="126.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.1%"></circle>
         
-        <circle cx="150.0" cy="126.3" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="150.0" cy="126.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.1%"></circle>
+        <circle cx="150.0" cy="125.2" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="150.0" cy="125.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 4.0%"></circle>
         
-        <circle cx="168.9" cy="125.4" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="168.9" cy="125.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.8%"></circle>
+        <circle cx="168.9" cy="125.3" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="168.9" cy="125.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.9%"></circle>
         
         <circle cx="187.7" cy="125.2" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="187.7" cy="125.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 4.0%"></circle>
@@ -621,29 +634,29 @@
         <circle cx="206.6" cy="125.2" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="206.6" cy="125.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 4.0%"></circle>
         
-        <circle cx="225.4" cy="126.0" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="225.4" cy="126.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.3%"></circle>
+        <circle cx="225.4" cy="126.3" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="225.4" cy="126.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.1%"></circle>
         
-        <circle cx="244.3" cy="126.2" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="244.3" cy="126.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.2%"></circle>
+        <circle cx="244.3" cy="126.3" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="244.3" cy="126.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.1%"></circle>
         
-        <circle cx="263.1" cy="126.2" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="263.1" cy="126.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.2%"></circle>
+        <circle cx="263.1" cy="126.3" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="263.1" cy="126.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.1%"></circle>
         
-        <circle cx="282.0" cy="126.2" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="282.0" cy="126.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.2%"></circle>
+        <circle cx="282.0" cy="126.4" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="282.0" cy="126.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.0%"></circle>
         
         
         
-        <text x="18.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">24-07</text>
+        <text x="18.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">25-07</text>
         
-        <text x="93.4" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">01-08</text>
+        <text x="93.4" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">02-08</text>
         
-        <text x="168.9" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">09-08</text>
+        <text x="168.9" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">10-08</text>
         
-        <text x="244.3" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">17-08</text>
+        <text x="244.3" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">18-08</text>
         
-        <text x="282.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">21-08</text>
+        <text x="282.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">22-08</text>
         
       </svg>
       <div class="chart-legend-key">
@@ -703,8 +716,8 @@
             
             <tr>
               <td><a href="legend-mel-soul-s-reflection.html">Mel, Soul&#39;s Reflection</a></td>
-              <td class="num">72%</td>
-              <td class="matches">(36)</td>
+              <td class="num">73%</td>
+              <td class="matches">(37)</td>
             </tr>
             
             <tr>
@@ -732,12 +745,6 @@
             </tr>
             
             <tr>
-              <td><a href="legend-vi-piltover-enforcer.html">Vi, Piltover Enforcer</a></td>
-              <td class="num">67%</td>
-              <td class="matches">(9)</td>
-            </tr>
-            
-            <tr>
               <td><a href="legend-fiora-grand-duelist.html">Fiora, Grand Duelist</a></td>
               <td class="num">62%</td>
               <td class="matches">(34)</td>
@@ -756,9 +763,21 @@
             </tr>
             
             <tr>
+              <td><a href="legend-vi-piltover-enforcer.html">Vi, Piltover Enforcer</a></td>
+              <td class="num">60%</td>
+              <td class="matches">(10)</td>
+            </tr>
+            
+            <tr>
               <td><a href="legend-miss-fortune-bounty-hunter.html">Miss Fortune, Bounty Hunter</a></td>
               <td class="num">60%</td>
               <td class="matches">(5)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-ivern-green-father.html">Ivern, Green Father</a></td>
+              <td class="num">58%</td>
+              <td class="matches">(19)</td>
             </tr>
             
             <tr>
@@ -768,15 +787,9 @@
             </tr>
             
             <tr>
-              <td><a href="legend-ivern-green-father.html">Ivern, Green Father</a></td>
-              <td class="num">56%</td>
-              <td class="matches">(18)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-diana-scorn-of-the-moon.html">Diana, Scorn of the Moon</a></td>
-              <td class="num">53%</td>
-              <td class="matches">(68)</td>
+              <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
+              <td class="num">55%</td>
+              <td class="matches">(56)</td>
             </tr>
             
           </tbody>
@@ -800,26 +813,26 @@
             
             <tr>
               <td><a href="legend-renekton-butcher-of-the-sands.html">Renekton, Butcher of the Sands</a></td>
-              <td class="num">33%</td>
-              <td class="matches">(6)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-ezreal-prodigal-explorer.html">Ezreal, Prodigal Explorer</a></td>
-              <td class="num">39%</td>
-              <td class="matches">(38)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
-              <td class="num">39%</td>
-              <td class="matches">(31)</td>
+              <td class="num">29%</td>
+              <td class="matches">(7)</td>
             </tr>
             
             <tr>
               <td><a href="legend-ornn-fire-below-the-mountain.html">Ornn, Fire Below the Mountain</a></td>
               <td class="num">39%</td>
               <td class="matches">(23)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-ezreal-prodigal-explorer.html">Ezreal, Prodigal Explorer</a></td>
+              <td class="num">41%</td>
+              <td class="matches">(39)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
+              <td class="num">42%</td>
+              <td class="matches">(33)</td>
             </tr>
             
             <tr>
@@ -835,9 +848,15 @@
             </tr>
             
             <tr>
+              <td><a href="legend-lux-lady-of-luminosity.html">Lux, Lady of Luminosity</a></td>
+              <td class="num">43%</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
               <td><a href="legend-irelia-blade-dancer.html">Irelia, Blade Dancer</a></td>
-              <td class="num">45%</td>
-              <td class="matches">(116)</td>
+              <td class="num">44%</td>
+              <td class="matches">(118)</td>
             </tr>
             
             <tr>
@@ -859,33 +878,27 @@
             </tr>
             
             <tr>
-              <td><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
+              <td><a href="legend-jayce-defender-of-tomorrow.html">Jayce, Defender of Tomorrow</a></td>
               <td class="num">48%</td>
-              <td class="matches">(58)</td>
+              <td class="matches">(25)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
+              <td class="num">49%</td>
+              <td class="matches">(59)</td>
             </tr>
             
             <tr>
               <td><a href="legend-leblanc-deceiver.html">LeBlanc, Deceiver</a></td>
-              <td class="num">48%</td>
-              <td class="matches">(42)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-jayce-defender-of-tomorrow.html">Jayce, Defender of Tomorrow</a></td>
               <td class="num">50%</td>
-              <td class="matches">(24)</td>
+              <td class="matches">(44)</td>
             </tr>
             
             <tr>
               <td><a href="legend-jax-grandmaster-at-arms.html">Jax, Grandmaster at Arms</a></td>
               <td class="num">50%</td>
               <td class="matches">(10)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-lux-lady-of-luminosity.html">Lux, Lady of Luminosity</a></td>
-              <td class="num">50%</td>
-              <td class="matches">(6)</td>
             </tr>
             
             <tr>
@@ -897,19 +910,19 @@
             <tr>
               <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
               <td class="num">51%</td>
-              <td class="matches">(141)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
-              <td class="num">52%</td>
-              <td class="matches">(52)</td>
+              <td class="matches">(147)</td>
             </tr>
             
             <tr>
               <td><a href="legend-diana-scorn-of-the-moon.html">Diana, Scorn of the Moon</a></td>
               <td class="num">53%</td>
               <td class="matches">(68)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
+              <td class="num">55%</td>
+              <td class="matches">(56)</td>
             </tr>
             
           </tbody>
@@ -926,7 +939,7 @@
   <div class="card-grid champion-unit-grid">
     
     
-    <div class="card-tile card-tile-lg" data-idx="44">
+    <div class="card-tile card-tile-lg" data-idx="45">
       <div class="card-tile-img-wrap">
         
           <img src="https://static.dotgg.gg/riftbound/cards/SFD-177A.webp" alt="Azir, Sovereign" loading="lazy">
@@ -939,7 +952,7 @@
     </div>
     
     
-    <div class="card-tile card-tile-lg" data-idx="43">
+    <div class="card-tile card-tile-lg" data-idx="44">
       <div class="card-tile-img-wrap">
         
           <img src="https://static.dotgg.gg/riftbound/cards/SFD-050A.webp" alt="Azir, Ascendant" loading="lazy">
@@ -961,7 +974,7 @@
   <div class="card-grid">
     
     
-    <div class="card-tile card-tile-landscape" data-idx="29">
+    <div class="card-tile card-tile-landscape" data-idx="30">
       <div class="card-tile-img-wrap">
         
           <img src="https://static.dotgg.gg/riftbound/cards/OGN-294.webp" alt="Trifarian War Camp" loading="lazy">
@@ -969,20 +982,7 @@
       </div>
       <div class="card-tile-caption">
         Trifarian War Camp<br>
-        <span class="muted" style="font-size:11px">65% of decks</span>
-      </div>
-    </div>
-    
-    
-    <div class="card-tile card-tile-landscape" data-idx="30">
-      <div class="card-tile-img-wrap">
-        
-          <img src="https://static.dotgg.gg/riftbound/cards/SFD-210.webp" alt="Hall of Legends" loading="lazy">
-        
-      </div>
-      <div class="card-tile-caption">
-        Hall of Legends<br>
-        <span class="muted" style="font-size:11px">64% of decks</span>
+        <span class="muted" style="font-size:11px">67% of decks</span>
       </div>
     </div>
     
@@ -990,17 +990,30 @@
     <div class="card-tile card-tile-landscape" data-idx="31">
       <div class="card-tile-img-wrap">
         
-          <img src="https://static.dotgg.gg/riftbound/cards/SFD-213.webp" alt="Ornn&#39;s Forge" loading="lazy">
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-210.webp" alt="Hall of Legends" loading="lazy">
         
       </div>
       <div class="card-tile-caption">
-        Ornn&#39;s Forge<br>
-        <span class="muted" style="font-size:11px">51% of decks</span>
+        Hall of Legends<br>
+        <span class="muted" style="font-size:11px">66% of decks</span>
       </div>
     </div>
     
     
     <div class="card-tile card-tile-landscape" data-idx="32">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-213.webp" alt="Ornn&#39;s Forge" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Ornn&#39;s Forge<br>
+        <span class="muted" style="font-size:11px">53% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile card-tile-landscape" data-idx="33">
       <div class="card-tile-img-wrap">
         
           <img src="https://static.dotgg.gg/riftbound/cards/SFD-217.webp" alt="Seat of Power" loading="lazy">
@@ -1162,7 +1175,7 @@
       </div>
       <div class="card-tile-caption">
         Vi, Peacekeeper<br>
-        <span class="muted" style="font-size:11px">1.3 in 86% of decks</span>
+        <span class="muted" style="font-size:11px">1.3 in 85% of decks</span>
       </div>
     </div>
     
@@ -1175,7 +1188,7 @@
       </div>
       <div class="card-tile-caption">
         Deathgrip<br>
-        <span class="muted" style="font-size:11px">2.3 in 81% of decks</span>
+        <span class="muted" style="font-size:11px">2.2 in 81% of decks</span>
       </div>
     </div>
     
@@ -1195,7 +1208,7 @@
       </div>
       <div class="card-tile-caption">
         Back Off<br>
-        <span class="muted" style="font-size:11px">1.8 in 70% of decks</span>
+        <span class="muted" style="font-size:11px">1.8 in 71% of decks</span>
       </div>
     </div>
     
@@ -1208,7 +1221,7 @@
       </div>
       <div class="card-tile-caption">
         Hand Hammer<br>
-        <span class="muted" style="font-size:11px">1.5 in 64% of decks</span>
+        <span class="muted" style="font-size:11px">1.5 in 65% of decks</span>
       </div>
     </div>
     
@@ -1234,7 +1247,7 @@
       </div>
       <div class="card-tile-caption">
         Charm<br>
-        <span class="muted" style="font-size:11px">1.4 in 43% of decks</span>
+        <span class="muted" style="font-size:11px">1.3 in 43% of decks</span>
       </div>
     </div>
     
@@ -1247,7 +1260,7 @@
       </div>
       <div class="card-tile-caption">
         Cull the Weak<br>
-        <span class="muted" style="font-size:11px">1.4 in 30% of decks</span>
+        <span class="muted" style="font-size:11px">1.4 in 33% of decks</span>
       </div>
     </div>
     
@@ -1255,12 +1268,12 @@
     <div class="card-tile" data-idx="17">
       <div class="card-tile-img-wrap">
         
-          <img src="https://static.dotgg.gg/riftbound/cards/OGN-224.webp" alt="Salvage" loading="lazy">
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-165.webp" alt="Shadow&#39;s Call" loading="lazy">
         
       </div>
       <div class="card-tile-caption">
-        Salvage<br>
-        <span class="muted" style="font-size:11px">1.3 in 28% of decks</span>
+        Shadow&#39;s Call<br>
+        <span class="muted" style="font-size:11px">1.4 in 30% of decks</span>
       </div>
     </div>
     
@@ -1268,12 +1281,12 @@
     <div class="card-tile" data-idx="18">
       <div class="card-tile-img-wrap">
         
-          <img src="https://static.dotgg.gg/riftbound/cards/UNL-053.webp" alt="Scuttle Crab" loading="lazy">
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-173.webp" alt="Sacrifice" loading="lazy">
         
       </div>
       <div class="card-tile-caption">
-        Scuttle Crab<br>
-        <span class="muted" style="font-size:11px">1.2 in 27% of decks</span>
+        Sacrifice<br>
+        <span class="muted" style="font-size:11px">1.4 in 29% of decks</span>
       </div>
     </div>
     
@@ -1281,12 +1294,12 @@
     <div class="card-tile" data-idx="19">
       <div class="card-tile-img-wrap">
         
-          <img src="https://static.dotgg.gg/riftbound/cards/UNL-165.webp" alt="Shadow&#39;s Call" loading="lazy">
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-224.webp" alt="Salvage" loading="lazy">
         
       </div>
       <div class="card-tile-caption">
-        Shadow&#39;s Call<br>
-        <span class="muted" style="font-size:11px">1.5 in 26% of decks</span>
+        Salvage<br>
+        <span class="muted" style="font-size:11px">1.3 in 26% of decks</span>
       </div>
     </div>
     
@@ -1294,12 +1307,12 @@
     <div class="card-tile" data-idx="20">
       <div class="card-tile-img-wrap">
         
-          <img src="https://static.dotgg.gg/riftbound/cards/UNL-173.webp" alt="Sacrifice" loading="lazy">
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-053.webp" alt="Scuttle Crab" loading="lazy">
         
       </div>
       <div class="card-tile-caption">
-        Sacrifice<br>
-        <span class="muted" style="font-size:11px">1.4 in 26% of decks</span>
+        Scuttle Crab<br>
+        <span class="muted" style="font-size:11px">1.2 in 25% of decks</span>
       </div>
     </div>
     
@@ -1312,7 +1325,7 @@
       </div>
       <div class="card-tile-caption">
         Resonating Strike<br>
-        <span class="muted" style="font-size:11px">1.0 in 24% of decks</span>
+        <span class="muted" style="font-size:11px">1.0 in 25% of decks</span>
       </div>
     </div>
     
@@ -1338,7 +1351,7 @@
       </div>
       <div class="card-tile-caption">
         Desert&#39;s Call<br>
-        <span class="muted" style="font-size:11px">1.8 in 8% of decks</span>
+        <span class="muted" style="font-size:11px">1.7 in 9% of decks</span>
       </div>
     </div>
     
@@ -1351,7 +1364,7 @@
       </div>
       <div class="card-tile-caption">
         Ki Barrier<br>
-        <span class="muted" style="font-size:11px">1.5 in 8% of decks</span>
+        <span class="muted" style="font-size:11px">1.4 in 8% of decks</span>
       </div>
     </div>
     
@@ -1364,7 +1377,7 @@
       </div>
       <div class="card-tile-caption">
         Legion Quartermaster<br>
-        <span class="muted" style="font-size:11px">1.6 in 7% of decks</span>
+        <span class="muted" style="font-size:11px">1.6 in 6% of decks</span>
       </div>
     </div>
     
@@ -1377,7 +1390,7 @@
       </div>
       <div class="card-tile-caption">
         Not So Fast<br>
-        <span class="muted" style="font-size:11px">1.3 in 7% of decks</span>
+        <span class="muted" style="font-size:11px">1.3 in 6% of decks</span>
       </div>
     </div>
     
@@ -1390,12 +1403,25 @@
       </div>
       <div class="card-tile-caption">
         Shen, Kinkou<br>
-        <span class="muted" style="font-size:11px">1.3 in 6% of decks</span>
+        <span class="muted" style="font-size:11px">1.3 in 5% of decks</span>
       </div>
     </div>
     
     
     <div class="card-tile" data-idx="28">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-116.webp" alt="Dragon Form" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Dragon Form<br>
+        <span class="muted" style="font-size:11px">1.2 in 5% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="29">
       <div class="card-tile-img-wrap">
         
           <img src="https://static.dotgg.gg/riftbound/cards/SFD-051.webp" alt="Guardian Angel" loading="lazy">
@@ -1420,7 +1446,7 @@
   <div class="card-grid card-grid-fill">
     
     
-    <div class="card-tile" data-idx="17">
+    <div class="card-tile" data-idx="19">
       <div class="card-tile-img-wrap">
         
           <img src="https://static.dotgg.gg/riftbound/cards/OGN-224.webp" alt="Salvage" loading="lazy">
@@ -1428,7 +1454,7 @@
       </div>
       <div class="card-tile-caption">
         Salvage<br>
-        <span class="muted" style="font-size:11px">2.0 in 89% of decks</span>
+        <span class="muted" style="font-size:11px">1.9 in 89% of decks</span>
       </div>
     </div>
     
@@ -1440,7 +1466,7 @@
   <div class="card-grid card-grid-fill">
     
     
-    <div class="card-tile" data-idx="33">
+    <div class="card-tile" data-idx="34">
       <div class="card-tile-img-wrap">
         
           <img src="https://static.dotgg.gg/riftbound/cards/UNL-169.webp" alt="Ashe, Focused" loading="lazy">
@@ -1461,7 +1487,7 @@
       </div>
       <div class="card-tile-caption">
         Charm<br>
-        <span class="muted" style="font-size:11px">1.3 in 69% of decks</span>
+        <span class="muted" style="font-size:11px">1.3 in 70% of decks</span>
       </div>
     </div>
     
@@ -1474,20 +1500,7 @@
       </div>
       <div class="card-tile-caption">
         Vi, Peacekeeper<br>
-        <span class="muted" style="font-size:11px">1.1 in 54% of decks</span>
-      </div>
-    </div>
-    
-    
-    <div class="card-tile" data-idx="34">
-      <div class="card-tile-img-wrap">
-        
-          <img src="https://static.dotgg.gg/riftbound/cards/SFD-032.webp" alt="Disarming Rake" loading="lazy">
-        
-      </div>
-      <div class="card-tile-caption">
-        Disarming Rake<br>
-        <span class="muted" style="font-size:11px">1.5 in 48% of decks</span>
+        <span class="muted" style="font-size:11px">1.2 in 54% of decks</span>
       </div>
     </div>
     
@@ -1500,12 +1513,25 @@
       </div>
       <div class="card-tile-caption">
         Cull the Weak<br>
-        <span class="muted" style="font-size:11px">1.4 in 44% of decks</span>
+        <span class="muted" style="font-size:11px">1.4 in 46% of decks</span>
       </div>
     </div>
     
     
     <div class="card-tile" data-idx="35">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-032.webp" alt="Disarming Rake" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Disarming Rake<br>
+        <span class="muted" style="font-size:11px">1.5 in 45% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="36">
       <div class="card-tile-img-wrap">
         
           <img src="https://static.dotgg.gg/riftbound/cards/VEN-039.webp" alt="Crumbling Sands" loading="lazy">
@@ -1518,7 +1544,7 @@
     </div>
     
     
-    <div class="card-tile" data-idx="36">
+    <div class="card-tile" data-idx="37">
       <div class="card-tile-img-wrap">
         
           <img src="https://static.dotgg.gg/riftbound/cards/VEN-131.webp" alt="Decree of Unity" loading="lazy">
@@ -1526,20 +1552,7 @@
       </div>
       <div class="card-tile-caption">
         Decree of Unity<br>
-        <span class="muted" style="font-size:11px">1.7 in 32% of decks</span>
-      </div>
-    </div>
-    
-    
-    <div class="card-tile" data-idx="37">
-      <div class="card-tile-img-wrap">
-        
-          <img src="https://static.dotgg.gg/riftbound/cards/VEN-040.webp" alt="Decree of Focus" loading="lazy">
-        
-      </div>
-      <div class="card-tile-caption">
-        Decree of Focus<br>
-        <span class="muted" style="font-size:11px">1.5 in 29% of decks</span>
+        <span class="muted" style="font-size:11px">1.6 in 32% of decks</span>
       </div>
     </div>
     
@@ -1547,12 +1560,25 @@
     <div class="card-tile" data-idx="38">
       <div class="card-tile-img-wrap">
         
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-040.webp" alt="Decree of Focus" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Decree of Focus<br>
+        <span class="muted" style="font-size:11px">1.5 in 28% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="39">
+      <div class="card-tile-img-wrap">
+        
           <img src="https://static.dotgg.gg/riftbound/cards/VEN-127.webp" alt="Lacerate" loading="lazy">
         
       </div>
       <div class="card-tile-caption">
         Lacerate<br>
-        <span class="muted" style="font-size:11px">1.2 in 20% of decks</span>
+        <span class="muted" style="font-size:11px">1.2 in 21% of decks</span>
       </div>
     </div>
     
@@ -1565,20 +1591,7 @@
       </div>
       <div class="card-tile-caption">
         Not So Fast<br>
-        <span class="muted" style="font-size:11px">1.3 in 12% of decks</span>
-      </div>
-    </div>
-    
-    
-    <div class="card-tile" data-idx="39">
-      <div class="card-tile-img-wrap">
-        
-          <img src="https://static.dotgg.gg/riftbound/cards/OGN-064.webp" alt="Wind Wall" loading="lazy">
-        
-      </div>
-      <div class="card-tile-caption">
-        Wind Wall<br>
-        <span class="muted" style="font-size:11px">1.4 in 12% of decks</span>
+        <span class="muted" style="font-size:11px">1.3 in 14% of decks</span>
       </div>
     </div>
     
@@ -1599,6 +1612,19 @@
     <div class="card-tile" data-idx="40">
       <div class="card-tile-img-wrap">
         
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-064.webp" alt="Wind Wall" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Wind Wall<br>
+        <span class="muted" style="font-size:11px">1.4 in 11% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="41">
+      <div class="card-tile-img-wrap">
+        
           <img src="https://static.dotgg.gg/riftbound/cards/OGN-212.webp" alt="Forge of the Future" loading="lazy">
         
       </div>
@@ -1609,15 +1635,15 @@
     </div>
     
     
-    <div class="card-tile" data-idx="28">
+    <div class="card-tile" data-idx="42">
       <div class="card-tile-img-wrap">
         
-          <img src="https://static.dotgg.gg/riftbound/cards/SFD-051.webp" alt="Guardian Angel" loading="lazy">
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-044.webp" alt="Flurry of Feathers" loading="lazy">
         
       </div>
       <div class="card-tile-caption">
-        Guardian Angel<br>
-        <span class="muted" style="font-size:11px">1.6 in 9% of decks</span>
+        Flurry of Feathers<br>
+        <span class="muted" style="font-size:11px">1.1 in 10% of decks</span>
       </div>
     </div>
     
@@ -1635,15 +1661,15 @@
     </div>
     
     
-    <div class="card-tile" data-idx="41">
+    <div class="card-tile" data-idx="29">
       <div class="card-tile-img-wrap">
         
-          <img src="https://static.dotgg.gg/riftbound/cards/UNL-044.webp" alt="Flurry of Feathers" loading="lazy">
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-051.webp" alt="Guardian Angel" loading="lazy">
         
       </div>
       <div class="card-tile-caption">
-        Flurry of Feathers<br>
-        <span class="muted" style="font-size:11px">1.1 in 8% of decks</span>
+        Guardian Angel<br>
+        <span class="muted" style="font-size:11px">1.6 in 8% of decks</span>
       </div>
     </div>
     
@@ -1656,7 +1682,20 @@
       </div>
       <div class="card-tile-caption">
         Guards!<br>
-        <span class="muted" style="font-size:11px">1.3 in 7% of decks</span>
+        <span class="muted" style="font-size:11px">1.3 in 6% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="13">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-027.webp" alt="Hand Hammer" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Hand Hammer<br>
+        <span class="muted" style="font-size:11px">1.2 in 5% of decks</span>
       </div>
     </div>
     
@@ -1669,7 +1708,7 @@
 </div>
 
 <aside class="sidebar">
-  <h2 class="block-title">Decks (104)</h2>
+  <h2 class="block-title">Decks (110)</h2>
   <div class="table-scroll">
   <table class="sortable" data-paginate="20">
     <thead>
@@ -1703,6 +1742,13 @@
         <td class="num" data-sort="30">#30</td>
       </tr>
       
+      <tr data-href="deck-3ec71ccab2a1.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Guangzhou City Challenge">16-08-2026</td>
+        <td>S4 Guangzhou City Challenge</td>
+        <td>也文也武</td>
+        <td class="num" data-sort="45">#45</td>
+      </tr>
+      
       <tr data-href="deck-cdce29ac12c0.html">
         <td class="muted col-date" data-sort="2026-08-16|S4 Guangzhou City Challenge">16-08-2026</td>
         <td>S4 Guangzhou City Challenge</td>
@@ -1715,6 +1761,13 @@
         <td>S4 Guangzhou City Challenge</td>
         <td>declan</td>
         <td class="num" data-sort="57">#57</td>
+      </tr>
+      
+      <tr data-href="deck-82ad9aa53a1f.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Guangzhou City Challenge">16-08-2026</td>
+        <td>S4 Guangzhou City Challenge</td>
+        <td>SD.鹰</td>
+        <td class="num" data-sort="71">#71</td>
       </tr>
       
       <tr data-href="deck-84ee32354847.html">
@@ -1731,11 +1784,32 @@
         <td class="num" data-sort="109">#109</td>
       </tr>
       
+      <tr data-href="deck-0a75ca2cae64.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Qingdao City Challenge">16-08-2026</td>
+        <td>S4 Qingdao City Challenge</td>
+        <td>沙客</td>
+        <td class="num" data-sort="85">#85</td>
+      </tr>
+      
       <tr data-href="deck-d8c3dd967e4a.html">
         <td class="muted col-date" data-sort="2026-08-16|S4 Shanghai City Challenge">16-08-2026</td>
         <td>S4 Shanghai City Challenge</td>
         <td>🐊司书🐊</td>
         <td class="num" data-sort="1">#1</td>
+      </tr>
+      
+      <tr data-href="deck-9890cd63c585.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Shanghai City Challenge">16-08-2026</td>
+        <td>S4 Shanghai City Challenge</td>
+        <td>Nephox FL</td>
+        <td class="num" data-sort="2">#2</td>
+      </tr>
+      
+      <tr data-href="deck-0c9bfa3df72a.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Shenyang City Challenge">16-08-2026</td>
+        <td>S4 Shenyang City Challenge</td>
+        <td>CCB.叮当</td>
+        <td class="num" data-sort="57">#57</td>
       </tr>
       
       <tr data-href="deck-f5ee203361c4.html">
@@ -1757,6 +1831,13 @@
         <td>S4 Tianjin City Challenge</td>
         <td>Miao</td>
         <td class="num" data-sort="35">#35</td>
+      </tr>
+      
+      <tr data-href="deck-3b4939609496.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Tianjin City Challenge">16-08-2026</td>
+        <td>S4 Tianjin City Challenge</td>
+        <td>洛水辉夜1232</td>
+        <td class="num" data-sort="77">#77</td>
       </tr>
       
       <tr data-href="deck-27cd2bca18e7.html">
@@ -2416,7 +2497,7 @@
 </aside>
 </div>
 
-<script type="application/json" id="card-details-data">[{"card_code": "SFD-153", "card_number": "153", "card_type": "Gear", "colors": ["Order"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"/static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-153.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Eye of the Herald", "printings": [{"banned": false, "card_code": "SFD-153", "card_number": "153", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-153.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-153-P", "card_number": "153", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-153-P.webp", "promo": true, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-033", "card_number": "033", "card_type": "Gear", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"/static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-033.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Doran\u0027s Shield", "printings": [{"banned": false, "card_code": "SFD-033", "card_number": "033", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-033.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-033-P", "card_number": "033", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-033-P.webp", "promo": true, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-198", "card_number": "198", "card_type": "Signature Spell", "colors": ["Calm", "Order"], "cost": 6, "description": "Play a 2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sand Soldier unit token for each Equipment you control. Then ready two of them.", "flavor": "\u201cThe order is given!\u201d \u2014 Azir", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-198.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Arise!", "printings": [{"banned": false, "card_code": "SFD-198", "card_number": "198", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-198.webp", "promo": false, "rarity": "Epic", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Epic", "related_tokens": [{"description": null, "idx": 45, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-T02.webp", "landscape": false, "might": 2, "name": "Sand Soldier Unit"}], "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-042", "card_number": "042", "card_type": "Gear", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"/static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-042.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Brutalizer", "printings": [{"banned": false, "card_code": "SFD-042", "card_number": "042", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-042.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-161", "card_number": "161", "card_type": "Gear", "colors": ["Order"], "cost": 4, "description": "\u003cimg src=\"/static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"/static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": "It certainly is big.", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-161.webp", "landscape": false, "legality": "Legal", "might": null, "name": "B.F. Sword", "printings": [{"banned": false, "card_code": "SFD-161", "card_number": "161", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-161.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "OGN-045", "card_number": "045", "card_type": "Spell", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eCounter a spell that costs no more than \u003cimg src=\"/static/img/icons/energy-4.svg\" alt=\"4 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e and no more than \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.", "flavor": "\u201cNo.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-045.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Defy", "printings": [{"banned": false, "card_code": "OGN-045", "card_number": "045", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-045.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-213", "card_number": "213", "card_type": "Spell", "colors": ["Order"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"/static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003e\u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eKill a unit at a battlefield. Its controller draws 2.", "flavor": "Not every Noxian decree is read aloud.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-213.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Hidden Blade", "printings": [{"banned": false, "card_code": "OGN-213", "card_number": "213", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-213.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-058", "card_number": "058", "card_type": "Spell", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eGive a unit +2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn. Draw 1.", "flavor": "A blade is only as sharp as the one who wields it.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-058.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Discipline", "printings": [{"banned": false, "card_code": "OGN-058", "card_number": "058", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-058.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "OGN-058-P", "card_number": "058", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-058-P.webp", "promo": true, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-039", "card_number": "039", "card_type": "Gear", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"/static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-039.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Soul Sword", "printings": [{"banned": false, "card_code": "UNL-039", "card_number": "039", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-039.webp", "promo": false, "rarity": "Common", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-039-P", "card_number": "039", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-039-P.webp", "promo": true, "rarity": "Common", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "SFD-154", "card_number": "154", "card_type": "Spell", "colors": ["Order"], "cost": 3, "description": "\u003cimg src=\"/static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"/static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003ePlay a 2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sand Soldier unit token. You may pay \u003cimg src=\"/static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to ready it.", "flavor": "\u201cMy empire lives in every grain of sand.\u201d \u2014Azir", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-154.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Guards!", "printings": [{"banned": false, "card_code": "SFD-154", "card_number": "154", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-154.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "related_tokens": [{"description": null, "idx": 45, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-T02.webp", "landscape": false, "might": 2, "name": "Sand Soldier Unit"}], "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "UNL-176A", "card_number": "176", "card_type": "Champion Unit", "colors": ["Order"], "cost": 5, "description": "\u003cimg src=\"/static/img/keywords/ambush.svg\" alt=\"Ambush\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cbr\u003eWhen I attack, [Stun] an enemy unit here.", "flavor": "\u201cI\u2019m my own backup.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-176A.webp", "landscape": false, "legality": "Legal", "might": 5, "name": "Vi, Peacekeeper", "printings": [{"banned": false, "card_code": "UNL-176A", "card_number": "176", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-176A.webp", "promo": false, "rarity": "Showcase", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-176", "card_number": "176", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-176.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Showcase", "rune_cost": 1, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "SFD-163", "card_number": "163", "card_type": "Spell", "colors": ["Order"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eKill a friendly unit to give +\u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e equal to its Might to another friendly unit this turn. Draw 1.", "flavor": "\u201cDeath is my kindness.\u201d \u2014Mordekaiser", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-163.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Deathgrip", "printings": [{"banned": false, "card_code": "SFD-163", "card_number": "163", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-163.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "UNL-042", "card_number": "042", "card_type": "Spell", "colors": ["Calm"], "cost": 3, "description": "\u003cimg src=\"/static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"/static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003e\u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003e[Stun] a unit. (It doesn\u0026#x27;t deal combat damage this turn.)\u003cbr\u003eIf you played this from your hand, draw 1.", "flavor": "\u201cEw.\u201d \u2014Vex", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-042.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Back Off", "printings": [{"banned": false, "card_code": "UNL-042", "card_number": "042", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-042.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "VEN-027", "card_number": "027", "card_type": "Gear", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"/static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-027.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Hand Hammer", "printings": [{"banned": false, "card_code": "VEN-027", "card_number": "027", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-027.webp", "promo": false, "rarity": "Common", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "OGN-046", "card_number": "046", "card_type": "Spell", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eGive a friendly unit +1 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn, then an additional +1 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn if it is the only unit you control there.", "flavor": "\u201cIs this supposed to be a challenge?\u201d \u2014Fiora", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-046.webp", "landscape": false, "legality": "Legal", "might": null, "name": "En Garde", "printings": [{"banned": false, "card_code": "OGN-046", "card_number": "046", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-046.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-043", "card_number": "043", "card_type": "Spell", "colors": ["Calm"], "cost": 1, "description": "Move an enemy unit.", "flavor": "\u201cThere\u2019s no harm in looking.\u201d  \n\u2014 Common last words", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-043.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Charm", "printings": [{"banned": false, "card_code": "OGN-043", "card_number": "043", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-043.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-209", "card_number": "209", "card_type": "Spell", "colors": ["Order"], "cost": 2, "description": "Each player kills one of their units.", "flavor": "What good is having a plank if nobody ever walks it?", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-209.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Cull the Weak", "printings": [{"banned": false, "card_code": "OGN-209", "card_number": "209", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-209.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-224", "card_number": "224", "card_type": "Spell", "colors": ["Order"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eYou may kill a gear. Draw 1.", "flavor": "One person\u2019s treasure is another one\u2019s trash.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-224.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Salvage", "printings": [{"banned": false, "card_code": "OGN-224", "card_number": "224", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-224.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-053", "card_number": "053", "card_type": "Unit", "colors": ["Calm"], "cost": 2, "description": "(Units with 0 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e can conquer and hold.)\u003cbr\u003eWhen you play me, draw 1.\u003cbr\u003e\u003cimg src=\"/static/img/keywords/deathknell.svg\" alt=\"Deathknell\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Choose an opponent. They reveal their hand. You can look at their facedown cards this turn. Gain 1 XP. (When I die, get the effects.)", "flavor": "As harmless as it is delicious.", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-053.webp", "landscape": false, "legality": "Legal", "might": 0, "name": "Scuttle Crab", "printings": [{"banned": false, "card_code": "UNL-053", "card_number": "053", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-053.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "UNL-165", "card_number": "165", "card_type": "Spell", "colors": ["Order"], "cost": 2, "description": "Choose a friendly unit without \u003cimg src=\"/static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. Give it \u003cimg src=\"/static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. Draw 2. (Kill it at the start of its controller\u0026#x27;s Beginning Phase, before scoring.)", "flavor": "\u201cYou\u2019re a disappointment. A failure. Why fight it?\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-165.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Shadow\u0027s Call", "printings": [{"banned": false, "card_code": "UNL-165", "card_number": "165", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-165.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "UNL-173", "card_number": "173", "card_type": "Spell", "colors": ["Order"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eAs an additional cost to play this, kill a friendly \u003cimg src=\"/static/img/keywords/mighty.svg\" alt=\"Mighty\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e unit. (A unit is Mighty while it has 5+ \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003eDraw 2 and channel 1 rune exhausted.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-173.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Sacrifice", "printings": [{"banned": false, "card_code": "UNL-173", "card_number": "173", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-173.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "VEN-034", "card_number": "034", "card_type": "Spell", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"/static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003e\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eChoose a battlefield you control and a unit you control at a different location. Move that unit to that battlefield and give it +2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-034.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Resonating Strike", "printings": [{"banned": false, "card_code": "VEN-034", "card_number": "034", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-034.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-135A", "card_number": "135", "card_type": "Champion Unit", "colors": ["Order"], "cost": 3, "description": "\u003cimg src=\"/static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cbr\u003eWhen you play me or I attack, you may pay \u003cimg src=\"/static/img/icons/energy-2.svg\" alt=\"2 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to [Stun] a unit.\u003cbr\u003eWhile there\u0026#x27;s a stunned enemy unit here, I have +2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-135A.webp", "landscape": false, "legality": "Legal", "might": 2, "name": "Kennen, Keeper of Balance", "printings": [{"banned": false, "card_code": "VEN-135A", "card_number": "135", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-135A.webp", "promo": false, "rarity": "Showcase", "set_code": "VEN", "set_name": "Vendetta"}, {"banned": false, "card_code": "VEN-135", "card_number": "135", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-135.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Showcase", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "SFD-031", "card_number": "031", "card_type": "Spell", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/repeat.svg\" alt=\"Repeat\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/icons/energy-2.svg\" alt=\"2 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may pay the additional cost to repeat this spell\u0026#x27;s effect.)\u003cbr\u003ePlay a 2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sand Soldier unit token.", "flavor": "The Great Sai desert hides as many spears as it does secrets.", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-031.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Desert\u0027s Call", "printings": [{"banned": false, "card_code": "SFD-031", "card_number": "031", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-031.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "related_tokens": [{"description": null, "idx": 45, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-T02.webp", "landscape": false, "might": 2, "name": "Sand Soldier Unit"}], "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "VEN-126", "card_number": "126", "card_type": "Spell", "colors": ["Order"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eChoose a unit. Prevent the next 7 damage that would be dealt to it this turn. (Opponents can assign it extra combat damage to kill it.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-126.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Ki Barrier", "printings": [{"banned": false, "card_code": "VEN-126", "card_number": "126", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-126.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "SFD-044", "card_number": "044", "card_type": "Unit", "colors": ["Calm"], "cost": 3, "description": "As an additional cost to play me, return a friendly gear to its owner\u0026#x27;s hand.", "flavor": "\u201cAn ancient runeblade! Very rare. Take it to Tent 3 for processing.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-044.webp", "landscape": false, "legality": "Legal", "might": 4, "name": "Legion Quartermaster", "printings": [{"banned": false, "card_code": "SFD-044", "card_number": "044", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-044.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-045", "card_number": "045", "card_type": "Spell", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eCounter an enemy spell or ability that chooses a friendly unit or gear.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-045.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Not So Fast", "printings": [{"banned": false, "card_code": "SFD-045", "card_number": "045", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-045.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "OGN-241", "card_number": "241", "card_type": "Champion Unit", "colors": ["Order"], "cost": 3, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve, including to a battlefield you control.)\u003cbr\u003e\u003cimg src=\"/static/img/keywords/shield-2.svg\" alt=\"Shield 2\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (+2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e while I\u0026#x27;m a defender.)\u003cbr\u003e\u003cimg src=\"/static/img/keywords/tank.svg\" alt=\"Tank\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (I must be assigned combat damage first.)", "flavor": "\u201cTrain carefully.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-241.webp", "landscape": false, "legality": "Legal", "might": 3, "name": "Shen, Kinkou", "printings": [{"banned": false, "card_code": "OGN-241", "card_number": "241", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-241.webp", "promo": false, "rarity": "Rare", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-051", "card_number": "051", "card_type": "Gear", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"/static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Guardian Angel", "printings": [{"banned": false, "card_code": "SFD-051", "card_number": "051", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-051-P2", "card_number": "051", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051-P2.webp", "promo": true, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-051-P", "card_number": "051", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051-P.webp", "promo": true, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "OGN-294", "card_number": "294", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "Units here have +1 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (This includes attackers.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-294.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Trifarian War Camp", "printings": [{"banned": false, "card_code": "OGN-294", "card_number": "294", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-294.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "OGN-294/298", "card_number": "294", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-294/298.webp", "promo": true, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins Proving Grounds"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-210", "card_number": "210", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "When you conquer here, you may pay \u003cimg src=\"/static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to ready your legend.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-210.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Hall of Legends", "printings": [{"banned": false, "card_code": "SFD-210", "card_number": "210", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-210.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-213", "card_number": "213", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "While you control this battlefield, the first friendly non-token gear played each turn costs \u003cimg src=\"/static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e less.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-213.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Ornn\u0027s Forge", "printings": [{"banned": false, "card_code": "SFD-213", "card_number": "213", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-213.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-217", "card_number": "217", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "When you conquer here, draw 1 for each other battlefield you or allies control..", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-217.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Seat of Power", "printings": [{"banned": false, "card_code": "SFD-217", "card_number": "217", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-217.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "UNL-169", "card_number": "169", "card_type": "Sideboard", "colors": ["Order"], "cost": 5, "description": "When you play me, choose an opponent. They reveal their hand. Choose a card revealed this way and banish it. When they hold, return it to their hand (even if I\u0026#x27;m no longer on the board).", "flavor": "\u201cNo fate is written, except by us.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-169.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Ashe, Focused", "printings": [{"banned": false, "card_code": "UNL-169", "card_number": "169", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-169.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-169-P", "card_number": "169", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-169-P.webp", "promo": true, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "SFD-032", "card_number": "032", "card_type": "Sideboard", "colors": ["Calm"], "cost": 3, "description": "When you play me, you may kill a gear.", "flavor": "\u201cI like to break things: swords, arms, hearts \u2026\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-032.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Disarming Rake", "printings": [{"banned": false, "card_code": "SFD-032", "card_number": "032", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-032.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "VEN-039", "card_number": "039", "card_type": "Sideboard", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eCounter a spell if an opponent has played another spell this turn.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-039.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Crumbling Sands", "printings": [{"banned": false, "card_code": "VEN-039", "card_number": "039", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-039.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-131", "card_number": "131", "card_type": "Sideboard", "colors": ["Order"], "cost": 2, "description": "Kill an enemy Chaos (\u003cimg src=\"/static/img/domains/Chaos.webp\" alt=\"Chaos\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e) unit or gear.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-131.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Decree of Unity", "printings": [{"banned": false, "card_code": "VEN-131", "card_number": "131", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-131.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-040", "card_number": "040", "card_type": "Sideboard", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eChoose a friendly unit that\u0026#x27;s in combat with an enemy Fury (\u003cimg src=\"/static/img/domains/Fury.webp\" alt=\"Fury\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e) unit or that\u0026#x27;s being chosen by an enemy Fury spell. Give it +4 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-040.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Decree of Focus", "printings": [{"banned": false, "card_code": "VEN-040", "card_number": "040", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-040.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-127", "card_number": "127", "card_type": "Sideboard", "colors": ["Order"], "cost": 2, "description": "Choose a unit. If it\u0026#x27;s \u003cimg src=\"/static/img/keywords/empowered.svg\" alt=\"Empowered\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, disempower it. Then kill it if it has 3 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e or less.\u003cbr\u003e\u003cimg src=\"/static/img/keywords/flow.svg\" alt=\"Flow\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/icons/energy-4.svg\" alt=\"4 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"/static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"/static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may play this from your trash for its Flow cost. Then banish it.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-127.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Lacerate", "printings": [{"banned": false, "card_code": "VEN-127", "card_number": "127", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-127.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "OGN-064", "card_number": "064", "card_type": "Sideboard", "colors": ["Calm"], "cost": 3, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eCounter a spell.", "flavor": "\u201cFace the wind!\u201d  \n\u2014Yasuo", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-064.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Wind Wall", "printings": [{"banned": false, "card_code": "OGN-064", "card_number": "064", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-064.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 2, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-212", "card_number": "212", "card_type": "Sideboard", "colors": ["Order"], "cost": 2, "description": "When you play this, play a 1 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Recruit unit token at your base.\u003cbr\u003eKill this: Recycle up to 4 cards from trashes.", "flavor": "\u201cWhat do we make? Beats me, but we do it better than anyone else.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-212.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Forge of the Future", "printings": [{"banned": false, "card_code": "OGN-212", "card_number": "212", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-212.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "related_tokens": [{"description": "", "idx": 46, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-273.webp", "landscape": false, "might": 1, "name": "Recruit Unit"}], "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-044", "card_number": "044", "card_type": "Sideboard", "colors": ["Calm"], "cost": 4, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cbr\u003eChoose one \u2014\u003cul\u003e\u003cli\u003eCounter a spell.\u003c/li\u003e\u003cli\u003ePlay four 1 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Bird unit tokens with \u003cimg src=\"/static/img/keywords/deflect.svg\" alt=\"Deflect\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (Opponents must pay \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to choose them with a spell or ability.)\u003c/li\u003e\u003c/ul\u003e", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-044.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Flurry of Feathers", "printings": [{"banned": false, "card_code": "UNL-044", "card_number": "044", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-044.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "related_tokens": [{"description": "\u003cimg src=\"/static/img/keywords/deflect.svg\" alt=\"Deflect\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Opponents must pay \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to choose me with a spell or ability.)", "idx": 47, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-T02g.webp", "landscape": false, "might": 1, "name": "Bird Unit"}], "rune_cost": 2, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "SFD-247", "card_number": "247", "card_type": "Legend", "colors": ["Calm", "Order"], "cost": null, "description": "Sand Soldiers you play have \u003cimg src=\"/static/img/keywords/weaponmaster.svg\" alt=\"Weaponmaster\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (When they\u0026#x27;re played, you may \u003cimg src=\"/static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e one of your Equipment to them for \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e less.)\u003cbr\u003e\u003cimg src=\"/static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, \u003cimg src=\"/static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Play a 2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sand Soldier unit token to your base. Use only if you\u0026#x27;ve played an Equipment this turn.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-247.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Azir, Emperor of the Sands", "printings": [{"banned": false, "card_code": "SFD-247", "card_number": "247", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-247.webp", "promo": false, "rarity": "Showcase", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-197", "card_number": "197", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-197.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Showcase", "related_tokens": [{"description": null, "idx": 45, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-T02.webp", "landscape": false, "might": 2, "name": "Sand Soldier Unit"}], "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-050A", "card_number": "050", "card_type": "Champion Unit", "colors": ["Calm"], "cost": 6, "description": "\u003cimg src=\"/static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: \u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u2014 Choose a unit you control. Move me to its location and it to my original location. If it\u0026#x27;s equipped, you may attach one of its Equipment to me. Use only once per turn.", "flavor": "\u201cChallenge Shurima, challenge fate.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-050A.webp", "landscape": false, "legality": "Legal", "might": 6, "name": "Azir, Ascendant", "printings": [{"banned": false, "card_code": "SFD-050A", "card_number": "050", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-050A.webp", "promo": false, "rarity": "Showcase", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-050", "card_number": "050", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-050.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Showcase", "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-177A", "card_number": "177", "card_type": "Champion Unit", "colors": ["Order"], "cost": 4, "description": "\u003cimg src=\"/static/img/keywords/accelerate.svg\" alt=\"Accelerate\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may pay \u003cimg src=\"/static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"/static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e as an additional cost to have me enter ready.)\u003cbr\u003eWhen I attack, you may move any number of your token units to this battlefield.", "flavor": "\u201cYou need not follow, but you must witness.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-177A.webp", "landscape": false, "legality": "Legal", "might": 4, "name": "Azir, Sovereign", "printings": [{"banned": false, "card_code": "SFD-177A", "card_number": "177", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-177A.webp", "promo": false, "rarity": "Showcase", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-177", "card_number": "177", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-177.webp", "promo": false, "rarity": "Epic", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Showcase", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"_idx": 45, "card_code": "SFD-T02", "card_number": null, "card_type": "Token", "colors": ["Colorless"], "cost": 0, "description": null, "flavor": "They do not rest. They do not hesitate. And they do not yield.", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-T02.webp", "landscape": false, "legality": "Legal", "might": 2, "name": "Sand Soldier", "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": null, "set_name": "Spiritforged"}, {"_idx": 46, "card_code": "OGN-273", "card_number": "273", "card_type": "Token", "colors": ["Colorless"], "cost": 0, "description": "", "flavor": "\u201cWe are the future.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-273.webp", "landscape": false, "legality": "Legal", "might": 1, "name": "Recruit", "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"_idx": 47, "card_code": "UNL-T02g", "card_number": null, "card_type": "Token", "colors": ["Colorless"], "cost": null, "description": "\u003cimg src=\"/static/img/keywords/deflect.svg\" alt=\"Deflect\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Opponents must pay \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to choose me with a spell or ability.)", "flavor": "Cloudy with a chance of talons.", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-T02g.webp", "landscape": false, "legality": "Legal", "might": 1, "name": "Bird", "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": null, "set_name": "Unleashed"}]</script>
+<script type="application/json" id="card-details-data">[{"card_code": "SFD-153", "card_number": "153", "card_type": "Gear", "colors": ["Order"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-153.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Eye of the Herald", "printings": [{"banned": false, "card_code": "SFD-153", "card_number": "153", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-153.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-153-P", "card_number": "153", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-153-P.webp", "promo": true, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-033", "card_number": "033", "card_type": "Gear", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-033.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Doran\u0027s Shield", "printings": [{"banned": false, "card_code": "SFD-033", "card_number": "033", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-033.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-033-P", "card_number": "033", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-033-P.webp", "promo": true, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-198", "card_number": "198", "card_type": "Signature Spell", "colors": ["Calm", "Order"], "cost": 6, "description": "Play a 2 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sand Soldier unit token for each Equipment you control. Then ready two of them.", "flavor": "\u201cThe order is given!\u201d \u2014 Azir", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-198.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Arise!", "printings": [{"banned": false, "card_code": "SFD-198", "card_number": "198", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-198.webp", "promo": false, "rarity": "Epic", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Epic", "related_tokens": [{"description": null, "idx": 46, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-T02.webp", "landscape": false, "might": 2, "name": "Sand Soldier Unit"}], "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-042", "card_number": "042", "card_type": "Gear", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-042.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Brutalizer", "printings": [{"banned": false, "card_code": "SFD-042", "card_number": "042", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-042.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-161", "card_number": "161", "card_type": "Gear", "colors": ["Order"], "cost": 4, "description": "\u003cimg src=\"static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": "It certainly is big.", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-161.webp", "landscape": false, "legality": "Legal", "might": null, "name": "B.F. Sword", "printings": [{"banned": false, "card_code": "SFD-161", "card_number": "161", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-161.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "OGN-045", "card_number": "045", "card_type": "Spell", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eCounter a spell that costs no more than \u003cimg src=\"static/img/icons/energy-4.svg\" alt=\"4 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e and no more than \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.", "flavor": "\u201cNo.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-045.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Defy", "printings": [{"banned": false, "card_code": "OGN-045", "card_number": "045", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-045.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-213", "card_number": "213", "card_type": "Spell", "colors": ["Order"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003e\u003cimg src=\"static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eKill a unit at a battlefield. Its controller draws 2.", "flavor": "Not every Noxian decree is read aloud.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-213.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Hidden Blade", "printings": [{"banned": false, "card_code": "OGN-213", "card_number": "213", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-213.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-058", "card_number": "058", "card_type": "Spell", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eGive a unit +2 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn. Draw 1.", "flavor": "A blade is only as sharp as the one who wields it.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-058.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Discipline", "printings": [{"banned": false, "card_code": "OGN-058", "card_number": "058", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-058.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "OGN-058-P", "card_number": "058", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-058-P.webp", "promo": true, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-039", "card_number": "039", "card_type": "Gear", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-039.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Soul Sword", "printings": [{"banned": false, "card_code": "UNL-039", "card_number": "039", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-039.webp", "promo": false, "rarity": "Common", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-039-P", "card_number": "039", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-039-P.webp", "promo": true, "rarity": "Common", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "SFD-154", "card_number": "154", "card_type": "Spell", "colors": ["Order"], "cost": 3, "description": "\u003cimg src=\"static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003ePlay a 2 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sand Soldier unit token. You may pay \u003cimg src=\"static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to ready it.", "flavor": "\u201cMy empire lives in every grain of sand.\u201d \u2014Azir", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-154.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Guards!", "printings": [{"banned": false, "card_code": "SFD-154", "card_number": "154", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-154.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "related_tokens": [{"description": null, "idx": 46, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-T02.webp", "landscape": false, "might": 2, "name": "Sand Soldier Unit"}], "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "UNL-176A", "card_number": "176", "card_type": "Champion Unit", "colors": ["Order"], "cost": 5, "description": "\u003cimg src=\"static/img/keywords/ambush.svg\" alt=\"Ambush\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cbr\u003eWhen I attack, [Stun] an enemy unit here.", "flavor": "\u201cI\u2019m my own backup.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-176A.webp", "landscape": false, "legality": "Legal", "might": 5, "name": "Vi, Peacekeeper", "printings": [{"banned": false, "card_code": "UNL-176A", "card_number": "176", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-176A.webp", "promo": false, "rarity": "Showcase", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-176", "card_number": "176", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-176.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Showcase", "rune_cost": 1, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "SFD-163", "card_number": "163", "card_type": "Spell", "colors": ["Order"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eKill a friendly unit to give +\u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e equal to its Might to another friendly unit this turn. Draw 1.", "flavor": "\u201cDeath is my kindness.\u201d \u2014Mordekaiser", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-163.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Deathgrip", "printings": [{"banned": false, "card_code": "SFD-163", "card_number": "163", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-163.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "UNL-042", "card_number": "042", "card_type": "Spell", "colors": ["Calm"], "cost": 3, "description": "\u003cimg src=\"static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003e\u003cimg src=\"static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003e[Stun] a unit. (It doesn\u0026#x27;t deal combat damage this turn.)\u003cbr\u003eIf you played this from your hand, draw 1.", "flavor": "\u201cEw.\u201d \u2014Vex", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-042.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Back Off", "printings": [{"banned": false, "card_code": "UNL-042", "card_number": "042", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-042.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "VEN-027", "card_number": "027", "card_type": "Gear", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-027.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Hand Hammer", "printings": [{"banned": false, "card_code": "VEN-027", "card_number": "027", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-027.webp", "promo": false, "rarity": "Common", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "OGN-046", "card_number": "046", "card_type": "Spell", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eGive a friendly unit +1 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn, then an additional +1 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn if it is the only unit you control there.", "flavor": "\u201cIs this supposed to be a challenge?\u201d \u2014Fiora", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-046.webp", "landscape": false, "legality": "Legal", "might": null, "name": "En Garde", "printings": [{"banned": false, "card_code": "OGN-046", "card_number": "046", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-046.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-043", "card_number": "043", "card_type": "Spell", "colors": ["Calm"], "cost": 1, "description": "Move an enemy unit.", "flavor": "\u201cThere\u2019s no harm in looking.\u201d  \n\u2014 Common last words", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-043.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Charm", "printings": [{"banned": false, "card_code": "OGN-043", "card_number": "043", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-043.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-209", "card_number": "209", "card_type": "Spell", "colors": ["Order"], "cost": 2, "description": "Each player kills one of their units.", "flavor": "What good is having a plank if nobody ever walks it?", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-209.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Cull the Weak", "printings": [{"banned": false, "card_code": "OGN-209", "card_number": "209", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-209.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-165", "card_number": "165", "card_type": "Spell", "colors": ["Order"], "cost": 2, "description": "Choose a friendly unit without \u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. Give it \u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. Draw 2. (Kill it at the start of its controller\u0026#x27;s Beginning Phase, before scoring.)", "flavor": "\u201cYou\u2019re a disappointment. A failure. Why fight it?\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-165.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Shadow\u0027s Call", "printings": [{"banned": false, "card_code": "UNL-165", "card_number": "165", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-165.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "UNL-173", "card_number": "173", "card_type": "Spell", "colors": ["Order"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eAs an additional cost to play this, kill a friendly \u003cimg src=\"static/img/keywords/mighty.svg\" alt=\"Mighty\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e unit. (A unit is Mighty while it has 5+ \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003eDraw 2 and channel 1 rune exhausted.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-173.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Sacrifice", "printings": [{"banned": false, "card_code": "UNL-173", "card_number": "173", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-173.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "OGN-224", "card_number": "224", "card_type": "Spell", "colors": ["Order"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eYou may kill a gear. Draw 1.", "flavor": "One person\u2019s treasure is another one\u2019s trash.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-224.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Salvage", "printings": [{"banned": false, "card_code": "OGN-224", "card_number": "224", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-224.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-053", "card_number": "053", "card_type": "Unit", "colors": ["Calm"], "cost": 2, "description": "(Units with 0 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e can conquer and hold.)\u003cbr\u003eWhen you play me, draw 1.\u003cbr\u003e\u003cimg src=\"static/img/keywords/deathknell.svg\" alt=\"Deathknell\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Choose an opponent. They reveal their hand. You can look at their facedown cards this turn. Gain 1 XP. (When I die, get the effects.)", "flavor": "As harmless as it is delicious.", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-053.webp", "landscape": false, "legality": "Legal", "might": 0, "name": "Scuttle Crab", "printings": [{"banned": false, "card_code": "UNL-053", "card_number": "053", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-053.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "VEN-034", "card_number": "034", "card_type": "Spell", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003e\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eChoose a battlefield you control and a unit you control at a different location. Move that unit to that battlefield and give it +2 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-034.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Resonating Strike", "printings": [{"banned": false, "card_code": "VEN-034", "card_number": "034", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-034.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-135A", "card_number": "135", "card_type": "Champion Unit", "colors": ["Order"], "cost": 3, "description": "\u003cimg src=\"static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cbr\u003eWhen you play me or I attack, you may pay \u003cimg src=\"static/img/icons/energy-2.svg\" alt=\"2 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to [Stun] a unit.\u003cbr\u003eWhile there\u0026#x27;s a stunned enemy unit here, I have +2 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-135A.webp", "landscape": false, "legality": "Legal", "might": 2, "name": "Kennen, Keeper of Balance", "printings": [{"banned": false, "card_code": "VEN-135A", "card_number": "135", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-135A.webp", "promo": false, "rarity": "Showcase", "set_code": "VEN", "set_name": "Vendetta"}, {"banned": false, "card_code": "VEN-135", "card_number": "135", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-135.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Showcase", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "SFD-031", "card_number": "031", "card_type": "Spell", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/repeat.svg\" alt=\"Repeat\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/icons/energy-2.svg\" alt=\"2 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may pay the additional cost to repeat this spell\u0026#x27;s effect.)\u003cbr\u003ePlay a 2 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sand Soldier unit token.", "flavor": "The Great Sai desert hides as many spears as it does secrets.", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-031.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Desert\u0027s Call", "printings": [{"banned": false, "card_code": "SFD-031", "card_number": "031", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-031.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "related_tokens": [{"description": null, "idx": 46, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-T02.webp", "landscape": false, "might": 2, "name": "Sand Soldier Unit"}], "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "VEN-126", "card_number": "126", "card_type": "Spell", "colors": ["Order"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eChoose a unit. Prevent the next 7 damage that would be dealt to it this turn. (Opponents can assign it extra combat damage to kill it.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-126.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Ki Barrier", "printings": [{"banned": false, "card_code": "VEN-126", "card_number": "126", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-126.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "SFD-044", "card_number": "044", "card_type": "Unit", "colors": ["Calm"], "cost": 3, "description": "As an additional cost to play me, return a friendly gear to its owner\u0026#x27;s hand.", "flavor": "\u201cAn ancient runeblade! Very rare. Take it to Tent 3 for processing.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-044.webp", "landscape": false, "legality": "Legal", "might": 4, "name": "Legion Quartermaster", "printings": [{"banned": false, "card_code": "SFD-044", "card_number": "044", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-044.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-045", "card_number": "045", "card_type": "Spell", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eCounter an enemy spell or ability that chooses a friendly unit or gear.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-045.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Not So Fast", "printings": [{"banned": false, "card_code": "SFD-045", "card_number": "045", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-045.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "OGN-241", "card_number": "241", "card_type": "Champion Unit", "colors": ["Order"], "cost": 3, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve, including to a battlefield you control.)\u003cbr\u003e\u003cimg src=\"static/img/keywords/shield-2.svg\" alt=\"Shield 2\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (+2 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e while I\u0026#x27;m a defender.)\u003cbr\u003e\u003cimg src=\"static/img/keywords/tank.svg\" alt=\"Tank\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (I must be assigned combat damage first.)", "flavor": "\u201cTrain carefully.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-241.webp", "landscape": false, "legality": "Legal", "might": 3, "name": "Shen, Kinkou", "printings": [{"banned": false, "card_code": "OGN-241", "card_number": "241", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-241.webp", "promo": false, "rarity": "Rare", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "VEN-116", "card_number": "116", "card_type": "Spell", "colors": ["Order"], "cost": 3, "description": "Choose a unit. Its base Might becomes 5 this turn.\u003cbr\u003e\u003cimg src=\"static/img/keywords/flow.svg\" alt=\"Flow\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/icons/energy-3.svg\" alt=\"3 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may play this from your trash for its Flow cost. Then banish it.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-116.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Dragon Form", "printings": [{"banned": false, "card_code": "VEN-116", "card_number": "116", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-116.webp", "promo": false, "rarity": "Common", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "SFD-051", "card_number": "051", "card_type": "Gear", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Guardian Angel", "printings": [{"banned": false, "card_code": "SFD-051", "card_number": "051", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-051-P2", "card_number": "051", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051-P2.webp", "promo": true, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-051-P", "card_number": "051", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051-P.webp", "promo": true, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "OGN-294", "card_number": "294", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "Units here have +1 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (This includes attackers.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-294.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Trifarian War Camp", "printings": [{"banned": false, "card_code": "OGN-294", "card_number": "294", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-294.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "OGN-294/298", "card_number": "294", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-294/298.webp", "promo": true, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins Proving Grounds"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-210", "card_number": "210", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "When you conquer here, you may pay \u003cimg src=\"static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to ready your legend.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-210.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Hall of Legends", "printings": [{"banned": false, "card_code": "SFD-210", "card_number": "210", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-210.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-213", "card_number": "213", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "While you control this battlefield, the first friendly non-token gear played each turn costs \u003cimg src=\"static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e less.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-213.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Ornn\u0027s Forge", "printings": [{"banned": false, "card_code": "SFD-213", "card_number": "213", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-213.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-217", "card_number": "217", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "When you conquer here, draw 1 for each other battlefield you or allies control..", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-217.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Seat of Power", "printings": [{"banned": false, "card_code": "SFD-217", "card_number": "217", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-217.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "UNL-169", "card_number": "169", "card_type": "Sideboard", "colors": ["Order"], "cost": 5, "description": "When you play me, choose an opponent. They reveal their hand. Choose a card revealed this way and banish it. When they hold, return it to their hand (even if I\u0026#x27;m no longer on the board).", "flavor": "\u201cNo fate is written, except by us.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-169.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Ashe, Focused", "printings": [{"banned": false, "card_code": "UNL-169", "card_number": "169", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-169.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-169-P", "card_number": "169", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-169-P.webp", "promo": true, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "SFD-032", "card_number": "032", "card_type": "Sideboard", "colors": ["Calm"], "cost": 3, "description": "When you play me, you may kill a gear.", "flavor": "\u201cI like to break things: swords, arms, hearts \u2026\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-032.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Disarming Rake", "printings": [{"banned": false, "card_code": "SFD-032", "card_number": "032", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-032.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "VEN-039", "card_number": "039", "card_type": "Sideboard", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eCounter a spell if an opponent has played another spell this turn.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-039.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Crumbling Sands", "printings": [{"banned": false, "card_code": "VEN-039", "card_number": "039", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-039.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-131", "card_number": "131", "card_type": "Sideboard", "colors": ["Order"], "cost": 2, "description": "Kill an enemy Chaos (\u003cimg src=\"static/img/domains/Chaos.webp\" alt=\"Chaos\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e) unit or gear.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-131.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Decree of Unity", "printings": [{"banned": false, "card_code": "VEN-131", "card_number": "131", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-131.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-040", "card_number": "040", "card_type": "Sideboard", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eChoose a friendly unit that\u0026#x27;s in combat with an enemy Fury (\u003cimg src=\"static/img/domains/Fury.webp\" alt=\"Fury\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e) unit or that\u0026#x27;s being chosen by an enemy Fury spell. Give it +4 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-040.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Decree of Focus", "printings": [{"banned": false, "card_code": "VEN-040", "card_number": "040", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-040.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-127", "card_number": "127", "card_type": "Sideboard", "colors": ["Order"], "cost": 2, "description": "Choose a unit. If it\u0026#x27;s \u003cimg src=\"static/img/keywords/empowered.svg\" alt=\"Empowered\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, disempower it. Then kill it if it has 3 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e or less.\u003cbr\u003e\u003cimg src=\"static/img/keywords/flow.svg\" alt=\"Flow\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/icons/energy-4.svg\" alt=\"4 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may play this from your trash for its Flow cost. Then banish it.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-127.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Lacerate", "printings": [{"banned": false, "card_code": "VEN-127", "card_number": "127", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-127.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "OGN-064", "card_number": "064", "card_type": "Sideboard", "colors": ["Calm"], "cost": 3, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eCounter a spell.", "flavor": "\u201cFace the wind!\u201d  \n\u2014Yasuo", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-064.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Wind Wall", "printings": [{"banned": false, "card_code": "OGN-064", "card_number": "064", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-064.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 2, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-212", "card_number": "212", "card_type": "Sideboard", "colors": ["Order"], "cost": 2, "description": "When you play this, play a 1 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Recruit unit token at your base.\u003cbr\u003eKill this: Recycle up to 4 cards from trashes.", "flavor": "\u201cWhat do we make? Beats me, but we do it better than anyone else.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-212.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Forge of the Future", "printings": [{"banned": false, "card_code": "OGN-212", "card_number": "212", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-212.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "related_tokens": [{"description": "", "idx": 47, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-273.webp", "landscape": false, "might": 1, "name": "Recruit Unit"}], "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-044", "card_number": "044", "card_type": "Sideboard", "colors": ["Calm"], "cost": 4, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cbr\u003eChoose one \u2014\u003cul\u003e\u003cli\u003eCounter a spell.\u003c/li\u003e\u003cli\u003ePlay four 1 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Bird unit tokens with \u003cimg src=\"static/img/keywords/deflect.svg\" alt=\"Deflect\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (Opponents must pay \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to choose them with a spell or ability.)\u003c/li\u003e\u003c/ul\u003e", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-044.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Flurry of Feathers", "printings": [{"banned": false, "card_code": "UNL-044", "card_number": "044", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-044.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "related_tokens": [{"description": "\u003cimg src=\"static/img/keywords/deflect.svg\" alt=\"Deflect\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Opponents must pay \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to choose me with a spell or ability.)", "idx": 48, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-T02g.webp", "landscape": false, "might": 1, "name": "Bird Unit"}], "rune_cost": 2, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "SFD-247", "card_number": "247", "card_type": "Legend", "colors": ["Calm", "Order"], "cost": null, "description": "Sand Soldiers you play have \u003cimg src=\"static/img/keywords/weaponmaster.svg\" alt=\"Weaponmaster\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (When they\u0026#x27;re played, you may \u003cimg src=\"static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e one of your Equipment to them for \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e less.)\u003cbr\u003e\u003cimg src=\"static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, \u003cimg src=\"static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Play a 2 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sand Soldier unit token to your base. Use only if you\u0026#x27;ve played an Equipment this turn.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-247.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Azir, Emperor of the Sands", "printings": [{"banned": false, "card_code": "SFD-247", "card_number": "247", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-247.webp", "promo": false, "rarity": "Showcase", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-197", "card_number": "197", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-197.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Showcase", "related_tokens": [{"description": null, "idx": 46, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-T02.webp", "landscape": false, "might": 2, "name": "Sand Soldier Unit"}], "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-050A", "card_number": "050", "card_type": "Champion Unit", "colors": ["Calm"], "cost": 6, "description": "\u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: \u003cimg src=\"static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u2014 Choose a unit you control. Move me to its location and it to my original location. If it\u0026#x27;s equipped, you may attach one of its Equipment to me. Use only once per turn.", "flavor": "\u201cChallenge Shurima, challenge fate.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-050A.webp", "landscape": false, "legality": "Legal", "might": 6, "name": "Azir, Ascendant", "printings": [{"banned": false, "card_code": "SFD-050A", "card_number": "050", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-050A.webp", "promo": false, "rarity": "Showcase", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-050", "card_number": "050", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-050.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Showcase", "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-177A", "card_number": "177", "card_type": "Champion Unit", "colors": ["Order"], "cost": 4, "description": "\u003cimg src=\"static/img/keywords/accelerate.svg\" alt=\"Accelerate\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may pay \u003cimg src=\"static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e as an additional cost to have me enter ready.)\u003cbr\u003eWhen I attack, you may move any number of your token units to this battlefield.", "flavor": "\u201cYou need not follow, but you must witness.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-177A.webp", "landscape": false, "legality": "Legal", "might": 4, "name": "Azir, Sovereign", "printings": [{"banned": false, "card_code": "SFD-177A", "card_number": "177", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-177A.webp", "promo": false, "rarity": "Showcase", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-177", "card_number": "177", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-177.webp", "promo": false, "rarity": "Epic", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Showcase", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"_idx": 46, "card_code": "SFD-T02", "card_number": null, "card_type": "Token", "colors": ["Colorless"], "cost": 0, "description": null, "flavor": "They do not rest. They do not hesitate. And they do not yield.", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-T02.webp", "landscape": false, "legality": "Legal", "might": 2, "name": "Sand Soldier", "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": null, "set_name": "Spiritforged"}, {"_idx": 47, "card_code": "OGN-273", "card_number": "273", "card_type": "Token", "colors": ["Colorless"], "cost": 0, "description": "", "flavor": "\u201cWe are the future.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-273.webp", "landscape": false, "legality": "Legal", "might": 1, "name": "Recruit", "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"_idx": 48, "card_code": "UNL-T02g", "card_number": null, "card_type": "Token", "colors": ["Colorless"], "cost": null, "description": "\u003cimg src=\"static/img/keywords/deflect.svg\" alt=\"Deflect\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Opponents must pay \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to choose me with a spell or ability.)", "flavor": "Cloudy with a chance of talons.", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-T02g.webp", "landscape": false, "legality": "Legal", "might": 1, "name": "Bird", "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": null, "set_name": "Unleashed"}]</script>
 
 <script>
 (function () {
@@ -3000,19 +3081,34 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
   // 3D tilt-on-hover: rotate the art toward whichever corner the cursor is
   // over (max ~12deg either axis), snapping back via the CSS transition
   // above once the pointer leaves.
-  artCol.addEventListener('mousemove', function (e) {
+  function applyTilt(clientX, clientY) {
     const rect = tiltEl.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width;
-    const py = (e.clientY - rect.top) / rect.height;
+    const px = (clientX - rect.left) / rect.width;
+    const py = (clientY - rect.top) / rect.height;
     const rotateY = (px - 0.5) * 24;
     const rotateX = (0.5 - py) * 24;
     tiltEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     tiltEl.style.boxShadow = `${-rotateY}px ${rotateX}px 24px rgba(0,0,0,.35)`;
-  });
-  artCol.addEventListener('mouseleave', function () {
+  }
+  function resetTilt() {
     tiltEl.style.transform = 'rotateX(0deg) rotateY(0deg)';
     tiltEl.style.boxShadow = 'none';
-  });
+  }
+  artCol.addEventListener('mousemove', function (e) { applyTilt(e.clientX, e.clientY); });
+  artCol.addEventListener('mouseleave', resetTilt);
+  // Touch equivalent - mousemove/mouseleave never fire from a finger drag,
+  // so without this the tilt effect (and the flip button's hover-adjacent
+  // feel) was silent on a phone. preventDefault stops the drag from also
+  // scrolling the page behind the modal; {passive:false} is required for
+  // that to actually take effect (a touchmove listener is passive, and
+  // preventDefault a silent no-op, by default).
+  artCol.addEventListener('touchmove', function (e) {
+    if (!e.touches.length) return;
+    e.preventDefault();
+    applyTilt(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: false });
+  artCol.addEventListener('touchend', resetTilt);
+  artCol.addEventListener('touchcancel', resetTilt);
 
   tiles.forEach(function (tile) {
     tile.addEventListener('click', function () {

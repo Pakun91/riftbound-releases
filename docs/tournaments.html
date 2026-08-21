@@ -408,8 +408,18 @@
     .card-modal-body { padding: 14px 16px; gap: 16px; }
     .card-modal-art-col, .card-modal-art-col.landscape { flex: 0 1 auto; width: 100%; max-width: 260px; margin: 0 auto; }
     .card-modal-info { min-width: 0; }
-    .card-modal-grid { grid-template-columns: 1fr; }
     .deck-header-title { font-size: 22px; }
+    /* Every filter row on the site pushes its last group right with a plain
+       inline margin-left:auto - fine on desktop (lines it up against the
+       far edge), but once a row wraps onto several lines on a phone, that
+       same auto margin shoves whichever group ends up alone on its own line
+       over to the right (or centers it) instead of stacking flush left with
+       everything else. The [style*=] selector below catches every one of
+       them (they're plain inline styles) without needing a class/id added
+       to every template that has one; !important is required because a
+       plain inline style attribute otherwise outranks a stylesheet rule
+       regardless of selector. */
+    [style*="margin-left:auto"] { margin-left: 0 !important; }
   }
 
   
@@ -455,6 +465,7 @@
   @media (max-width: 600px) {
     #tournaments-table { min-width: 560px; }
     .filter-panel { max-width: calc(100vw - 32px); }
+    .tournament-name { position: sticky; left: 0; z-index: 1; background: var(--card-bg); }
   }
 
 </style>
@@ -493,7 +504,7 @@
       <div style="display:flex;align-items:center;gap:6px">
         <input id="date-from" type="date" value="2026-07-25" style="padding:6px 8px;border-radius:6px;background:var(--card-bg);color:var(--text-primary);font-size:13px">
         <span class="muted" style="font-size:12px">to</span>
-        <input id="date-to" type="date" value="2026-08-21" style="padding:6px 8px;border-radius:6px;background:var(--card-bg);color:var(--text-primary);font-size:13px">
+        <input id="date-to" type="date" value="2026-08-22" style="padding:6px 8px;border-radius:6px;background:var(--card-bg);color:var(--text-primary);font-size:13px">
       </div>
     </div>
 
@@ -551,8 +562,8 @@
   <table id="tournaments-table" class="sortable" data-paginate="25">
     <thead>
       <tr>
+        <th data-type="text" class="tournament-name">Tournament</th>
         <th data-type="text" class="col-date">Date</th>
-        <th data-type="text">Tournament</th>
         <th data-type="text">Region</th>
         <th data-type="text">Quality</th>
         <th class="num" data-type="number">Players</th>
@@ -568,18 +579,18 @@
           data-size="Extra Large (128-255)"
           data-date="2026-08-16"
           data-q="s4 guangzhou city challenge">
-        <td class="muted col-date" data-sort="2026-08-16">16-08-2026</td>
         <td class="tournament-name">
           
             S4 Guangzhou City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-16">16-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
         </td>
         <td class="num">128</td>
-        <td class="num">92</td>
+        <td class="num">128</td>
       </tr>
       
       <tr class="tournament-row"
@@ -589,18 +600,18 @@
           data-size="Large (64-127)"
           data-date="2026-08-16"
           data-q="s4 qingdao city challenge">
-        <td class="muted col-date" data-sort="2026-08-16">16-08-2026</td>
         <td class="tournament-name">
           
             S4 Qingdao City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-16">16-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
         </td>
         <td class="num">115</td>
-        <td class="num">67</td>
+        <td class="num">115</td>
       </tr>
       
       <tr class="tournament-row"
@@ -610,18 +621,18 @@
           data-size="Extra Large (128-255)"
           data-date="2026-08-16"
           data-q="s4 shanghai city challenge">
-        <td class="muted col-date" data-sort="2026-08-16">16-08-2026</td>
         <td class="tournament-name">
           
             S4 Shanghai City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-16">16-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
         </td>
         <td class="num">128</td>
-        <td class="num">72</td>
+        <td class="num">128</td>
       </tr>
       
       <tr class="tournament-row"
@@ -631,18 +642,18 @@
           data-size="Extra Large (128-255)"
           data-date="2026-08-16"
           data-q="s4 shenyang city challenge">
-        <td class="muted col-date" data-sort="2026-08-16">16-08-2026</td>
         <td class="tournament-name">
           
             S4 Shenyang City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-16">16-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
         </td>
         <td class="num">128</td>
-        <td class="num">75</td>
+        <td class="num">128</td>
       </tr>
       
       <tr class="tournament-row"
@@ -652,18 +663,18 @@
           data-size="Large (64-127)"
           data-date="2026-08-16"
           data-q="s4 tianjin city challenge">
-        <td class="muted col-date" data-sort="2026-08-16">16-08-2026</td>
         <td class="tournament-name">
           
             S4 Tianjin City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-16">16-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
         </td>
         <td class="num">101</td>
-        <td class="num">79</td>
+        <td class="num">101</td>
       </tr>
       
       <tr class="tournament-row"
@@ -673,12 +684,12 @@
           data-size="Massive (256+)"
           data-date="2026-08-15"
           data-q="riftatlas convergence #2">
-        <td class="muted col-date" data-sort="2026-08-15">15-08-2026</td>
         <td class="tournament-name">
           
             RiftAtlas Convergence #2
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-15">15-08-2026</td>
         <td class="muted">Online</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -694,12 +705,12 @@
           data-size="Massive (256+)"
           data-date="2026-08-15"
           data-q="riftbound showdown series germany 15.-16.08.2026">
-        <td class="muted col-date" data-sort="2026-08-15">15-08-2026</td>
         <td class="tournament-name">
           
             Riftbound Showdown Series Germany 15.-16.08.2026
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-15">15-08-2026</td>
         <td class="muted">EMEA</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -715,12 +726,12 @@
           data-size="Extra Large (128-255)"
           data-date="2026-08-15"
           data-q="s4 beijing city challenge">
-        <td class="muted col-date" data-sort="2026-08-15">15-08-2026</td>
         <td class="tournament-name">
           
             S4 Beijing City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-15">15-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -736,12 +747,12 @@
           data-size="Extra Large (128-255)"
           data-date="2026-08-15"
           data-q="s4 nanjing city challenge">
-        <td class="muted col-date" data-sort="2026-08-15">15-08-2026</td>
         <td class="tournament-name">
           
             S4 Nanjing City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-15">15-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -757,12 +768,12 @@
           data-size="Medium (32-63)"
           data-date="2026-08-09"
           data-q="i micelion cup">
-        <td class="muted col-date" data-sort="2026-08-09">09-08-2026</td>
         <td class="tournament-name">
           
             I Micelion Cup
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-09">09-08-2026</td>
         <td class="muted">Online</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -778,12 +789,12 @@
           data-size="Extra Large (128-255)"
           data-date="2026-08-09"
           data-q="s4 fuzhou city challenge">
-        <td class="muted col-date" data-sort="2026-08-09">09-08-2026</td>
         <td class="tournament-name">
           
             S4 Fuzhou City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-09">09-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -799,12 +810,12 @@
           data-size="Extra Large (128-255)"
           data-date="2026-08-09"
           data-q="s4 guangzhou city challenge">
-        <td class="muted col-date" data-sort="2026-08-09">09-08-2026</td>
         <td class="tournament-name">
           
             S4 Guangzhou City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-09">09-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -820,12 +831,12 @@
           data-size="Large (64-127)"
           data-date="2026-08-09"
           data-q="s4 hangzhou city challenge">
-        <td class="muted col-date" data-sort="2026-08-09">09-08-2026</td>
         <td class="tournament-name">
           
             S4 Hangzhou City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-09">09-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -841,12 +852,12 @@
           data-size="Large (64-127)"
           data-date="2026-08-08"
           data-q="dangguan animation expo tournament">
-        <td class="muted col-date" data-sort="2026-08-08">08-08-2026</td>
         <td class="tournament-name">
           
             Dangguan Animation Expo Tournament
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-08">08-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -862,12 +873,12 @@
           data-size="Large (64-127)"
           data-date="2026-08-08"
           data-q="rcs - hobby con">
-        <td class="muted col-date" data-sort="2026-08-08">08-08-2026</td>
         <td class="tournament-name">
           
             RCS - Hobby Con
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-08">08-08-2026</td>
         <td class="muted">APAC &amp; Oceania</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -883,12 +894,12 @@
           data-size="Massive (256+)"
           data-date="2026-08-08"
           data-q="riftbound showdown ottawa">
-        <td class="muted col-date" data-sort="2026-08-08">08-08-2026</td>
         <td class="tournament-name">
           
             Riftbound Showdown Ottawa
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-08">08-08-2026</td>
         <td class="muted">North America</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -904,12 +915,12 @@
           data-size="Extra Large (128-255)"
           data-date="2026-08-08"
           data-q="shanghai city challenge">
-        <td class="muted col-date" data-sort="2026-08-08">08-08-2026</td>
         <td class="tournament-name">
           
             Shanghai City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-08">08-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -925,12 +936,12 @@
           data-size="Extra Large (128-255)"
           data-date="2026-08-08"
           data-q="shenzhen city challenge">
-        <td class="muted col-date" data-sort="2026-08-08">08-08-2026</td>
         <td class="tournament-name">
           
             Shenzhen City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-08">08-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -946,12 +957,12 @@
           data-size="Large (64-127)"
           data-date="2026-08-08"
           data-q="wuhan city challenge">
-        <td class="muted col-date" data-sort="2026-08-08">08-08-2026</td>
         <td class="tournament-name">
           
             Wuhan City Challenge
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-08">08-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -967,12 +978,12 @@
           data-size="Medium (32-63)"
           data-date="2026-08-04"
           data-q="mardi - championship #2">
-        <td class="muted col-date" data-sort="2026-08-04">04-08-2026</td>
         <td class="tournament-name">
           
             <a href="https://www.circletcg.gg/tournois?id=53806b04-4b0e-4a8a-abe8-9a6254459a43&amp;tab=nightcup_past" target="_blank" rel="noopener">Mardi - championship #2</a>
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-04">04-08-2026</td>
         <td class="muted">Online</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -988,12 +999,12 @@
           data-size="Large (64-127)"
           data-date="2026-08-03"
           data-q="league cup #2 - cycle 1">
-        <td class="muted col-date" data-sort="2026-08-03">03-08-2026</td>
         <td class="tournament-name">
           
             <a href="https://www.circletcg.gg/tournois?id=109f125b-4bc1-4fd3-9cf2-aaf7c03fab1f&amp;tab=nightcup_past" target="_blank" rel="noopener">League Cup #2 - Cycle 1</a>
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-03">03-08-2026</td>
         <td class="muted">Online</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -1009,12 +1020,12 @@
           data-size="Small (&lt;32)"
           data-date="2026-08-02"
           data-q="haven online challenger series - august 2nd 2026">
-        <td class="muted col-date" data-sort="2026-08-02">02-08-2026</td>
         <td class="tournament-name">
           
             Haven Online Challenger Series - August 2nd 2026
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-02">02-08-2026</td>
         <td class="muted">Online</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -1030,12 +1041,12 @@
           data-size="Medium (32-63)"
           data-date="2026-08-02"
           data-q="king&#39;s road season 7 opening tournament">
-        <td class="muted col-date" data-sort="2026-08-02">02-08-2026</td>
         <td class="tournament-name">
           
             King&#39;s Road Season 7 Opening Tournament
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-02">02-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -1051,12 +1062,12 @@
           data-size="Medium (32-63)"
           data-date="2026-08-02"
           data-q="riftbound online series season 4 week 1">
-        <td class="muted col-date" data-sort="2026-08-02">02-08-2026</td>
         <td class="tournament-name">
           
             Riftbound Online Series Season 4 Week 1
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-02">02-08-2026</td>
         <td class="muted">Online</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -1072,12 +1083,12 @@
           data-size="Small (&lt;32)"
           data-date="2026-08-02"
           data-q="sunday 3+ unleashed tournament @ 3+x次元馆(雅宝店) riftbound top decks">
-        <td class="muted col-date" data-sort="2026-08-02">02-08-2026</td>
         <td class="tournament-name">
           
             Sunday 3+ Unleashed Tournament @ 3+X次元馆(雅宝店) Riftbound Top Decks
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-02">02-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -1093,12 +1104,12 @@
           data-size="Large (64-127)"
           data-date="2026-08-01"
           data-q="runes league invitational qualifier">
-        <td class="muted col-date" data-sort="2026-08-01">01-08-2026</td>
         <td class="tournament-name">
           
             Runes League Invitational Qualifier
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-01">01-08-2026</td>
         <td class="muted">EMEA</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -1114,12 +1125,12 @@
           data-size="Large (64-127)"
           data-date="2026-08-01"
           data-q="triple win-a-box | vendetta tournament">
-        <td class="muted col-date" data-sort="2026-08-01">01-08-2026</td>
         <td class="tournament-name">
           
             <a href="https://battlefy.com/runes-rift-riftbound-hub/triple-win-a-box-vendetta-tournament/6a6195253cf5620025158988/info" target="_blank" rel="noopener">Triple Win-A-Box | Vendetta Tournament</a>
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-01">01-08-2026</td>
         <td class="muted">Online</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -1135,12 +1146,12 @@
           data-size="Medium (32-63)"
           data-date="2026-08-01"
           data-q="vendetta release tournament at pokemon card club">
-        <td class="muted col-date" data-sort="2026-08-01">01-08-2026</td>
         <td class="tournament-name">
           
             Vendetta Release Tournament at Pokemon Card Club
           
         </td>
+        <td class="muted col-date" data-sort="2026-08-01">01-08-2026</td>
         <td class="muted">China</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -1156,12 +1167,12 @@
           data-size="Small (&lt;32)"
           data-date="2026-07-28"
           data-q="mardi - championship #1">
-        <td class="muted col-date" data-sort="2026-07-28">28-07-2026</td>
         <td class="tournament-name">
           
             <a href="https://www.circletcg.gg/tournois?id=5462cc87-37bf-4f36-a2c4-f3516a0e5530&amp;tab=nightcup" target="_blank" rel="noopener">Mardi - Championship #1</a>
           
         </td>
+        <td class="muted col-date" data-sort="2026-07-28">28-07-2026</td>
         <td class="muted">Online</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -1177,12 +1188,12 @@
           data-size="Medium (32-63)"
           data-date="2026-07-27"
           data-q="nightcup league cup #1 — cycle 1">
-        <td class="muted col-date" data-sort="2026-07-27">27-07-2026</td>
         <td class="tournament-name">
           
             Nightcup League Cup #1 — Cycle 1
           
         </td>
+        <td class="muted col-date" data-sort="2026-07-27">27-07-2026</td>
         <td class="muted">Online</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -1198,12 +1209,12 @@
           data-size="Large (64-127)"
           data-date="2026-07-26"
           data-q="novariftbound&#39;s tcgarena online $2k showdown #3">
-        <td class="muted col-date" data-sort="2026-07-26">26-07-2026</td>
         <td class="tournament-name">
           
             NovaRiftbound&#39;s TCGArena Online $2K Showdown #3
           
         </td>
+        <td class="muted col-date" data-sort="2026-07-26">26-07-2026</td>
         <td class="muted">Online</td>
         <td data-sort="premier">
           <span class="quality-badge premier" title="&gt;80 players">premier</span>
@@ -1219,12 +1230,12 @@
           data-size="Small (&lt;32)"
           data-date="2026-07-25"
           data-q="runes &amp; rift open 19">
-        <td class="muted col-date" data-sort="2026-07-25">25-07-2026</td>
         <td class="tournament-name">
           
             Runes &amp; Rift Open 19
           
         </td>
+        <td class="muted col-date" data-sort="2026-07-25">25-07-2026</td>
         <td class="muted">North America</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -1240,12 +1251,12 @@
           data-size="Medium (32-63)"
           data-date="2026-07-25"
           data-q="sideways showdown - cn vs world">
-        <td class="muted col-date" data-sort="2026-07-25">25-07-2026</td>
         <td class="tournament-name">
           
             Sideways Showdown - CN vs World
           
         </td>
+        <td class="muted col-date" data-sort="2026-07-25">25-07-2026</td>
         <td class="muted">Online</td>
         <td data-sort="competitive">
           <span class="quality-badge competitive" title="24-80 players">competitive</span>
@@ -1928,19 +1939,34 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
   // 3D tilt-on-hover: rotate the art toward whichever corner the cursor is
   // over (max ~12deg either axis), snapping back via the CSS transition
   // above once the pointer leaves.
-  artCol.addEventListener('mousemove', function (e) {
+  function applyTilt(clientX, clientY) {
     const rect = tiltEl.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width;
-    const py = (e.clientY - rect.top) / rect.height;
+    const px = (clientX - rect.left) / rect.width;
+    const py = (clientY - rect.top) / rect.height;
     const rotateY = (px - 0.5) * 24;
     const rotateX = (0.5 - py) * 24;
     tiltEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     tiltEl.style.boxShadow = `${-rotateY}px ${rotateX}px 24px rgba(0,0,0,.35)`;
-  });
-  artCol.addEventListener('mouseleave', function () {
+  }
+  function resetTilt() {
     tiltEl.style.transform = 'rotateX(0deg) rotateY(0deg)';
     tiltEl.style.boxShadow = 'none';
-  });
+  }
+  artCol.addEventListener('mousemove', function (e) { applyTilt(e.clientX, e.clientY); });
+  artCol.addEventListener('mouseleave', resetTilt);
+  // Touch equivalent - mousemove/mouseleave never fire from a finger drag,
+  // so without this the tilt effect (and the flip button's hover-adjacent
+  // feel) was silent on a phone. preventDefault stops the drag from also
+  // scrolling the page behind the modal; {passive:false} is required for
+  // that to actually take effect (a touchmove listener is passive, and
+  // preventDefault a silent no-op, by default).
+  artCol.addEventListener('touchmove', function (e) {
+    if (!e.touches.length) return;
+    e.preventDefault();
+    applyTilt(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: false });
+  artCol.addEventListener('touchend', resetTilt);
+  artCol.addEventListener('touchcancel', resetTilt);
 
   tiles.forEach(function (tile) {
     tile.addEventListener('click', function () {

@@ -408,8 +408,18 @@
     .card-modal-body { padding: 14px 16px; gap: 16px; }
     .card-modal-art-col, .card-modal-art-col.landscape { flex: 0 1 auto; width: 100%; max-width: 260px; margin: 0 auto; }
     .card-modal-info { min-width: 0; }
-    .card-modal-grid { grid-template-columns: 1fr; }
     .deck-header-title { font-size: 22px; }
+    /* Every filter row on the site pushes its last group right with a plain
+       inline margin-left:auto - fine on desktop (lines it up against the
+       far edge), but once a row wraps onto several lines on a phone, that
+       same auto margin shoves whichever group ends up alone on its own line
+       over to the right (or centers it) instead of stacking flush left with
+       everything else. The [style*=] selector below catches every one of
+       them (they're plain inline styles) without needing a class/id added
+       to every template that has one; !important is required because a
+       plain inline style attribute otherwise outranks a stylesheet rule
+       regardless of selector. */
+    [style*="margin-left:auto"] { margin-left: 0 !important; }
   }
 
   
@@ -542,6 +552,15 @@
   .type-toggle.active { opacity: 1; border-color: var(--series-1); color: var(--text-primary); }
   @media (max-width: 600px) {
     .filter-panel { max-width: calc(100vw - 32px); }
+    #mm-filter-row, #cs-filter-row { justify-content: flex-start !important; }
+    /* Legend/Card identity column stays put while the rest of a wide table
+       scrolls under it - same technique as .matrix-sticky-col. Domains adds
+       little on a phone (already visible on the legend's own page), so it's
+       dropped outright instead of fighting it for scroll width. */
+    .legend-name-col, .card-name-col {
+      position: sticky; left: 0; z-index: 1; background: var(--card-bg);
+    }
+    .legend-domains-col { display: none; }
   }
 
 </style>
@@ -592,7 +611,7 @@
       <div style="display:flex;align-items:center;gap:6px">
         <input id="date-from" type="date" value="2026-07-25" style="padding:6px 8px;border-radius:6px;background:var(--card-bg);color:var(--text-primary);font-size:13px">
         <span class="muted" style="font-size:12px">to</span>
-        <input id="date-to" type="date" value="2026-08-21" style="padding:6px 8px;border-radius:6px;background:var(--card-bg);color:var(--text-primary);font-size:13px">
+        <input id="date-to" type="date" value="2026-08-22" style="padding:6px 8px;border-radius:6px;background:var(--card-bg);color:var(--text-primary);font-size:13px">
       </div>
     </div>
   </div>
@@ -681,29 +700,29 @@
         
         <label><input type="checkbox" class="f-legend" value="Rengar, Pridestalker"> Rengar, Pridestalker</label>
         
-        <label><input type="checkbox" class="f-legend" value="Lillia, Bashful Bloom"> Lillia, Bashful Bloom</label>
-        
         <label><input type="checkbox" class="f-legend" value="LeBlanc, Deceiver"> LeBlanc, Deceiver</label>
+        
+        <label><input type="checkbox" class="f-legend" value="Lillia, Bashful Bloom"> Lillia, Bashful Bloom</label>
         
         <label><input type="checkbox" class="f-legend" value="Ornn, Fire Below the Mountain"> Ornn, Fire Below the Mountain</label>
         
         <label><input type="checkbox" class="f-legend" value="Vex, Gloomist"> Vex, Gloomist</label>
         
-        <label><input type="checkbox" class="f-legend" value="Ambessa, Matriarch of War"> Ambessa, Matriarch of War</label>
-        
         <label><input type="checkbox" class="f-legend" value="Kha&#39;Zix, Voidreaver"> Kha&#39;Zix, Voidreaver</label>
         
-        <label><input type="checkbox" class="f-legend" value="Zed, Master of Shadows"> Zed, Master of Shadows</label>
+        <label><input type="checkbox" class="f-legend" value="Ambessa, Matriarch of War"> Ambessa, Matriarch of War</label>
         
         <label><input type="checkbox" class="f-legend" value="Pyke, Bloodharbor Ripper"> Pyke, Bloodharbor Ripper</label>
+        
+        <label><input type="checkbox" class="f-legend" value="Zed, Master of Shadows"> Zed, Master of Shadows</label>
         
         <label><input type="checkbox" class="f-legend" value="Shen, Eye of Twilight"> Shen, Eye of Twilight</label>
         
         <label><input type="checkbox" class="f-legend" value="Ivern, Green Father"> Ivern, Green Father</label>
         
-        <label><input type="checkbox" class="f-legend" value="Master Yi, Wuju Master"> Master Yi, Wuju Master</label>
-        
         <label><input type="checkbox" class="f-legend" value="Sivir, Battle Mistress"> Sivir, Battle Mistress</label>
+        
+        <label><input type="checkbox" class="f-legend" value="Master Yi, Wuju Master"> Master Yi, Wuju Master</label>
         
         <label><input type="checkbox" class="f-legend" value="Vi, Piltover Enforcer"> Vi, Piltover Enforcer</label>
         
@@ -711,13 +730,13 @@
         
         <label><input type="checkbox" class="f-legend" value="Jhin, Virtuoso"> Jhin, Virtuoso</label>
         
-        <label><input type="checkbox" class="f-legend" value="Jax, Grandmaster at Arms"> Jax, Grandmaster at Arms</label>
-        
         <label><input type="checkbox" class="f-legend" value="Lucian, Purifier"> Lucian, Purifier</label>
         
         <label><input type="checkbox" class="f-legend" value="Lux, Lady of Luminosity"> Lux, Lady of Luminosity</label>
         
         <label><input type="checkbox" class="f-legend" value="Rumble, Mechanized Menace"> Rumble, Mechanized Menace</label>
+        
+        <label><input type="checkbox" class="f-legend" value="Jax, Grandmaster at Arms"> Jax, Grandmaster at Arms</label>
         
         <label><input type="checkbox" class="f-legend" value="Renekton, Butcher of the Sands"> Renekton, Butcher of the Sands</label>
         
@@ -731,11 +750,11 @@
         
         <label><input type="checkbox" class="f-legend" value="Yasuo, Unforgiven"> Yasuo, Unforgiven</label>
         
+        <label><input type="checkbox" class="f-legend" value="Teemo, Swift Scout"> Teemo, Swift Scout</label>
+        
         <label><input type="checkbox" class="f-legend" value="Ahri, Nine-Tailed Fox"> Ahri, Nine-Tailed Fox</label>
         
         <label><input type="checkbox" class="f-legend" value="Miss Fortune, Bounty Hunter"> Miss Fortune, Bounty Hunter</label>
-        
-        <label><input type="checkbox" class="f-legend" value="Teemo, Swift Scout"> Teemo, Swift Scout</label>
         
         <label><input type="checkbox" class="f-legend" value="Poppy, Keeper of the Hammer"> Poppy, Keeper of the Hammer</label>
         
@@ -974,8 +993,8 @@
   <table id="legends-table" class="sortable" data-paginate="25">
     <thead>
       <tr>
-        <th data-type="text">Legend</th>
-        <th>Domains</th>
+        <th data-type="text" class="legend-name-col">Legend</th>
+        <th class="legend-domains-col">Domains</th>
         <th class="num" data-type="number">Decks</th>
         <th class="num" data-type="number">Play rate</th>
         <th class="num" data-type="number">Play Rate Trend <span class="help-icon" title="Compares this week's play rate to the week before it.">?</span></th>
@@ -994,25 +1013,25 @@
           data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Runes League Invitational Qualifier", "Large (64-127)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="280"
+          data-n-decks="307"
           data-n-tournaments="30"
           data-best-rank="1"
           data-q="master yi, wuju bladesman">
-        <td><a href="legend-master-yi-wuju-bladesman.html">Master Yi, Wuju Bladesman</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-master-yi-wuju-bladesman.html">Master Yi, Wuju Bladesman</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
             <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
           
         </td>
-        <td class="num">280</td>
-        <td class="num" data-sort="9.5">
-          9.5%
+        <td class="num">307</td>
+        <td class="num" data-sort="9.7">
+          9.7%
         </td>
-        <td class="num" data-sort="2.3">
+        <td class="num" data-sort="3.1">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 2.3%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 3.1%</span>
           
         </td>
         <td class="num">30</td>
@@ -1022,9 +1041,9 @@
             <span style="color:#1a9850;font-weight:600">54.5%</span> <span class="muted" style="font-size:11px">(83)</span>
           
         </td>
-        <td class="num" data-sort="-3.7">
+        <td class="num" data-sort="8.3">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 3.7%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 8.3%</span>
           
         </td>
       </tr>
@@ -1036,25 +1055,25 @@
           data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Runes \u0026 Rift Open 19", "Small (\u003c32)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Runes League Invitational Qualifier", "Large (64-127)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="275"
+          data-n-decks="291"
           data-n-tournaments="32"
           data-best-rank="1"
           data-q="kennen, heart of the tempest">
-        <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
           
             <img class="domain-icon" src="static/img/domains/Order.webp" alt="Order" title="Order">
           
         </td>
-        <td class="num">275</td>
-        <td class="num" data-sort="9.3">
-          9.3%
+        <td class="num">291</td>
+        <td class="num" data-sort="9.2">
+          9.2%
         </td>
-        <td class="num" data-sort="1.5">
+        <td class="num" data-sort="-2.0">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 1.5%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 2.0%</span>
           
         </td>
         <td class="num">32</td>
@@ -1064,9 +1083,9 @@
             <span style="color:#1a9850;font-weight:600">55.5%</span> <span class="muted" style="font-size:11px">(106)</span>
           
         </td>
-        <td class="num" data-sort="1.5">
+        <td class="num" data-sort="0.2">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 1.5%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.2%</span>
           
         </td>
       </tr>
@@ -1078,25 +1097,25 @@
           data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Triple Win-A-Box | Vendetta Tournament", "Large (64-127)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="247"
+          data-n-decks="263"
           data-n-tournaments="31"
           data-best-rank="1"
           data-q="irelia, blade dancer">
-        <td><a href="legend-irelia-blade-dancer.html">Irelia, Blade Dancer</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-irelia-blade-dancer.html">Irelia, Blade Dancer</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
             <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
           
         </td>
-        <td class="num">247</td>
-        <td class="num" data-sort="8.4">
-          8.4%
+        <td class="num">263</td>
+        <td class="num" data-sort="8.3">
+          8.3%
         </td>
-        <td class="num" data-sort="0.8">
+        <td class="num" data-sort="-1.1">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.8%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 1.1%</span>
           
         </td>
         <td class="num">31</td>
@@ -1106,9 +1125,9 @@
             <span style="color:#1a9850;font-weight:600">54.8%</span> <span class="muted" style="font-size:11px">(92)</span>
           
         </td>
-        <td class="num" data-sort="2.0">
+        <td class="num" data-sort="1.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 2.0%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 1.3%</span>
           
         </td>
       </tr>
@@ -1120,25 +1139,25 @@
           data-appearances='[["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="201"
+          data-n-decks="227"
           data-n-tournaments="25"
           data-best-rank="1"
           data-q="kai&#39;sa, daughter of the void">
-        <td><a href="legend-kai-sa-daughter-of-the-void.html">Kai&#39;Sa, Daughter of the Void</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-kai-sa-daughter-of-the-void.html">Kai&#39;Sa, Daughter of the Void</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
             <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
           
         </td>
-        <td class="num">201</td>
-        <td class="num" data-sort="6.8">
-          6.8%
+        <td class="num">227</td>
+        <td class="num" data-sort="7.2">
+          7.2%
         </td>
-        <td class="num" data-sort="2.9">
+        <td class="num" data-sort="1.9">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 2.9%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 1.9%</span>
           
         </td>
         <td class="num">25</td>
@@ -1148,9 +1167,9 @@
             <span style="color:#d94545;font-weight:600">42.9%</span> <span class="muted" style="font-size:11px">(20)</span>
           
         </td>
-        <td class="num" data-sort="5.0">
+        <td class="num" data-sort="-1.7">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 5.0%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 1.7%</span>
           
         </td>
       </tr>
@@ -1162,21 +1181,21 @@
           data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="140"
+          data-n-decks="148"
           data-n-tournaments="29"
           data-best-rank="1"
           data-q="diana, scorn of the moon">
-        <td><a href="legend-diana-scorn-of-the-moon.html">Diana, Scorn of the Moon</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-diana-scorn-of-the-moon.html">Diana, Scorn of the Moon</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
           
             <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
           
         </td>
-        <td class="num">140</td>
-        <td class="num" data-sort="4.8">
-          4.8%
+        <td class="num">148</td>
+        <td class="num" data-sort="4.7">
+          4.7%
         </td>
         <td class="num" data-sort="0.0">
           
@@ -1190,9 +1209,9 @@
             <span style="color:#1a9850;font-weight:600">50.7%</span> <span class="muted" style="font-size:11px">(48)</span>
           
         </td>
-        <td class="num" data-sort="-0.1">
+        <td class="num" data-sort="-3.6">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 3.6%</span>
           
         </td>
       </tr>
@@ -1201,40 +1220,40 @@
           data-href="legend-nasus-curator-of-the-sands.html"
           data-legend="Nasus, Curator of the Sands"
           data-domain="Calm Mind"
-          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Runes \u0026 Rift Open 19", "Small (\u003c32)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Runes League Invitational Qualifier", "Large (64-127)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
+          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Runes \u0026 Rift Open 19", "Small (\u003c32)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Runes League Invitational Qualifier", "Large (64-127)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Qingdao City Challenge", "Large (64-127)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="121"
-          data-n-tournaments="27"
+          data-n-decks="132"
+          data-n-tournaments="28"
           data-best-rank="1"
           data-q="nasus, curator of the sands">
-        <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
             <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
           
         </td>
-        <td class="num">121</td>
-        <td class="num" data-sort="4.1">
-          4.1%
+        <td class="num">132</td>
+        <td class="num" data-sort="4.2">
+          4.2%
         </td>
-        <td class="num" data-sort="-0.6">
+        <td class="num" data-sort="-0.3">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.6%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.3%</span>
           
         </td>
-        <td class="num">27</td>
+        <td class="num">28</td>
         <td class="num" data-sort="1">#1</td>
         <td class="num" data-sort="49.0">
           
             <span style="color:#d94545;font-weight:600">49.0%</span> <span class="muted" style="font-size:11px">(43)</span>
           
         </td>
-        <td class="num" data-sort="0.2">
+        <td class="num" data-sort="12.2">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.2%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 12.2%</span>
           
         </td>
       </tr>
@@ -1246,25 +1265,25 @@
           data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Runes \u0026 Rift Open 19", "Small (\u003c32)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="115"
+          data-n-decks="126"
           data-n-tournaments="30"
           data-best-rank="1"
           data-q="rek&#39;sai, void burrower">
-        <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
             <img class="domain-icon" src="static/img/domains/Order.webp" alt="Order" title="Order">
           
         </td>
-        <td class="num">115</td>
-        <td class="num" data-sort="3.9">
-          3.9%
+        <td class="num">126</td>
+        <td class="num" data-sort="4.0">
+          4.0%
         </td>
-        <td class="num" data-sort="-1.5">
+        <td class="num" data-sort="0.2">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 1.5%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.2%</span>
           
         </td>
         <td class="num">30</td>
@@ -1274,9 +1293,9 @@
             <span style="color:#1a9850;font-weight:600">57.7%</span> <span class="muted" style="font-size:11px">(41)</span>
           
         </td>
-        <td class="num" data-sort="1.0">
+        <td class="num" data-sort="-1.6">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 1.0%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 1.6%</span>
           
         </td>
       </tr>
@@ -1288,25 +1307,25 @@
           data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="114"
+          data-n-decks="121"
           data-n-tournaments="27"
           data-best-rank="1"
           data-q="akali, rogue assassin">
-        <td><a href="legend-akali-rogue-assassin.html">Akali, Rogue Assassin</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-akali-rogue-assassin.html">Akali, Rogue Assassin</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
         </td>
-        <td class="num">114</td>
-        <td class="num" data-sort="3.9">
-          3.9%
+        <td class="num">121</td>
+        <td class="num" data-sort="3.8">
+          3.8%
         </td>
-        <td class="num" data-sort="0.7">
+        <td class="num" data-sort="0.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.7%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.3%</span>
           
         </td>
         <td class="num">27</td>
@@ -1316,9 +1335,9 @@
             <span style="color:#d94545;font-weight:600">35.9%</span> <span class="muted" style="font-size:11px">(36)</span>
           
         </td>
-        <td class="num" data-sort="-2.8">
+        <td class="num" data-sort="-1.6">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 2.8%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 1.6%</span>
           
         </td>
       </tr>
@@ -1330,25 +1349,25 @@
           data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="109"
+          data-n-decks="116"
           data-n-tournaments="25"
           data-best-rank="1"
           data-q="draven, glorious executioner">
-        <td><a href="legend-draven-glorious-executioner.html">Draven, Glorious Executioner</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-draven-glorious-executioner.html">Draven, Glorious Executioner</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
             <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
           
         </td>
-        <td class="num">109</td>
+        <td class="num">116</td>
         <td class="num" data-sort="3.7">
           3.7%
         </td>
-        <td class="num" data-sort="1.4">
+        <td class="num" data-sort="-1.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 1.4%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 1.3%</span>
           
         </td>
         <td class="num">25</td>
@@ -1358,9 +1377,9 @@
             <span style="color:#1a9850;font-weight:600">53.9%</span> <span class="muted" style="font-size:11px">(48)</span>
           
         </td>
-        <td class="num" data-sort="-1.5">
+        <td class="num" data-sort="3.9">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 1.5%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 3.9%</span>
           
         </td>
       </tr>
@@ -1372,25 +1391,25 @@
           data-appearances='[["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Triple Win-A-Box | Vendetta Tournament", "Large (64-127)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="107"
+          data-n-decks="115"
           data-n-tournaments="28"
           data-best-rank="3"
           data-q="jayce, defender of tomorrow">
-        <td><a href="legend-jayce-defender-of-tomorrow.html">Jayce, Defender of Tomorrow</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-jayce-defender-of-tomorrow.html">Jayce, Defender of Tomorrow</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
           
             <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
           
         </td>
-        <td class="num">107</td>
+        <td class="num">115</td>
         <td class="num" data-sort="3.6">
           3.6%
         </td>
-        <td class="num" data-sort="-0.9">
+        <td class="num" data-sort="-0.2">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.9%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
           
         </td>
         <td class="num">28</td>
@@ -1400,9 +1419,9 @@
             <span style="color:#1a9850;font-weight:600">51.1%</span> <span class="muted" style="font-size:11px">(37)</span>
           
         </td>
-        <td class="num" data-sort="-3.1">
+        <td class="num" data-sort="1.1">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 3.1%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 1.1%</span>
           
         </td>
       </tr>
@@ -1411,40 +1430,40 @@
           data-href="legend-azir-emperor-of-the-sands.html"
           data-legend="Azir, Emperor of the Sands"
           data-domain="Calm Order"
-          data-appearances='[["League Cup #2 - Cycle 1", "Large (64-127)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Triple Win-A-Box | Vendetta Tournament", "Large (64-127)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
+          data-appearances='[["League Cup #2 - Cycle 1", "Large (64-127)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Triple Win-A-Box | Vendetta Tournament", "Large (64-127)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Qingdao City Challenge", "Large (64-127)"]]'
           data-date-first="2026-07-26"
           data-date-last="2026-08-16"
-          data-n-decks="104"
-          data-n-tournaments="27"
+          data-n-decks="110"
+          data-n-tournaments="28"
           data-best-rank="1"
           data-q="azir, emperor of the sands">
-        <td><a href="legend-azir-emperor-of-the-sands.html">Azir, Emperor of the Sands</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-azir-emperor-of-the-sands.html">Azir, Emperor of the Sands</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
             <img class="domain-icon" src="static/img/domains/Order.webp" alt="Order" title="Order">
           
         </td>
-        <td class="num">104</td>
+        <td class="num">110</td>
         <td class="num" data-sort="3.5">
           3.5%
         </td>
-        <td class="num" data-sort="-0.8">
+        <td class="num" data-sort="-0.3">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.8%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.3%</span>
           
         </td>
-        <td class="num">27</td>
+        <td class="num">28</td>
         <td class="num" data-sort="1">#1</td>
         <td class="num" data-sort="52.3">
           
             <span style="color:#1a9850;font-weight:600">52.3%</span> <span class="muted" style="font-size:11px">(54)</span>
           
         </td>
-        <td class="num" data-sort="0.9">
+        <td class="num" data-sort="0.1">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.9%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
           
         </td>
       </tr>
@@ -1453,31 +1472,31 @@
           data-href="legend-ezreal-prodigal-explorer.html"
           data-legend="Ezreal, Prodigal Explorer"
           data-domain="Mind Chaos"
-          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Triple Win-A-Box | Vendetta Tournament", "Large (64-127)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Runes League Invitational Qualifier", "Large (64-127)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
+          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Triple Win-A-Box | Vendetta Tournament", "Large (64-127)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Runes League Invitational Qualifier", "Large (64-127)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"]]'
           data-date-first="2026-07-26"
           data-date-last="2026-08-16"
-          data-n-decks="89"
-          data-n-tournaments="27"
+          data-n-decks="94"
+          data-n-tournaments="28"
           data-best-rank="1"
           data-q="ezreal, prodigal explorer">
-        <td><a href="legend-ezreal-prodigal-explorer.html">Ezreal, Prodigal Explorer</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-ezreal-prodigal-explorer.html">Ezreal, Prodigal Explorer</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
           
             <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
           
         </td>
-        <td class="num">89</td>
+        <td class="num">94</td>
         <td class="num" data-sort="3.0">
           3.0%
         </td>
-        <td class="num" data-sort="0.9">
+        <td class="num" data-sort="-1.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.9%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 1.3%</span>
           
         </td>
-        <td class="num">27</td>
+        <td class="num">28</td>
         <td class="num" data-sort="1">#1</td>
         <td class="num" data-sort="52.4">
           
@@ -1495,40 +1514,40 @@
           data-href="legend-viktor-herald-of-the-arcane.html"
           data-legend="Viktor, Herald of the Arcane"
           data-domain="Mind Order"
-          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
+          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="85"
-          data-n-tournaments="24"
+          data-n-decks="92"
+          data-n-tournaments="25"
           data-best-rank="2"
           data-q="viktor, herald of the arcane">
-        <td><a href="legend-viktor-herald-of-the-arcane.html">Viktor, Herald of the Arcane</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-viktor-herald-of-the-arcane.html">Viktor, Herald of the Arcane</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
           
             <img class="domain-icon" src="static/img/domains/Order.webp" alt="Order" title="Order">
           
         </td>
-        <td class="num">85</td>
+        <td class="num">92</td>
         <td class="num" data-sort="2.9">
           2.9%
         </td>
-        <td class="num" data-sort="0.2">
+        <td class="num" data-sort="0.1">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.2%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
           
         </td>
-        <td class="num">24</td>
+        <td class="num">25</td>
         <td class="num" data-sort="2">#2</td>
         <td class="num" data-sort="50.4">
           
             <span style="color:#1a9850;font-weight:600">50.4%</span> <span class="muted" style="font-size:11px">(32)</span>
           
         </td>
-        <td class="num" data-sort="9.5">
+        <td class="num" data-sort="-3.8">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 9.5%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 3.8%</span>
           
         </td>
       </tr>
@@ -1540,25 +1559,25 @@
           data-appearances='[["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="81"
+          data-n-decks="87"
           data-n-tournaments="23"
           data-best-rank="1"
           data-q="fiora, grand duelist">
-        <td><a href="legend-fiora-grand-duelist.html">Fiora, Grand Duelist</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-fiora-grand-duelist.html">Fiora, Grand Duelist</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
           
             <img class="domain-icon" src="static/img/domains/Order.webp" alt="Order" title="Order">
           
         </td>
-        <td class="num">81</td>
+        <td class="num">87</td>
         <td class="num" data-sort="2.8">
           2.8%
         </td>
-        <td class="num" data-sort="0.8">
+        <td class="num" data-sort="2.5">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.8%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 2.5%</span>
           
         </td>
         <td class="num">23</td>
@@ -1568,9 +1587,9 @@
             <span style="color:#d94545;font-weight:600">47.6%</span> <span class="muted" style="font-size:11px">(20)</span>
           
         </td>
-        <td class="num" data-sort="0.0">
+        <td class="num" data-sort="-5.0">
           
-            <span class="muted">&#9679; 0%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 5.0%</span>
           
         </td>
       </tr>
@@ -1582,25 +1601,25 @@
           data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-26"
           data-date-last="2026-08-16"
-          data-n-decks="80"
+          data-n-decks="83"
           data-n-tournaments="25"
           data-best-rank="3"
           data-q="mel, soul&#39;s reflection">
-        <td><a href="legend-mel-soul-s-reflection.html">Mel, Soul&#39;s Reflection</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-mel-soul-s-reflection.html">Mel, Soul&#39;s Reflection</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
           
             <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
           
         </td>
-        <td class="num">80</td>
-        <td class="num" data-sort="2.7">
-          2.7%
+        <td class="num">83</td>
+        <td class="num" data-sort="2.6">
+          2.6%
         </td>
-        <td class="num" data-sort="-0.2">
+        <td class="num" data-sort="0.4">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.4%</span>
           
         </td>
         <td class="num">25</td>
@@ -1610,9 +1629,9 @@
             <span style="color:#d94545;font-weight:600">45.7%</span> <span class="muted" style="font-size:11px">(38)</span>
           
         </td>
-        <td class="num" data-sort="1.4">
+        <td class="num" data-sort="1.9">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 1.4%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 1.9%</span>
           
         </td>
       </tr>
@@ -1621,82 +1640,40 @@
           data-href="legend-rengar-pridestalker.html"
           data-legend="Rengar, Pridestalker"
           data-domain="Fury Body"
-          data-appearances='[["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Runes \u0026 Rift Open 19", "Small (\u003c32)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Runes League Invitational Qualifier", "Large (64-127)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
+          data-appearances='[["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Runes \u0026 Rift Open 19", "Small (\u003c32)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Runes League Invitational Qualifier", "Large (64-127)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Tianjin City Challenge", "Large (64-127)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="71"
-          data-n-tournaments="26"
+          data-n-decks="74"
+          data-n-tournaments="27"
           data-best-rank="1"
           data-q="rengar, pridestalker">
-        <td><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
             <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
           
         </td>
-        <td class="num">71</td>
-        <td class="num" data-sort="2.4">
-          2.4%
+        <td class="num">74</td>
+        <td class="num" data-sort="2.3">
+          2.3%
         </td>
-        <td class="num" data-sort="1.5">
+        <td class="num" data-sort="-2.1">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 1.5%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 2.1%</span>
           
         </td>
-        <td class="num">26</td>
+        <td class="num">27</td>
         <td class="num" data-sort="1">#1</td>
         <td class="num" data-sort="60.4">
           
             <span style="color:#1a9850;font-weight:600">60.4%</span> <span class="muted" style="font-size:11px">(45)</span>
           
         </td>
-        <td class="num" data-sort="2.8">
+        <td class="num" data-sort="2.0">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 2.8%</span>
-          
-        </td>
-      </tr>
-      
-      <tr class="legend-row"
-          data-href="legend-lillia-bashful-bloom.html"
-          data-legend="Lillia, Bashful Bloom"
-          data-domain="Calm Mind"
-          data-appearances='[["Sideways Showdown - CN vs World", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
-          data-date-first="2026-07-25"
-          data-date-last="2026-08-16"
-          data-n-decks="65"
-          data-n-tournaments="20"
-          data-best-rank="4"
-          data-q="lillia, bashful bloom">
-        <td><a href="legend-lillia-bashful-bloom.html">Lillia, Bashful Bloom</a></td>
-        <td>
-          
-            <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
-          
-            <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
-          
-        </td>
-        <td class="num">65</td>
-        <td class="num" data-sort="2.2">
-          2.2%
-        </td>
-        <td class="num" data-sort="-0.6">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 0.6%</span>
-          
-        </td>
-        <td class="num">20</td>
-        <td class="num" data-sort="4">#4</td>
-        <td class="num" data-sort="43.2">
-          
-            <span style="color:#d94545;font-weight:600">43.2%</span> <span class="muted" style="font-size:11px">(30)</span>
-          
-        </td>
-        <td class="num" data-sort="1.5">
-          
-            <span style="color:#1a9850;font-weight:600">&#9650; 1.5%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 2.0%</span>
           
         </td>
       </tr>
@@ -1708,25 +1685,25 @@
           data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Triple Win-A-Box | Vendetta Tournament", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="61"
+          data-n-decks="72"
           data-n-tournaments="24"
           data-best-rank="2"
           data-q="leblanc, deceiver">
-        <td><a href="legend-leblanc-deceiver.html">LeBlanc, Deceiver</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-leblanc-deceiver.html">LeBlanc, Deceiver</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
           
             <img class="domain-icon" src="static/img/domains/Order.webp" alt="Order" title="Order">
           
         </td>
-        <td class="num">61</td>
-        <td class="num" data-sort="2.1">
-          2.1%
+        <td class="num">72</td>
+        <td class="num" data-sort="2.3">
+          2.3%
         </td>
-        <td class="num" data-sort="-0.3">
+        <td class="num" data-sort="1.3">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.3%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 1.3%</span>
           
         </td>
         <td class="num">24</td>
@@ -1736,9 +1713,51 @@
             <span style="color:#d94545;font-weight:600">46.5%</span> <span class="muted" style="font-size:11px">(21)</span>
           
         </td>
-        <td class="num" data-sort="-1.2">
+        <td class="num" data-sort="10.5">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 1.2%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 10.5%</span>
+          
+        </td>
+      </tr>
+      
+      <tr class="legend-row"
+          data-href="legend-lillia-bashful-bloom.html"
+          data-legend="Lillia, Bashful Bloom"
+          data-domain="Calm Mind"
+          data-appearances='[["Sideways Showdown - CN vs World", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
+          data-date-first="2026-07-25"
+          data-date-last="2026-08-16"
+          data-n-decks="68"
+          data-n-tournaments="20"
+          data-best-rank="4"
+          data-q="lillia, bashful bloom">
+        <td class="legend-name-col"><a href="legend-lillia-bashful-bloom.html">Lillia, Bashful Bloom</a></td>
+        <td class="legend-domains-col">
+          
+            <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
+          
+            <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
+          
+        </td>
+        <td class="num">68</td>
+        <td class="num" data-sort="2.2">
+          2.2%
+        </td>
+        <td class="num" data-sort="-0.4">
+          
+            <span style="color:#d94545;font-weight:600">&#9660; 0.4%</span>
+          
+        </td>
+        <td class="num">20</td>
+        <td class="num" data-sort="4">#4</td>
+        <td class="num" data-sort="43.2">
+          
+            <span style="color:#d94545;font-weight:600">43.2%</span> <span class="muted" style="font-size:11px">(30)</span>
+          
+        </td>
+        <td class="num" data-sort="-6.8">
+          
+            <span style="color:#d94545;font-weight:600">&#9660; 6.8%</span>
           
         </td>
       </tr>
@@ -1747,40 +1766,40 @@
           data-href="legend-ornn-fire-below-the-mountain.html"
           data-legend="Ornn, Fire Below the Mountain"
           data-domain="Calm Mind"
-          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["Runes \u0026 Rift Open 19", "Small (\u003c32)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
+          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["Runes \u0026 Rift Open 19", "Small (\u003c32)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Tianjin City Challenge", "Large (64-127)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="57"
-          data-n-tournaments="23"
+          data-n-decks="62"
+          data-n-tournaments="25"
           data-best-rank="2"
           data-q="ornn, fire below the mountain">
-        <td><a href="legend-ornn-fire-below-the-mountain.html">Ornn, Fire Below the Mountain</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-ornn-fire-below-the-mountain.html">Ornn, Fire Below the Mountain</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
             <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
           
         </td>
-        <td class="num">57</td>
-        <td class="num" data-sort="1.9">
-          1.9%
+        <td class="num">62</td>
+        <td class="num" data-sort="2.0">
+          2.0%
         </td>
-        <td class="num" data-sort="0.3">
+        <td class="num" data-sort="-0.5">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.3%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.5%</span>
           
         </td>
-        <td class="num">23</td>
+        <td class="num">25</td>
         <td class="num" data-sort="2">#2</td>
         <td class="num" data-sort="45.2">
           
             <span style="color:#d94545;font-weight:600">45.2%</span> <span class="muted" style="font-size:11px">(30)</span>
           
         </td>
-        <td class="num" data-sort="-1.9">
+        <td class="num" data-sort="10.3">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 1.9%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 10.3%</span>
           
         </td>
       </tr>
@@ -1792,25 +1811,25 @@
           data-appearances='[["League Cup #2 - Cycle 1", "Large (64-127)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["Triple Win-A-Box | Vendetta Tournament", "Large (64-127)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-26"
           data-date-last="2026-08-16"
-          data-n-decks="57"
+          data-n-decks="60"
           data-n-tournaments="23"
           data-best-rank="7"
           data-q="vex, gloomist">
-        <td><a href="legend-vex-gloomist.html">Vex, Gloomist</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-vex-gloomist.html">Vex, Gloomist</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
             <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
           
         </td>
-        <td class="num">57</td>
+        <td class="num">60</td>
         <td class="num" data-sort="1.9">
           1.9%
         </td>
-        <td class="num" data-sort="0.6">
+        <td class="num" data-sort="0.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.6%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.3%</span>
           
         </td>
         <td class="num">23</td>
@@ -1820,9 +1839,51 @@
             <span style="color:#d94545;font-weight:600">44.8%</span> <span class="muted" style="font-size:11px">(28)</span>
           
         </td>
-        <td class="num" data-sort="-2.0">
+        <td class="num" data-sort="9.6">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 2.0%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 9.6%</span>
+          
+        </td>
+      </tr>
+      
+      <tr class="legend-row"
+          data-href="legend-kha-zix-voidreaver.html"
+          data-legend="Kha&#39;Zix, Voidreaver"
+          data-domain="Body Chaos"
+          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["Runes \u0026 Rift Open 19", "Small (\u003c32)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"]]'
+          data-date-first="2026-07-25"
+          data-date-last="2026-08-16"
+          data-n-decks="53"
+          data-n-tournaments="20"
+          data-best-rank="3"
+          data-q="kha&#39;zix, voidreaver">
+        <td class="legend-name-col"><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
+        <td class="legend-domains-col">
+          
+            <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
+          
+            <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
+          
+        </td>
+        <td class="num">53</td>
+        <td class="num" data-sort="1.7">
+          1.7%
+        </td>
+        <td class="num" data-sort="-0.8">
+          
+            <span style="color:#d94545;font-weight:600">&#9660; 0.8%</span>
+          
+        </td>
+        <td class="num">20</td>
+        <td class="num" data-sort="3">#3</td>
+        <td class="num" data-sort="48.3">
+          
+            <span style="color:#d94545;font-weight:600">48.3%</span> <span class="muted" style="font-size:11px">(29)</span>
+          
+        </td>
+        <td class="num" data-sort="-0.1">
+          
+            <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
           
         </td>
       </tr>
@@ -1838,8 +1899,8 @@
           data-n-tournaments="21"
           data-best-rank="5"
           data-q="ambessa, matriarch of war">
-        <td><a href="legend-ambessa-matriarch-of-war.html">Ambessa, Matriarch of War</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-ambessa-matriarch-of-war.html">Ambessa, Matriarch of War</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
           
@@ -1847,12 +1908,12 @@
           
         </td>
         <td class="num">52</td>
-        <td class="num" data-sort="1.8">
-          1.8%
+        <td class="num" data-sort="1.6">
+          1.6%
         </td>
-        <td class="num" data-sort="-0.7">
+        <td class="num" data-sort="-0.2">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.7%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
           
         </td>
         <td class="num">21</td>
@@ -1862,93 +1923,9 @@
             <span style="color:#d94545;font-weight:600">37.7%</span> <span class="muted" style="font-size:11px">(34)</span>
           
         </td>
-        <td class="num" data-sort="2.8">
+        <td class="num" data-sort="-2.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 2.8%</span>
-          
-        </td>
-      </tr>
-      
-      <tr class="legend-row"
-          data-href="legend-kha-zix-voidreaver.html"
-          data-legend="Kha&#39;Zix, Voidreaver"
-          data-domain="Body Chaos"
-          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["Runes \u0026 Rift Open 19", "Small (\u003c32)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
-          data-date-first="2026-07-25"
-          data-date-last="2026-08-16"
-          data-n-decks="51"
-          data-n-tournaments="19"
-          data-best-rank="3"
-          data-q="kha&#39;zix, voidreaver">
-        <td><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
-        <td>
-          
-            <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
-          
-            <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
-          
-        </td>
-        <td class="num">51</td>
-        <td class="num" data-sort="1.7">
-          1.7%
-        </td>
-        <td class="num" data-sort="-0.8">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 0.8%</span>
-          
-        </td>
-        <td class="num">19</td>
-        <td class="num" data-sort="3">#3</td>
-        <td class="num" data-sort="48.3">
-          
-            <span style="color:#d94545;font-weight:600">48.3%</span> <span class="muted" style="font-size:11px">(29)</span>
-          
-        </td>
-        <td class="num" data-sort="1.6">
-          
-            <span style="color:#1a9850;font-weight:600">&#9650; 1.6%</span>
-          
-        </td>
-      </tr>
-      
-      <tr class="legend-row"
-          data-href="legend-zed-master-of-shadows.html"
-          data-legend="Zed, Master of Shadows"
-          data-domain="Fury Chaos"
-          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
-          data-date-first="2026-07-25"
-          data-date-last="2026-08-16"
-          data-n-decks="39"
-          data-n-tournaments="19"
-          data-best-rank="18"
-          data-q="zed, master of shadows">
-        <td><a href="legend-zed-master-of-shadows.html">Zed, Master of Shadows</a></td>
-        <td>
-          
-            <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
-          
-            <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
-          
-        </td>
-        <td class="num">39</td>
-        <td class="num" data-sort="1.3">
-          1.3%
-        </td>
-        <td class="num" data-sort="-0.5">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 0.5%</span>
-          
-        </td>
-        <td class="num">19</td>
-        <td class="num" data-sort="18">#18</td>
-        <td class="num" data-sort="33.3">
-          
-            <span style="color:#d94545;font-weight:600">33.3%</span> <span class="muted" style="font-size:11px">(17)</span>
-          
-        </td>
-        <td class="num" data-sort="-3.2">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 3.2%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 2.3%</span>
           
         </td>
       </tr>
@@ -1960,19 +1937,61 @@
           data-appearances='[["League Cup #2 - Cycle 1", "Large (64-127)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-26"
           data-date-last="2026-08-16"
-          data-n-decks="38"
+          data-n-decks="40"
           data-n-tournaments="17"
-          data-best-rank="12"
+          data-best-rank="11"
           data-q="pyke, bloodharbor ripper">
-        <td><a href="legend-pyke-bloodharbor-ripper.html">Pyke, Bloodharbor Ripper</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-pyke-bloodharbor-ripper.html">Pyke, Bloodharbor Ripper</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
             <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
           
         </td>
-        <td class="num">38</td>
+        <td class="num">40</td>
+        <td class="num" data-sort="1.3">
+          1.3%
+        </td>
+        <td class="num" data-sort="0.4">
+          
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.4%</span>
+          
+        </td>
+        <td class="num">17</td>
+        <td class="num" data-sort="11">#11</td>
+        <td class="num" data-sort="37.9">
+          
+            <span style="color:#d94545;font-weight:600">37.9%</span> <span class="muted" style="font-size:11px">(18)</span>
+          
+        </td>
+        <td class="num" data-sort="37.9">
+          
+            <span style="color:#1a9850;font-weight:600">&#9650; 37.9%</span>
+          
+        </td>
+      </tr>
+      
+      <tr class="legend-row"
+          data-href="legend-zed-master-of-shadows.html"
+          data-legend="Zed, Master of Shadows"
+          data-domain="Fury Chaos"
+          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Qingdao City Challenge", "Large (64-127)"]]'
+          data-date-first="2026-07-25"
+          data-date-last="2026-08-16"
+          data-n-decks="40"
+          data-n-tournaments="20"
+          data-best-rank="18"
+          data-q="zed, master of shadows">
+        <td class="legend-name-col"><a href="legend-zed-master-of-shadows.html">Zed, Master of Shadows</a></td>
+        <td class="legend-domains-col">
+          
+            <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
+          
+            <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
+          
+        </td>
+        <td class="num">40</td>
         <td class="num" data-sort="1.3">
           1.3%
         </td>
@@ -1981,16 +2000,16 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.6%</span>
           
         </td>
-        <td class="num">17</td>
-        <td class="num" data-sort="12">#12</td>
-        <td class="num" data-sort="37.9">
+        <td class="num">20</td>
+        <td class="num" data-sort="18">#18</td>
+        <td class="num" data-sort="33.3">
           
-            <span style="color:#d94545;font-weight:600">37.9%</span> <span class="muted" style="font-size:11px">(18)</span>
+            <span style="color:#d94545;font-weight:600">33.3%</span> <span class="muted" style="font-size:11px">(17)</span>
           
         </td>
-        <td class="num" data-sort="-3.2">
+        <td class="num" data-sort="33.3">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 3.2%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 33.3%</span>
           
         </td>
       </tr>
@@ -2006,8 +2025,8 @@
           data-n-tournaments="16"
           data-best-rank="18"
           data-q="shen, eye of twilight">
-        <td><a href="legend-shen-eye-of-twilight.html">Shen, Eye of Twilight</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-shen-eye-of-twilight.html">Shen, Eye of Twilight</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
@@ -2018,9 +2037,9 @@
         <td class="num" data-sort="0.9">
           0.9%
         </td>
-        <td class="num" data-sort="-0.7">
+        <td class="num" data-sort="-0.2">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.7%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
           
         </td>
         <td class="num">16</td>
@@ -2030,9 +2049,9 @@
             <span style="color:#d94545;font-weight:600">33.3%</span> <span class="muted" style="font-size:11px">(16)</span>
           
         </td>
-        <td class="num" data-sort="-0.6">
+        <td class="num" data-sort="-6.7">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.6%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 6.7%</span>
           
         </td>
       </tr>
@@ -2041,40 +2060,82 @@
           data-href="legend-ivern-green-father.html"
           data-legend="Ivern, Green Father"
           data-domain="Calm Order"
-          data-appearances='[["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"]]'
+          data-appearances='[["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Tianjin City Challenge", "Large (64-127)"]]'
           data-date-first="2026-07-26"
           data-date-last="2026-08-16"
-          data-n-decks="23"
-          data-n-tournaments="12"
+          data-n-decks="24"
+          data-n-tournaments="13"
           data-best-rank="24"
           data-q="ivern, green father">
-        <td><a href="legend-ivern-green-father.html">Ivern, Green Father</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-ivern-green-father.html">Ivern, Green Father</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
             <img class="domain-icon" src="static/img/domains/Order.webp" alt="Order" title="Order">
           
         </td>
-        <td class="num">23</td>
+        <td class="num">24</td>
         <td class="num" data-sort="0.8">
           0.8%
         </td>
-        <td class="num" data-sort="-0.6">
+        <td class="num" data-sort="0.2">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.6%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.2%</span>
           
         </td>
-        <td class="num">12</td>
+        <td class="num">13</td>
         <td class="num" data-sort="24">#24</td>
         <td class="num" data-sort="32.0">
           
             <span style="color:#d94545;font-weight:600">32.0%</span> <span class="muted" style="font-size:11px">(16)</span>
           
         </td>
-        <td class="num" data-sort="-2.5">
+        <td class="num" data-sort="15.3">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 2.5%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 15.3%</span>
+          
+        </td>
+      </tr>
+      
+      <tr class="legend-row"
+          data-href="legend-sivir-battle-mistress.html"
+          data-legend="Sivir, Battle Mistress"
+          data-domain="Body Chaos"
+          data-appearances='[["League Cup #2 - Cycle 1", "Large (64-127)"], ["Runes \u0026 Rift Open 19", "Small (\u003c32)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"]]'
+          data-date-first="2026-07-25"
+          data-date-last="2026-08-16"
+          data-n-decks="24"
+          data-n-tournaments="16"
+          data-best-rank="5"
+          data-q="sivir, battle mistress">
+        <td class="legend-name-col"><a href="legend-sivir-battle-mistress.html">Sivir, Battle Mistress</a></td>
+        <td class="legend-domains-col">
+          
+            <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
+          
+            <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
+          
+        </td>
+        <td class="num">24</td>
+        <td class="num" data-sort="0.8">
+          0.8%
+        </td>
+        <td class="num" data-sort="0.3">
+          
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.3%</span>
+          
+        </td>
+        <td class="num">16</td>
+        <td class="num" data-sort="5">#5</td>
+        <td class="num" data-sort="54.0">
+          
+            <span style="color:#1a9850;font-weight:600">54.0%</span> <span class="muted" style="font-size:11px">(12)</span>
+          
+        </td>
+        <td class="num" data-sort="14.0">
+          
+            <span style="color:#1a9850;font-weight:600">&#9650; 14.0%</span>
           
         </td>
       </tr>
@@ -2090,8 +2151,8 @@
           data-n-tournaments="11"
           data-best-rank="6"
           data-q="master yi, wuju master">
-        <td><a href="legend-master-yi-wuju-master.html">Master Yi, Wuju Master</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-master-yi-wuju-master.html">Master Yi, Wuju Master</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
@@ -2102,9 +2163,9 @@
         <td class="num" data-sort="0.7">
           0.7%
         </td>
-        <td class="num" data-sort="-0.9">
+        <td class="num" data-sort="0.0">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.9%</span>
+            <span class="muted">&#9679; 0%</span>
           
         </td>
         <td class="num">11</td>
@@ -2114,51 +2175,9 @@
             <span style="color:#d94545;font-weight:600">47.0%</span> <span class="muted" style="font-size:11px">(11)</span>
           
         </td>
-        <td class="num" data-sort="0.1">
+        <td class="num" data-sort="-3.0">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
-          
-        </td>
-      </tr>
-      
-      <tr class="legend-row"
-          data-href="legend-sivir-battle-mistress.html"
-          data-legend="Sivir, Battle Mistress"
-          data-domain="Body Chaos"
-          data-appearances='[["League Cup #2 - Cycle 1", "Large (64-127)"], ["Runes \u0026 Rift Open 19", "Small (\u003c32)"], ["Riftbound Online Series Season 4 Week 1", "Medium (32-63)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
-          data-date-first="2026-07-25"
-          data-date-last="2026-08-16"
-          data-n-decks="21"
-          data-n-tournaments="14"
-          data-best-rank="5"
-          data-q="sivir, battle mistress">
-        <td><a href="legend-sivir-battle-mistress.html">Sivir, Battle Mistress</a></td>
-        <td>
-          
-            <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
-          
-            <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
-          
-        </td>
-        <td class="num">21</td>
-        <td class="num" data-sort="0.7">
-          0.7%
-        </td>
-        <td class="num" data-sort="-0.5">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 0.5%</span>
-          
-        </td>
-        <td class="num">14</td>
-        <td class="num" data-sort="5">#5</td>
-        <td class="num" data-sort="54.0">
-          
-            <span style="color:#1a9850;font-weight:600">54.0%</span> <span class="muted" style="font-size:11px">(12)</span>
-          
-        </td>
-        <td class="num" data-sort="-2.1">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 2.1%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 3.0%</span>
           
         </td>
       </tr>
@@ -2174,8 +2193,8 @@
           data-n-tournaments="10"
           data-best-rank="27"
           data-q="vi, piltover enforcer">
-        <td><a href="legend-vi-piltover-enforcer.html">Vi, Piltover Enforcer</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-vi-piltover-enforcer.html">Vi, Piltover Enforcer</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
@@ -2186,9 +2205,9 @@
         <td class="num" data-sort="0.7">
           0.7%
         </td>
-        <td class="num" data-sort="-0.8">
+        <td class="num" data-sort="0.0">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.8%</span>
+            <span class="muted">&#9679; 0%</span>
           
         </td>
         <td class="num">10</td>
@@ -2198,9 +2217,9 @@
             <span style="color:#d94545;font-weight:600">40.9%</span> <span class="muted" style="font-size:11px">(14)</span>
           
         </td>
-        <td class="num" data-sort="-0.6">
+        <td class="num" data-sort="7.6">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.6%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 7.6%</span>
           
         </td>
       </tr>
@@ -2212,25 +2231,25 @@
           data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Haven Online Challenger Series - August 2nd 2026", "Small (\u003c32)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["RCS - Hobby Con", "Large (64-127)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
           data-date-first="2026-07-25"
           data-date-last="2026-08-16"
-          data-n-decks="19"
+          data-n-decks="20"
           data-n-tournaments="13"
           data-best-rank="1"
           data-q="annie, dark child">
-        <td><a href="legend-annie-dark-child.html">Annie, Dark Child</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-annie-dark-child.html">Annie, Dark Child</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
             <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
           
         </td>
-        <td class="num">19</td>
+        <td class="num">20</td>
         <td class="num" data-sort="0.6">
           0.6%
         </td>
-        <td class="num" data-sort="-0.4">
+        <td class="num" data-sort="-0.1">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.4%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
           
         </td>
         <td class="num">13</td>
@@ -2240,9 +2259,9 @@
             <span style="color:#1a9850;font-weight:600">51.4%</span> <span class="muted" style="font-size:11px">(12)</span>
           
         </td>
-        <td class="num" data-sort="3.2">
+        <td class="num" data-sort="-15.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 3.2%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 15.3%</span>
           
         </td>
       </tr>
@@ -2251,41 +2270,165 @@
           data-href="legend-jhin-virtuoso.html"
           data-legend="Jhin, Virtuoso"
           data-domain="Fury Mind"
-          data-appearances='[["Wuhan City Challenge", "Large (64-127)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
+          data-appearances='[["Wuhan City Challenge", "Large (64-127)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"]]'
           data-date-first="2026-08-02"
           data-date-last="2026-08-16"
-          data-n-decks="19"
-          data-n-tournaments="11"
+          data-n-decks="20"
+          data-n-tournaments="12"
           data-best-rank="11"
           data-q="jhin, virtuoso">
-        <td><a href="legend-jhin-virtuoso.html">Jhin, Virtuoso</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-jhin-virtuoso.html">Jhin, Virtuoso</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
             <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
           
         </td>
-        <td class="num">19</td>
+        <td class="num">20</td>
         <td class="num" data-sort="0.6">
           0.6%
         </td>
-        <td class="num" data-sort="-0.2">
+        <td class="num" data-sort="-0.3">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.3%</span>
           
         </td>
-        <td class="num">11</td>
+        <td class="num">12</td>
         <td class="num" data-sort="11">#11</td>
         <td class="num" data-sort="31.6">
           
             <span style="color:#d94545;font-weight:600">31.6%</span> <span class="muted" style="font-size:11px">(10)</span>
           
         </td>
-        <td class="num" data-sort="-2.5">
+        <td class="num" data-sort="8.5">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 2.5%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 8.5%</span>
           
+        </td>
+      </tr>
+      
+      <tr class="legend-row"
+          data-href="legend-lucian-purifier.html"
+          data-legend="Lucian, Purifier"
+          data-domain="Fury Body"
+          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"]]'
+          data-date-first="2026-08-02"
+          data-date-last="2026-08-16"
+          data-n-decks="19"
+          data-n-tournaments="11"
+          data-best-rank="5"
+          data-q="lucian, purifier">
+        <td class="legend-name-col"><a href="legend-lucian-purifier.html">Lucian, Purifier</a></td>
+        <td class="legend-domains-col">
+          
+            <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
+          
+            <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
+          
+        </td>
+        <td class="num">19</td>
+        <td class="num" data-sort="0.6">
+          0.6%
+        </td>
+        <td class="num" data-sort="0.0">
+          
+            <span class="muted">&#9679; 0%</span>
+          
+        </td>
+        <td class="num">11</td>
+        <td class="num" data-sort="5">#5</td>
+        <td class="num" data-sort="46.4">
+          
+            <span style="color:#d94545;font-weight:600">46.4%</span> <span class="muted" style="font-size:11px">(13)</span>
+          
+        </td>
+        <td class="num" data-sort="-1.0">
+          
+            <span style="color:#d94545;font-weight:600">&#9660; 1.0%</span>
+          
+        </td>
+      </tr>
+      
+      <tr class="legend-row"
+          data-href="legend-lux-lady-of-luminosity.html"
+          data-legend="Lux, Lady of Luminosity"
+          data-domain="Mind Order"
+          data-appearances='[["Sideways Showdown - CN vs World", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"]]'
+          data-date-first="2026-07-25"
+          data-date-last="2026-08-16"
+          data-n-decks="18"
+          data-n-tournaments="13"
+          data-best-rank="2"
+          data-q="lux, lady of luminosity">
+        <td class="legend-name-col"><a href="legend-lux-lady-of-luminosity.html">Lux, Lady of Luminosity</a></td>
+        <td class="legend-domains-col">
+          
+            <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
+          
+            <img class="domain-icon" src="static/img/domains/Order.webp" alt="Order" title="Order">
+          
+        </td>
+        <td class="num">18</td>
+        <td class="num" data-sort="0.6">
+          0.6%
+        </td>
+        <td class="num" data-sort="-0.3">
+          
+            <span style="color:#d94545;font-weight:600">&#9660; 0.3%</span>
+          
+        </td>
+        <td class="num">13</td>
+        <td class="num" data-sort="2">#2</td>
+        <td class="num" data-sort="36.4">
+          
+            <span style="color:#d94545;font-weight:600">36.4%</span> <span class="muted" style="font-size:11px">(3)</span>
+          
+        </td>
+        <td class="num" data-sort="11.4">
+          
+            <span style="color:#1a9850;font-weight:600">&#9650; 11.4%</span>
+          
+        </td>
+      </tr>
+      
+      <tr class="legend-row"
+          data-href="legend-rumble-mechanized-menace.html"
+          data-legend="Rumble, Mechanized Menace"
+          data-domain="Fury Mind"
+          data-appearances='[["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"]]'
+          data-date-first="2026-08-02"
+          data-date-last="2026-08-16"
+          data-n-decks="18"
+          data-n-tournaments="8"
+          data-best-rank="13"
+          data-q="rumble, mechanized menace">
+        <td class="legend-name-col"><a href="legend-rumble-mechanized-menace.html">Rumble, Mechanized Menace</a></td>
+        <td class="legend-domains-col">
+          
+            <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
+          
+            <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
+          
+        </td>
+        <td class="num">18</td>
+        <td class="num" data-sort="0.6">
+          0.6%
+        </td>
+        <td class="num" data-sort="-0.1">
+          
+            <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
+          
+        </td>
+        <td class="num">8</td>
+        <td class="num" data-sort="13">#13</td>
+        <td class="num" data-sort="34.8">
+          
+            <span style="color:#d94545;font-weight:600">34.8%</span> <span class="muted" style="font-size:11px">(10)</span>
+          
+        </td>
+        <td class="num" data-sort="">
+          <span class="muted">—</span>
         </td>
       </tr>
       
@@ -2300,8 +2443,8 @@
           data-n-tournaments="10"
           data-best-rank="36"
           data-q="jax, grandmaster at arms">
-        <td><a href="legend-jax-grandmaster-at-arms.html">Jax, Grandmaster at Arms</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-jax-grandmaster-at-arms.html">Jax, Grandmaster at Arms</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
@@ -2309,12 +2452,12 @@
           
         </td>
         <td class="num">17</td>
-        <td class="num" data-sort="0.6">
-          0.6%
+        <td class="num" data-sort="0.5">
+          0.5%
         </td>
-        <td class="num" data-sort="-0.6">
+        <td class="num" data-sort="-0.2">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.6%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
           
         </td>
         <td class="num">10</td>
@@ -2324,134 +2467,8 @@
             <span style="color:#d94545;font-weight:600">45.5%</span> <span class="muted" style="font-size:11px">(9)</span>
           
         </td>
-        <td class="num" data-sort="-1.4">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 1.4%</span>
-          
-        </td>
-      </tr>
-      
-      <tr class="legend-row"
-          data-href="legend-lucian-purifier.html"
-          data-legend="Lucian, Purifier"
-          data-domain="Fury Body"
-          data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["League Cup #2 - Cycle 1", "Large (64-127)"], ["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Riftbound Showdown Series Germany 15.-16.08.2026", "Massive (256+)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
-          data-date-first="2026-08-02"
-          data-date-last="2026-08-16"
-          data-n-decks="17"
-          data-n-tournaments="9"
-          data-best-rank="5"
-          data-q="lucian, purifier">
-        <td><a href="legend-lucian-purifier.html">Lucian, Purifier</a></td>
-        <td>
-          
-            <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
-          
-            <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
-          
-        </td>
-        <td class="num">17</td>
-        <td class="num" data-sort="0.6">
-          0.6%
-        </td>
-        <td class="num" data-sort="-0.1">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
-          
-        </td>
-        <td class="num">9</td>
-        <td class="num" data-sort="5">#5</td>
-        <td class="num" data-sort="46.4">
-          
-            <span style="color:#d94545;font-weight:600">46.4%</span> <span class="muted" style="font-size:11px">(13)</span>
-          
-        </td>
-        <td class="num" data-sort="1.7">
-          
-            <span style="color:#1a9850;font-weight:600">&#9650; 1.7%</span>
-          
-        </td>
-      </tr>
-      
-      <tr class="legend-row"
-          data-href="legend-lux-lady-of-luminosity.html"
-          data-legend="Lux, Lady of Luminosity"
-          data-domain="Mind Order"
-          data-appearances='[["Sideways Showdown - CN vs World", "Medium (32-63)"], ["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Wuhan City Challenge", "Large (64-127)"], ["Mardi - Championship #1", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["I Micelion Cup", "Medium (32-63)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
-          data-date-first="2026-07-25"
-          data-date-last="2026-08-16"
-          data-n-decks="17"
-          data-n-tournaments="12"
-          data-best-rank="2"
-          data-q="lux, lady of luminosity">
-        <td><a href="legend-lux-lady-of-luminosity.html">Lux, Lady of Luminosity</a></td>
-        <td>
-          
-            <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
-          
-            <img class="domain-icon" src="static/img/domains/Order.webp" alt="Order" title="Order">
-          
-        </td>
-        <td class="num">17</td>
-        <td class="num" data-sort="0.6">
-          0.6%
-        </td>
-        <td class="num" data-sort="-0.2">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
-          
-        </td>
-        <td class="num">12</td>
-        <td class="num" data-sort="2">#2</td>
-        <td class="num" data-sort="36.4">
-          
-            <span style="color:#d94545;font-weight:600">36.4%</span> <span class="muted" style="font-size:11px">(3)</span>
-          
-        </td>
         <td class="num" data-sort="">
           <span class="muted">—</span>
-        </td>
-      </tr>
-      
-      <tr class="legend-row"
-          data-href="legend-rumble-mechanized-menace.html"
-          data-legend="Rumble, Mechanized Menace"
-          data-domain="Fury Mind"
-          data-appearances='[["Sunday 3+ Unleashed Tournament @ 3+X\u6b21\u5143\u9986(\u96c5\u5b9d\u5e97) Riftbound Top Decks", "Small (\u003c32)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"]]'
-          data-date-first="2026-08-02"
-          data-date-last="2026-08-16"
-          data-n-decks="17"
-          data-n-tournaments="7"
-          data-best-rank="13"
-          data-q="rumble, mechanized menace">
-        <td><a href="legend-rumble-mechanized-menace.html">Rumble, Mechanized Menace</a></td>
-        <td>
-          
-            <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
-          
-            <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
-          
-        </td>
-        <td class="num">17</td>
-        <td class="num" data-sort="0.6">
-          0.6%
-        </td>
-        <td class="num" data-sort="-0.9">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 0.9%</span>
-          
-        </td>
-        <td class="num">7</td>
-        <td class="num" data-sort="13">#13</td>
-        <td class="num" data-sort="34.8">
-          
-            <span style="color:#d94545;font-weight:600">34.8%</span> <span class="muted" style="font-size:11px">(10)</span>
-          
-        </td>
-        <td class="num" data-sort="0.0">
-          
-            <span class="muted">&#9679; 0%</span>
-          
         </td>
       </tr>
       
@@ -2462,25 +2479,25 @@
           data-appearances='[["Mardi - championship #2", "Medium (32-63)"], ["Nightcup League Cup #1 \u2014 Cycle 1", "Medium (32-63)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Vendetta Release Tournament at Pokemon Card Club", "Medium (32-63)"], ["RCS - Hobby Con", "Large (64-127)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Beijing City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"]]'
           data-date-first="2026-07-27"
           data-date-last="2026-08-16"
-          data-n-decks="13"
+          data-n-decks="14"
           data-n-tournaments="11"
           data-best-rank="2"
           data-q="renekton, butcher of the sands">
-        <td><a href="legend-renekton-butcher-of-the-sands.html">Renekton, Butcher of the Sands</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-renekton-butcher-of-the-sands.html">Renekton, Butcher of the Sands</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
             <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
           
         </td>
-        <td class="num">13</td>
+        <td class="num">14</td>
         <td class="num" data-sort="0.4">
           0.4%
         </td>
-        <td class="num" data-sort="-0.1">
+        <td class="num" data-sort="0.0">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
+            <span class="muted">&#9679; 0%</span>
           
         </td>
         <td class="num">11</td>
@@ -2490,10 +2507,8 @@
             <span style="color:#1a9850;font-weight:600">54.5%</span> <span class="muted" style="font-size:11px">(6)</span>
           
         </td>
-        <td class="num" data-sort="10.1">
-          
-            <span style="color:#1a9850;font-weight:600">&#9650; 10.1%</span>
-          
+        <td class="num" data-sort="">
+          <span class="muted">—</span>
         </td>
       </tr>
       
@@ -2504,38 +2519,36 @@
           data-appearances='[["NovaRiftbound\u0027s TCGArena Online $2K Showdown #3", "Large (64-127)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["S4 Hangzhou City Challenge", "Large (64-127)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"]]'
           data-date-first="2026-07-26"
           data-date-last="2026-08-16"
-          data-n-decks="12"
+          data-n-decks="14"
           data-n-tournaments="9"
-          data-best-rank="32"
+          data-best-rank="10"
           data-q="sett, the boss">
-        <td><a href="legend-sett-the-boss.html">Sett, The Boss</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-sett-the-boss.html">Sett, The Boss</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
           
             <img class="domain-icon" src="static/img/domains/Order.webp" alt="Order" title="Order">
           
         </td>
-        <td class="num">12</td>
+        <td class="num">14</td>
         <td class="num" data-sort="0.4">
           0.4%
         </td>
-        <td class="num" data-sort="0.0">
+        <td class="num" data-sort="0.7">
           
-            <span class="muted">&#9679; 0%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.7%</span>
           
         </td>
         <td class="num">9</td>
-        <td class="num" data-sort="32">#32</td>
+        <td class="num" data-sort="10">#10</td>
         <td class="num" data-sort="33.3">
           
             <span style="color:#d94545;font-weight:600">33.3%</span> <span class="muted" style="font-size:11px">(1)</span>
           
         </td>
-        <td class="num" data-sort="0.0">
-          
-            <span class="muted">&#9679; 0%</span>
-          
+        <td class="num" data-sort="">
+          <span class="muted">—</span>
         </td>
       </tr>
       
@@ -2550,8 +2563,8 @@
           data-n-tournaments="6"
           data-best-rank="32"
           data-q="renata glasc, chem-baroness">
-        <td><a href="legend-renata-glasc-chem-baroness.html">Renata Glasc, Chem-Baroness</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-renata-glasc-chem-baroness.html">Renata Glasc, Chem-Baroness</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
           
@@ -2559,12 +2572,12 @@
           
         </td>
         <td class="num">11</td>
-        <td class="num" data-sort="0.4">
-          0.4%
+        <td class="num" data-sort="0.3">
+          0.3%
         </td>
-        <td class="num" data-sort="-0.2">
+        <td class="num" data-sort="0.2">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.2%</span>
           
         </td>
         <td class="num">6</td>
@@ -2574,10 +2587,8 @@
             <span style="color:#d94545;font-weight:600">28.9%</span> <span class="muted" style="font-size:11px">(7)</span>
           
         </td>
-        <td class="num" data-sort="-0.4">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 0.4%</span>
-          
+        <td class="num" data-sort="">
+          <span class="muted">—</span>
         </td>
       </tr>
       
@@ -2585,40 +2596,40 @@
           data-href="legend-leona-radiant-dawn.html"
           data-legend="Leona, Radiant Dawn"
           data-domain="Calm Order"
-          data-appearances='[["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"]]'
+          data-appearances='[["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["RiftAtlas Convergence #2", "Massive (256+)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"], ["S4 Qingdao City Challenge", "Large (64-127)"]]'
           data-date-first="2026-08-02"
           data-date-last="2026-08-16"
-          data-n-decks="7"
-          data-n-tournaments="5"
+          data-n-decks="10"
+          data-n-tournaments="8"
           data-best-rank="10"
           data-q="leona, radiant dawn">
-        <td><a href="legend-leona-radiant-dawn.html">Leona, Radiant Dawn</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-leona-radiant-dawn.html">Leona, Radiant Dawn</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
             <img class="domain-icon" src="static/img/domains/Order.webp" alt="Order" title="Order">
           
         </td>
-        <td class="num">7</td>
-        <td class="num" data-sort="0.2">
-          0.2%
+        <td class="num">10</td>
+        <td class="num" data-sort="0.3">
+          0.3%
         </td>
-        <td class="num" data-sort="-0.1">
+        <td class="num" data-sort="0.3">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.3%</span>
           
         </td>
-        <td class="num">5</td>
+        <td class="num">8</td>
         <td class="num" data-sort="10">#10</td>
         <td class="num" data-sort="12.5">
           
             <span style="color:#d94545;font-weight:600">12.5%</span> <span class="muted" style="font-size:11px">(2)</span>
           
         </td>
-        <td class="num" data-sort="12.5">
+        <td class="num" data-sort="-12.5">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 12.5%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 12.5%</span>
           
         </td>
       </tr>
@@ -2627,31 +2638,31 @@
           data-href="legend-volibear-relentless-storm.html"
           data-legend="Volibear, Relentless Storm"
           data-domain="Fury Body"
-          data-appearances='[["Wuhan City Challenge", "Large (64-127)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Qingdao City Challenge", "Large (64-127)"]]'
+          data-appearances='[["Wuhan City Challenge", "Large (64-127)"], ["Shenzhen City Challenge", "Extra Large (128-255)"], ["S4 Fuzhou City Challenge", "Extra Large (128-255)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Qingdao City Challenge", "Large (64-127)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"], ["S4 Tianjin City Challenge", "Large (64-127)"]]'
           data-date-first="2026-08-08"
           data-date-last="2026-08-16"
-          data-n-decks="7"
-          data-n-tournaments="5"
+          data-n-decks="9"
+          data-n-tournaments="7"
           data-best-rank="5"
           data-q="volibear, relentless storm">
-        <td><a href="legend-volibear-relentless-storm.html">Volibear, Relentless Storm</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-volibear-relentless-storm.html">Volibear, Relentless Storm</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
             <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
           
         </td>
+        <td class="num">9</td>
+        <td class="num" data-sort="0.3">
+          0.3%
+        </td>
+        <td class="num" data-sort="0.4">
+          
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.4%</span>
+          
+        </td>
         <td class="num">7</td>
-        <td class="num" data-sort="0.2">
-          0.2%
-        </td>
-        <td class="num" data-sort="-0.3">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 0.3%</span>
-          
-        </td>
-        <td class="num">5</td>
         <td class="num" data-sort="5">#5</td>
         <td class="num" data-sort="">
           <span class="muted">—</span>
@@ -2665,17 +2676,55 @@
           data-href="legend-yasuo-unforgiven.html"
           data-legend="Yasuo, Unforgiven"
           data-domain="Calm Chaos"
-          data-appearances='[["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"]]'
+          data-appearances='[["Sideways Showdown - CN vs World", "Medium (32-63)"], ["Wuhan City Challenge", "Large (64-127)"], ["King\u0027s Road Season 7 Opening Tournament", "Medium (32-63)"], ["Dangguan Animation Expo Tournament", "Large (64-127)"], ["S4 Nanjing City Challenge", "Extra Large (128-255)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["S4 Shenyang City Challenge", "Extra Large (128-255)"]]'
           data-date-first="2026-07-25"
+          data-date-last="2026-08-16"
+          data-n-decks="8"
+          data-n-tournaments="7"
+          data-best-rank="11"
+          data-q="yasuo, unforgiven">
+        <td class="legend-name-col"><a href="legend-yasuo-unforgiven.html">Yasuo, Unforgiven</a></td>
+        <td class="legend-domains-col">
+          
+            <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
+          
+            <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
+          
+        </td>
+        <td class="num">8</td>
+        <td class="num" data-sort="0.3">
+          0.3%
+        </td>
+        <td class="num" data-sort="0.1">
+          
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
+          
+        </td>
+        <td class="num">7</td>
+        <td class="num" data-sort="11">#11</td>
+        <td class="num" data-sort="">
+          <span class="muted">—</span>
+        </td>
+        <td class="num" data-sort="">
+          <span class="muted">—</span>
+        </td>
+      </tr>
+      
+      <tr class="legend-row"
+          data-href="legend-teemo-swift-scout.html"
+          data-legend="Teemo, Swift Scout"
+          data-domain="Mind Chaos"
+          data-appearances='[["Wuhan City Challenge", "Large (64-127)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Tianjin City Challenge", "Large (64-127)"]]'
+          data-date-first="2026-08-08"
           data-date-last="2026-08-16"
           data-n-decks="7"
           data-n-tournaments="6"
-          data-best-rank="27"
-          data-q="yasuo, unforgiven">
-        <td><a href="legend-yasuo-unforgiven.html">Yasuo, Unforgiven</a></td>
-        <td>
+          data-best-rank="42"
+          data-q="teemo, swift scout">
+        <td class="legend-name-col"><a href="legend-teemo-swift-scout.html">Teemo, Swift Scout</a></td>
+        <td class="legend-domains-col">
           
-            <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
+            <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
           
             <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
           
@@ -2684,15 +2733,17 @@
         <td class="num" data-sort="0.2">
           0.2%
         </td>
-        <td class="num" data-sort="0.2">
+        <td class="num" data-sort="0.1">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.2%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
           
         </td>
         <td class="num">6</td>
-        <td class="num" data-sort="27">#27</td>
-        <td class="num" data-sort="">
-          <span class="muted">—</span>
+        <td class="num" data-sort="42">#42</td>
+        <td class="num" data-sort="35.7">
+          
+            <span style="color:#d94545;font-weight:600">35.7%</span> <span class="muted" style="font-size:11px">(3)</span>
+          
         </td>
         <td class="num" data-sort="">
           <span class="muted">—</span>
@@ -2710,8 +2761,8 @@
           data-n-tournaments="5"
           data-best-rank="53"
           data-q="ahri, nine-tailed fox">
-        <td><a href="legend-ahri-nine-tailed-fox.html">Ahri, Nine-Tailed Fox</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-ahri-nine-tailed-fox.html">Ahri, Nine-Tailed Fox</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
@@ -2722,9 +2773,9 @@
         <td class="num" data-sort="0.2">
           0.2%
         </td>
-        <td class="num" data-sort="-0.2">
+        <td class="num" data-sort="-0.1">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
           
         </td>
         <td class="num">5</td>
@@ -2734,10 +2785,8 @@
             <span style="color:#d94545;font-weight:600">37.5%</span> <span class="muted" style="font-size:11px">(2)</span>
           
         </td>
-        <td class="num" data-sort="0.0">
-          
-            <span class="muted">&#9679; 0%</span>
-          
+        <td class="num" data-sort="">
+          <span class="muted">—</span>
         </td>
       </tr>
       
@@ -2752,8 +2801,8 @@
           data-n-tournaments="6"
           data-best-rank="16"
           data-q="miss fortune, bounty hunter">
-        <td><a href="legend-miss-fortune-bounty-hunter.html">Miss Fortune, Bounty Hunter</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-miss-fortune-bounty-hunter.html">Miss Fortune, Bounty Hunter</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
           
@@ -2776,52 +2825,8 @@
             <span style="color:#1a9850;font-weight:600">64.3%</span> <span class="muted" style="font-size:11px">(2)</span>
           
         </td>
-        <td class="num" data-sort="-8.4">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 8.4%</span>
-          
-        </td>
-      </tr>
-      
-      <tr class="legend-row"
-          data-href="legend-teemo-swift-scout.html"
-          data-legend="Teemo, Swift Scout"
-          data-domain="Mind Chaos"
-          data-appearances='[["Wuhan City Challenge", "Large (64-127)"], ["Shanghai City Challenge", "Extra Large (128-255)"], ["RCS - Hobby Con", "Large (64-127)"], ["S4 Guangzhou City Challenge", "Extra Large (128-255)"], ["Riftbound Showdown Ottawa", "Massive (256+)"]]'
-          data-date-first="2026-08-08"
-          data-date-last="2026-08-09"
-          data-n-decks="6"
-          data-n-tournaments="5"
-          data-best-rank="42"
-          data-q="teemo, swift scout">
-        <td><a href="legend-teemo-swift-scout.html">Teemo, Swift Scout</a></td>
-        <td>
-          
-            <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
-          
-            <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
-          
-        </td>
-        <td class="num">6</td>
-        <td class="num" data-sort="0.2">
-          0.2%
-        </td>
-        <td class="num" data-sort="-0.4">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 0.4%</span>
-          
-        </td>
-        <td class="num">5</td>
-        <td class="num" data-sort="42">#42</td>
-        <td class="num" data-sort="35.7">
-          
-            <span style="color:#d94545;font-weight:600">35.7%</span> <span class="muted" style="font-size:11px">(3)</span>
-          
-        </td>
-        <td class="num" data-sort="0.0">
-          
-            <span class="muted">&#9679; 0%</span>
-          
+        <td class="num" data-sort="">
+          <span class="muted">—</span>
         </td>
       </tr>
       
@@ -2829,41 +2834,39 @@
           data-href="legend-poppy-keeper-of-the-hammer.html"
           data-legend="Poppy, Keeper of the Hammer"
           data-domain="Body Order"
-          data-appearances='[["Wuhan City Challenge", "Large (64-127)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Tianjin City Challenge", "Large (64-127)"]]'
+          data-appearances='[["Wuhan City Challenge", "Large (64-127)"], ["Riftbound Showdown Ottawa", "Massive (256+)"], ["S4 Tianjin City Challenge", "Large (64-127)"], ["S4 Shanghai City Challenge", "Extra Large (128-255)"]]'
           data-date-first="2026-08-08"
           data-date-last="2026-08-16"
-          data-n-decks="5"
-          data-n-tournaments="3"
-          data-best-rank="47"
+          data-n-decks="6"
+          data-n-tournaments="4"
+          data-best-rank="45"
           data-q="poppy, keeper of the hammer">
-        <td><a href="legend-poppy-keeper-of-the-hammer.html">Poppy, Keeper of the Hammer</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-poppy-keeper-of-the-hammer.html">Poppy, Keeper of the Hammer</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Body.webp" alt="Body" title="Body">
           
             <img class="domain-icon" src="static/img/domains/Order.webp" alt="Order" title="Order">
           
         </td>
-        <td class="num">5</td>
+        <td class="num">6</td>
         <td class="num" data-sort="0.2">
           0.2%
         </td>
-        <td class="num" data-sort="-0.2">
+        <td class="num" data-sort="0.3">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.3%</span>
           
         </td>
-        <td class="num">3</td>
-        <td class="num" data-sort="47">#47</td>
+        <td class="num">4</td>
+        <td class="num" data-sort="45">#45</td>
         <td class="num" data-sort="45.0">
           
             <span style="color:#d94545;font-weight:600">45.0%</span> <span class="muted" style="font-size:11px">(3)</span>
           
         </td>
-        <td class="num" data-sort="0.0">
-          
-            <span class="muted">&#9679; 0%</span>
-          
+        <td class="num" data-sort="">
+          <span class="muted">—</span>
         </td>
       </tr>
       
@@ -2878,8 +2881,8 @@
           data-n-tournaments="4"
           data-best-rank="85"
           data-q="jinx, loose cannon">
-        <td><a href="legend-jinx-loose-cannon.html">Jinx, Loose Cannon</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-jinx-loose-cannon.html">Jinx, Loose Cannon</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
@@ -2890,9 +2893,9 @@
         <td class="num" data-sort="0.1">
           0.1%
         </td>
-        <td class="num" data-sort="0.1">
+        <td class="num" data-sort="-0.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.3%</span>
           
         </td>
         <td class="num">4</td>
@@ -2920,8 +2923,8 @@
           data-n-tournaments="2"
           data-best-rank="71"
           data-q="darius, hand of noxus">
-        <td><a href="legend-darius-hand-of-noxus.html">Darius, Hand of Noxus</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-darius-hand-of-noxus.html">Darius, Hand of Noxus</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
           
@@ -2932,9 +2935,9 @@
         <td class="num" data-sort="0.1">
           0.1%
         </td>
-        <td class="num" data-sort="0.0">
+        <td class="num" data-sort="0.1">
           
-            <span class="muted">&#9679; 0%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
           
         </td>
         <td class="num">2</td>
@@ -2958,8 +2961,8 @@
           data-n-tournaments="1"
           data-best-rank="85"
           data-q="lee sin, blind monk">
-        <td><a href="legend-lee-sin-blind-monk.html">Lee Sin, Blind Monk</a></td>
-        <td>
+        <td class="legend-name-col"><a href="legend-lee-sin-blind-monk.html">Lee Sin, Blind Monk</a></td>
+        <td class="legend-domains-col">
           
             <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
           
@@ -2970,9 +2973,9 @@
         <td class="num" data-sort="0.0">
           0.0%
         </td>
-        <td class="num" data-sort="0.1">
+        <td class="num" data-sort="-0.1">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
           
         </td>
         <td class="num">1</td>
@@ -2982,8 +2985,10 @@
             <span style="color:#1a9850;font-weight:600">50.0%</span> <span class="muted" style="font-size:11px">(1)</span>
           
         </td>
-        <td class="num" data-sort="">
-          <span class="muted">—</span>
+        <td class="num" data-sort="0.0">
+          
+            <span class="muted">&#9679; 0%</span>
+          
         </td>
       </tr>
       
@@ -3716,19 +3721,34 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
   // 3D tilt-on-hover: rotate the art toward whichever corner the cursor is
   // over (max ~12deg either axis), snapping back via the CSS transition
   // above once the pointer leaves.
-  artCol.addEventListener('mousemove', function (e) {
+  function applyTilt(clientX, clientY) {
     const rect = tiltEl.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width;
-    const py = (e.clientY - rect.top) / rect.height;
+    const px = (clientX - rect.left) / rect.width;
+    const py = (clientY - rect.top) / rect.height;
     const rotateY = (px - 0.5) * 24;
     const rotateX = (0.5 - py) * 24;
     tiltEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     tiltEl.style.boxShadow = `${-rotateY}px ${rotateX}px 24px rgba(0,0,0,.35)`;
-  });
-  artCol.addEventListener('mouseleave', function () {
+  }
+  function resetTilt() {
     tiltEl.style.transform = 'rotateX(0deg) rotateY(0deg)';
     tiltEl.style.boxShadow = 'none';
-  });
+  }
+  artCol.addEventListener('mousemove', function (e) { applyTilt(e.clientX, e.clientY); });
+  artCol.addEventListener('mouseleave', resetTilt);
+  // Touch equivalent - mousemove/mouseleave never fire from a finger drag,
+  // so without this the tilt effect (and the flip button's hover-adjacent
+  // feel) was silent on a phone. preventDefault stops the drag from also
+  // scrolling the page behind the modal; {passive:false} is required for
+  // that to actually take effect (a touchmove listener is passive, and
+  // preventDefault a silent no-op, by default).
+  artCol.addEventListener('touchmove', function (e) {
+    if (!e.touches.length) return;
+    e.preventDefault();
+    applyTilt(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: false });
+  artCol.addEventListener('touchend', resetTilt);
+  artCol.addEventListener('touchcancel', resetTilt);
 
   tiles.forEach(function (tile) {
     tile.addEventListener('click', function () {
