@@ -475,6 +475,11 @@
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   @media (max-width: 600px) {
+    /* Tournament (col 2) wraps to 2 lines instead of ellipsis-truncating,
+       same idea as tournaments.html's own Tournament column - the name
+       stays fully readable instead of cut short in the one place people
+       are actually trying to identify which tournament a deck is from. */
+    #decks-table td:nth-child(2) { overflow: visible; text-overflow: clip; white-space: normal; }
     /* table-layout:fixed's % columns would otherwise squeeze all 7 columns
        into illegible slivers on a phone (Rank/Record down to a few px) -
        giving the table a real min-width and letting it scroll horizontally
@@ -916,7 +921,7 @@
         <th data-type="text">Player</th>
         <th class="num" data-type="number">Rank</th>
         <th class="num" data-type="number">Record</th>
-        <th class="col-domains">Domains</th>
+        <th class="col-domains">Dom.</th>
       </tr>
     </thead>
     <tbody>

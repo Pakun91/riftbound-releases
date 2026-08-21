@@ -560,7 +560,22 @@
     .legend-name-col, .card-name-col {
       position: sticky; left: 0; z-index: 1; background: var(--card-bg);
     }
-    .legend-domains-col { display: none; }
+    .legend-domains-col, .legend-tournaments-col, .legend-bestrank-col { display: none; }
+    /* Legend names wrap to 2 lines instead of forcing the sticky column as
+       wide as the longest one ("Kai'Sa, Daughter of the Void") - same idea
+       as tournaments.html's Tournament column, just via max-width instead
+       of matching its exact px (this table isn't table-layout:fixed, so
+       there's no single number to copy - a cap + wrap achieves the same
+       "full name still readable, just taller" result). */
+    .matrix-sticky-col { white-space: normal; max-width: 100px; }
+    /* Every column after WR read horizontally at the legend's full first
+       name width, which is what made this table so wide it needed heavy
+       scrolling. Rotating the header lets each column shrink to fit its
+       DATA (a "62%" / "12-8" cell) instead of its label. */
+    .matrix-vert-col {
+      writing-mode: vertical-rl; transform: rotate(180deg);
+      white-space: nowrap; height: 100px; padding-bottom: 8px !important;
+    }
   }
 
 </style>
@@ -995,14 +1010,14 @@
     <thead>
       <tr>
         <th data-type="text" class="legend-name-col">Legend</th>
-        <th class="legend-domains-col">Domains</th>
+        <th class="legend-domains-col">Dom.</th>
         <th class="num" data-type="number">Decks</th>
-        <th class="num" data-type="number">Play rate</th>
-        <th class="num" data-type="number">Play Rate Trend <span class="help-icon" title="Compares this week's play rate to the week before it.">?</span></th>
-        <th class="num" data-type="number">Tournaments</th>
-        <th class="num" data-type="number">Best rank</th>
+        <th class="num" data-type="number">PR</th>
+        <th class="num" data-type="number">PR Trend</th>
+        <th class="num legend-tournaments-col" data-type="number">Tournaments</th>
+        <th class="num legend-bestrank-col" data-type="number">Best rank</th>
         <th class="num" data-type="number">WR</th>
-        <th class="num" data-type="number">WR Trend <span class="help-icon" title="Compares this week's win rate to the week before it.">?</span></th>
+        <th class="num" data-type="number">WR Trend</th>
       </tr>
     </thead>
     <tbody>
@@ -1035,8 +1050,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 3.1%</span>
           
         </td>
-        <td class="num">30</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">30</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="54.5">
           
             <span style="color:#1a9850;font-weight:600">54.5%</span> <span class="muted" style="font-size:11px">(83)</span>
@@ -1077,8 +1092,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 2.0%</span>
           
         </td>
-        <td class="num">32</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">32</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="55.5">
           
             <span style="color:#1a9850;font-weight:600">55.5%</span> <span class="muted" style="font-size:11px">(106)</span>
@@ -1119,8 +1134,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 1.1%</span>
           
         </td>
-        <td class="num">31</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">31</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="54.8">
           
             <span style="color:#1a9850;font-weight:600">54.8%</span> <span class="muted" style="font-size:11px">(92)</span>
@@ -1161,8 +1176,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 1.9%</span>
           
         </td>
-        <td class="num">25</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">25</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="42.9">
           
             <span style="color:#d94545;font-weight:600">42.9%</span> <span class="muted" style="font-size:11px">(20)</span>
@@ -1203,8 +1218,8 @@
             <span class="muted">&#9679; 0%</span>
           
         </td>
-        <td class="num">29</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">29</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="50.7">
           
             <span style="color:#1a9850;font-weight:600">50.7%</span> <span class="muted" style="font-size:11px">(48)</span>
@@ -1245,8 +1260,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.3%</span>
           
         </td>
-        <td class="num">28</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">28</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="49.0">
           
             <span style="color:#d94545;font-weight:600">49.0%</span> <span class="muted" style="font-size:11px">(43)</span>
@@ -1287,8 +1302,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.2%</span>
           
         </td>
-        <td class="num">30</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">30</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="57.7">
           
             <span style="color:#1a9850;font-weight:600">57.7%</span> <span class="muted" style="font-size:11px">(41)</span>
@@ -1329,8 +1344,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.3%</span>
           
         </td>
-        <td class="num">27</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">27</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="35.9">
           
             <span style="color:#d94545;font-weight:600">35.9%</span> <span class="muted" style="font-size:11px">(36)</span>
@@ -1371,8 +1386,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 1.3%</span>
           
         </td>
-        <td class="num">25</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">25</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="53.9">
           
             <span style="color:#1a9850;font-weight:600">53.9%</span> <span class="muted" style="font-size:11px">(48)</span>
@@ -1413,8 +1428,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
           
         </td>
-        <td class="num">28</td>
-        <td class="num" data-sort="3">#3</td>
+        <td class="num legend-tournaments-col">28</td>
+        <td class="num legend-bestrank-col" data-sort="3">#3</td>
         <td class="num" data-sort="51.1">
           
             <span style="color:#1a9850;font-weight:600">51.1%</span> <span class="muted" style="font-size:11px">(37)</span>
@@ -1455,8 +1470,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.3%</span>
           
         </td>
-        <td class="num">28</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">28</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="52.3">
           
             <span style="color:#1a9850;font-weight:600">52.3%</span> <span class="muted" style="font-size:11px">(54)</span>
@@ -1497,8 +1512,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 1.3%</span>
           
         </td>
-        <td class="num">28</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">28</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="52.4">
           
             <span style="color:#1a9850;font-weight:600">52.4%</span> <span class="muted" style="font-size:11px">(51)</span>
@@ -1539,8 +1554,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
           
         </td>
-        <td class="num">25</td>
-        <td class="num" data-sort="2">#2</td>
+        <td class="num legend-tournaments-col">25</td>
+        <td class="num legend-bestrank-col" data-sort="2">#2</td>
         <td class="num" data-sort="50.4">
           
             <span style="color:#1a9850;font-weight:600">50.4%</span> <span class="muted" style="font-size:11px">(32)</span>
@@ -1581,8 +1596,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 2.5%</span>
           
         </td>
-        <td class="num">23</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">23</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="47.6">
           
             <span style="color:#d94545;font-weight:600">47.6%</span> <span class="muted" style="font-size:11px">(20)</span>
@@ -1623,8 +1638,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.4%</span>
           
         </td>
-        <td class="num">25</td>
-        <td class="num" data-sort="3">#3</td>
+        <td class="num legend-tournaments-col">25</td>
+        <td class="num legend-bestrank-col" data-sort="3">#3</td>
         <td class="num" data-sort="45.7">
           
             <span style="color:#d94545;font-weight:600">45.7%</span> <span class="muted" style="font-size:11px">(38)</span>
@@ -1665,8 +1680,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 2.1%</span>
           
         </td>
-        <td class="num">27</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">27</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="60.4">
           
             <span style="color:#1a9850;font-weight:600">60.4%</span> <span class="muted" style="font-size:11px">(45)</span>
@@ -1707,8 +1722,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 1.3%</span>
           
         </td>
-        <td class="num">24</td>
-        <td class="num" data-sort="2">#2</td>
+        <td class="num legend-tournaments-col">24</td>
+        <td class="num legend-bestrank-col" data-sort="2">#2</td>
         <td class="num" data-sort="46.5">
           
             <span style="color:#d94545;font-weight:600">46.5%</span> <span class="muted" style="font-size:11px">(21)</span>
@@ -1749,8 +1764,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.4%</span>
           
         </td>
-        <td class="num">20</td>
-        <td class="num" data-sort="4">#4</td>
+        <td class="num legend-tournaments-col">20</td>
+        <td class="num legend-bestrank-col" data-sort="4">#4</td>
         <td class="num" data-sort="43.2">
           
             <span style="color:#d94545;font-weight:600">43.2%</span> <span class="muted" style="font-size:11px">(30)</span>
@@ -1791,8 +1806,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.5%</span>
           
         </td>
-        <td class="num">25</td>
-        <td class="num" data-sort="2">#2</td>
+        <td class="num legend-tournaments-col">25</td>
+        <td class="num legend-bestrank-col" data-sort="2">#2</td>
         <td class="num" data-sort="45.2">
           
             <span style="color:#d94545;font-weight:600">45.2%</span> <span class="muted" style="font-size:11px">(30)</span>
@@ -1833,8 +1848,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.3%</span>
           
         </td>
-        <td class="num">23</td>
-        <td class="num" data-sort="7">#7</td>
+        <td class="num legend-tournaments-col">23</td>
+        <td class="num legend-bestrank-col" data-sort="7">#7</td>
         <td class="num" data-sort="44.8">
           
             <span style="color:#d94545;font-weight:600">44.8%</span> <span class="muted" style="font-size:11px">(28)</span>
@@ -1875,8 +1890,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.8%</span>
           
         </td>
-        <td class="num">20</td>
-        <td class="num" data-sort="3">#3</td>
+        <td class="num legend-tournaments-col">20</td>
+        <td class="num legend-bestrank-col" data-sort="3">#3</td>
         <td class="num" data-sort="48.3">
           
             <span style="color:#d94545;font-weight:600">48.3%</span> <span class="muted" style="font-size:11px">(29)</span>
@@ -1917,8 +1932,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
           
         </td>
-        <td class="num">21</td>
-        <td class="num" data-sort="5">#5</td>
+        <td class="num legend-tournaments-col">21</td>
+        <td class="num legend-bestrank-col" data-sort="5">#5</td>
         <td class="num" data-sort="37.7">
           
             <span style="color:#d94545;font-weight:600">37.7%</span> <span class="muted" style="font-size:11px">(34)</span>
@@ -1959,8 +1974,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.4%</span>
           
         </td>
-        <td class="num">17</td>
-        <td class="num" data-sort="11">#11</td>
+        <td class="num legend-tournaments-col">17</td>
+        <td class="num legend-bestrank-col" data-sort="11">#11</td>
         <td class="num" data-sort="37.9">
           
             <span style="color:#d94545;font-weight:600">37.9%</span> <span class="muted" style="font-size:11px">(18)</span>
@@ -2001,8 +2016,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.6%</span>
           
         </td>
-        <td class="num">20</td>
-        <td class="num" data-sort="18">#18</td>
+        <td class="num legend-tournaments-col">20</td>
+        <td class="num legend-bestrank-col" data-sort="18">#18</td>
         <td class="num" data-sort="33.3">
           
             <span style="color:#d94545;font-weight:600">33.3%</span> <span class="muted" style="font-size:11px">(17)</span>
@@ -2043,8 +2058,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
           
         </td>
-        <td class="num">16</td>
-        <td class="num" data-sort="18">#18</td>
+        <td class="num legend-tournaments-col">16</td>
+        <td class="num legend-bestrank-col" data-sort="18">#18</td>
         <td class="num" data-sort="33.3">
           
             <span style="color:#d94545;font-weight:600">33.3%</span> <span class="muted" style="font-size:11px">(16)</span>
@@ -2085,8 +2100,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.2%</span>
           
         </td>
-        <td class="num">13</td>
-        <td class="num" data-sort="24">#24</td>
+        <td class="num legend-tournaments-col">13</td>
+        <td class="num legend-bestrank-col" data-sort="24">#24</td>
         <td class="num" data-sort="32.0">
           
             <span style="color:#d94545;font-weight:600">32.0%</span> <span class="muted" style="font-size:11px">(16)</span>
@@ -2127,8 +2142,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.3%</span>
           
         </td>
-        <td class="num">16</td>
-        <td class="num" data-sort="5">#5</td>
+        <td class="num legend-tournaments-col">16</td>
+        <td class="num legend-bestrank-col" data-sort="5">#5</td>
         <td class="num" data-sort="54.0">
           
             <span style="color:#1a9850;font-weight:600">54.0%</span> <span class="muted" style="font-size:11px">(12)</span>
@@ -2169,8 +2184,8 @@
             <span class="muted">&#9679; 0%</span>
           
         </td>
-        <td class="num">11</td>
-        <td class="num" data-sort="6">#6</td>
+        <td class="num legend-tournaments-col">11</td>
+        <td class="num legend-bestrank-col" data-sort="6">#6</td>
         <td class="num" data-sort="47.0">
           
             <span style="color:#d94545;font-weight:600">47.0%</span> <span class="muted" style="font-size:11px">(11)</span>
@@ -2211,8 +2226,8 @@
             <span class="muted">&#9679; 0%</span>
           
         </td>
-        <td class="num">10</td>
-        <td class="num" data-sort="27">#27</td>
+        <td class="num legend-tournaments-col">10</td>
+        <td class="num legend-bestrank-col" data-sort="27">#27</td>
         <td class="num" data-sort="40.9">
           
             <span style="color:#d94545;font-weight:600">40.9%</span> <span class="muted" style="font-size:11px">(14)</span>
@@ -2253,8 +2268,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
           
         </td>
-        <td class="num">13</td>
-        <td class="num" data-sort="1">#1</td>
+        <td class="num legend-tournaments-col">13</td>
+        <td class="num legend-bestrank-col" data-sort="1">#1</td>
         <td class="num" data-sort="51.4">
           
             <span style="color:#1a9850;font-weight:600">51.4%</span> <span class="muted" style="font-size:11px">(12)</span>
@@ -2295,8 +2310,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.3%</span>
           
         </td>
-        <td class="num">12</td>
-        <td class="num" data-sort="11">#11</td>
+        <td class="num legend-tournaments-col">12</td>
+        <td class="num legend-bestrank-col" data-sort="11">#11</td>
         <td class="num" data-sort="31.6">
           
             <span style="color:#d94545;font-weight:600">31.6%</span> <span class="muted" style="font-size:11px">(10)</span>
@@ -2337,8 +2352,8 @@
             <span class="muted">&#9679; 0%</span>
           
         </td>
-        <td class="num">11</td>
-        <td class="num" data-sort="5">#5</td>
+        <td class="num legend-tournaments-col">11</td>
+        <td class="num legend-bestrank-col" data-sort="5">#5</td>
         <td class="num" data-sort="46.4">
           
             <span style="color:#d94545;font-weight:600">46.4%</span> <span class="muted" style="font-size:11px">(13)</span>
@@ -2379,8 +2394,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.3%</span>
           
         </td>
-        <td class="num">13</td>
-        <td class="num" data-sort="2">#2</td>
+        <td class="num legend-tournaments-col">13</td>
+        <td class="num legend-bestrank-col" data-sort="2">#2</td>
         <td class="num" data-sort="36.4">
           
             <span style="color:#d94545;font-weight:600">36.4%</span> <span class="muted" style="font-size:11px">(3)</span>
@@ -2421,8 +2436,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
           
         </td>
-        <td class="num">8</td>
-        <td class="num" data-sort="13">#13</td>
+        <td class="num legend-tournaments-col">8</td>
+        <td class="num legend-bestrank-col" data-sort="13">#13</td>
         <td class="num" data-sort="34.8">
           
             <span style="color:#d94545;font-weight:600">34.8%</span> <span class="muted" style="font-size:11px">(10)</span>
@@ -2461,8 +2476,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
           
         </td>
-        <td class="num">10</td>
-        <td class="num" data-sort="36">#36</td>
+        <td class="num legend-tournaments-col">10</td>
+        <td class="num legend-bestrank-col" data-sort="36">#36</td>
         <td class="num" data-sort="45.5">
           
             <span style="color:#d94545;font-weight:600">45.5%</span> <span class="muted" style="font-size:11px">(9)</span>
@@ -2501,8 +2516,8 @@
             <span class="muted">&#9679; 0%</span>
           
         </td>
-        <td class="num">11</td>
-        <td class="num" data-sort="2">#2</td>
+        <td class="num legend-tournaments-col">11</td>
+        <td class="num legend-bestrank-col" data-sort="2">#2</td>
         <td class="num" data-sort="54.5">
           
             <span style="color:#1a9850;font-weight:600">54.5%</span> <span class="muted" style="font-size:11px">(6)</span>
@@ -2541,8 +2556,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.7%</span>
           
         </td>
-        <td class="num">9</td>
-        <td class="num" data-sort="10">#10</td>
+        <td class="num legend-tournaments-col">9</td>
+        <td class="num legend-bestrank-col" data-sort="10">#10</td>
         <td class="num" data-sort="33.3">
           
             <span style="color:#d94545;font-weight:600">33.3%</span> <span class="muted" style="font-size:11px">(1)</span>
@@ -2581,8 +2596,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.2%</span>
           
         </td>
-        <td class="num">6</td>
-        <td class="num" data-sort="32">#32</td>
+        <td class="num legend-tournaments-col">6</td>
+        <td class="num legend-bestrank-col" data-sort="32">#32</td>
         <td class="num" data-sort="28.9">
           
             <span style="color:#d94545;font-weight:600">28.9%</span> <span class="muted" style="font-size:11px">(7)</span>
@@ -2621,8 +2636,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.3%</span>
           
         </td>
-        <td class="num">8</td>
-        <td class="num" data-sort="10">#10</td>
+        <td class="num legend-tournaments-col">8</td>
+        <td class="num legend-bestrank-col" data-sort="10">#10</td>
         <td class="num" data-sort="12.5">
           
             <span style="color:#d94545;font-weight:600">12.5%</span> <span class="muted" style="font-size:11px">(2)</span>
@@ -2663,8 +2678,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.4%</span>
           
         </td>
-        <td class="num">7</td>
-        <td class="num" data-sort="5">#5</td>
+        <td class="num legend-tournaments-col">7</td>
+        <td class="num legend-bestrank-col" data-sort="5">#5</td>
         <td class="num" data-sort="">
           <span class="muted">—</span>
         </td>
@@ -2701,8 +2716,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
           
         </td>
-        <td class="num">7</td>
-        <td class="num" data-sort="11">#11</td>
+        <td class="num legend-tournaments-col">7</td>
+        <td class="num legend-bestrank-col" data-sort="11">#11</td>
         <td class="num" data-sort="">
           <span class="muted">—</span>
         </td>
@@ -2739,8 +2754,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
           
         </td>
-        <td class="num">6</td>
-        <td class="num" data-sort="42">#42</td>
+        <td class="num legend-tournaments-col">6</td>
+        <td class="num legend-bestrank-col" data-sort="42">#42</td>
         <td class="num" data-sort="35.7">
           
             <span style="color:#d94545;font-weight:600">35.7%</span> <span class="muted" style="font-size:11px">(3)</span>
@@ -2779,8 +2794,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
           
         </td>
-        <td class="num">5</td>
-        <td class="num" data-sort="53">#53</td>
+        <td class="num legend-tournaments-col">5</td>
+        <td class="num legend-bestrank-col" data-sort="53">#53</td>
         <td class="num" data-sort="37.5">
           
             <span style="color:#d94545;font-weight:600">37.5%</span> <span class="muted" style="font-size:11px">(2)</span>
@@ -2819,8 +2834,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
           
         </td>
-        <td class="num">6</td>
-        <td class="num" data-sort="16">#16</td>
+        <td class="num legend-tournaments-col">6</td>
+        <td class="num legend-bestrank-col" data-sort="16">#16</td>
         <td class="num" data-sort="64.3">
           
             <span style="color:#1a9850;font-weight:600">64.3%</span> <span class="muted" style="font-size:11px">(2)</span>
@@ -2859,8 +2874,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.3%</span>
           
         </td>
-        <td class="num">4</td>
-        <td class="num" data-sort="45">#45</td>
+        <td class="num legend-tournaments-col">4</td>
+        <td class="num legend-bestrank-col" data-sort="45">#45</td>
         <td class="num" data-sort="45.0">
           
             <span style="color:#d94545;font-weight:600">45.0%</span> <span class="muted" style="font-size:11px">(3)</span>
@@ -2899,8 +2914,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.3%</span>
           
         </td>
-        <td class="num">4</td>
-        <td class="num" data-sort="85">#85</td>
+        <td class="num legend-tournaments-col">4</td>
+        <td class="num legend-bestrank-col" data-sort="85">#85</td>
         <td class="num" data-sort="0.0">
           
             <span style="color:#d94545;font-weight:600">0.0%</span> <span class="muted" style="font-size:11px">(2)</span>
@@ -2941,8 +2956,8 @@
             <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
           
         </td>
-        <td class="num">2</td>
-        <td class="num" data-sort="71">#71</td>
+        <td class="num legend-tournaments-col">2</td>
+        <td class="num legend-bestrank-col" data-sort="71">#71</td>
         <td class="num" data-sort="">
           <span class="muted">—</span>
         </td>
@@ -2979,8 +2994,8 @@
             <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
           
         </td>
-        <td class="num">1</td>
-        <td class="num" data-sort="85">#85</td>
+        <td class="num legend-tournaments-col">1</td>
+        <td class="num legend-bestrank-col" data-sort="85">#85</td>
         <td class="num" data-sort="50.0">
           
             <span style="color:#1a9850;font-weight:600">50.0%</span> <span class="muted" style="font-size:11px">(1)</span>

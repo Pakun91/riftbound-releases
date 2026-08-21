@@ -560,7 +560,22 @@
     .legend-name-col, .card-name-col {
       position: sticky; left: 0; z-index: 1; background: var(--card-bg);
     }
-    .legend-domains-col { display: none; }
+    .legend-domains-col, .legend-tournaments-col, .legend-bestrank-col { display: none; }
+    /* Legend names wrap to 2 lines instead of forcing the sticky column as
+       wide as the longest one ("Kai'Sa, Daughter of the Void") - same idea
+       as tournaments.html's Tournament column, just via max-width instead
+       of matching its exact px (this table isn't table-layout:fixed, so
+       there's no single number to copy - a cap + wrap achieves the same
+       "full name still readable, just taller" result). */
+    .matrix-sticky-col { white-space: normal; max-width: 100px; }
+    /* Every column after WR read horizontally at the legend's full first
+       name width, which is what made this table so wide it needed heavy
+       scrolling. Rotating the header lets each column shrink to fit its
+       DATA (a "62%" / "12-8" cell) instead of its label. */
+    .matrix-vert-col {
+      writing-mode: vertical-rl; transform: rotate(180deg);
+      white-space: nowrap; height: 100px; padding-bottom: 8px !important;
+    }
   }
 
 </style>
@@ -911,97 +926,97 @@
       <thead>
         <tr>
           <th class="matrix-sticky-col">Legend</th>
-          <th class="matrix-total-col matrix-sortable">Total WR</th>
+          <th class="matrix-total-col matrix-sortable">WR</th>
           
-          <th title="Kennen, Heart of the Tempest" data-legend="Kennen, Heart of the Tempest">Kennen</th>
+          <th class="matrix-vert-col" title="Kennen, Heart of the Tempest" data-legend="Kennen, Heart of the Tempest">Kennen</th>
           
-          <th title="Rengar, Pridestalker" data-legend="Rengar, Pridestalker">Rengar</th>
+          <th class="matrix-vert-col" title="Rengar, Pridestalker" data-legend="Rengar, Pridestalker">Rengar</th>
           
-          <th title="Master Yi, Wuju Bladesman" data-legend="Master Yi, Wuju Bladesman">Master Yi</th>
+          <th class="matrix-vert-col" title="Master Yi, Wuju Bladesman" data-legend="Master Yi, Wuju Bladesman">Master Yi</th>
           
-          <th title="Rek&#39;Sai, Void Burrower" data-legend="Rek&#39;Sai, Void Burrower">Rek&#39;Sai</th>
+          <th class="matrix-vert-col" title="Rek&#39;Sai, Void Burrower" data-legend="Rek&#39;Sai, Void Burrower">Rek&#39;Sai</th>
           
-          <th title="LeBlanc, Deceiver" data-legend="LeBlanc, Deceiver">LeBlanc</th>
+          <th class="matrix-vert-col" title="LeBlanc, Deceiver" data-legend="LeBlanc, Deceiver">LeBlanc</th>
           
-          <th title="Irelia, Blade Dancer" data-legend="Irelia, Blade Dancer">Irelia</th>
+          <th class="matrix-vert-col" title="Irelia, Blade Dancer" data-legend="Irelia, Blade Dancer">Irelia</th>
           
-          <th title="Azir, Emperor of the Sands" data-legend="Azir, Emperor of the Sands">Azir</th>
+          <th class="matrix-vert-col" title="Azir, Emperor of the Sands" data-legend="Azir, Emperor of the Sands">Azir</th>
           
-          <th title="Ezreal, Prodigal Explorer" data-legend="Ezreal, Prodigal Explorer">Ezreal</th>
+          <th class="matrix-vert-col" title="Ezreal, Prodigal Explorer" data-legend="Ezreal, Prodigal Explorer">Ezreal</th>
           
-          <th title="Kha&#39;Zix, Voidreaver" data-legend="Kha&#39;Zix, Voidreaver">Kha&#39;Zix</th>
+          <th class="matrix-vert-col" title="Kha&#39;Zix, Voidreaver" data-legend="Kha&#39;Zix, Voidreaver">Kha&#39;Zix</th>
           
-          <th title="Draven, Glorious Executioner" data-legend="Draven, Glorious Executioner">Draven</th>
+          <th class="matrix-vert-col" title="Draven, Glorious Executioner" data-legend="Draven, Glorious Executioner">Draven</th>
           
-          <th title="Diana, Scorn of the Moon" data-legend="Diana, Scorn of the Moon">Diana</th>
+          <th class="matrix-vert-col" title="Diana, Scorn of the Moon" data-legend="Diana, Scorn of the Moon">Diana</th>
           
-          <th title="Ahri, Nine-Tailed Fox" data-legend="Ahri, Nine-Tailed Fox">Ahri</th>
+          <th class="matrix-vert-col" title="Ahri, Nine-Tailed Fox" data-legend="Ahri, Nine-Tailed Fox">Ahri</th>
           
-          <th title="Jayce, Defender of Tomorrow" data-legend="Jayce, Defender of Tomorrow">Jayce</th>
+          <th class="matrix-vert-col" title="Jayce, Defender of Tomorrow" data-legend="Jayce, Defender of Tomorrow">Jayce</th>
           
-          <th title="Annie, Dark Child" data-legend="Annie, Dark Child">Annie</th>
+          <th class="matrix-vert-col" title="Annie, Dark Child" data-legend="Annie, Dark Child">Annie</th>
           
-          <th title="Lillia, Bashful Bloom" data-legend="Lillia, Bashful Bloom">Lillia</th>
+          <th class="matrix-vert-col" title="Lillia, Bashful Bloom" data-legend="Lillia, Bashful Bloom">Lillia</th>
           
-          <th title="Viktor, Herald of the Arcane" data-legend="Viktor, Herald of the Arcane">Viktor</th>
+          <th class="matrix-vert-col" title="Viktor, Herald of the Arcane" data-legend="Viktor, Herald of the Arcane">Viktor</th>
           
-          <th title="Lucian, Purifier" data-legend="Lucian, Purifier">Lucian</th>
+          <th class="matrix-vert-col" title="Lucian, Purifier" data-legend="Lucian, Purifier">Lucian</th>
           
-          <th title="Sivir, Battle Mistress" data-legend="Sivir, Battle Mistress">Sivir</th>
+          <th class="matrix-vert-col" title="Sivir, Battle Mistress" data-legend="Sivir, Battle Mistress">Sivir</th>
           
-          <th title="Nasus, Curator of the Sands" data-legend="Nasus, Curator of the Sands">Nasus</th>
+          <th class="matrix-vert-col" title="Nasus, Curator of the Sands" data-legend="Nasus, Curator of the Sands">Nasus</th>
           
-          <th title="Fiora, Grand Duelist" data-legend="Fiora, Grand Duelist">Fiora</th>
+          <th class="matrix-vert-col" title="Fiora, Grand Duelist" data-legend="Fiora, Grand Duelist">Fiora</th>
           
-          <th title="Kai&#39;Sa, Daughter of the Void" data-legend="Kai&#39;Sa, Daughter of the Void">Kai&#39;Sa</th>
+          <th class="matrix-vert-col" title="Kai&#39;Sa, Daughter of the Void" data-legend="Kai&#39;Sa, Daughter of the Void">Kai&#39;Sa</th>
           
-          <th title="Ornn, Fire Below the Mountain" data-legend="Ornn, Fire Below the Mountain">Ornn</th>
+          <th class="matrix-vert-col" title="Ornn, Fire Below the Mountain" data-legend="Ornn, Fire Below the Mountain">Ornn</th>
           
-          <th title="Jax, Grandmaster at Arms" data-legend="Jax, Grandmaster at Arms">Jax</th>
+          <th class="matrix-vert-col" title="Jax, Grandmaster at Arms" data-legend="Jax, Grandmaster at Arms">Jax</th>
           
-          <th title="Lux, Lady of Luminosity" data-legend="Lux, Lady of Luminosity">Lux</th>
+          <th class="matrix-vert-col" title="Lux, Lady of Luminosity" data-legend="Lux, Lady of Luminosity">Lux</th>
           
-          <th title="Vex, Gloomist" data-legend="Vex, Gloomist">Vex</th>
+          <th class="matrix-vert-col" title="Vex, Gloomist" data-legend="Vex, Gloomist">Vex</th>
           
-          <th title="Rumble, Mechanized Menace" data-legend="Rumble, Mechanized Menace">Rumble</th>
+          <th class="matrix-vert-col" title="Rumble, Mechanized Menace" data-legend="Rumble, Mechanized Menace">Rumble</th>
           
-          <th title="Renekton, Butcher of the Sands" data-legend="Renekton, Butcher of the Sands">Renekton</th>
+          <th class="matrix-vert-col" title="Renekton, Butcher of the Sands" data-legend="Renekton, Butcher of the Sands">Renekton</th>
           
-          <th title="Mel, Soul&#39;s Reflection" data-legend="Mel, Soul&#39;s Reflection">Mel</th>
+          <th class="matrix-vert-col" title="Mel, Soul&#39;s Reflection" data-legend="Mel, Soul&#39;s Reflection">Mel</th>
           
-          <th title="Master Yi, Wuju Master" data-legend="Master Yi, Wuju Master">Master Yi</th>
+          <th class="matrix-vert-col" title="Master Yi, Wuju Master" data-legend="Master Yi, Wuju Master">Master Yi</th>
           
-          <th title="Pyke, Bloodharbor Ripper" data-legend="Pyke, Bloodharbor Ripper">Pyke</th>
+          <th class="matrix-vert-col" title="Pyke, Bloodharbor Ripper" data-legend="Pyke, Bloodharbor Ripper">Pyke</th>
           
-          <th title="Vi, Piltover Enforcer" data-legend="Vi, Piltover Enforcer">Vi</th>
+          <th class="matrix-vert-col" title="Vi, Piltover Enforcer" data-legend="Vi, Piltover Enforcer">Vi</th>
           
-          <th title="Poppy, Keeper of the Hammer" data-legend="Poppy, Keeper of the Hammer">Poppy</th>
+          <th class="matrix-vert-col" title="Poppy, Keeper of the Hammer" data-legend="Poppy, Keeper of the Hammer">Poppy</th>
           
-          <th title="Sett, The Boss" data-legend="Sett, The Boss">Sett</th>
+          <th class="matrix-vert-col" title="Sett, The Boss" data-legend="Sett, The Boss">Sett</th>
           
-          <th title="Teemo, Swift Scout" data-legend="Teemo, Swift Scout">Teemo</th>
+          <th class="matrix-vert-col" title="Teemo, Swift Scout" data-legend="Teemo, Swift Scout">Teemo</th>
           
-          <th title="Akali, Rogue Assassin" data-legend="Akali, Rogue Assassin">Akali</th>
+          <th class="matrix-vert-col" title="Akali, Rogue Assassin" data-legend="Akali, Rogue Assassin">Akali</th>
           
-          <th title="Shen, Eye of Twilight" data-legend="Shen, Eye of Twilight">Shen</th>
+          <th class="matrix-vert-col" title="Shen, Eye of Twilight" data-legend="Shen, Eye of Twilight">Shen</th>
           
-          <th title="Ambessa, Matriarch of War" data-legend="Ambessa, Matriarch of War">Ambessa</th>
+          <th class="matrix-vert-col" title="Ambessa, Matriarch of War" data-legend="Ambessa, Matriarch of War">Ambessa</th>
           
-          <th title="Jhin, Virtuoso" data-legend="Jhin, Virtuoso">Jhin</th>
+          <th class="matrix-vert-col" title="Jhin, Virtuoso" data-legend="Jhin, Virtuoso">Jhin</th>
           
-          <th title="Ivern, Green Father" data-legend="Ivern, Green Father">Ivern</th>
+          <th class="matrix-vert-col" title="Ivern, Green Father" data-legend="Ivern, Green Father">Ivern</th>
           
-          <th title="Miss Fortune, Bounty Hunter" data-legend="Miss Fortune, Bounty Hunter">Miss Fortune</th>
+          <th class="matrix-vert-col" title="Miss Fortune, Bounty Hunter" data-legend="Miss Fortune, Bounty Hunter">Miss Fortune</th>
           
-          <th title="Zed, Master of Shadows" data-legend="Zed, Master of Shadows">Zed</th>
+          <th class="matrix-vert-col" title="Zed, Master of Shadows" data-legend="Zed, Master of Shadows">Zed</th>
           
-          <th title="Yasuo, Unforgiven" data-legend="Yasuo, Unforgiven">Yasuo</th>
+          <th class="matrix-vert-col" title="Yasuo, Unforgiven" data-legend="Yasuo, Unforgiven">Yasuo</th>
           
-          <th title="Renata Glasc, Chem-Baroness" data-legend="Renata Glasc, Chem-Baroness">Renata Glasc</th>
+          <th class="matrix-vert-col" title="Renata Glasc, Chem-Baroness" data-legend="Renata Glasc, Chem-Baroness">Renata Glasc</th>
           
-          <th title="Jinx, Loose Cannon" data-legend="Jinx, Loose Cannon">Jinx</th>
+          <th class="matrix-vert-col" title="Jinx, Loose Cannon" data-legend="Jinx, Loose Cannon">Jinx</th>
           
-          <th title="Leona, Radiant Dawn" data-legend="Leona, Radiant Dawn">Leona</th>
+          <th class="matrix-vert-col" title="Leona, Radiant Dawn" data-legend="Leona, Radiant Dawn">Leona</th>
           
         </tr>
       </thead>
@@ -22811,6 +22826,7 @@
     while (theadRow.children.length > 2) theadRow.removeChild(theadRow.lastChild);
     for (const opp of view.legends) {
       const th = document.createElement('th');
+      th.className = 'matrix-vert-col';
       th.title = opp;
       th.dataset.legend = opp;
       th.textContent = opp.split(',')[0];
