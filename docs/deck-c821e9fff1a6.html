@@ -40,6 +40,13 @@
     }
   }
   * { box-sizing: border-box; }
+  /* Belt-and-suspenders: every genuinely wide element (tables, the Matrix
+     grid) gets its OWN overflow-x:auto container below, so this never hides
+     reachable content - it only stops one missed/future wide element from
+     shifting the whole page's horizontal scroll position, which is what
+     throws off anything using position:fixed centering (e.g. the card
+     modal) on mobile browsers. */
+  html { overflow-x: hidden; }
   body {
     margin: 0;
     background: var(--page);
@@ -381,6 +388,30 @@
   }
   .deck-meta-chip .domain-icon { width: 15px; height: 15px; }
 
+  /* Site-wide phone layout (~600px and under covers every real device in
+     portrait; the plantillas hijas below add their own page-specific rules
+     under the same breakpoint for anything not generic enough to belong
+     here - filter rows, per-page tables, chart SVGs). Nothing here clips
+     content (no overflow-x:hidden) - wide things (tables, the Matrix grid)
+     get their own overflow-x:auto container instead, so content stays
+     reachable by scrolling within it rather than getting cut off. */
+  @media (max-width: 600px) {
+    header.site { padding: 10px 14px; gap: 10px; flex-wrap: wrap; }
+    header.site .sub { display: none; }
+    .navbar-links { gap: 8px 14px; font-size: 13px; flex-wrap: wrap; }
+    main { padding: 16px 12px 40px; }
+    .card { padding: 14px; }
+    table { font-size: 13px; }
+    th, td { padding: 6px 7px; }
+    .card-grid-fill { grid-template-columns: repeat(3, 1fr); }
+    .card-modal-overlay { padding: 10px; }
+    .card-modal-body { padding: 14px 16px; gap: 16px; }
+    .card-modal-art-col, .card-modal-art-col.landscape { flex: 0 1 auto; width: 100%; max-width: 260px; margin: 0 auto; }
+    .card-modal-info { min-width: 0; }
+    .card-modal-grid { grid-template-columns: 1fr; }
+    .deck-header-title { font-size: 22px; }
+  }
+
   
   .export-menu { position: relative; }
   .export-trigger-btn { cursor: pointer; transition: border-color .15s ease, color .15s ease; }
@@ -431,6 +462,7 @@
   .top-row { display: flex; align-items: flex-start; gap: 24px; flex-wrap: nowrap; }
   .subsection h2 { margin-top: 0 !important; }
   .subsection:first-child { flex: 0 0 auto; }
+  .runes-battlefields-row { display: flex; gap: 24px; align-items: flex-start; flex-wrap: nowrap; }
   .runes-block { border-left: 1px solid var(--border); padding-left: 24px; }
   .battlefields-block { border-left: 1px solid var(--border); padding-left: 24px; }
   .section-heading { margin: 22px 0 10px; }
@@ -464,6 +496,19 @@
   @media (max-width: 1400px) {
     .page-layout { flex-direction: column; }
     .sidebar { width: 100%; }
+  }
+  @media (max-width: 600px) {
+    /* Both rows below are "nowrap" by design on desktop (Legend/Champion
+       scrolls horizontally in its own strip; Runes sits left of
+       Battlefields) - .subsection:first-child has no min-width:0, so with 2
+       tiles (Legend + Champion) it can be wider than a phone screen and,
+       being flex:0 0 auto, refuses to shrink and lets that force the whole
+       row past the viewport instead of scrolling internally like it's meant
+       to. Wrapping + min-width:0 here is what actually lets
+       .card-grid-top's own overflow-x:auto (already there) do its job. */
+    .top-row { flex-wrap: wrap; }
+    .subsection:first-child { min-width: 0; width: 100%; }
+    .runes-battlefields-row { flex-wrap: wrap; }
   }
   .sidebar-tabs { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 1px solid var(--gridline); }
   .tab-btn {
@@ -617,7 +662,7 @@
     </div>
 
     <div class="subsection subsection-grow">
-      <div style="display:flex; gap:24px; align-items:flex-start; flex-wrap:nowrap">
+      <div class="runes-battlefields-row">
         
         
         <div class="runes-block">

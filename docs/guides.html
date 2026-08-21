@@ -40,6 +40,13 @@
     }
   }
   * { box-sizing: border-box; }
+  /* Belt-and-suspenders: every genuinely wide element (tables, the Matrix
+     grid) gets its OWN overflow-x:auto container below, so this never hides
+     reachable content - it only stops one missed/future wide element from
+     shifting the whole page's horizontal scroll position, which is what
+     throws off anything using position:fixed centering (e.g. the card
+     modal) on mobile browsers. */
+  html { overflow-x: hidden; }
   body {
     margin: 0;
     background: var(--page);
@@ -380,6 +387,30 @@
     font-size: 12px; font-weight: 600; color: var(--text-secondary);
   }
   .deck-meta-chip .domain-icon { width: 15px; height: 15px; }
+
+  /* Site-wide phone layout (~600px and under covers every real device in
+     portrait; the plantillas hijas below add their own page-specific rules
+     under the same breakpoint for anything not generic enough to belong
+     here - filter rows, per-page tables, chart SVGs). Nothing here clips
+     content (no overflow-x:hidden) - wide things (tables, the Matrix grid)
+     get their own overflow-x:auto container instead, so content stays
+     reachable by scrolling within it rather than getting cut off. */
+  @media (max-width: 600px) {
+    header.site { padding: 10px 14px; gap: 10px; flex-wrap: wrap; }
+    header.site .sub { display: none; }
+    .navbar-links { gap: 8px 14px; font-size: 13px; flex-wrap: wrap; }
+    main { padding: 16px 12px 40px; }
+    .card { padding: 14px; }
+    table { font-size: 13px; }
+    th, td { padding: 6px 7px; }
+    .card-grid-fill { grid-template-columns: repeat(3, 1fr); }
+    .card-modal-overlay { padding: 10px; }
+    .card-modal-body { padding: 14px 16px; gap: 16px; }
+    .card-modal-art-col, .card-modal-art-col.landscape { flex: 0 1 auto; width: 100%; max-width: 260px; margin: 0 auto; }
+    .card-modal-info { min-width: 0; }
+    .card-modal-grid { grid-template-columns: 1fr; }
+    .deck-header-title { font-size: 22px; }
+  }
 
   
   main { max-width: 1200px; }
