@@ -1459,6 +1459,27 @@
 </div>
 
 <script>
+// Honors a "force refresh" request from the Data tab's "Actualizar la app"
+// button (see about.html) on every OTHER page too, not just the one the
+// button lives on - this is a static export with no service worker, so the
+// only way to guarantee a stale cached page (GitHub Pages sends
+// Cache-Control: max-age=600) gets a real network fetch instead of serving
+// the old copy is to navigate to a URL variant that was never cached
+// before. The button stamps a fresh epoch into localStorage; the first page
+// load anywhere that doesn't yet carry that exact epoch in its own URL
+// redirects once (via replace(), so it doesn't add a back-button stop) to a
+// copy of itself with ?_cb=<epoch> appended - a brand new cache key, so it's
+// always a real fetch. Once a page's URL carries the current epoch this is a
+// no-op, so it only ever redirects once per page per click.
+(function () {
+  const epoch = localStorage.getItem('forceRefreshEpoch');
+  if (!epoch) return;
+  if (new URLSearchParams(location.search).get('_cb') === epoch) return;
+  const url = new URL(location.href);
+  url.searchParams.set('_cb', epoch);
+  location.replace(url.toString());
+})();
+
 // Generic click-to-sort for any <table class="sortable">. Headers opt in with
 // data-type="number|text"; a <td> can override its sort key via data-sort
 // (e.g. "62.3" for a "62.3% (21)" cell, or "" for a "—" placeholder so it

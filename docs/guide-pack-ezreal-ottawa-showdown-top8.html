@@ -431,6 +431,12 @@
   .guide-body a { color: var(--link); }
   .guide-body img { max-width: 100%; border-radius: 8px; }
   .guide-body strong { color: var(--text-primary); }
+  /* Sideboard swap notation (+N card entra / -N card sale) - same
+     green/red the win-rate matrix on index.html uses (_MATRIX_GREEN /
+     _MATRIX_RED in app.py), so "in" vs "out" reads consistently with the
+     rest of the site. */
+  .guide-body .swap-in { color: rgb(26,152,80); font-weight: 700; }
+  .guide-body .swap-out { color: rgb(217,69,69); font-weight: 700; }
   .guide-header-row { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
   .guide-header-info { flex: 1 1 320px; min-width: 0; }
   .guide-deck-link {
@@ -590,7 +596,7 @@
 <li><strong><span class="card-ref" data-idx="54">Draven</span></strong> (3.7%): sin cobertura en esta guía.</li>
 <li><strong><span class="card-ref" data-idx="55">Jayce</span></strong> (3.6%): sin cobertura en esta guía.</li>
 </ol>
-<p>Fuera del top 10: <strong><span class="card-ref" data-idx="6">Azir</span></strong> (3.5%) sí está cubierto — <span class="card-ref" data-idx="5">Pickpocket</span> es específicamente fuerte contra él. <strong>Aurora</strong> ocupa buena parte del sideboard de esta guía (<span class="card-ref" data-idx="28">Turn to Dust</span>, <span class="card-ref" data-idx="45">Unchecked Power</span>, <span class="card-ref" data-idx="46">Frozen Fortress</span>, corte de Star-Crossed) pero no aparece en ningún deck registrado en la base de datos actual del Controlador — puede ser rarísima en tu meta local o no estar bien capturada en los datos, conviene comprobarlo. <strong>Miracle Cannon</strong> se menciona 3 veces como matchup relevante pero sigue sin identificar qué deck real es.</p>
+<p>Fuera del top 10: <strong><span class="card-ref" data-idx="6">Azir</span></strong> (3.5%) sí está cubierto — <span class="card-ref" data-idx="5">Pickpocket</span> es específicamente fuerte contra él. <strong>Aurora</strong> ocupa buena parte del sideboard de esta guía (<span class="card-ref" data-idx="28">Turn to Dust</span>, <span class="card-ref" data-idx="45">Unchecked Power</span>, <span class="card-ref" data-idx="46">Frozen Fortress</span>, corte de Star-Crossed) pero no aparece en ningún deck registrado en la base de datos actual del Controlador — puede ser rarísima en tu meta local o no estar bien capturada en los datos, conviene comprobarlo. <strong>Miracle Cannon</strong> se menciona 3 veces como matchup relevante — es una versión de <span class="card-ref" data-idx="7">Kennen</span> centrada en meter mucha presión de golpe (burst), no un legend aparte.</p>
 <p>La mitad del top 10 (Kai'Sa, Diana, Nasus, Draven, Jayce) se queda sin plan de sideboard en esta guía.</p></div>
   
 </div>
@@ -700,6 +706,27 @@
 </div>
 
 <script>
+// Honors a "force refresh" request from the Data tab's "Actualizar la app"
+// button (see about.html) on every OTHER page too, not just the one the
+// button lives on - this is a static export with no service worker, so the
+// only way to guarantee a stale cached page (GitHub Pages sends
+// Cache-Control: max-age=600) gets a real network fetch instead of serving
+// the old copy is to navigate to a URL variant that was never cached
+// before. The button stamps a fresh epoch into localStorage; the first page
+// load anywhere that doesn't yet carry that exact epoch in its own URL
+// redirects once (via replace(), so it doesn't add a back-button stop) to a
+// copy of itself with ?_cb=<epoch> appended - a brand new cache key, so it's
+// always a real fetch. Once a page's URL carries the current epoch this is a
+// no-op, so it only ever redirects once per page per click.
+(function () {
+  const epoch = localStorage.getItem('forceRefreshEpoch');
+  if (!epoch) return;
+  if (new URLSearchParams(location.search).get('_cb') === epoch) return;
+  const url = new URL(location.href);
+  url.searchParams.set('_cb', epoch);
+  location.replace(url.toString());
+})();
+
 // Generic click-to-sort for any <table class="sortable">. Headers opt in with
 // data-type="number|text"; a <td> can override its sort key via data-sort
 // (e.g. "62.3" for a "62.3% (21)" cell, or "" for a "—" placeholder so it
