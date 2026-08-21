@@ -1,0 +1,470 @@
+{
+  "source": "https://riftdecks.com/stats/winrate?metagame_id=4&date_range=all&event_ids%5B0%5D=13775",
+  "captured_by": "real Chrome via Playwright (riftbound_data.extract_table)",
+  "captured_at": "2026-08-13",
+  "legends": [
+    {
+      "name": "Irelia",
+      "title": "Irelia, Blade Dancer",
+      "card_code": "SFD-195"
+    },
+    {
+      "name": "Akali",
+      "title": "Akali, Rogue Assassin",
+      "card_code": "VEN-139"
+    },
+    {
+      "name": "Rengar",
+      "title": "Rengar, Pridestalker",
+      "card_code": "UNL-183"
+    },
+    {
+      "name": "Vex",
+      "title": "Vex, Gloomist",
+      "card_code": "UNL-193"
+    },
+    {
+      "name": "Lucian",
+      "title": "Lucian, Purifier",
+      "card_code": "SFD-183"
+    },
+    {
+      "name": "Master Yi",
+      "title": "Master Yi, Wuju Bladesman",
+      "card_code": "OGS-019"
+    },
+    {
+      "name": "Viktor",
+      "title": "Viktor, Herald of the Arcane",
+      "card_code": "OGN-308"
+    },
+    {
+      "name": "Diana",
+      "title": "Diana, Scorn of the Moon",
+      "card_code": "UNL-234"
+    },
+    {
+      "name": "Lillia",
+      "title": "Lillia, Bashful Bloom",
+      "card_code": "UNL-230"
+    }
+  ],
+  "matrix": {
+    "Irelia, Blade Dancer": {
+      "overall": {
+        "win_rate": 38,
+        "matches": 16,
+        "wins": 6,
+        "losses": 10,
+        "ci_low": 15,
+        "ci_high": 65
+      },
+      "opponents": {
+        "Akali, Rogue Assassin": {
+          "win_rate": 20,
+          "matches": 5,
+          "wins": 1,
+          "losses": 4,
+          "ci_low": 1,
+          "ci_high": 72
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 0,
+          "matches": 3,
+          "wins": 0,
+          "losses": 3,
+          "ci_low": 0,
+          "ci_high": 71
+        },
+        "Vex, Gloomist": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Lucian, Purifier": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Akali, Rogue Assassin": {
+      "overall": {
+        "win_rate": 79,
+        "matches": 14,
+        "wins": 11,
+        "losses": 3,
+        "ci_low": 49,
+        "ci_high": 95
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 80,
+          "matches": 5,
+          "wins": 4,
+          "losses": 1,
+          "ci_low": 28,
+          "ci_high": 99
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Vex, Gloomist": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Lucian, Purifier": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 100,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "ci_low": 29,
+          "ci_high": 100
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Rengar, Pridestalker": {
+      "overall": {
+        "win_rate": 50,
+        "matches": 8,
+        "wins": 4,
+        "losses": 4,
+        "ci_low": 16,
+        "ci_high": 84
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "ci_low": 29,
+          "ci_high": 100
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        },
+        "Vex, Gloomist": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Lucian, Purifier": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Vex, Gloomist": {
+      "overall": {
+        "win_rate": 67,
+        "matches": 6,
+        "wins": 4,
+        "losses": 2,
+        "ci_low": 22,
+        "ci_high": 96
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Lucian, Purifier": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Lucian, Purifier": {
+      "overall": {
+        "win_rate": 60,
+        "matches": 5,
+        "wins": 3,
+        "losses": 2,
+        "ci_low": 15,
+        "ci_high": 95
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Vex, Gloomist": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Master Yi, Wuju Bladesman": {
+      "overall": {
+        "win_rate": 40,
+        "matches": 5,
+        "wins": 2,
+        "losses": 3,
+        "ci_low": 5,
+        "ci_high": 85
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 0,
+          "matches": 3,
+          "wins": 0,
+          "losses": 3,
+          "ci_low": 0,
+          "ci_high": 71
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Viktor, Herald of the Arcane": {
+      "overall": {
+        "win_rate": 50,
+        "matches": 4,
+        "wins": 2,
+        "losses": 2,
+        "ci_low": 7,
+        "ci_high": 93
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Vex, Gloomist": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Diana, Scorn of the Moon": {
+      "overall": {
+        "win_rate": 33,
+        "matches": 3,
+        "wins": 1,
+        "losses": 2,
+        "ci_low": 1,
+        "ci_high": 91
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Lillia, Bashful Bloom": {
+      "overall": {
+        "win_rate": 50,
+        "matches": 2,
+        "wins": 1,
+        "losses": 1,
+        "ci_low": 1,
+        "ci_high": 99
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    }
+  },
+  "event_id": 13775,
+  "event_name": "Void Invitational",
+  "players": 18,
+  "event_date": "2026-08-09"
+}

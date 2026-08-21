@@ -1,0 +1,3534 @@
+{
+  "source": "https://riftdecks.com/stats/winrate?metagame_id=4&date_range=all&event_ids%5B0%5D=13745",
+  "captured_by": "real Chrome via Playwright (riftbound_data.extract_table)",
+  "captured_at": "2026-08-13",
+  "legends": [
+    {
+      "name": "Kennen",
+      "title": "Kennen, Heart of the Tempest",
+      "card_code": "VEN-155"
+    },
+    {
+      "name": "Master Yi",
+      "title": "Master Yi, Wuju Bladesman",
+      "card_code": "OGS-019"
+    },
+    {
+      "name": "Irelia",
+      "title": "Irelia, Blade Dancer",
+      "card_code": "SFD-195"
+    },
+    {
+      "name": "Vex",
+      "title": "Vex, Gloomist",
+      "card_code": "UNL-193"
+    },
+    {
+      "name": "Ezreal",
+      "title": "Ezreal, Prodigal Explorer",
+      "card_code": "SFD-248"
+    },
+    {
+      "name": "Viktor",
+      "title": "Viktor, Herald of the Arcane",
+      "card_code": "OGN-308"
+    },
+    {
+      "name": "Diana",
+      "title": "Diana, Scorn of the Moon",
+      "card_code": "UNL-234"
+    },
+    {
+      "name": "Nasus",
+      "title": "Nasus, Curator of the Sands",
+      "card_code": "VEN-192"
+    },
+    {
+      "name": "Jayce",
+      "title": "Jayce, Defender of Tomorrow",
+      "card_code": "VEN-149"
+    },
+    {
+      "name": "Azir",
+      "title": "Azir, Emperor of the Sands",
+      "card_code": "SFD-197"
+    },
+    {
+      "name": "Leblanc",
+      "title": "Leblanc, Deceiver",
+      "card_code": "UNL-199"
+    },
+    {
+      "name": "Khazix",
+      "title": "Khazix, Voidreaver",
+      "card_code": "UNL-236"
+    },
+    {
+      "name": "Kai'sa",
+      "title": "Kai'sa, Daughter of the Void",
+      "card_code": "OGN-299"
+    },
+    {
+      "name": "Draven",
+      "title": "Draven, Glorious Executioner",
+      "card_code": "SFD-185"
+    },
+    {
+      "name": "Akali",
+      "title": "Akali, Rogue Assassin",
+      "card_code": "VEN-139"
+    },
+    {
+      "name": "Lillia",
+      "title": "Lillia, Bashful Bloom",
+      "card_code": "UNL-230"
+    },
+    {
+      "name": "Mel",
+      "title": "Mel, Soul's Reflection",
+      "card_code": "VEN-151"
+    },
+    {
+      "name": "Ivern",
+      "title": "Ivern, Green Father",
+      "card_code": "UNL-233"
+    },
+    {
+      "name": "Fiora",
+      "title": "Fiora, Grand Duelist",
+      "card_code": "SFD-205"
+    },
+    {
+      "name": "Ornn",
+      "title": "Ornn, Fire Below the Mountain",
+      "card_code": "SFD-189"
+    },
+    {
+      "name": "Vi",
+      "title": "Vi, Piltover Enforcer",
+      "card_code": "UNL-187"
+    },
+    {
+      "name": "Annie",
+      "title": "Annie, Dark Child",
+      "card_code": "OGS-017"
+    },
+    {
+      "name": "Reksai",
+      "title": "Reksai, Void Burrower",
+      "card_code": "SFD-187"
+    },
+    {
+      "name": "Ahri",
+      "title": "Ahri, Nine-Tailed Fox",
+      "card_code": "OGN-303"
+    },
+    {
+      "name": "Master Yi",
+      "title": "Master Yi, Wuju Master",
+      "card_code": "UNL-191"
+    },
+    {
+      "name": "Rengar",
+      "title": "Rengar, Pridestalker",
+      "card_code": "UNL-183"
+    },
+    {
+      "name": "Pyke",
+      "title": "Pyke, Bloodharbor Ripper",
+      "card_code": "UNL-185"
+    },
+    {
+      "name": "Renekton",
+      "title": "Renekton, Butcher of the Sands",
+      "card_code": "VEN-141"
+    },
+    {
+      "name": "Shen",
+      "title": "Shen, Eye of Twilight",
+      "card_code": "VEN-193"
+    },
+    {
+      "name": "Teemo",
+      "title": "Teemo, Swift Scout",
+      "card_code": "OGN-307"
+    },
+    {
+      "name": "Ambessa",
+      "title": "Ambessa, Matriarch of War",
+      "card_code": "VEN-153"
+    },
+    {
+      "name": "Sett",
+      "title": "Sett, The Boss",
+      "card_code": "OGN-310"
+    },
+    {
+      "name": "Zed",
+      "title": "Zed, Master of Shadows",
+      "card_code": "VEN-191"
+    }
+  ],
+  "matrix": {
+    "Kennen, Heart of the Tempest": {
+      "overall": {
+        "win_rate": 52,
+        "matches": 58,
+        "wins": 30,
+        "losses": 28,
+        "ci_low": 38,
+        "ci_high": 65
+      },
+      "opponents": {
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 25,
+          "matches": 4,
+          "wins": 1,
+          "losses": 3,
+          "ci_low": 1,
+          "ci_high": 81
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Vex, Gloomist": {
+          "win_rate": 50,
+          "matches": 4,
+          "wins": 2,
+          "losses": 2,
+          "ci_low": 7,
+          "ci_high": 93
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 50,
+          "matches": 4,
+          "wins": 2,
+          "losses": 2,
+          "ci_low": 7,
+          "ci_high": 93
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 50,
+          "matches": 6,
+          "wins": 3,
+          "losses": 3,
+          "ci_low": 12,
+          "ci_high": 88
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Khazix, Voidreaver": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Kai'sa, Daughter of the Void": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 100,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "ci_low": 29,
+          "ci_high": 100
+        },
+        "Mel, Soul's Reflection": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ivern, Green Father": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Fiora, Grand Duelist": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ornn, Fire Below the Mountain": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Reksai, Void Burrower": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ahri, Nine-Tailed Fox": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Master Yi, Wuju Master": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Pyke, Bloodharbor Ripper": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Shen, Eye of Twilight": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Teemo, Swift Scout": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Sett, The Boss": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Zed, Master of Shadows": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Master Yi, Wuju Bladesman": {
+      "overall": {
+        "win_rate": 64,
+        "matches": 58,
+        "wins": 37,
+        "losses": 21,
+        "ci_low": 50,
+        "ci_high": 76
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 75,
+          "matches": 4,
+          "wins": 3,
+          "losses": 1,
+          "ci_low": 19,
+          "ci_high": 99
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 55,
+          "matches": 11,
+          "wins": 6,
+          "losses": 5,
+          "ci_low": 23,
+          "ci_high": 83
+        },
+        "Vex, Gloomist": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 50,
+          "matches": 4,
+          "wins": 2,
+          "losses": 2,
+          "ci_low": 7,
+          "ci_high": 93
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 100,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "ci_low": 29,
+          "ci_high": 100
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 67,
+          "matches": 6,
+          "wins": 4,
+          "losses": 2,
+          "ci_low": 22,
+          "ci_high": 96
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 40,
+          "matches": 5,
+          "wins": 2,
+          "losses": 3,
+          "ci_low": 5,
+          "ci_high": 85
+        },
+        "Khazix, Voidreaver": {
+          "win_rate": 67,
+          "matches": 6,
+          "wins": 4,
+          "losses": 2,
+          "ci_low": 22,
+          "ci_high": 96
+        },
+        "Kai'sa, Daughter of the Void": {
+          "win_rate": 100,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "ci_low": 29,
+          "ci_high": 100
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Mel, Soul's Reflection": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ornn, Fire Below the Mountain": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Vi, Piltover Enforcer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ahri, Nine-Tailed Fox": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Master Yi, Wuju Master": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Irelia, Blade Dancer": {
+      "overall": {
+        "win_rate": 49,
+        "matches": 55,
+        "wins": 27,
+        "losses": 28,
+        "ci_low": 35,
+        "ci_high": 63
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 45,
+          "matches": 11,
+          "wins": 5,
+          "losses": 6,
+          "ci_low": 17,
+          "ci_high": 77
+        },
+        "Vex, Gloomist": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 75,
+          "matches": 4,
+          "wins": 3,
+          "losses": 1,
+          "ci_low": 19,
+          "ci_high": 99
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 0,
+          "matches": 3,
+          "wins": 0,
+          "losses": 3,
+          "ci_low": 0,
+          "ci_high": 71
+        },
+        "Khazix, Voidreaver": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        },
+        "Kai'sa, Daughter of the Void": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ivern, Green Father": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Fiora, Grand Duelist": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Reksai, Void Burrower": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Master Yi, Wuju Master": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Pyke, Bloodharbor Ripper": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Renekton, Butcher of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Teemo, Swift Scout": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ambessa, Matriarch of War": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Vex, Gloomist": {
+      "overall": {
+        "win_rate": 45,
+        "matches": 33,
+        "wins": 15,
+        "losses": 18,
+        "ci_low": 28,
+        "ci_high": 64
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 50,
+          "matches": 4,
+          "wins": 2,
+          "losses": 2,
+          "ci_low": 7,
+          "ci_high": 93
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 40,
+          "matches": 5,
+          "wins": 2,
+          "losses": 3,
+          "ci_low": 5,
+          "ci_high": 85
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Mel, Soul's Reflection": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ivern, Green Father": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ornn, Fire Below the Mountain": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Vi, Piltover Enforcer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Annie, Dark Child": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Pyke, Bloodharbor Ripper": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Teemo, Swift Scout": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ambessa, Matriarch of War": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Ezreal, Prodigal Explorer": {
+      "overall": {
+        "win_rate": 50,
+        "matches": 30,
+        "wins": 15,
+        "losses": 15,
+        "ci_low": 31,
+        "ci_high": 69
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 50,
+          "matches": 4,
+          "wins": 2,
+          "losses": 2,
+          "ci_low": 7,
+          "ci_high": 93
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Vex, Gloomist": {
+          "win_rate": 60,
+          "matches": 5,
+          "wins": 3,
+          "losses": 2,
+          "ci_low": 15,
+          "ci_high": 95
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Kai'sa, Daughter of the Void": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Mel, Soul's Reflection": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        },
+        "Ornn, Fire Below the Mountain": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Vi, Piltover Enforcer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Renekton, Butcher of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Viktor, Herald of the Arcane": {
+      "overall": {
+        "win_rate": 52,
+        "matches": 27,
+        "wins": 14,
+        "losses": 13,
+        "ci_low": 32,
+        "ci_high": 71
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 0,
+          "matches": 3,
+          "wins": 0,
+          "losses": 3,
+          "ci_low": 0,
+          "ci_high": 71
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Kai'sa, Daughter of the Void": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Mel, Soul's Reflection": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ivern, Green Father": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Fiora, Grand Duelist": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Shen, Eye of Twilight": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Teemo, Swift Scout": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Diana, Scorn of the Moon": {
+      "overall": {
+        "win_rate": 52,
+        "matches": 25,
+        "wins": 13,
+        "losses": 12,
+        "ci_low": 31,
+        "ci_high": 72
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 50,
+          "matches": 4,
+          "wins": 2,
+          "losses": 2,
+          "ci_low": 7,
+          "ci_high": 93
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 33,
+          "matches": 6,
+          "wins": 2,
+          "losses": 4,
+          "ci_low": 4,
+          "ci_high": 78
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Vex, Gloomist": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Fiora, Grand Duelist": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Vi, Piltover Enforcer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Reksai, Void Burrower": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Master Yi, Wuju Master": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Renekton, Butcher of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Nasus, Curator of the Sands": {
+      "overall": {
+        "win_rate": 40,
+        "matches": 25,
+        "wins": 10,
+        "losses": 15,
+        "ci_low": 21,
+        "ci_high": 61
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 50,
+          "matches": 6,
+          "wins": 3,
+          "losses": 3,
+          "ci_low": 12,
+          "ci_high": 88
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 25,
+          "matches": 4,
+          "wins": 1,
+          "losses": 3,
+          "ci_low": 1,
+          "ci_high": 81
+        },
+        "Vex, Gloomist": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        },
+        "Kai'sa, Daughter of the Void": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ornn, Fire Below the Mountain": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Vi, Piltover Enforcer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Annie, Dark Child": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Sett, The Boss": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Jayce, Defender of Tomorrow": {
+      "overall": {
+        "win_rate": 42,
+        "matches": 24,
+        "wins": 10,
+        "losses": 14,
+        "ci_low": 22,
+        "ci_high": 63
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Vex, Gloomist": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Khazix, Voidreaver": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Mel, Soul's Reflection": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Vi, Piltover Enforcer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ahri, Nine-Tailed Fox": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Pyke, Bloodharbor Ripper": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Azir, Emperor of the Sands": {
+      "overall": {
+        "win_rate": 48,
+        "matches": 23,
+        "wins": 11,
+        "losses": 12,
+        "ci_low": 27,
+        "ci_high": 69
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Vex, Gloomist": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Khazix, Voidreaver": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Mel, Soul's Reflection": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ivern, Green Father": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Fiora, Grand Duelist": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Annie, Dark Child": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Reksai, Void Burrower": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ahri, Nine-Tailed Fox": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Sett, The Boss": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Leblanc, Deceiver": {
+      "overall": {
+        "win_rate": 70,
+        "matches": 23,
+        "wins": 16,
+        "losses": 7,
+        "ci_low": 47,
+        "ci_high": 87
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 60,
+          "matches": 5,
+          "wins": 3,
+          "losses": 2,
+          "ci_low": 15,
+          "ci_high": 95
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "ci_low": 29,
+          "ci_high": 100
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Khazix, Voidreaver": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Kai'sa, Daughter of the Void": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Reksai, Void Burrower": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ahri, Nine-Tailed Fox": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Sett, The Boss": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Zed, Master of Shadows": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Khazix, Voidreaver": {
+      "overall": {
+        "win_rate": 59,
+        "matches": 17,
+        "wins": 10,
+        "losses": 7,
+        "ci_low": 33,
+        "ci_high": 82
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 33,
+          "matches": 6,
+          "wins": 2,
+          "losses": 4,
+          "ci_low": 4,
+          "ci_high": 78
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Kai'sa, Daughter of the Void": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Mel, Soul's Reflection": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Master Yi, Wuju Master": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Pyke, Bloodharbor Ripper": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Kai'sa, Daughter of the Void": {
+      "overall": {
+        "win_rate": 31,
+        "matches": 16,
+        "wins": 5,
+        "losses": 11,
+        "ci_low": 11,
+        "ci_high": 59
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 0,
+          "matches": 3,
+          "wins": 0,
+          "losses": 3,
+          "ci_low": 0,
+          "ci_high": 71
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Khazix, Voidreaver": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ornn, Fire Below the Mountain": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Reksai, Void Burrower": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Draven, Glorious Executioner": {
+      "overall": {
+        "win_rate": 47,
+        "matches": 15,
+        "wins": 7,
+        "losses": 8,
+        "ci_low": 21,
+        "ci_high": 73
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Vex, Gloomist": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ivern, Green Father": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Annie, Dark Child": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Pyke, Bloodharbor Ripper": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Renekton, Butcher of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ambessa, Matriarch of War": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Akali, Rogue Assassin": {
+      "overall": {
+        "win_rate": 43,
+        "matches": 14,
+        "wins": 6,
+        "losses": 8,
+        "ci_low": 18,
+        "ci_high": 71
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 0,
+          "matches": 3,
+          "wins": 0,
+          "losses": 3,
+          "ci_low": 0,
+          "ci_high": 71
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Sett, The Boss": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Lillia, Bashful Bloom": {
+      "overall": {
+        "win_rate": 43,
+        "matches": 14,
+        "wins": 6,
+        "losses": 8,
+        "ci_low": 18,
+        "ci_high": 71
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Vex, Gloomist": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Kai'sa, Daughter of the Void": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Annie, Dark Child": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Master Yi, Wuju Master": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Zed, Master of Shadows": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Mel, Soul's Reflection": {
+      "overall": {
+        "win_rate": 64,
+        "matches": 14,
+        "wins": 9,
+        "losses": 5,
+        "ci_low": 35,
+        "ci_high": 87
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Vex, Gloomist": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Khazix, Voidreaver": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        },
+        "Fiora, Grand Duelist": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Vi, Piltover Enforcer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ambessa, Matriarch of War": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Zed, Master of Shadows": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Ivern, Green Father": {
+      "overall": {
+        "win_rate": 46,
+        "matches": 13,
+        "wins": 6,
+        "losses": 7,
+        "ci_low": 19,
+        "ci_high": 75
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        },
+        "Vex, Gloomist": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Annie, Dark Child": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Reksai, Void Burrower": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Teemo, Swift Scout": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Fiora, Grand Duelist": {
+      "overall": {
+        "win_rate": 50,
+        "matches": 12,
+        "wins": 6,
+        "losses": 6,
+        "ci_low": 21,
+        "ci_high": 79
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Mel, Soul's Reflection": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Vi, Piltover Enforcer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ahri, Nine-Tailed Fox": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Shen, Eye of Twilight": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ambessa, Matriarch of War": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Ornn, Fire Below the Mountain": {
+      "overall": {
+        "win_rate": 50,
+        "matches": 10,
+        "wins": 5,
+        "losses": 5,
+        "ci_low": 19,
+        "ci_high": 81
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Vex, Gloomist": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Kai'sa, Daughter of the Void": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Vi, Piltover Enforcer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Master Yi, Wuju Master": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Vi, Piltover Enforcer": {
+      "overall": {
+        "win_rate": 40,
+        "matches": 10,
+        "wins": 4,
+        "losses": 6,
+        "ci_low": 12,
+        "ci_high": 74
+      },
+      "opponents": {
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Vex, Gloomist": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Mel, Soul's Reflection": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Fiora, Grand Duelist": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ornn, Fire Below the Mountain": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Renekton, Butcher of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Annie, Dark Child": {
+      "overall": {
+        "win_rate": 44,
+        "matches": 9,
+        "wins": 4,
+        "losses": 5,
+        "ci_low": 14,
+        "ci_high": 79
+      },
+      "opponents": {
+        "Vex, Gloomist": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ivern, Green Father": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Reksai, Void Burrower": {
+      "overall": {
+        "win_rate": 33,
+        "matches": 9,
+        "wins": 3,
+        "losses": 6,
+        "ci_low": 7,
+        "ci_high": 70
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Kai'sa, Daughter of the Void": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ivern, Green Father": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Teemo, Swift Scout": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Ahri, Nine-Tailed Fox": {
+      "overall": {
+        "win_rate": 43,
+        "matches": 7,
+        "wins": 3,
+        "losses": 4,
+        "ci_low": 10,
+        "ci_high": 82
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Fiora, Grand Duelist": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Shen, Eye of Twilight": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Master Yi, Wuju Master": {
+      "overall": {
+        "win_rate": 71,
+        "matches": 7,
+        "wins": 5,
+        "losses": 2,
+        "ci_low": 29,
+        "ci_high": 96
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Khazix, Voidreaver": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ornn, Fire Below the Mountain": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Rengar, Pridestalker": {
+      "overall": {
+        "win_rate": 71,
+        "matches": 7,
+        "wins": 5,
+        "losses": 2,
+        "ci_low": 29,
+        "ci_high": 96
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ivern, Green Father": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ornn, Fire Below the Mountain": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Annie, Dark Child": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Pyke, Bloodharbor Ripper": {
+      "overall": {
+        "win_rate": 83,
+        "matches": 6,
+        "wins": 5,
+        "losses": 1,
+        "ci_low": 36,
+        "ci_high": 100
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Vex, Gloomist": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Jayce, Defender of Tomorrow": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Khazix, Voidreaver": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Renekton, Butcher of the Sands": {
+      "overall": {
+        "win_rate": 50,
+        "matches": 6,
+        "wins": 3,
+        "losses": 3,
+        "ci_low": 12,
+        "ci_high": 88
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Vi, Piltover Enforcer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Zed, Master of Shadows": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Shen, Eye of Twilight": {
+      "overall": {
+        "win_rate": 33,
+        "matches": 6,
+        "wins": 2,
+        "losses": 4,
+        "ci_low": 4,
+        "ci_high": 78
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Fiora, Grand Duelist": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ahri, Nine-Tailed Fox": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Teemo, Swift Scout": {
+      "overall": {
+        "win_rate": 50,
+        "matches": 6,
+        "wins": 3,
+        "losses": 3,
+        "ci_low": 12,
+        "ci_high": 88
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Vex, Gloomist": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Viktor, Herald of the Arcane": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Ivern, Green Father": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Reksai, Void Burrower": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Ambessa, Matriarch of War": {
+      "overall": {
+        "win_rate": 20,
+        "matches": 5,
+        "wins": 1,
+        "losses": 4,
+        "ci_low": 1,
+        "ci_high": 72
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Vex, Gloomist": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Mel, Soul's Reflection": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Fiora, Grand Duelist": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Sett, The Boss": {
+      "overall": {
+        "win_rate": 40,
+        "matches": 5,
+        "wins": 2,
+        "losses": 3,
+        "ci_low": 5,
+        "ci_high": 85
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Nasus, Curator of the Sands": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Akali, Rogue Assassin": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Zed, Master of Shadows": {
+      "overall": {
+        "win_rate": 20,
+        "matches": 5,
+        "wins": 1,
+        "losses": 4,
+        "ci_low": 1,
+        "ci_high": 72
+      },
+      "opponents": {
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Leblanc, Deceiver": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Lillia, Bashful Bloom": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Mel, Soul's Reflection": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Renekton, Butcher of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    }
+  },
+  "event_id": 13745,
+  "event_name": "Riftbound Championship Series - RCS Hobby Con",
+  "players": 112,
+  "event_date": "2026-08-08"
+}

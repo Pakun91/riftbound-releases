@@ -1,0 +1,534 @@
+{
+  "source": "https://riftdecks.com/stats/winrate?metagame_id=4&date_range=all&event_ids%5B0%5D=13729",
+  "captured_by": "real Chrome via Playwright (riftbound_data.extract_table)",
+  "captured_at": "2026-08-13",
+  "legends": [
+    {
+      "name": "Irelia",
+      "title": "Irelia, Blade Dancer",
+      "card_code": "SFD-195"
+    },
+    {
+      "name": "Master Yi",
+      "title": "Master Yi, Wuju Bladesman",
+      "card_code": "OGS-019"
+    },
+    {
+      "name": "Draven",
+      "title": "Draven, Glorious Executioner",
+      "card_code": "SFD-185"
+    },
+    {
+      "name": "Kennen",
+      "title": "Kennen, Heart of the Tempest",
+      "card_code": "VEN-155"
+    },
+    {
+      "name": "Azir",
+      "title": "Azir, Emperor of the Sands",
+      "card_code": "SFD-197"
+    },
+    {
+      "name": "Diana",
+      "title": "Diana, Scorn of the Moon",
+      "card_code": "UNL-234"
+    },
+    {
+      "name": "Ezreal",
+      "title": "Ezreal, Prodigal Explorer",
+      "card_code": "SFD-248"
+    },
+    {
+      "name": "Miss Fortune",
+      "title": "Miss Fortune, Bounty Hunter",
+      "card_code": "OGN-309"
+    },
+    {
+      "name": "Rengar",
+      "title": "Rengar, Pridestalker",
+      "card_code": "UNL-183"
+    }
+  ],
+  "matrix": {
+    "Irelia, Blade Dancer": {
+      "overall": {
+        "win_rate": 56,
+        "matches": 16,
+        "wins": 9,
+        "losses": 7,
+        "ci_low": 30,
+        "ci_high": 80
+      },
+      "opponents": {
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 20,
+          "matches": 5,
+          "wins": 1,
+          "losses": 4,
+          "ci_low": 1,
+          "ci_high": 72
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 100,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "ci_low": 29,
+          "ci_high": 100
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 100,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "ci_low": 29,
+          "ci_high": 100
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Miss Fortune, Bounty Hunter": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Master Yi, Wuju Bladesman": {
+      "overall": {
+        "win_rate": 63,
+        "matches": 16,
+        "wins": 10,
+        "losses": 6,
+        "ci_low": 35,
+        "ci_high": 85
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 80,
+          "matches": 5,
+          "wins": 4,
+          "losses": 1,
+          "ci_low": 28,
+          "ci_high": 99
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 100,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "ci_low": 29,
+          "ci_high": 100
+        },
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "ci_low": 1,
+          "ci_high": 91
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Miss Fortune, Bounty Hunter": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Draven, Glorious Executioner": {
+      "overall": {
+        "win_rate": 21,
+        "matches": 14,
+        "wins": 3,
+        "losses": 11,
+        "ci_low": 5,
+        "ci_high": 51
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 0,
+          "matches": 3,
+          "wins": 0,
+          "losses": 3,
+          "ci_low": 0,
+          "ci_high": 71
+        },
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 50,
+          "matches": 4,
+          "wins": 2,
+          "losses": 2,
+          "ci_low": 7,
+          "ci_high": 93
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Kennen, Heart of the Tempest": {
+      "overall": {
+        "win_rate": 38,
+        "matches": 13,
+        "wins": 5,
+        "losses": 8,
+        "ci_low": 14,
+        "ci_high": 68
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 3,
+          "wins": 0,
+          "losses": 3,
+          "ci_low": 0,
+          "ci_high": 71
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 50,
+          "matches": 4,
+          "wins": 2,
+          "losses": 2,
+          "ci_low": 7,
+          "ci_high": 93
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Ezreal, Prodigal Explorer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Miss Fortune, Bounty Hunter": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Azir, Emperor of the Sands": {
+      "overall": {
+        "win_rate": 67,
+        "matches": 9,
+        "wins": 6,
+        "losses": 3,
+        "ci_low": 30,
+        "ci_high": 93
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 3,
+          "wins": 0,
+          "losses": 3,
+          "ci_low": 0,
+          "ci_high": 71
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Diana, Scorn of the Moon": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Rengar, Pridestalker": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Diana, Scorn of the Moon": {
+      "overall": {
+        "win_rate": 44,
+        "matches": 9,
+        "wins": 4,
+        "losses": 5,
+        "ci_low": 14,
+        "ci_high": 79
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 100,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "ci_low": 16,
+          "ci_high": 100
+        },
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 0,
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "ci_low": 0,
+          "ci_high": 84
+        }
+      }
+    },
+    "Ezreal, Prodigal Explorer": {
+      "overall": {
+        "win_rate": 100,
+        "matches": 3,
+        "wins": 3,
+        "losses": 0,
+        "ci_low": 29,
+        "ci_high": 100
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        }
+      }
+    },
+    "Miss Fortune, Bounty Hunter": {
+      "overall": {
+        "win_rate": 33,
+        "matches": 3,
+        "wins": 1,
+        "losses": 2,
+        "ci_low": 1,
+        "ci_high": 91
+      },
+      "opponents": {
+        "Irelia, Blade Dancer": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Kennen, Heart of the Tempest": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    },
+    "Rengar, Pridestalker": {
+      "overall": {
+        "win_rate": 67,
+        "matches": 3,
+        "wins": 2,
+        "losses": 1,
+        "ci_low": 9,
+        "ci_high": 99
+      },
+      "opponents": {
+        "Master Yi, Wuju Bladesman": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Draven, Glorious Executioner": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
+        },
+        "Azir, Emperor of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        }
+      }
+    }
+  },
+  "event_id": 13729,
+  "event_name": "Saturday Morning Le Rift Tour - Phase 1",
+  "players": 28,
+  "event_date": "2026-08-08"
+}
