@@ -1,0 +1,3098 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Ezreal, Prodigal Explorer — Riftbound</title>
+<link rel="icon" type="image/png" href="static/img/favicon.png">
+<style>
+  :root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --card-bg:        #ffffff;
+    --link:           #A85300;
+    --link-hover:     #7A3D00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page:           #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --card-bg:        #17171a;
+      --link:           #F0A03D;
+      --link-hover:     #F5B15C;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  a { color: var(--link); text-decoration: none; transition: color .15s ease; }
+  a:hover { color: var(--link-hover); }
+  header.site {
+    background: #16161a;
+    padding: 14px 28px;
+    border-bottom: 1px solid rgba(240,160,61,0.25);
+    display: flex; align-items: center; gap: 32px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  header.site h1 { font-size: 17px; margin: 0; }
+  header.site .brand-link { text-decoration: none; }
+  header.site .brand-link:hover { text-decoration: none; }
+  .navbar-links { display: flex; gap: 28px; font-size: 14px; font-weight: 600; }
+  .navbar-links a {
+    position: relative; color: #c7c7c7; text-decoration: none; padding-bottom: 4px;
+    transition: color .15s ease;
+  }
+  .navbar-links a:hover { color: #F0A03D; text-decoration: none; }
+  .navbar-links a.active { color: #F0A03D; }
+  .navbar-links a.active::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -5px; height: 2px;
+    background: #F0A03D; border-radius: 1px;
+    box-shadow: 0 0 4px #F0A03D, 0 0 10px #F0A03D, 0 0 16px 1px #F0A03D;
+  }
+  header.site .sub { color: #8c8c8c; font-size: 13px; margin-left: auto; white-space: nowrap; }
+  main { max-width: 1080px; margin: 0 auto; padding: 24px 28px 60px; }
+  /* Opt-in escape hatch for the one view that genuinely can't fit its
+     content in the site's normal width (the Matchup Matrix grid, which
+     has 35+ legend columns) - every other page/tab stays on the default
+     main width above, so this must be applied deliberately per page via
+     the main_class block below, not left as every page's default. */
+  main.main-wide { max-width: min(96vw, 1900px); }
+  /* Real content footprint, unaffected by main's own left/right padding -
+     giving two pages the same declared width only matches on screen if
+     both reach it the same way. main itself needs enough room (>1200+56px)
+     for this to actually render at its full 1200px instead of shrinking to
+     fit a too-narrow main. */
+  .narrow { max-width: 1200px; margin: 0 auto; }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  /* Shared "no results" placeholder (message + faded Lonely Poro art) for
+     every filterable page - see /Stats/Matrix for the original. */
+  .empty-state { text-align: center; padding: 40px 0; }
+  .empty-state-art { position: relative; max-width: 1300px; margin: 0 auto; background: var(--card-bg); border-radius: 8px; overflow: hidden; }
+  .empty-state-art img { display: block; width: 100%; height: auto; }
+  .empty-state-art .fade { position: absolute; pointer-events: none; }
+  .empty-state-art .fade-top, .empty-state-art .fade-bottom { left: 0; right: 0; height: 30%; }
+  .empty-state-art .fade-left, .empty-state-art .fade-right { top: 0; bottom: 0; width: 18%; }
+  .empty-state-art .fade-top { top: 0; background: linear-gradient(to bottom, var(--card-bg), transparent); }
+  .empty-state-art .fade-bottom { bottom: 0; background: linear-gradient(to top, var(--card-bg), transparent); }
+  .empty-state-art .fade-left { left: 0; background: linear-gradient(to right, var(--card-bg), transparent); }
+  .empty-state-art .fade-right { right: 0; background: linear-gradient(to left, var(--card-bg), transparent); }
+  .empty-state p { margin: 0 0 12px; font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; color: var(--text-muted); font-weight: 600; font-size: 12px;
+       text-transform: uppercase; letter-spacing: .04em; padding: 6px 10px; border-bottom: 1px solid var(--gridline); }
+  table.sortable th[data-type] { cursor: pointer; user-select: none; white-space: nowrap; }
+  table.sortable th[data-type]:hover { color: var(--text-secondary); }
+  table.sortable th[data-type]::after {
+    content: '↕'; display: inline-block; width: 10px; margin-left: 2px; opacity: .5; font-size: 10px;
+  }
+  table.sortable th[data-type].sorted::after { opacity: 1; color: var(--series-1); }
+  table.sortable th[data-type].sorted[data-dir="asc"]::after { content: '▲'; }
+  table.sortable th[data-type].sorted[data-dir="desc"]::after { content: '▼'; }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--gridline); }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: color-mix(in srgb, var(--series-1) 6%, transparent); }
+  .table-pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 14px; margin-top: 14px; font-size: 13px; }
+  .table-pagination button {
+    padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border);
+    background: var(--page); color: var(--text-secondary); cursor: pointer; font-size: 12px;
+  }
+  .table-pagination button:hover:not(:disabled) { color: var(--text-primary); border-color: var(--text-muted); }
+  .table-pagination button:disabled { opacity: .4; cursor: default; }
+  .table-pagination-info { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+  /* A row a page's own filter/search marks as not matching - see the
+     paginate:refresh listener in the generic pagination script for why
+     this is a class and not the pagination script's own style.display. */
+  .filter-hidden { display: none; }
+  .num { font-variant-numeric: tabular-nums; text-align: right; }
+  .muted { color: var(--text-muted); }
+  .secondary { color: var(--text-secondary); }
+  .help-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 13px; height: 13px; border-radius: 50%; margin-left: 3px;
+    background: var(--border); color: var(--text-muted);
+    font-size: 9px; font-weight: 700; font-style: normal; text-transform: none;
+    letter-spacing: normal; cursor: help; vertical-align: middle;
+  }
+  .help-icon:hover { background: var(--series-1); color: #fff; }
+  .stat-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
+  .stat-tile { flex: 1; min-width: 120px; background: var(--card-bg); border: 1px solid var(--border);
+               border-radius: 10px; padding: 14px 16px; }
+  .stat-tile .value { font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stat-tile .label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .domain-icon { width: 26px; height: 26px; vertical-align: middle; margin-right: 4px; display: inline-block; }
+  h2 { font-size: 15px; margin: 0 0 14px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .breadcrumb { font-size: 12px; margin-bottom: 14px; }
+  .breadcrumb a { color: #F0A03D; font-weight: 600; }
+  .breadcrumb a:hover { color: #F5B15C; }
+  .breadcrumb .sep { margin: 0 8px; color: var(--text-muted); }
+  .breadcrumb .current { color: var(--text-secondary); font-weight: 600; }
+
+  /* Shared card-tile grid + zoomable card-detail popup - any page can opt in
+     by giving its .card-tile elements a data-idx (position in that page's
+     own card list) and embedding a #card-details-data JSON script tag with
+     that same list, shaped like riftbound_data.analysis._card_detail(). */
+  .card-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+  .card-tile { position: relative; width: 154px; flex: 0 0 auto; }
+  .card-tile img {
+    width: 154px; aspect-ratio: 120 / 168; height: auto; object-fit: cover; border-radius: 8px;
+    border: 1px solid var(--border); display: block; background: var(--page);
+  }
+  .card-tile-noimg {
+    width: 154px; aspect-ratio: 120 / 168; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--page); display: flex; align-items: center; justify-content: center;
+    text-align: center; font-size: 12px; color: var(--text-muted); padding: 8px;
+  }
+  .card-tile-caption {
+    font-size: 12px; color: var(--text-secondary); margin-top: 4px; line-height: 1.3;
+    max-width: 154px; margin-left: 5px;
+    /* Otherwise inherits pointer from the parent .card-tile[data-idx] -
+       this text is only ever selectable, never itself a click target
+       (opening the modal is still handled by the tile as a whole), so it
+       gets the browser's normal text-selection cursor instead. */
+    cursor: text;
+  }
+  .card-grid-fill { display: grid; grid-template-columns: repeat(6, 1fr); }
+  .card-grid-fill .card-tile { width: auto; }
+  .card-grid-fill .card-tile img,
+  .card-grid-fill .card-tile-noimg { width: 100%; height: auto; aspect-ratio: 120 / 168; }
+  .card-grid-fill .card-tile-caption { max-width: 100%; }
+  .card-tile-landscape { width: 210px; flex: 0 0 auto; }
+  .card-tile-landscape img,
+  .card-tile-landscape .card-tile-noimg { width: 210px; height: 150px; }
+  .card-tile-landscape img { object-fit: contain; background: var(--border); }
+  .card-grid-fill-landscape { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .card-grid-fill-landscape .card-tile-landscape { width: auto; }
+  .card-grid-fill-landscape .card-tile-landscape img,
+  .card-grid-fill-landscape .card-tile-landscape .card-tile-noimg { width: 100%; height: auto; aspect-ratio: 210 / 150; }
+  .card-tile-landscape .card-tile-caption { max-width: 210px; }
+  .card-grid-fill-landscape .card-tile-landscape .card-tile-caption { max-width: 100%; }
+  /* A landscape tile inside a plain (portrait-oriented) .card-grid-fill -
+     e.g. Battlefields mixed into the Cards catalog grid - keeps the same
+     column width as its portrait neighbors (not the standalone 210px
+     .card-tile-landscape width) while still using the landscape aspect
+     ratio, so it reads as "this card's own shape" without breaking the
+     grid's alignment. Needs a compound (.card-tile.card-tile-landscape)
+     selector to reliably out-specificity the plain rules above regardless
+     of source order. */
+  .card-grid-fill .card-tile.card-tile-landscape { width: auto; }
+  .card-grid-fill .card-tile.card-tile-landscape img,
+  .card-grid-fill .card-tile.card-tile-landscape .card-tile-noimg {
+    width: 100%; height: auto; aspect-ratio: 210 / 150;
+  }
+  .card-grid-fill .card-tile.card-tile-landscape .card-tile-caption { max-width: 100%; }
+  .card-tile-img-wrap { position: relative; }
+  /* Corner ribbon for banned cards - opt in by adding this class to whatever
+     element directly wraps the <img> (.card-tile-img-wrap normally, or
+     .card-tile itself for the rare tile that skips the wrap div). Width/left
+     use % (not px) so the same rule scales correctly across every tile size
+     in play (154px portrait, 210px landscape, 100%-fill grid, the 183px
+     .card-tile-lg legend portrait). */
+  .card-tile-banned { overflow: hidden; }
+  .card-tile-banned img, .card-tile-banned .card-tile-noimg { filter: grayscale(55%) brightness(.7); }
+  .card-tile-banned::after {
+    content: 'Banned'; position: absolute; top: 20px; left: -15%; width: 65%;
+    transform: rotate(-45deg); transform-origin: center;
+    background: #c0272d; color: #fff; font-size: 11px; font-weight: 800;
+    letter-spacing: .05em; text-transform: uppercase; text-align: center;
+    padding: 3px 0; box-shadow: 0 1px 4px rgba(0,0,0,.4); pointer-events: none; z-index: 2;
+  }
+  /* The modal's own art (300-460px) is much bigger than any catalog tile
+     (150-210px) the rule above was sized for - left/width already track
+     that fine since they're %, but the fixed-px font-size/padding/top need
+     their own scaled-up pass here or the band reads as a thin scratch. */
+  .card-modal-tilt.card-tile-banned::after {
+    top: 40px; font-size: 22px; padding: 7px 0;
+  }
+  .qty-badge {
+    position: absolute; bottom: 16px; right: 6px; background: rgba(11,11,11,1); color: #fff;
+    font-size: 12px; font-weight: 700; padding: 1px 7px; border-radius: 999px;
+    font-variant-numeric: tabular-nums;
+  }
+  .card-info-btn {
+    position: absolute; top: 6px; right: 6px; width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(11,11,11,.72); color: #fff; border: none; cursor: pointer;
+    font-size: 12px; font-style: italic; font-weight: 700; line-height: 1; font-family: Georgia, serif;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-info-btn:hover { background: var(--series-1); }
+  .card-tile[data-idx] { cursor: pointer; }
+  tr[data-idx] { cursor: pointer; }
+  tr[data-href] { cursor: pointer; }
+
+  .card-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 1000;
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+  }
+  .card-modal-overlay[hidden] { display: none; }
+  .card-modal {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
+    width: 100%; max-width: 900px; max-height: 90vh; overflow-y: auto;
+  }
+  .card-modal-header { display: flex; justify-content: flex-end; align-items: center; padding: 10px 14px 0; }
+  .card-modal-versions-btn {
+    margin-right: auto; background: var(--page); border: 1px solid var(--border); border-radius: 999px;
+    color: var(--text-secondary); cursor: pointer; padding: 5px 14px; font-size: 12px; font-weight: 600;
+  }
+  .card-modal-versions-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+  .card-modal-versions { display: none; padding: 4px 20px 20px; }
+  .card-modal-versions.open { display: block; }
+  .card-modal-versions-section { margin-bottom: 20px; }
+  .card-modal-versions-title {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .04em;
+    color: var(--text-muted); margin-bottom: 8px; font-weight: 600;
+  }
+  .card-modal-printings-grid { display: flex; flex-wrap: wrap; gap: 16px; }
+  .card-modal-printing { width: 220px; cursor: pointer; position: relative; }
+  .card-modal-printing:hover .card-modal-printing-caption { color: var(--text-primary); }
+  .card-modal-printing img {
+    width: 100%; aspect-ratio: 63 / 88; object-fit: contain; border-radius: 12px; display: block;
+  }
+  .card-modal-printing.landscape img { aspect-ratio: 210 / 150; }
+  .card-modal-printing-caption { font-size: 12px; color: var(--text-muted); margin-top: 6px; text-align: center; }
+  .card-modal-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .card-modal-info h2 {
+    margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.01em;
+    display: inline-block; background: linear-gradient(90deg,#C58900,#F27C00);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .card-modal-domains { display: flex; gap: 4px; }
+  .card-modal-domains img { width: 22px; height: 22px; }
+  .card-modal-close {
+    background: none; border: none; color: var(--text-muted); cursor: pointer;
+    font-size: 22px; line-height: 1; padding: 2px 4px;
+  }
+  .card-modal-close:hover { color: var(--text-primary); }
+  .card-modal-body { display: flex; gap: 24px; padding: 20px 30px; flex-wrap: wrap; }
+  .card-modal-art-col { flex: 0 0 300px; perspective: 1000px; position: relative; }
+  .card-modal-flip-btn {
+    position: absolute; top: 8px; right: 8px; z-index: 2; width: 32px; height: 32px;
+    border-radius: 50%; border: none; background: #000; color: #fff;
+    cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;
+  }
+  .card-modal-flip-btn:hover { background: #000; }
+  /* `display: flex` above ties with the browser's own [hidden]{display:none}
+     on specificity, and since this stylesheet loads after that default one,
+     it was winning - the button showed even when JS set `hidden`. This
+     wins outright (class + attribute selector). */
+  .card-modal-flip-btn[hidden] { display: none; }
+  .card-modal-art-col.landscape { flex: 0 0 460px; }
+  /* Two nested 3D layers so the hover-tilt and the click-to-flip animate
+     independently instead of fighting over the same inline `transform`:
+     .card-modal-tilt is the mousemove target (tracks the cursor), and
+     .card-modal-flip-inner (a child of it) is the click target (rotates
+     180deg to reveal the back face) - CSS composes nested 3D transforms
+     across parent/child automatically. */
+  .card-modal-tilt {
+    position: relative; width: 100%; aspect-ratio: 63 / 88; transform-style: preserve-3d; will-change: transform;
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s ease; border-radius: 12px;
+  }
+  .card-modal-art-col.landscape .card-modal-tilt { aspect-ratio: 210 / 150; }
+  .card-modal-flip-inner {
+    position: relative; width: 100%; height: 100%; transform-style: preserve-3d;
+    transition: transform .6s cubic-bezier(.4,.2,.2,1);
+  }
+  .card-modal-flip-inner.flipped { transform: rotateY(180deg); }
+  .card-modal-art {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+    border-radius: 12px; display: block; backface-visibility: hidden;
+  }
+  .card-modal-art-back { transform: rotateY(180deg); }
+  .card-modal-info { flex: 1 1 320px; min-width: 260px; display: flex; flex-direction: column; gap: 16px; }
+  /* Its own full-width row below both the art and info columns (not just
+     inside .card-modal-info), so the divider spans the whole modal width
+     and reads as a clear break between the card and its token(s). */
+  #card-modal-token-section { flex: 1 1 100%; margin-top: 24px; }
+  .card-modal-token-divider { border: none; border-top: 1px solid var(--border); margin: 0 0 16px; }
+  .card-modal-tokens { display: flex; flex-direction: column; gap: 20px; }
+  .card-modal-token-item { display: flex; gap: 16px; }
+  .card-modal-token-item-art-wrap {
+    position: relative; width: 150px; aspect-ratio: 63 / 88; border-radius: 10px;
+    flex-shrink: 0; background: var(--page); overflow: hidden;
+  }
+  .card-modal-token-item.landscape .card-modal-token-item-art-wrap { width: 230px; aspect-ratio: 210 / 150; }
+  .card-modal-token-item-art { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .card-modal-token-item-art-clickable { cursor: pointer; transition: transform .15s ease; }
+  .card-modal-token-item-art-clickable:hover { transform: scale(1.06); }
+  .card-modal-token-item-info { display: flex; flex-direction: column; gap: 8px; padding-top: 4px; }
+  .card-modal-token-item-name { font-size: 18px; font-weight: 800; color: var(--text-primary); }
+  .card-modal-token-item-might { display: flex; align-items: center; gap: 5px; font-size: 14px; color: var(--text-secondary); }
+  .card-modal-token-item-might img { height: 1.2em; width: auto; }
+  .card-modal-token-item-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+  .card-modal-field-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .04em;
+    color: var(--text-muted); margin-bottom: 3px;
+  }
+  .card-modal-field-value { font-size: 14px; color: var(--text-primary); white-space: pre-line; }
+  .card-modal-field-value ul { margin: 4px 0; padding-left: 20px; white-space: normal; }
+  .card-modal-field-value li { margin: 2px 0; }
+  .card-modal-flavor { font-style: italic; color: var(--text-secondary); }
+  .card-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; }
+
+  .deck-header-title {
+    margin: 0 0 12px; font-size: 30px; font-weight: 800; letter-spacing: -0.01em;
+    display: inline-block; background: linear-gradient(90deg,#C58900,#F27C00);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  /* The player-name portion is a real link now - repeats the parent's own
+     gradient-text trick (background:inherit copies the computed gradient
+     down) so it keeps reading as part of the same title instead of
+     suddenly switching to solid link-blue mid-heading. */
+  .deck-header-title a {
+    background: inherit; -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .deck-header-title a:hover { filter: brightness(1.2); }
+  .deck-meta-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .deck-meta-chip {
+    display: inline-flex; align-items: center; gap: 6px; background: var(--page);
+    border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px;
+    font-size: 12px; font-weight: 600; color: var(--text-secondary);
+  }
+  .deck-meta-chip .domain-icon { width: 15px; height: 15px; }
+
+  
+  main { max-width: 1740px; }
+  .page-layout { display: flex; align-items: flex-start; gap: 20px; }
+  .main-col { flex: 1 1 auto; min-width: 0; }
+  .main-col > .card { max-width: 1200px; margin: 0 auto; }
+  .breadcrumb { max-width: 1200px; margin-left: auto; margin-right: auto; }
+  .sidebar {
+    flex: 0 0 500px; width: 500px; background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; margin-top: 32px;
+  }
+  .sidebar .table-scroll { overflow-x: auto; }
+  @media (max-width: 1400px) {
+    .page-layout { flex-direction: column; }
+    .sidebar { width: 100%; }
+  }
+  .chart-box {
+    position: relative; background: var(--page); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px 12px; flex: 1 1 300px; max-width: 340px;
+  }
+  .chart-box-title, .pairings-box-title {
+    font-size: 13px; color: var(--text-muted); text-transform: uppercase;
+    letter-spacing: .04em; margin: 0 0 10px; font-weight: 600;
+  }
+  .chart-legend-key { display: flex; justify-content: center; gap: 12px; margin-top: 6px; font-size: 11px; color: var(--text-secondary); }
+  .chart-legend-key span.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+  .trend-tooltip {
+    position: absolute; display: none; pointer-events: none; z-index: 5;
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px;
+    padding: 3px 8px; font-size: 11px; font-weight: 600; color: var(--text-primary); white-space: nowrap;
+    transform: translate(-50%, -100%); margin-top: -10px; box-shadow: 0 2px 8px rgba(0,0,0,.2);
+  }
+  .trend-point { pointer-events: all; }
+  .pairings-col { flex: 1 1 200px; display: flex; flex-direction: column; }
+  .pairings-box {
+    background: var(--page); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px 12px;
+  }
+  .pairings-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .pairings-table td { padding: 3px 0; border-bottom: 1px solid var(--gridline); }
+  .pairings-table tr:last-child td { border-bottom: none; }
+  .pairings-table td.num { text-align: right; font-weight: 600; white-space: nowrap; padding-left: 6px; }
+  .pairings-table td.matches { text-align: right; color: var(--text-muted); font-size: 11px; white-space: nowrap; padding-left: 4px; }
+  /* Same rendered size as .card-grid-fill's 6-column cards in "Most played
+     (flex)" (1160px card content / 6 cols / 12px gaps = ~183px), applied
+     directly to individual tiles instead of the grid-fill mechanism itself
+     so these stay compact flex-wrapped tiles rather than a full-width grid. */
+  .card-tile-lg { width: 183px; }
+  .card-tile-lg img, .card-tile-lg .card-tile-noimg { width: 183px; }
+  .card-tile-lg .card-tile-caption { max-width: 183px; }
+  .block-title {
+    font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+    margin: 0 0 10px; display: inline-block; background: linear-gradient(90deg,#C58900,#F27C00);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .card-list-note { font-size: 12px; margin: 0 0 12px; }
+  .col-date { white-space: nowrap; min-width: 100px; }
+
+</style>
+</head>
+<body>
+<header class="site">
+  <h1 style="line-height:0"><a href="index.html" class="brand-link"><img src="static/img/riftbound_logo.png" alt="Riftbound" style="height:26px;width:auto;vertical-align:middle"></a></h1>
+  <nav class="navbar-links">
+    <a href="stats-legends.html" class="active">Stats</a>
+    <a href="decks.html" class="">Decks</a>
+    <a href="cards.html" class="">Cards</a>
+    <a href="tournaments.html" class="">Tournaments</a>
+    <a href="guides.html" class="">Guides</a>
+    <a href="about.html" class="">Data</a>
+  </nav>
+  <span class="sub"></span>
+</header>
+<main class="">
+
+
+<div class="page-layout">
+<div class="main-col">
+<nav class="breadcrumb">
+  <a href="index.html">Home</a><span class="sep">›</span><a href="stats-legends.html">Stats</a><span class="sep">›</span><span class="current">Ezreal, Prodigal Explorer</span>
+</nav>
+
+<div class="card">
+  <h2 class="deck-header-title">Ezreal, Prodigal Explorer</h2>
+  <div class="deck-meta-row">
+    <span class="deck-meta-chip">89 decks analyzed</span>
+    <span class="deck-meta-chip">52.4% win rate</span>
+    <span class="deck-meta-chip">3.0% play rate</span>
+    
+      <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
+    
+      <img class="domain-icon" src="static/img/domains/Chaos.webp" alt="Chaos" title="Chaos">
+    
+  </div>
+
+  <div style="display:flex; gap:20px; align-items:flex-start; margin-top:12px; flex-wrap:wrap">
+    
+    <div class="card-grid" style="flex:0 0 auto">
+      
+      <div class="card-tile card-tile-lg" data-idx="53">
+        <div class="card-tile-img-wrap">
+          
+            <img src="https://static.dotgg.gg/riftbound/cards/SFD-248.webp" alt="Ezreal, Prodigal Explorer" loading="lazy">
+          
+        </div>
+        <div class="card-tile-caption">Ezreal, Prodigal Explorer</div>
+      </div>
+    </div>
+    
+
+    <div class="chart-box">
+      <div class="chart-box-title">Last Month</div>
+      <div class="trend-tooltip" id="trend-tooltip"></div>
+      <svg viewBox="0 0 300 150" width="100%" style="max-width:340px;display:block">
+        
+        
+        <line x1="18" y1="130.0" x2="282" y2="130.0" stroke="var(--gridline)" stroke-width="1" />
+        
+        
+        <line x1="18" y1="70.0" x2="282" y2="70.0" stroke="var(--gridline)" stroke-width="1" />
+        
+        
+        <line x1="18" y1="10.0" x2="282" y2="10.0" stroke="var(--gridline)" stroke-width="1" />
+        
+        
+        <polyline points="55.7,30.0 74.6,30.0 93.4,40.0 112.3,59.2 131.1,59.2 150.0,59.2 168.9,70.0 187.7,69.3 206.6,69.3 225.4,69.3 244.3,69.3 263.1,69.3 282.0,69.3" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        
+        <circle cx="55.7" cy="30.0" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="55.7" cy="30.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 83.3%"></circle>
+        
+        <circle cx="74.6" cy="30.0" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="74.6" cy="30.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 83.3%"></circle>
+        
+        <circle cx="93.4" cy="40.0" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="93.4" cy="40.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 75.0%"></circle>
+        
+        <circle cx="112.3" cy="59.2" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="112.3" cy="59.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 59.0%"></circle>
+        
+        <circle cx="131.1" cy="59.2" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="131.1" cy="59.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 59.0%"></circle>
+        
+        <circle cx="150.0" cy="59.2" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="150.0" cy="59.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 59.0%"></circle>
+        
+        <circle cx="168.9" cy="70.0" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="168.9" cy="70.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 50.0%"></circle>
+        
+        <circle cx="187.7" cy="69.3" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="187.7" cy="69.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 50.6%"></circle>
+        
+        <circle cx="206.6" cy="69.3" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="206.6" cy="69.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 50.6%"></circle>
+        
+        <circle cx="225.4" cy="69.3" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="225.4" cy="69.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 50.6%"></circle>
+        
+        <circle cx="244.3" cy="69.3" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="244.3" cy="69.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 50.6%"></circle>
+        
+        <circle cx="263.1" cy="69.3" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="263.1" cy="69.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 50.6%"></circle>
+        
+        <circle cx="282.0" cy="69.3" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="282.0" cy="69.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 50.6%"></circle>
+        
+        
+        
+        <polyline points="36.9,124.6 55.7,125.4 74.6,125.4 93.4,124.1 112.3,125.3 131.1,125.4 150.0,125.4 168.9,126.9 187.7,127.0 206.6,127.0 225.4,125.8 244.3,125.9 263.1,125.9 282.0,125.9" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        
+        <circle cx="36.9" cy="124.6" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="36.9" cy="124.6" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 4.5%"></circle>
+        
+        <circle cx="55.7" cy="125.4" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="55.7" cy="125.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.8%"></circle>
+        
+        <circle cx="74.6" cy="125.4" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="74.6" cy="125.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.8%"></circle>
+        
+        <circle cx="93.4" cy="124.1" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="93.4" cy="124.1" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 4.9%"></circle>
+        
+        <circle cx="112.3" cy="125.3" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="112.3" cy="125.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.9%"></circle>
+        
+        <circle cx="131.1" cy="125.4" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="131.1" cy="125.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.8%"></circle>
+        
+        <circle cx="150.0" cy="125.4" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="150.0" cy="125.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.8%"></circle>
+        
+        <circle cx="168.9" cy="126.9" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="168.9" cy="126.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.6%"></circle>
+        
+        <circle cx="187.7" cy="127.0" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="187.7" cy="127.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.5%"></circle>
+        
+        <circle cx="206.6" cy="127.0" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="206.6" cy="127.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.5%"></circle>
+        
+        <circle cx="225.4" cy="125.8" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="225.4" cy="125.8" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.5%"></circle>
+        
+        <circle cx="244.3" cy="125.9" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="244.3" cy="125.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.4%"></circle>
+        
+        <circle cx="263.1" cy="125.9" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="263.1" cy="125.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.4%"></circle>
+        
+        <circle cx="282.0" cy="125.9" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="282.0" cy="125.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.4%"></circle>
+        
+        
+        
+        <text x="18.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">24-07</text>
+        
+        <text x="93.4" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">01-08</text>
+        
+        <text x="168.9" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">09-08</text>
+        
+        <text x="244.3" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">17-08</text>
+        
+        <text x="282.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">21-08</text>
+        
+      </svg>
+      <div class="chart-legend-key">
+        <span><span class="dot" style="background:var(--series-1)"></span>Win rate</span>
+        <span><span class="dot" style="background:#eda100"></span>Play rate</span>
+      </div>
+    </div>
+
+    
+    <div class="pairings-col">
+      <div class="pairings-box">
+        <div class="chart-box-title">Best pairings</div>
+        <table class="pairings-table" data-paginate="7" data-paginate-after=".pairings-box">
+          <tbody>
+            
+            <tr>
+              <td><a href="legend-fiora-grand-duelist.html">Fiora, Grand Duelist</a></td>
+              <td class="num">85%</td>
+              <td class="matches">(13)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-diana-scorn-of-the-moon.html">Diana, Scorn of the Moon</a></td>
+              <td class="num">82%</td>
+              <td class="matches">(34)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-ambessa-matriarch-of-war.html">Ambessa, Matriarch of War</a></td>
+              <td class="num">82%</td>
+              <td class="matches">(11)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-viktor-herald-of-the-arcane.html">Viktor, Herald of the Arcane</a></td>
+              <td class="num">80%</td>
+              <td class="matches">(15)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-lucian-purifier.html">Lucian, Purifier</a></td>
+              <td class="num">80%</td>
+              <td class="matches">(5)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-draven-glorious-executioner.html">Draven, Glorious Executioner</a></td>
+              <td class="num">77%</td>
+              <td class="matches">(48)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-mel-soul-s-reflection.html">Mel, Soul&#39;s Reflection</a></td>
+              <td class="num">70%</td>
+              <td class="matches">(27)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-jayce-defender-of-tomorrow.html">Jayce, Defender of Tomorrow</a></td>
+              <td class="num">68%</td>
+              <td class="matches">(22)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-ivern-green-father.html">Ivern, Green Father</a></td>
+              <td class="num">67%</td>
+              <td class="matches">(12)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-kai-sa-daughter-of-the-void.html">Kai&#39;Sa, Daughter of the Void</a></td>
+              <td class="num">65%</td>
+              <td class="matches">(17)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-pyke-bloodharbor-ripper.html">Pyke, Bloodharbor Ripper</a></td>
+              <td class="num">62%</td>
+              <td class="matches">(13)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-azir-emperor-of-the-sands.html">Azir, Emperor of the Sands</a></td>
+              <td class="num">61%</td>
+              <td class="matches">(38)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-vi-piltover-enforcer.html">Vi, Piltover Enforcer</a></td>
+              <td class="num">60%</td>
+              <td class="matches">(5)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
+              <td class="num">59%</td>
+              <td class="matches">(32)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-vex-gloomist.html">Vex, Gloomist</a></td>
+              <td class="num">59%</td>
+              <td class="matches">(32)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-zed-master-of-shadows.html">Zed, Master of Shadows</a></td>
+              <td class="num">57%</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-renata-glasc-chem-baroness.html">Renata Glasc, Chem-Baroness</a></td>
+              <td class="num">57%</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-lillia-bashful-bloom.html">Lillia, Bashful Bloom</a></td>
+              <td class="num">56%</td>
+              <td class="matches">(25)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-ornn-fire-below-the-mountain.html">Ornn, Fire Below the Mountain</a></td>
+              <td class="num">56%</td>
+              <td class="matches">(16)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-jhin-virtuoso.html">Jhin, Virtuoso</a></td>
+              <td class="num">50%</td>
+              <td class="matches">(10)</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+
+    
+    <div class="pairings-col">
+      <div class="pairings-box">
+        <div class="chart-box-title">Worst pairings</div>
+        <table class="pairings-table" data-paginate="7" data-paginate-after=".pairings-box">
+          <tbody>
+            
+            <tr>
+              <td><a href="legend-sivir-battle-mistress.html">Sivir, Battle Mistress</a></td>
+              <td class="num">11%</td>
+              <td class="matches">(9)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
+              <td class="num">23%</td>
+              <td class="matches">(39)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-annie-dark-child.html">Annie, Dark Child</a></td>
+              <td class="num">33%</td>
+              <td class="matches">(6)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-jax-grandmaster-at-arms.html">Jax, Grandmaster at Arms</a></td>
+              <td class="num">33%</td>
+              <td class="matches">(6)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-renekton-butcher-of-the-sands.html">Renekton, Butcher of the Sands</a></td>
+              <td class="num">33%</td>
+              <td class="matches">(6)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-lux-lady-of-luminosity.html">Lux, Lady of Luminosity</a></td>
+              <td class="num">33%</td>
+              <td class="matches">(6)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-irelia-blade-dancer.html">Irelia, Blade Dancer</a></td>
+              <td class="num">37%</td>
+              <td class="matches">(82)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-akali-rogue-assassin.html">Akali, Rogue Assassin</a></td>
+              <td class="num">43%</td>
+              <td class="matches">(23)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-master-yi-wuju-bladesman.html">Master Yi, Wuju Bladesman</a></td>
+              <td class="num">44%</td>
+              <td class="matches">(75)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
+              <td class="num">47%</td>
+              <td class="matches">(43)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-leblanc-deceiver.html">LeBlanc, Deceiver</a></td>
+              <td class="num">48%</td>
+              <td class="matches">(29)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
+              <td class="num">49%</td>
+              <td class="matches">(86)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
+              <td class="num">49%</td>
+              <td class="matches">(41)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-jhin-virtuoso.html">Jhin, Virtuoso</a></td>
+              <td class="num">50%</td>
+              <td class="matches">(10)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-lillia-bashful-bloom.html">Lillia, Bashful Bloom</a></td>
+              <td class="num">56%</td>
+              <td class="matches">(25)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-ornn-fire-below-the-mountain.html">Ornn, Fire Below the Mountain</a></td>
+              <td class="num">56%</td>
+              <td class="matches">(16)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-zed-master-of-shadows.html">Zed, Master of Shadows</a></td>
+              <td class="num">57%</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-renata-glasc-chem-baroness.html">Renata Glasc, Chem-Baroness</a></td>
+              <td class="num">57%</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
+              <td class="num">59%</td>
+              <td class="matches">(32)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-vex-gloomist.html">Vex, Gloomist</a></td>
+              <td class="num">59%</td>
+              <td class="matches">(32)</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="card">
+  <h2 class="block-title">Champion Unit</h2>
+  <div class="card-grid">
+    
+    
+    <div class="card-tile card-tile-lg" data-idx="55">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-SP5.webp" alt="Ezreal, Prodigy" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Ezreal, Prodigy<br>
+        <span class="muted" style="font-size:11px">100.0% chosen as Champion</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile card-tile-lg" data-idx="54">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-082A.webp" alt="Ezreal, Dashing" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Ezreal, Dashing<br>
+        <span class="muted" style="font-size:11px">0.0% chosen as Champion</span>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+<div class="card">
+  <h2 class="block-title">Battlefields</h2>
+  <div class="card-grid">
+    
+    
+    <div class="card-tile card-tile-landscape" data-idx="33">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-212.webp" alt="Frozen Fortress" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Frozen Fortress<br>
+        <span class="muted" style="font-size:11px">64% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile card-tile-landscape" data-idx="34">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-287.webp" alt="Sigil of the Storm" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Sigil of the Storm<br>
+        <span class="muted" style="font-size:11px">64% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile card-tile-landscape" data-idx="35">
+      <div class="card-tile-img-wrap">
+        
+          <img src="static/img/battlefields/VEN-158.webp" alt="Heisho, Shell of the World" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Heisho, Shell of the World<br>
+        <span class="muted" style="font-size:11px">40% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile card-tile-landscape" data-idx="36">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-296.webp" alt="Void Gate" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Void Gate<br>
+        <span class="muted" style="font-size:11px">25% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile card-tile-landscape" data-idx="37">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-216.webp" alt="Rockfall Path" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Rockfall Path<br>
+        <span class="muted" style="font-size:11px">11% of decks</span>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="card">
+  <h2 class="block-title" style="margin-bottom:0">Main Deck</h2>
+
+  
+  <h2 style="font-size:12px;color:#8a5c00;text-transform:uppercase;letter-spacing:.04em;margin:16px 0 10px">Main Deck Core <span style="text-transform:none;letter-spacing:0">(80%+ of decks)</span></h2>
+  <div class="card-grid card-grid-fill">
+    
+    
+    <div class="card-tile" data-idx="0">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-095.webp" alt="Stupefy" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Stupefy<br>
+        <span class="muted" style="font-size:11px">3.0 in 100% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="1">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-080.webp" alt="Bellows Breath" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Bellows Breath<br>
+        <span class="muted" style="font-size:11px">2.9 in 100% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="2">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-140.webp" alt="Fizz, Trickster" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Fizz, Trickster<br>
+        <span class="muted" style="font-size:11px">2.8 in 100% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="3">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-128.webp" alt="Star-Crossed" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Star-Crossed<br>
+        <span class="muted" style="font-size:11px">2.2 in 100% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="4">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-183.webp" alt="Stacked Deck" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Stacked Deck<br>
+        <span class="muted" style="font-size:11px">3.0 in 99% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="5">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-070.webp" alt="Wages of Pain" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Wages of Pain<br>
+        <span class="muted" style="font-size:11px">2.2 in 99% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="6">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-116.webp" alt="Thousand-Tailed Watcher" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Thousand-Tailed Watcher<br>
+        <span class="muted" style="font-size:11px">2.0 in 97% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="7">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-169.webp" alt="Gust" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Gust<br>
+        <span class="muted" style="font-size:11px">1.9 in 88% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="8">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-073.webp" alt="Deadly Flourish" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Deadly Flourish<br>
+        <span class="muted" style="font-size:11px">2.7 in 87% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="9">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-121.webp" alt="Bewitching Spirit" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Bewitching Spirit<br>
+        <span class="muted" style="font-size:11px">3.0 in 85% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="10">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-181.webp" alt="Pack of Wonders" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Pack of Wonders<br>
+        <span class="muted" style="font-size:11px">2.9 in 84% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="11">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-150A.webp" alt="Vex, Apathetic" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Vex, Apathetic<br>
+        <span class="muted" style="font-size:11px">1.4 in 84% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="12">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-186.webp" alt="Treasure Trove" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Treasure Trove<br>
+        <span class="muted" style="font-size:11px">2.2 in 81% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="13">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-138.webp" alt="The List" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        The List<br>
+        <span class="muted" style="font-size:11px">1.9 in 81% of decks</span>
+      </div>
+    </div>
+    
+  </div>
+  
+
+  
+  <h2 style="font-size:12px;color:#8a5c00;text-transform:uppercase;letter-spacing:.04em;margin:16px 0 10px">Main Deck Flex <span style="text-transform:none;letter-spacing:0">(under 80%)</span></h2>
+  <div class="card-grid card-grid-fill">
+    
+    
+    <div class="card-tile" data-idx="14">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-070.webp" alt="Turn to Dust" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Turn to Dust<br>
+        <span class="muted" style="font-size:11px">1.0 in 74% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="15">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-136.webp" alt="Hard Bargain" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Hard Bargain<br>
+        <span class="muted" style="font-size:11px">1.1 in 64% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="16">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-105.webp" alt="Singularity" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Singularity<br>
+        <span class="muted" style="font-size:11px">1.1 in 60% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="17">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-078.webp" alt="Sprite Fountain" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Sprite Fountain<br>
+        <span class="muted" style="font-size:11px">1.0 in 47% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="18">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-063.webp" alt="Eclipse" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Eclipse<br>
+        <span class="muted" style="font-size:11px">1.0 in 27% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="19">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-074.webp" alt="Pickpocket" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Pickpocket<br>
+        <span class="muted" style="font-size:11px">1.0 in 24% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="20">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-104.webp" alt="Tail-Cloaked Matriarch" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Tail-Cloaked Matriarch<br>
+        <span class="muted" style="font-size:11px">1.8 in 20% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="21">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-066.webp" alt="Temporal Breach" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Temporal Breach<br>
+        <span class="muted" style="font-size:11px">2.0 in 19% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="22">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-106.webp" alt="Wind and Ghosts" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Wind and Ghosts<br>
+        <span class="muted" style="font-size:11px">1.5 in 19% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="23">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-103.webp" alt="Ravenbloom Student" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Ravenbloom Student<br>
+        <span class="muted" style="font-size:11px">2.8 in 18% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="24">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-200.webp" alt="Arcane Shift" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Arcane Shift<br>
+        <span class="muted" style="font-size:11px">1.6 in 18% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="25">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-066.webp" alt="Frigid Touch" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Frigid Touch<br>
+        <span class="muted" style="font-size:11px">1.0 in 18% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="26">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-055.webp" alt="Applied Researchers" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Applied Researchers<br>
+        <span class="muted" style="font-size:11px">2.6 in 13% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="27">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-101.webp" alt="Gust Monk" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Gust Monk<br>
+        <span class="muted" style="font-size:11px">1.8 in 11% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="28">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-143A.webp" alt="Kha&#39;Zix, Mutating Horror" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Kha&#39;Zix, Mutating Horror<br>
+        <span class="muted" style="font-size:11px">1.1 in 10% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="29">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-093.webp" alt="Smoke Screen" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Smoke Screen<br>
+        <span class="muted" style="font-size:11px">2.2 in 6% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="30">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-173.webp" alt="Ride the Wind" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Ride the Wind<br>
+        <span class="muted" style="font-size:11px">1.2 in 6% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="31">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-192.webp" alt="Mindsplitter" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Mindsplitter<br>
+        <span class="muted" style="font-size:11px">1.0 in 6% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="32">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-172.webp" alt="Rebuke" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Rebuke<br>
+        <span class="muted" style="font-size:11px">1.0 in 6% of decks</span>
+      </div>
+    </div>
+    
+  </div>
+  
+</div>
+
+
+<div class="card">
+  <h2 class="block-title" style="margin-bottom:0">Sideboard</h2>
+
+  
+  <h2 style="font-size:12px;color:#8a5c00;text-transform:uppercase;letter-spacing:.04em;margin:16px 0 10px">Sideboard Core <span style="text-transform:none;letter-spacing:0">(80%+ of decks)</span></h2>
+  <div class="card-grid card-grid-fill">
+    
+    
+    <div class="card-tile" data-idx="14">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-070.webp" alt="Turn to Dust" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Turn to Dust<br>
+        <span class="muted" style="font-size:11px">1.3 in 93% of decks</span>
+      </div>
+    </div>
+    
+  </div>
+  
+
+  
+  <h2 style="font-size:12px;color:#8a5c00;text-transform:uppercase;letter-spacing:.04em;margin:16px 0 10px">Sideboard Flex <span style="text-transform:none;letter-spacing:0">(under 80%)</span></h2>
+  <div class="card-grid card-grid-fill">
+    
+    
+    <div class="card-tile" data-idx="28">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-143A.webp" alt="Kha&#39;Zix, Mutating Horror" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Kha&#39;Zix, Mutating Horror<br>
+        <span class="muted" style="font-size:11px">1.7 in 60% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="38">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-132.webp" alt="Angler Beast" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Angler Beast<br>
+        <span class="muted" style="font-size:11px">1.2 in 58% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="19">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-074.webp" alt="Pickpocket" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Pickpocket<br>
+        <span class="muted" style="font-size:11px">1.5 in 57% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="31">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-192.webp" alt="Mindsplitter" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Mindsplitter<br>
+        <span class="muted" style="font-size:11px">1.0 in 55% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="39">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-179.webp" alt="Acceptable Losses" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Acceptable Losses<br>
+        <span class="muted" style="font-size:11px">1.0 in 53% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="40">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-123.webp" alt="Unchecked Power" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Unchecked Power<br>
+        <span class="muted" style="font-size:11px">1.0 in 42% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="15">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-136.webp" alt="Hard Bargain" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Hard Bargain<br>
+        <span class="muted" style="font-size:11px">1.0 in 39% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="11">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-150A.webp" alt="Vex, Apathetic" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Vex, Apathetic<br>
+        <span class="muted" style="font-size:11px">1.1 in 38% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="41">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-131.webp" alt="Abandon" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Abandon<br>
+        <span class="muted" style="font-size:11px">1.1 in 28% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="42">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-061.webp" alt="Decree of Insight" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Decree of Insight<br>
+        <span class="muted" style="font-size:11px">1.6 in 26% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="16">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-105.webp" alt="Singularity" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Singularity<br>
+        <span class="muted" style="font-size:11px">1.1 in 22% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="43">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-102.webp" alt="Ravenbloom Prefect" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Ravenbloom Prefect<br>
+        <span class="muted" style="font-size:11px">1.7 in 20% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="44">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-099.webp" alt="Garbage Grabber" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Garbage Grabber<br>
+        <span class="muted" style="font-size:11px">1.0 in 18% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="45">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-145.webp" alt="Switcheroo" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Switcheroo<br>
+        <span class="muted" style="font-size:11px">1.0 in 12% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="27">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-101.webp" alt="Gust Monk" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Gust Monk<br>
+        <span class="muted" style="font-size:11px">1.4 in 11% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="46">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-187.webp" alt="Whirlwind" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Whirlwind<br>
+        <span class="muted" style="font-size:11px">1.4 in 11% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="17">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-078.webp" alt="Sprite Fountain" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Sprite Fountain<br>
+        <span class="muted" style="font-size:11px">1.1 in 11% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="47">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-147.webp" alt="Downwell" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Downwell<br>
+        <span class="muted" style="font-size:11px">1.4 in 10% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="48">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-107.webp" alt="Decree of Discord" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Decree of Discord<br>
+        <span class="muted" style="font-size:11px">1.0 in 10% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="49">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-201.webp" alt="Invert Timelines" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Invert Timelines<br>
+        <span class="muted" style="font-size:11px">1.1 in 9% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="21">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-066.webp" alt="Temporal Breach" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Temporal Breach<br>
+        <span class="muted" style="font-size:11px">1.1 in 9% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="26">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-055.webp" alt="Applied Researchers" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Applied Researchers<br>
+        <span class="muted" style="font-size:11px">2.0 in 8% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="50">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-061.webp" alt="Aspiring Engineer" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Aspiring Engineer<br>
+        <span class="muted" style="font-size:11px">1.0 in 8% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="51">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-238.webp" alt="Baron Nashor" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Baron Nashor<br>
+        <span class="muted" style="font-size:11px">1.0 in 8% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="3">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-128.webp" alt="Star-Crossed" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Star-Crossed<br>
+        <span class="muted" style="font-size:11px">1.0 in 8% of decks</span>
+      </div>
+    </div>
+    
+    
+    <div class="card-tile" data-idx="52">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-150.webp" alt="Last Rites" loading="lazy">
+        
+      </div>
+      <div class="card-tile-caption">
+        Last Rites<br>
+        <span class="muted" style="font-size:11px">1.0 in 7% of decks</span>
+      </div>
+    </div>
+    
+  </div>
+  
+</div>
+
+
+
+<div class="card">
+  <h2 class="block-title">Guides</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Guide</th>
+        <th>Author</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>
+          <a href="guide-pack-ezreal-ottawa-showdown-top8.html">Pack Ezreal -- Top 8 Ottawa Showdown</a>
+          
+          <div class="muted" style="font-size:12px;margin-top:2px;font-weight:400">Guia completa de Pack Ezreal (Set 4): filosofia de mazo, eleccion de cartas, sideboard y reglas de timing/matchup, de la mano del Top 8 del Ottawa Showdown.</div>
+        </td>
+        <td class="muted">Ali (Brickham)</td>
+        <td class="muted">2026-08-20</td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+<aside class="sidebar">
+  <h2 class="block-title">Decks (89)</h2>
+  <div class="table-scroll">
+  <table class="sortable" data-paginate="20">
+    <thead>
+      <tr>
+        <th data-type="text" class="col-date">Date</th>
+        <th data-type="text">Tournament</th>
+        <th data-type="text">Player</th>
+        <th class="num" data-type="number">Rank</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr data-href="deck-591e9214229a.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Guangzhou City Challenge">16-08-2026</td>
+        <td>S4 Guangzhou City Challenge</td>
+        <td>收容所076·豆芽</td>
+        <td class="num" data-sort="103">#103</td>
+      </tr>
+      
+      <tr data-href="deck-359de419b10a.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Qingdao City Challenge">16-08-2026</td>
+        <td>S4 Qingdao City Challenge</td>
+        <td>Solo丨TrZ</td>
+        <td class="num" data-sort="41">#41</td>
+      </tr>
+      
+      <tr data-href="deck-325d3dad46bd.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Shenyang City Challenge">16-08-2026</td>
+        <td>S4 Shenyang City Challenge</td>
+        <td>零号站台.Ru1z</td>
+        <td class="num" data-sort="37">#37</td>
+      </tr>
+      
+      <tr data-href="deck-8059abc15abb.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Shenyang City Challenge">16-08-2026</td>
+        <td>S4 Shenyang City Challenge</td>
+        <td>三山</td>
+        <td class="num" data-sort="63">#63</td>
+      </tr>
+      
+      <tr data-href="deck-46e7d7553806.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Tianjin City Challenge">16-08-2026</td>
+        <td>S4 Tianjin City Challenge</td>
+        <td>灵花祭.ECG.dmhs</td>
+        <td class="num" data-sort="54">#54</td>
+      </tr>
+      
+      <tr data-href="deck-bb74d13256a1.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Tianjin City Challenge">16-08-2026</td>
+        <td>S4 Tianjin City Challenge</td>
+        <td>晚风林-煎饼果子</td>
+        <td class="num" data-sort="76">#76</td>
+      </tr>
+      
+      <tr data-href="deck-f2806a03a7f3.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Tianjin City Challenge">16-08-2026</td>
+        <td>S4 Tianjin City Challenge</td>
+        <td>痒痒挠</td>
+        <td class="num" data-sort="79">#79</td>
+      </tr>
+      
+      <tr data-href="deck-d0deb677bc4b.html">
+        <td class="muted col-date" data-sort="2026-08-16|S4 Tianjin City Challenge">16-08-2026</td>
+        <td>S4 Tianjin City Challenge</td>
+        <td>Tstar.十字</td>
+        <td class="num" data-sort="91">#91</td>
+      </tr>
+      
+      <tr data-href="deck-60e8a88b7cc9.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>JRAD</td>
+        <td class="num" data-sort="12">#12</td>
+      </tr>
+      
+      <tr data-href="deck-469f3a47bf09.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>MVG KaneV</td>
+        <td class="num" data-sort="14">#14</td>
+      </tr>
+      
+      <tr data-href="deck-5031068516db.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>TacoManStan</td>
+        <td class="num" data-sort="22">#22</td>
+      </tr>
+      
+      <tr data-href="deck-f5ed5cf600c1.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>Vincent Lin</td>
+        <td class="num" data-sort="31">#31</td>
+      </tr>
+      
+      <tr data-href="deck-c2518eaef2ea.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>Refeki</td>
+        <td class="num" data-sort="61">#61</td>
+      </tr>
+      
+      <tr data-href="deck-6b1d764de5ec.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>AA Arestidios He/Him</td>
+        <td class="num" data-sort="76">#76</td>
+      </tr>
+      
+      <tr data-href="deck-2cf1d7aa7be7.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>DPBear012</td>
+        <td class="num" data-sort="115">#115</td>
+      </tr>
+      
+      <tr data-href="deck-dc89f82a8778.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>Kouga</td>
+        <td class="num" data-sort="149">#149</td>
+      </tr>
+      
+      <tr data-href="deck-511340f894ab.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>LedgerH | ledgerh</td>
+        <td class="num" data-sort="152">#152</td>
+      </tr>
+      
+      <tr data-href="deck-49422648d0d4.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>Teddy Zhang</td>
+        <td class="num" data-sort="157">#157</td>
+      </tr>
+      
+      <tr data-href="deck-1242844f50a7.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>Ian McCarthy</td>
+        <td class="num" data-sort="164">#164</td>
+      </tr>
+      
+      <tr data-href="deck-4669cbbcf232.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>alexander markus | .pooshka</td>
+        <td class="num" data-sort="173">#173</td>
+      </tr>
+      
+      <tr data-href="deck-64db80516f1b.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>Heebs | heebs</td>
+        <td class="num" data-sort="192">#192</td>
+      </tr>
+      
+      <tr data-href="deck-dc0a4d87864a.html">
+        <td class="muted col-date" data-sort="2026-08-15|RiftAtlas Convergence #2">15-08-2026</td>
+        <td>RiftAtlas Convergence #2</td>
+        <td>Yanis Derdour</td>
+        <td class="num" data-sort="195">#195</td>
+      </tr>
+      
+      <tr data-href="deck-60dd49e273bb.html">
+        <td class="muted col-date" data-sort="2026-08-15|Riftbound Showdown Series Germany 15.-16.08.2026">15-08-2026</td>
+        <td>Riftbound Showdown Series Germany 15.-16.08.2026</td>
+        <td>Manaphi</td>
+        <td class="num" data-sort="242">#242</td>
+      </tr>
+      
+      <tr data-href="deck-32fdd5638db3.html">
+        <td class="muted col-date" data-sort="2026-08-15|S4 Beijing City Challenge">15-08-2026</td>
+        <td>S4 Beijing City Challenge</td>
+        <td>WAKUWAKU</td>
+        <td class="num" data-sort="45">#45</td>
+      </tr>
+      
+      <tr data-href="deck-0787fe1febde.html">
+        <td class="muted col-date" data-sort="2026-08-15|S4 Beijing City Challenge">15-08-2026</td>
+        <td>S4 Beijing City Challenge</td>
+        <td>烟花</td>
+        <td class="num" data-sort="96">#96</td>
+      </tr>
+      
+      <tr data-href="deck-ad00bfc3dccd.html">
+        <td class="muted col-date" data-sort="2026-08-15|S4 Nanjing City Challenge">15-08-2026</td>
+        <td>S4 Nanjing City Challenge</td>
+        <td>胰脏@牌客盟</td>
+        <td class="num" data-sort="11">#11</td>
+      </tr>
+      
+      <tr data-href="deck-7f6f416fe95e.html">
+        <td class="muted col-date" data-sort="2026-08-15|S4 Nanjing City Challenge">15-08-2026</td>
+        <td>S4 Nanjing City Challenge</td>
+        <td>咲夜</td>
+        <td class="num" data-sort="16">#16</td>
+      </tr>
+      
+      <tr data-href="deck-de627db5a6e2.html">
+        <td class="muted col-date" data-sort="2026-08-15|S4 Nanjing City Challenge">15-08-2026</td>
+        <td>S4 Nanjing City Challenge</td>
+        <td>SoloLeveling</td>
+        <td class="num" data-sort="38">#38</td>
+      </tr>
+      
+      <tr data-href="deck-0d4304810b76.html">
+        <td class="muted col-date" data-sort="2026-08-15|S4 Nanjing City Challenge">15-08-2026</td>
+        <td>S4 Nanjing City Challenge</td>
+        <td>RRR</td>
+        <td class="num" data-sort="53">#53</td>
+      </tr>
+      
+      <tr data-href="deck-fba63579eec0.html">
+        <td class="muted col-date" data-sort="2026-08-15|S4 Nanjing City Challenge">15-08-2026</td>
+        <td>S4 Nanjing City Challenge</td>
+        <td>赛高.小小</td>
+        <td class="num" data-sort="62">#62</td>
+      </tr>
+      
+      <tr data-href="deck-9e070e603cf2.html">
+        <td class="muted col-date" data-sort="2026-08-15|S4 Nanjing City Challenge">15-08-2026</td>
+        <td>S4 Nanjing City Challenge</td>
+        <td>翻不过身的鱼</td>
+        <td class="num" data-sort="86">#86</td>
+      </tr>
+      
+      <tr data-href="deck-2fb2a3cf9f62.html">
+        <td class="muted col-date" data-sort="2026-08-09|I Micelion Cup">09-08-2026</td>
+        <td>I Micelion Cup</td>
+        <td>George Kolev - Khan Sid</td>
+        <td class="num" data-sort="3">#3</td>
+      </tr>
+      
+      <tr data-href="deck-ee36f6823961.html">
+        <td class="muted col-date" data-sort="2026-08-09|S4 Fuzhou City Challenge">09-08-2026</td>
+        <td>S4 Fuzhou City Challenge</td>
+        <td>壶扣</td>
+        <td class="num" data-sort="33">#33</td>
+      </tr>
+      
+      <tr data-href="deck-c6baa6fc1d75.html">
+        <td class="muted col-date" data-sort="2026-08-09|S4 Fuzhou City Challenge">09-08-2026</td>
+        <td>S4 Fuzhou City Challenge</td>
+        <td>wildmorph</td>
+        <td class="num" data-sort="62">#62</td>
+      </tr>
+      
+      <tr data-href="deck-4ee17d08ec74.html">
+        <td class="muted col-date" data-sort="2026-08-09|S4 Fuzhou City Challenge">09-08-2026</td>
+        <td>S4 Fuzhou City Challenge</td>
+        <td>shef</td>
+        <td class="num" data-sort="98">#98</td>
+      </tr>
+      
+      <tr data-href="deck-e8703eeba762.html">
+        <td class="muted col-date" data-sort="2026-08-09|S4 Guangzhou City Challenge">09-08-2026</td>
+        <td>S4 Guangzhou City Challenge</td>
+        <td>YK.快乐星球.眷恋绵绵</td>
+        <td class="num" data-sort="65">#65</td>
+      </tr>
+      
+      <tr data-href="deck-2f6ce0b1b904.html">
+        <td class="muted col-date" data-sort="2026-08-09|S4 Guangzhou City Challenge">09-08-2026</td>
+        <td>S4 Guangzhou City Challenge</td>
+        <td>jj</td>
+        <td class="num" data-sort="84">#84</td>
+      </tr>
+      
+      <tr data-href="deck-55f7ac5321cd.html">
+        <td class="muted col-date" data-sort="2026-08-09|S4 Guangzhou City Challenge">09-08-2026</td>
+        <td>S4 Guangzhou City Challenge</td>
+        <td>收容所076·豆芽</td>
+        <td class="num" data-sort="95">#95</td>
+      </tr>
+      
+      <tr data-href="deck-47b6f47b17c3.html">
+        <td class="muted col-date" data-sort="2026-08-09|S4 Hangzhou City Challenge">09-08-2026</td>
+        <td>S4 Hangzhou City Challenge</td>
+        <td>Charon</td>
+        <td class="num" data-sort="46">#46</td>
+      </tr>
+      
+      <tr data-href="deck-812dab7a0f74.html">
+        <td class="muted col-date" data-sort="2026-08-09|S4 Hangzhou City Challenge">09-08-2026</td>
+        <td>S4 Hangzhou City Challenge</td>
+        <td>GREY-海岛</td>
+        <td class="num" data-sort="57">#57</td>
+      </tr>
+      
+      <tr data-href="deck-c2947e2247ed.html">
+        <td class="muted col-date" data-sort="2026-08-09|S4 Hangzhou City Challenge">09-08-2026</td>
+        <td>S4 Hangzhou City Challenge</td>
+        <td>杰の王</td>
+        <td class="num" data-sort="106">#106</td>
+      </tr>
+      
+      <tr data-href="deck-0c6dee7c468e.html">
+        <td class="muted col-date" data-sort="2026-08-08|Dangguan Animation Expo Tournament">08-08-2026</td>
+        <td>Dangguan Animation Expo Tournament</td>
+        <td>Gambit-小卢</td>
+        <td class="num" data-sort="20">#20</td>
+      </tr>
+      
+      <tr data-href="deck-12c838ead997.html">
+        <td class="muted col-date" data-sort="2026-08-08|RCS - Hobby Con">08-08-2026</td>
+        <td>RCS - Hobby Con</td>
+        <td>nlcholas</td>
+        <td class="num" data-sort="4">#4</td>
+      </tr>
+      
+      <tr data-href="deck-30ee18721a24.html">
+        <td class="muted col-date" data-sort="2026-08-08|RCS - Hobby Con">08-08-2026</td>
+        <td>RCS - Hobby Con</td>
+        <td>Sukon</td>
+        <td class="num" data-sort="35">#35</td>
+      </tr>
+      
+      <tr data-href="deck-a80ac8486961.html">
+        <td class="muted col-date" data-sort="2026-08-08|RCS - Hobby Con">08-08-2026</td>
+        <td>RCS - Hobby Con</td>
+        <td>Shibasaki</td>
+        <td class="num" data-sort="56">#56</td>
+      </tr>
+      
+      <tr data-href="deck-d8965ceae7d9.html">
+        <td class="muted col-date" data-sort="2026-08-08|RCS - Hobby Con">08-08-2026</td>
+        <td>RCS - Hobby Con</td>
+        <td>Eravar</td>
+        <td class="num" data-sort="70">#70</td>
+      </tr>
+      
+      <tr data-href="deck-b3cdcfbff0b3.html">
+        <td class="muted col-date" data-sort="2026-08-08|RCS - Hobby Con">08-08-2026</td>
+        <td>RCS - Hobby Con</td>
+        <td>zankuo</td>
+        <td class="num" data-sort="107">#107</td>
+      </tr>
+      
+      <tr data-href="deck-0227108505ca.html">
+        <td class="muted col-date" data-sort="2026-08-08|RCS - Hobby Con">08-08-2026</td>
+        <td>RCS - Hobby Con</td>
+        <td>nyklord</td>
+        <td class="num" data-sort="109">#109</td>
+      </tr>
+      
+      <tr data-href="deck-4de2ce571f32.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>Berkunn</td>
+        <td class="num" data-sort="7">#7</td>
+      </tr>
+      
+      <tr data-href="deck-f2a91aa928fb.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>SweetiePetey</td>
+        <td class="num" data-sort="40">#40</td>
+      </tr>
+      
+      <tr data-href="deck-668476dc1c7e.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>CB Vekx3r</td>
+        <td class="num" data-sort="43">#43</td>
+      </tr>
+      
+      <tr data-href="deck-00b9b88cd7dd.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>NEK Macalaca</td>
+        <td class="num" data-sort="46">#46</td>
+      </tr>
+      
+      <tr data-href="deck-6de8d451e32a.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>ToonyLoo</td>
+        <td class="num" data-sort="68">#68</td>
+      </tr>
+      
+      <tr data-href="deck-e3efeec632b0.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>CharLittle</td>
+        <td class="num" data-sort="102">#102</td>
+      </tr>
+      
+      <tr data-href="deck-b1f2f299f9f6.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>RikkaWow</td>
+        <td class="num" data-sort="144">#144</td>
+      </tr>
+      
+      <tr data-href="deck-4587cc5ac426.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>Bradykin</td>
+        <td class="num" data-sort="146">#146</td>
+      </tr>
+      
+      <tr data-href="deck-d423c3d576ba.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>pilepper</td>
+        <td class="num" data-sort="175">#175</td>
+      </tr>
+      
+      <tr data-href="deck-d620a7b37a5c.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>badboijerbear</td>
+        <td class="num" data-sort="197">#197</td>
+      </tr>
+      
+      <tr data-href="deck-64c6cd2b3aad.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>Gwynn</td>
+        <td class="num" data-sort="405">#405</td>
+      </tr>
+      
+      <tr data-href="deck-09a9ef72da9f.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>Olivier</td>
+        <td class="num" data-sort="437">#437</td>
+      </tr>
+      
+      <tr data-href="deck-1c5848f91f79.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>NA CeroBlast</td>
+        <td class="num" data-sort="475">#475</td>
+      </tr>
+      
+      <tr data-href="deck-0ee60061420c.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>Grithga</td>
+        <td class="num" data-sort="528">#528</td>
+      </tr>
+      
+      <tr data-href="deck-254171b04b30.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>Mr Saucy Handles</td>
+        <td class="num" data-sort="531">#531</td>
+      </tr>
+      
+      <tr data-href="deck-9accde1225a0.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>Moonlight</td>
+        <td class="num" data-sort="535">#535</td>
+      </tr>
+      
+      <tr data-href="deck-f8d9c663632a.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>Kcrouton1</td>
+        <td class="num" data-sort="565">#565</td>
+      </tr>
+      
+      <tr data-href="deck-b557116c2693.html">
+        <td class="muted col-date" data-sort="2026-08-08|Riftbound Showdown Ottawa">08-08-2026</td>
+        <td>Riftbound Showdown Ottawa</td>
+        <td>Aserty</td>
+        <td class="num" data-sort="578">#578</td>
+      </tr>
+      
+      <tr data-href="deck-798cf2727db4.html">
+        <td class="muted col-date" data-sort="2026-08-08|Shanghai City Challenge">08-08-2026</td>
+        <td>Shanghai City Challenge</td>
+        <td>JHM.霆霆</td>
+        <td class="num" data-sort="3">#3</td>
+      </tr>
+      
+      <tr data-href="deck-f9423e954af5.html">
+        <td class="muted col-date" data-sort="2026-08-08|Shanghai City Challenge">08-08-2026</td>
+        <td>Shanghai City Challenge</td>
+        <td>斯派奇Spike</td>
+        <td class="num" data-sort="78">#78</td>
+      </tr>
+      
+      <tr data-href="deck-71b7989e0d98.html">
+        <td class="muted col-date" data-sort="2026-08-08|Wuhan City Challenge">08-08-2026</td>
+        <td>Wuhan City Challenge</td>
+        <td>无所畏惧</td>
+        <td class="num" data-sort="3">#3</td>
+      </tr>
+      
+      <tr data-href="deck-6aa4eece249a.html">
+        <td class="muted col-date" data-sort="2026-08-08|Wuhan City Challenge">08-08-2026</td>
+        <td>Wuhan City Challenge</td>
+        <td>闪电家.乐事.li</td>
+        <td class="num" data-sort="30">#30</td>
+      </tr>
+      
+      <tr data-href="deck-3ec9b21ccc51.html">
+        <td class="muted col-date" data-sort="2026-08-04|Mardi - championship #2">04-08-2026</td>
+        <td>Mardi - championship #2</td>
+        <td>JRAD</td>
+        <td class="num" data-sort="7">#7</td>
+      </tr>
+      
+      <tr data-href="deck-4d3a32be2aa9.html">
+        <td class="muted col-date" data-sort="2026-08-03|League Cup #2 - Cycle 1">03-08-2026</td>
+        <td>League Cup #2 - Cycle 1</td>
+        <td>OC Willy</td>
+        <td class="num" data-sort="24">#24</td>
+      </tr>
+      
+      <tr data-href="deck-487dd4b3354d.html">
+        <td class="muted col-date" data-sort="2026-08-03|League Cup #2 - Cycle 1">03-08-2026</td>
+        <td>League Cup #2 - Cycle 1</td>
+        <td>NÃ©nu</td>
+        <td class="num" data-sort="49">#49</td>
+      </tr>
+      
+      <tr data-href="deck-067ffcb67a42.html">
+        <td class="muted col-date" data-sort="2026-08-03|League Cup #2 - Cycle 1">03-08-2026</td>
+        <td>League Cup #2 - Cycle 1</td>
+        <td>JRAD</td>
+        <td class="num" data-sort="53">#53</td>
+      </tr>
+      
+      <tr data-href="deck-802650e17d4a.html">
+        <td class="muted col-date" data-sort="2026-08-02|Haven Online Challenger Series - August 2nd 2026">02-08-2026</td>
+        <td>Haven Online Challenger Series - August 2nd 2026</td>
+        <td>Joshua Chan</td>
+        <td class="num" data-sort="1">#1</td>
+      </tr>
+      
+      <tr data-href="deck-16ddf41db37e.html">
+        <td class="muted col-date" data-sort="2026-08-02|Haven Online Challenger Series - August 2nd 2026">02-08-2026</td>
+        <td>Haven Online Challenger Series - August 2nd 2026</td>
+        <td>MANTZAFINIS ALEXANDROS</td>
+        <td class="num" data-sort="27">#27</td>
+      </tr>
+      
+      <tr data-href="deck-c51f58b6efa7.html">
+        <td class="muted col-date" data-sort="2026-08-02|Riftbound Online Series Season 4 Week 1">02-08-2026</td>
+        <td>Riftbound Online Series Season 4 Week 1</td>
+        <td>Jorit</td>
+        <td class="num" data-sort="13">#13</td>
+      </tr>
+      
+      <tr data-href="deck-d27882d6a40a.html">
+        <td class="muted col-date" data-sort="2026-08-02|Riftbound Online Series Season 4 Week 1">02-08-2026</td>
+        <td>Riftbound Online Series Season 4 Week 1</td>
+        <td>Leesin2myclls</td>
+        <td class="num" data-sort="39">#39</td>
+      </tr>
+      
+      <tr data-href="deck-24bdbfb8e700.html">
+        <td class="muted col-date" data-sort="2026-08-01|Runes League Invitational Qualifier">01-08-2026</td>
+        <td>Runes League Invitational Qualifier</td>
+        <td>TheDon94</td>
+        <td class="num" data-sort="8">#8</td>
+      </tr>
+      
+      <tr data-href="deck-5d568abedc3b.html">
+        <td class="muted col-date" data-sort="2026-08-01|Triple Win-A-Box | Vendetta Tournament">01-08-2026</td>
+        <td>Triple Win-A-Box | Vendetta Tournament</td>
+        <td>Bradykin</td>
+        <td class="num" data-sort="3">#3</td>
+      </tr>
+      
+      <tr data-href="deck-b40e5bf5e723.html">
+        <td class="muted col-date" data-sort="2026-08-01|Vendetta Release Tournament at Pokemon Card Club">01-08-2026</td>
+        <td>Vendetta Release Tournament at Pokemon Card Club</td>
+        <td>ZL-超绝芳香</td>
+        <td class="num" data-sort="37">#37</td>
+      </tr>
+      
+      <tr data-href="deck-45bdf5855835.html">
+        <td class="muted col-date" data-sort="2026-07-28|Mardi - Championship #1">28-07-2026</td>
+        <td>Mardi - Championship #1</td>
+        <td>OC Willy</td>
+        <td class="num" data-sort="9">#9</td>
+      </tr>
+      
+      <tr data-href="deck-636df7bbf6b9.html">
+        <td class="muted col-date" data-sort="2026-07-27|Nightcup League Cup #1 — Cycle 1">27-07-2026</td>
+        <td>Nightcup League Cup #1 — Cycle 1</td>
+        <td>OC Willy</td>
+        <td class="num" data-sort="4">#4</td>
+      </tr>
+      
+      <tr data-href="deck-17de8626c98e.html">
+        <td class="muted col-date" data-sort="2026-07-26|NovaRiftbound&#39;s TCGArena Online $2K Showdown #3">26-07-2026</td>
+        <td>NovaRiftbound&#39;s TCGArena Online $2K Showdown #3</td>
+        <td>YBE Luddrox</td>
+        <td class="num" data-sort="4">#4</td>
+      </tr>
+      
+      <tr data-href="deck-3c87177a4191.html">
+        <td class="muted col-date" data-sort="2026-07-26|NovaRiftbound&#39;s TCGArena Online $2K Showdown #3">26-07-2026</td>
+        <td>NovaRiftbound&#39;s TCGArena Online $2K Showdown #3</td>
+        <td>Joshua Chan</td>
+        <td class="num" data-sort="10">#10</td>
+      </tr>
+      
+      <tr data-href="deck-378bc188a78d.html">
+        <td class="muted col-date" data-sort="2026-07-26|NovaRiftbound&#39;s TCGArena Online $2K Showdown #3">26-07-2026</td>
+        <td>NovaRiftbound&#39;s TCGArena Online $2K Showdown #3</td>
+        <td>Divit Bui</td>
+        <td class="num" data-sort="29">#29</td>
+      </tr>
+      
+      <tr data-href="deck-f8455b08348d.html">
+        <td class="muted col-date" data-sort="2026-07-26|NovaRiftbound&#39;s TCGArena Online $2K Showdown #3">26-07-2026</td>
+        <td>NovaRiftbound&#39;s TCGArena Online $2K Showdown #3</td>
+        <td>George Kolev</td>
+        <td class="num" data-sort="52">#52</td>
+      </tr>
+      
+      <tr data-href="deck-f83229dab4bd.html">
+        <td class="muted col-date" data-sort="2026-07-26|NovaRiftbound&#39;s TCGArena Online $2K Showdown #3">26-07-2026</td>
+        <td>NovaRiftbound&#39;s TCGArena Online $2K Showdown #3</td>
+        <td>Mohammed Aljahdali</td>
+        <td class="num" data-sort="58">#58</td>
+      </tr>
+      
+      <tr data-href="deck-bc7643361b6d.html">
+        <td class="muted col-date" data-sort="2026-07-26|NovaRiftbound&#39;s TCGArena Online $2K Showdown #3">26-07-2026</td>
+        <td>NovaRiftbound&#39;s TCGArena Online $2K Showdown #3</td>
+        <td>TacoManStan</td>
+        <td class="num" data-sort="62">#62</td>
+      </tr>
+      
+    </tbody>
+  </table>
+  </div>
+</aside>
+</div>
+
+<script type="application/json" id="card-details-data">[{"card_code": "OGN-095", "card_number": "095", "card_type": "Spell", "colors": ["Mind"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eGive a unit -1 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn, to a minimum of 1 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. Draw 1.", "flavor": "It\u2019s easier to outsmart an opponent with a concussion.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-095.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Stupefy", "printings": [{"banned": false, "card_code": "OGN-095", "card_number": "095", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-095.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-080", "card_number": "080", "card_type": "Spell", "colors": ["Mind"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003e\u003cimg src=\"/static/img/keywords/repeat.svg\" alt=\"Repeat\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"/static/img/domains/Mind.webp\" alt=\"Mind\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may pay the additional cost to repeat this spell\u0026#x27;s effect.)\u003cbr\u003eDeal 1 to up to three units at the same location.", "flavor": "\u201cMy work speaks in the roar of flame and the ringing of steel.\u201d \u2014Ornn", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-080.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Bellows Breath", "printings": [{"banned": false, "card_code": "SFD-080", "card_number": "080", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-080.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-140", "card_number": "140", "card_type": "Champion Unit", "colors": ["Chaos"], "cost": 3, "description": "When you play me, you may play a spell from your trash with Energy cost no more than \u003cimg src=\"/static/img/icons/energy-3.svg\" alt=\"3 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, ignoring its Energy cost. Recycle that spell after you play it. (You must still pay its Power cost.)", "flavor": "\u201cOne jump ahead of you.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-140.webp", "landscape": false, "legality": "Legal", "might": 3, "name": "Fizz, Trickster", "printings": [{"banned": false, "card_code": "SFD-140", "card_number": "140", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-140.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "UNL-128", "card_number": "128", "card_type": "Spell", "colors": ["Chaos"], "cost": 3, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eReturn a friendly unit and an enemy unit to their owners\u0026#x27; hands.", "flavor": "\u201cI\u2019ve made my preparations. Meet me on the ridge at midnight, and we\u2019ll go.\u201d \u2014Unsigned note", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-128.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Star-Crossed", "printings": [{"banned": false, "card_code": "UNL-128", "card_number": "128", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-128.webp", "promo": false, "rarity": "Common", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "OGN-183", "card_number": "183", "card_type": "Spell", "colors": ["Chaos"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eLook at the top 3 cards of your Main Deck. Put 1 into your hand and recycle the rest.", "flavor": "\u201cJust lucky, I guess.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-183.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Stacked Deck", "printings": [{"banned": false, "card_code": "OGN-183", "card_number": "183", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-183.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "OGN-183-P", "card_number": "183", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-183-P.webp", "promo": true, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-070", "card_number": "070", "card_type": "Spell", "colors": ["Mind"], "cost": 3, "description": "\u003cimg src=\"/static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"/static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003e\u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eDeal 3 to a unit at a battlefield. Play a Gold gear token exhausted.", "flavor": "Smash AND grab.", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-070.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Wages of Pain", "printings": [{"banned": false, "card_code": "SFD-070", "card_number": "070", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-070.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "related_tokens": [{"description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Kill this, \u003cimg src=\"/static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: \u003cimg src=\"/static/img/keywords/add.svg\" alt=\"Add\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (Abilities that add resources can\u0026#x27;t be reacted to.)", "idx": 56, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-T05x.webp", "landscape": false, "might": null, "name": "Gold Gear"}], "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "OGN-116", "card_number": "116", "card_type": "Unit", "colors": ["Mind"], "cost": 7, "description": "\u003cimg src=\"/static/img/keywords/accelerate.svg\" alt=\"Accelerate\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may pay \u003cimg src=\"/static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"/static/img/domains/Mind.webp\" alt=\"Mind\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e as an additional cost to have me enter ready.)\u003cbr\u003eWhen you play me, give enemy units -3 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn, to a minimum of 1 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.", "flavor": "You will know when you\u0026#x27;ve pushed the wilds too far.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-116.webp", "landscape": false, "legality": "Legal", "might": 7, "name": "Thousand-Tailed Watcher", "printings": [{"banned": false, "card_code": "OGN-116", "card_number": "116", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-116.webp", "promo": false, "rarity": "Rare", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-169", "card_number": "169", "card_type": "Spell", "colors": ["Chaos"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eReturn a unit at a battlefield with 3 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e or less to its owner\u0026#x27;s hand.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-169.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Gust", "printings": [{"banned": false, "card_code": "OGN-169", "card_number": "169", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-169.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-073", "card_number": "073", "card_type": "Spell", "colors": ["Mind"], "cost": 4, "description": "Deal 3 to an enemy unit. When it dies this turn, play a Gold gear token exhausted. (It has \u0026quot;\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Kill this, \u003cimg src=\"/static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: \u003cimg src=\"/static/img/keywords/add.svg\" alt=\"Add\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.\u0026quot;)", "flavor": "\u201cThe world is cruel. It does not have to be ugly.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-073.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Deadly Flourish", "printings": [{"banned": false, "card_code": "UNL-073", "card_number": "073", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-073.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "related_tokens": [{"description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Kill this, \u003cimg src=\"/static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: \u003cimg src=\"/static/img/keywords/add.svg\" alt=\"Add\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (Abilities that add resources can\u0026#x27;t be reacted to.)", "idx": 56, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-T05x.webp", "landscape": false, "might": null, "name": "Gold Gear"}], "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "UNL-121", "card_number": "121", "card_type": "Unit", "colors": ["Chaos"], "cost": 3, "description": "When you play me, choose a player. They discard 1.", "flavor": "Bandle Scout Rule 43: When a mysterious voice in the woods whispers for you to follow it, don\u2019t go alone! Your friends might want to see too!", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-121.webp", "landscape": false, "legality": "Legal", "might": 2, "name": "Bewitching Spirit", "printings": [{"banned": false, "card_code": "UNL-121", "card_number": "121", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-121.webp", "promo": false, "rarity": "Common", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "OGN-181", "card_number": "181", "card_type": "Gear", "colors": ["Chaos"], "cost": 2, "description": "\u003cimg src=\"/static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Return another friendly gear, unit, or \u003cimg src=\"/static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e card to its owner\u0026#x27;s hand.", "flavor": "\u201cI know I put it in here somewhere...\u201d \u2014Teemo", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-181.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Pack of Wonders", "printings": [{"banned": false, "card_code": "OGN-181", "card_number": "181", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-181.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-150A", "card_number": "150", "card_type": "Champion Unit", "colors": ["Chaos"], "cost": 4, "description": "\u003cimg src=\"/static/img/keywords/deflect.svg\" alt=\"Deflect\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cbr\u003eWhen an opponent plays a unit while I\u0026#x27;m at a battlefield, [Stun] it. They can\u0026#x27;t move it this turn.", "flavor": "\u201cI\u2019ll show them the meaning of apathy. Or not.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-150A.webp", "landscape": false, "legality": "Legal", "might": 4, "name": "Vex, Apathetic", "printings": [{"banned": false, "card_code": "UNL-150A", "card_number": "150", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-150A.webp", "promo": false, "rarity": "Showcase", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-150", "card_number": "150", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-150.webp", "promo": false, "rarity": "Epic", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Showcase", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "OGN-186", "card_number": "186", "card_type": "Gear", "colors": ["Chaos"], "cost": 2, "description": "When this leaves the board, draw 1 and channel 1 rune exhausted.\u003cbr\u003e\u003cimg src=\"/static/img/domains/Chaos.webp\" alt=\"Chaos\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, \u003cimg src=\"/static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Kill this.", "flavor": "\u201cWe\u2019re gonna be rich!\u201d \u2014 Common last words", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-186.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Treasure Trove", "printings": [{"banned": false, "card_code": "OGN-186", "card_number": "186", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-186.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-138", "card_number": "138", "card_type": "Gear", "colors": ["Chaos"], "cost": 1, "description": "As you play this, name a tag. (For example, Miss Fortune, Demacia, and Poro are tags.)\u003cbr\u003e\u003cimg src=\"/static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Give a unit with the named tag -2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.", "flavor": "There are some lists you don\u2019t want to be on.", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-138.webp", "landscape": false, "legality": "Legal", "might": null, "name": "The List", "printings": [{"banned": false, "card_code": "UNL-138", "card_number": "138", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-138.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "UNL-070", "card_number": "070", "card_type": "Spell", "colors": ["Mind"], "cost": 2, "description": "Give a gear \u003cimg src=\"/static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (Kill it at the start of its controller\u0026#x27;s Beginning Phase, before scoring.)", "flavor": "Nothing lasts forever.", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-070.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Turn to Dust", "printings": [{"banned": false, "card_code": "UNL-070", "card_number": "070", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-070.webp", "promo": false, "rarity": "Common", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "SFD-136", "card_number": "136", "card_type": "Spell", "colors": ["Chaos"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003e\u003cimg src=\"/static/img/keywords/repeat.svg\" alt=\"Repeat\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/icons/energy-2.svg\" alt=\"2 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may pay the additional cost to repeat this spell\u0026#x27;s effect.)\u003cbr\u003eCounter a spell unless its controller pays \u003cimg src=\"/static/img/icons/energy-2.svg\" alt=\"2 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-136.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Hard Bargain", "printings": [{"banned": false, "card_code": "SFD-136", "card_number": "136", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-136.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "OGN-105", "card_number": "105", "card_type": "Spell", "colors": ["Mind"], "cost": 6, "description": "Deal 6 to each of up to two units.", "flavor": "Two fates, very briefly intertwined.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-105.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Singularity", "printings": [{"banned": false, "card_code": "OGN-105", "card_number": "105", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-105.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 2, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-078", "card_number": "078", "card_type": "Gear", "colors": ["Mind"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Kill this at the start of its controller\u0026#x27;s Beginning Phase, before scoring.)\u003cbr\u003eWhen you play this, play a ready 3 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sprite unit token with \u003cimg src=\"/static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to your base.\u003cbr\u003e\u003cimg src=\"/static/img/keywords/deathknell.svg\" alt=\"Deathknell\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Repeat this gear\u0026#x27;s play effect. (When this dies, get the effect.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-078.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Sprite Fountain", "printings": [{"banned": false, "card_code": "UNL-078", "card_number": "078", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-078.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "related_tokens": [{"description": "\u003cimg src=\"/static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Kill me at the start of your Beginning Phase, before scoring.)", "idx": 57, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-274.webp", "landscape": false, "might": 3, "name": "Sprite Unit"}], "rune_cost": 1, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "UNL-063", "card_number": "063", "card_type": "Spell", "colors": ["Mind"], "cost": 3, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eGive a unit -4 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.\u003cbr\u003e\u003cimg src=\"/static/img/keywords/predict.svg\" alt=\"Predict\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (Look at the top card of your Main Deck. You may recycle it.)", "flavor": "When sun and moon meet, darkness triumphs.", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-063.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Eclipse", "printings": [{"banned": false, "card_code": "UNL-063", "card_number": "063", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-063.webp", "promo": false, "rarity": "Common", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "SFD-074", "card_number": "074", "card_type": "Unit", "colors": ["Mind"], "cost": 3, "description": "When you play me, you may kill a gear with Energy cost no more than \u003cimg src=\"/static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. If you do, play a Gold gear token exhausted.", "flavor": "\u201cSticky fingers never linger.\u201d  \n\u2014Pickpockets\u2019 motto", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-074.webp", "landscape": false, "legality": "Legal", "might": 3, "name": "Pickpocket", "printings": [{"banned": false, "card_code": "SFD-074", "card_number": "074", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-074.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "related_tokens": [{"description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Kill this, \u003cimg src=\"/static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: \u003cimg src=\"/static/img/keywords/add.svg\" alt=\"Add\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (Abilities that add resources can\u0026#x27;t be reacted to.)", "idx": 56, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-T05x.webp", "landscape": false, "might": null, "name": "Gold Gear"}], "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "VEN-104", "card_number": "104", "card_type": "Unit", "colors": ["Chaos"], "cost": 4, "description": "\u003cimg src=\"/static/img/keywords/empower.svg\" alt=\"Empower\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/icons/energy-2.svg\" alt=\"2 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"/static/img/domains/Chaos.webp\" alt=\"Chaos\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"/static/img/icons/energy-2.svg\" alt=\"2 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"/static/img/domains/Chaos.webp\" alt=\"Chaos\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Empower me. Use only if not Empowered.)\u003cbr\u003eWhen I become \u003cimg src=\"/static/img/keywords/empowered.svg\" alt=\"Empowered\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, you may choose a unit in your trash with Energy cost no more than \u003cimg src=\"/static/img/icons/energy-3.svg\" alt=\"3 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e and Power cost no more than \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. Play it to your base, ignoring its cost.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-104.webp", "landscape": false, "legality": "Legal", "might": 4, "name": "Tail-Cloaked Matriarch", "printings": [{"banned": false, "card_code": "VEN-104", "card_number": "104", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-104.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-066", "card_number": "066", "card_type": "Spell", "colors": ["Mind"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"/static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003eBanish a unit, then its owner plays it to the same location, ignoring its cost.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-066.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Temporal Breach", "printings": [{"banned": false, "card_code": "VEN-066", "card_number": "066", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-066.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-106", "card_number": "106", "card_type": "Spell", "colors": ["Chaos"], "cost": 3, "description": "\u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eChoose a unit at a battlefield. If it has 3 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e or less, banish it. Otherwise, return it to its owner\u0026#x27;s hand.", "flavor": "The best strategy is to not have an enemy.", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-106.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Wind and Ghosts", "printings": [{"banned": false, "card_code": "VEN-106", "card_number": "106", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-106.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "OGN-103", "card_number": "103", "card_type": "Unit", "colors": ["Mind"], "cost": 2, "description": "When you play a spell, give me +1 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.", "flavor": "A little knowledge is a dangerous thing. A lot of knowledge is awesome.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-103.webp", "landscape": false, "legality": "Legal", "might": 2, "name": "Ravenbloom Student", "printings": [{"banned": false, "card_code": "OGN-103", "card_number": "103", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-103.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "OGN-103-P", "card_number": "103", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-103-P.webp", "promo": true, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-200", "card_number": "200", "card_type": "Signature Spell", "colors": ["Mind", "Chaos"], "cost": 3, "description": "\u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eBanish a friendly unit, then its owner plays it, ignoring its cost. Deal 3 to an enemy unit at a battlefield. Banish this.", "flavor": "\u201cHah! I can blink and still not miss.\u201d \u2014Ezreal", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-200.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Arcane Shift", "printings": [{"banned": false, "card_code": "SFD-200", "card_number": "200", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-200.webp", "promo": false, "rarity": "Epic", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Epic", "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-066", "card_number": "066", "card_type": "Spell", "colors": ["Mind"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003e\u003cimg src=\"/static/img/keywords/repeat.svg\" alt=\"Repeat\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/icons/energy-2.svg\" alt=\"2 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may pay the additional cost to repeat this spell\u0026#x27;s effect.)\u003cbr\u003eGive a unit -2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.", "flavor": "\u201cFreeze.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-066.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Frigid Touch", "printings": [{"banned": false, "card_code": "SFD-066", "card_number": "066", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-066.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "VEN-055", "card_number": "055", "card_type": "Unit", "colors": ["Mind"], "cost": 4, "description": "\u003cimg src=\"/static/img/keywords/empower.svg\" alt=\"Empower\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/icons/energy-3.svg\" alt=\"3 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"/static/img/icons/energy-3.svg\" alt=\"3 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Empower me. Use only if not Empowered.)\u003cbr\u003e\u003cimg src=\"/static/img/keywords/empowered.svg\" alt=\"Empowered\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Your spells cost \u003cimg src=\"/static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e less, to a minimum of \u003cimg src=\"/static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-055.webp", "landscape": false, "legality": "Legal", "might": 4, "name": "Applied Researchers", "printings": [{"banned": false, "card_code": "VEN-055", "card_number": "055", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-055.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-101", "card_number": "101", "card_type": "Unit", "colors": ["Chaos"], "cost": 2, "description": "You may pay \u003cimg src=\"/static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e as an additional cost to play me.\u003cbr\u003eWhen you play me, if you paid the additional cost, banish a card from any trash to give a unit \u003cimg src=\"/static/img/keywords/assault-2.svg\" alt=\"Assault 2\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn. (+2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e while it\u0026#x27;s an attacker.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-101.webp", "landscape": false, "legality": "Legal", "might": 2, "name": "Gust Monk", "printings": [{"banned": false, "card_code": "VEN-101", "card_number": "101", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-101.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}, {"banned": false, "card_code": "VEN-101-P", "card_number": "101", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-101.webp", "promo": true, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "UNL-143A", "card_number": "143", "card_type": "Champion Unit", "colors": ["Chaos"], "cost": 4, "description": "\u003cimg src=\"/static/img/keywords/ambush.svg\" alt=\"Ambush\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cbr\u003eWhen I attack or defend, if an enemy unit is alone here, give me +2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn and gain 2 XP.", "flavor": "\u201cI sense worthy prey.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-143A.webp", "landscape": false, "legality": "Legal", "might": 4, "name": "Kha\u0027Zix, Mutating Horror", "printings": [{"banned": false, "card_code": "UNL-143A", "card_number": "143", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-143A.webp", "promo": false, "rarity": "Showcase", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-143", "card_number": "143", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-143.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Showcase", "rune_cost": 1, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "OGN-093", "card_number": "093", "card_type": "Spell", "colors": ["Mind"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eGive a unit -4 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn, to a minimum of 1 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.", "flavor": "\u201cWell, well, well. What have we here?\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-093.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Smoke Screen", "printings": [{"banned": false, "card_code": "OGN-093", "card_number": "093", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-093.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-173", "card_number": "173", "card_type": "Spell", "colors": ["Chaos"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eMove a friendly unit and ready it.", "flavor": "\u201cFollow the wind, but watch your back.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-173.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Ride the Wind", "printings": [{"banned": false, "card_code": "OGN-173", "card_number": "173", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-173.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-192", "card_number": "192", "card_type": "Unit", "colors": ["Chaos"], "cost": 7, "description": "When you play me, choose an opponent. They reveal their hand. Choose a card from it, and they discard that card.", "flavor": "Its victims go mad deciding which half to run from first.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-192.webp", "landscape": false, "legality": "Legal", "might": 7, "name": "Mindsplitter", "printings": [{"banned": false, "card_code": "OGN-192", "card_number": "192", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-192.webp", "promo": false, "rarity": "Rare", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Rare", "rune_cost": 2, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-172", "card_number": "172", "card_type": "Spell", "colors": ["Chaos"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eReturn a unit at a battlefield to its owner\u0026#x27;s hand.", "flavor": "\u201cGet out.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-172.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Rebuke", "printings": [{"banned": false, "card_code": "OGN-172", "card_number": "172", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-172.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 2, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-212", "card_number": "212", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "At the start of each player\u0026#x27;s Beginning Phase, deal 1 to each unit here. (This happens before scoring.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-212.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Frozen Fortress", "printings": [{"banned": false, "card_code": "UNL-212", "card_number": "212", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-212.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "OGN-287", "card_number": "287", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "When you conquer here, recycle one of your runes.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-287.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Sigil of the Storm", "printings": [{"banned": false, "card_code": "OGN-287", "card_number": "287", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-287.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "VEN-158", "card_number": "158", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "Players ignore \u003cimg src=\"/static/img/keywords/deflect.svg\" alt=\"Deflect\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e while paying for spells and abilities choosing something here.", "flavor": null, "image_url": "/static/img/battlefields/VEN-158.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Heisho, Shell of the World", "printings": [{"banned": false, "card_code": "VEN-158", "card_number": "158", "image_url": "/static/img/battlefields/VEN-158.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "OGN-296", "card_number": "296", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "Spells and abilities affecting units here each deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-296.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Void Gate", "printings": [{"banned": false, "card_code": "OGN-296", "card_number": "296", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-296.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "OGN-296/298", "card_number": "296", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-296/298.webp", "promo": true, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins Proving Grounds"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-216", "card_number": "216", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "Units can\u0026#x27;t be played here.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-216.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Rockfall Path", "printings": [{"banned": false, "card_code": "SFD-216", "card_number": "216", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-216.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "UNL-132", "card_number": "132", "card_type": "Sideboard", "colors": ["Chaos"], "cost": 5, "description": "When you play me, return all units with 2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e or less to their owners\u0026#x27; hands.", "flavor": "\u0026quot;There\u0026#x27;s plenty of room for everyone at the bottom of the sea.\u0026quot; \u2014Pyke", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-132.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Angler Beast", "printings": [{"banned": false, "card_code": "UNL-132", "card_number": "132", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-132.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "OGN-179", "card_number": "179", "card_type": "Sideboard", "colors": ["Chaos"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eEach player kills one of their gear.", "flavor": "\u201cNever liked that sword anyway.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-179.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Acceptable Losses", "printings": [{"banned": false, "card_code": "OGN-179", "card_number": "179", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-179.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-123", "card_number": "123", "card_type": "Sideboard", "colors": ["Mind"], "cost": 7, "description": "Exhaust all friendly units, then deal 12 to ALL units at battlefields.", "flavor": "That\u2019s enough.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-123.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Unchecked Power", "printings": [{"banned": false, "card_code": "OGN-123", "card_number": "123", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-123.webp", "promo": false, "rarity": "Epic", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Epic", "rune_cost": 2, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "UNL-131", "card_number": "131", "card_type": "Sideboard", "colors": ["Chaos"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eCounter a spell. Return it to its owner\u0026#x27;s hand instead of putting it in their trash.\u003cbr\u003e\u003cimg src=\"/static/img/keywords/predict.svg\" alt=\"Predict\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (Look at the top card of your Main Deck. You may recycle it.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-131.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Abandon", "printings": [{"banned": false, "card_code": "UNL-131", "card_number": "131", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-131.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "VEN-061", "card_number": "061", "card_type": "Sideboard", "colors": ["Mind"], "cost": 1, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eIgnore \u003cimg src=\"/static/img/keywords/deflect.svg\" alt=\"Deflect\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e while paying this spell\u0026#x27;s cost.\u003cbr\u003eGive an enemy Body (\u003cimg src=\"/static/img/domains/Body.webp\" alt=\"Body\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e) unit -5 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.", "flavor": "Force is artless. Be inspired.", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-061.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Decree of Insight", "printings": [{"banned": false, "card_code": "VEN-061", "card_number": "061", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-061.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-102", "card_number": "102", "card_type": "Sideboard", "colors": ["Chaos"], "cost": 3, "description": "When an opponent plays a gear, you may banish me to banish it.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-102.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Ravenbloom Prefect", "printings": [{"banned": false, "card_code": "VEN-102", "card_number": "102", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-102.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "OGN-099", "card_number": "099", "card_type": "Sideboard", "colors": ["Mind"], "cost": 2, "description": "Recycle 3 from your trash, \u003cimg src=\"/static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, \u003cimg src=\"/static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Draw 1.", "flavor": "The constructs of the in-between feed on whatever gets lost in the portals\u2014mostly keys and left socks.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-099.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Garbage Grabber", "printings": [{"banned": false, "card_code": "OGN-099", "card_number": "099", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-099.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-145", "card_number": "145", "card_type": "Sideboard", "colors": ["Chaos"], "cost": 2, "description": "\u003cimg src=\"/static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"/static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003e\u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eSwap the Might of two units at the same battlefield this turn.", "flavor": "Always look out for the little guy.", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-145.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Switcheroo", "printings": [{"banned": false, "card_code": "SFD-145", "card_number": "145", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-145.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Rare", "rune_cost": 2, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "OGN-187", "card_number": "187", "card_type": "Sideboard", "colors": ["Chaos"], "cost": 3, "description": "Starting with the next player, each player may return a unit to its owner\u0026#x27;s hand.", "flavor": "\u201cThe storm approaches.\u201d \u2014Janna", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-187.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Whirlwind", "printings": [{"banned": false, "card_code": "OGN-187", "card_number": "187", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-187.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-147", "card_number": "147", "card_type": "Sideboard", "colors": ["Chaos"], "cost": 8, "description": "Return all units and gear to their owners\u0026#x27; hands.", "flavor": "Sunk costs have a very painful definition in Bilgewater Bay.", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-147.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Downwell", "printings": [{"banned": false, "card_code": "SFD-147", "card_number": "147", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-147.webp", "promo": false, "rarity": "Epic", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Epic", "rune_cost": 2, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "VEN-107", "card_number": "107", "card_type": "Sideboard", "colors": ["Chaos"], "cost": 1, "description": "Return any number of enemy Order (\u003cimg src=\"/static/img/domains/Order.webp\" alt=\"Order\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e) units with total Might 5 or less to their owners\u0026#x27; hands.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-107.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Decree of Discord", "printings": [{"banned": false, "card_code": "VEN-107", "card_number": "107", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-107.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "OGN-201", "card_number": "201", "card_type": "Sideboard", "colors": ["Chaos"], "cost": 3, "description": "Each player discards their hand, then draws 4.", "flavor": "\u201cGood a time as any to act reckless.\u201d  \n\u2014Ekko", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-201.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Invert Timelines", "printings": [{"banned": false, "card_code": "OGN-201", "card_number": "201", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-201.webp", "promo": false, "rarity": "Epic", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Epic", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-061", "card_number": "061", "card_type": "Sideboard", "colors": ["Mind"], "cost": 3, "description": "When you play me, return a gear from your trash to your hand.", "flavor": "\u201cBefore you know it, I\u2019ll be running this place.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-061.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Aspiring Engineer", "printings": [{"banned": false, "card_code": "SFD-061", "card_number": "061", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-061.webp", "promo": false, "rarity": "Common", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "UNL-238", "card_number": "238", "card_type": "Sideboard", "colors": ["Chaos"], "cost": 10, "description": "As you play me, add the Baron Pit battlefield token to the board if it\u0026#x27;s not there already. If you do, I enter there.\u003cbr\u003eI can\u0026#x27;t be chosen by enemy spells and abilities.\u003cbr\u003eOther friendly units have +2 \u003cimg src=\"/static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-238.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Baron Nashor", "printings": [{"banned": false, "card_code": "UNL-238", "card_number": "238", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-238.webp", "promo": false, "rarity": "Showcase", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-147A", "card_number": "147", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-147A.webp", "promo": false, "rarity": "Showcase", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-147", "card_number": "147", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-147.webp", "promo": false, "rarity": "Epic", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Showcase", "related_tokens": [{"description": "(You can\u0026#x27;t start the game with a token battlefield.)\u003cbr\u003eUnits can move here from anywhere.", "idx": 58, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-T01g.webp", "landscape": true, "might": null, "name": "Baron Pit Battlefield"}], "rune_cost": 3, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "SFD-150", "card_number": "150", "card_type": "Sideboard", "colors": ["Chaos"], "cost": 3, "description": "\u003cimg src=\"/static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u2014 \u003cimg src=\"/static/img/domains/Chaos.webp\" alt=\"Chaos\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, Recycle 2 cards from your trash (Pay the cost: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-150.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Last Rites", "printings": [{"banned": false, "card_code": "SFD-150", "card_number": "150", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-150.webp", "promo": false, "rarity": "Epic", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Epic", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-248", "card_number": "248", "card_type": "Legend", "colors": ["Mind", "Chaos"], "cost": null, "description": "\u003cimg src=\"/static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: \u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u2014 Draw 1. Use only if you\u0026#x27;ve chosen enemy units and/or gear twice this turn with spells or unit abilities.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-248.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Ezreal, Prodigal Explorer", "printings": [{"banned": false, "card_code": "SFD-248", "card_number": "248", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-248.webp", "promo": false, "rarity": "Showcase", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-199", "card_number": "199", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-199.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Showcase", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-082A", "card_number": "082", "card_type": "Champion Unit", "colors": ["Mind"], "cost": 4, "description": "When I attack or defend, deal damage equal to my Might to an enemy unit here.\u003cbr\u003eI don\u0026#x27;t deal combat damage.\u003cbr\u003e\u003cimg src=\"/static/img/domains/Mind.webp\" alt=\"Mind\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: \u003cimg src=\"/static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u2014 Move me to your base.", "flavor": "\u201cTime for a true display of skill.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-082A.webp", "landscape": false, "legality": "Legal", "might": 3, "name": "Ezreal, Dashing", "printings": [{"banned": false, "card_code": "SFD-082A", "card_number": "082", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-082A.webp", "promo": false, "rarity": "Showcase", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-082", "card_number": "082", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-082.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Showcase", "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "VEN-SP5", "card_number": null, "card_type": "Champion Unit", "colors": ["Chaos"], "cost": 3, "description": "When you play me, discard 1, then draw 2.\u003cbr\u003eOptional additional costs you pay cost \u003cimg src=\"/static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e or \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e less.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-SP5.webp", "landscape": false, "legality": "Legal", "might": 3, "name": "Ezreal, Prodigy", "printings": [{"banned": false, "card_code": "VEN-SP5", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-SP5.webp", "promo": false, "rarity": "Showcase", "set_code": null, "set_name": "Vendetta"}, {"banned": false, "card_code": "SFD-149A", "card_number": "149", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-149A.webp", "promo": false, "rarity": "Showcase", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-149", "card_number": "149", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-149.webp", "promo": false, "rarity": "Epic", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Showcase", "rune_cost": 1, "set_code": null, "set_name": "Vendetta"}, {"_idx": 56, "card_code": "UNL-T05x", "card_number": null, "card_type": "Token", "colors": ["Colorless"], "cost": 0, "description": "\u003cimg src=\"/static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Kill this, \u003cimg src=\"/static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: \u003cimg src=\"/static/img/keywords/add.svg\" alt=\"Add\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"/static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (Abilities that add resources can\u0026#x27;t be reacted to.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-T05x.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Gold", "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": null, "set_name": "Unleashed"}, {"_idx": 57, "card_code": "OGN-274", "card_number": "274", "card_type": "Token", "colors": ["Colorless"], "cost": 0, "description": "\u003cimg src=\"/static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Kill me at the start of your Beginning Phase, before scoring.)", "flavor": "Dreams rarely linger, but the dreamer is still changed.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-274.webp", "landscape": false, "legality": "Legal", "might": 3, "name": "Sprite", "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"_idx": 58, "card_code": "UNL-T01g", "card_number": null, "card_type": "Token", "colors": ["Colorless"], "cost": 0, "description": "(You can\u0026#x27;t start the game with a token battlefield.)\u003cbr\u003eUnits can move here from anywhere.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-T01g.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Baron Pit", "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": null, "set_name": "Unleashed"}]</script>
+
+<script>
+(function () {
+  const box = document.querySelector('.chart-box');
+  const tooltip = document.getElementById('trend-tooltip');
+  if (!box || !tooltip) return;
+  box.querySelectorAll('.trend-point').forEach(function (c) {
+    c.addEventListener('mouseenter', function () {
+      tooltip.textContent = c.dataset.tooltip;
+      tooltip.style.display = 'block';
+    });
+    c.addEventListener('mousemove', function (e) {
+      const rect = box.getBoundingClientRect();
+      tooltip.style.left = (e.clientX - rect.left) + 'px';
+      tooltip.style.top = (e.clientY - rect.top) + 'px';
+    });
+    c.addEventListener('mouseleave', function () {
+      tooltip.style.display = 'none';
+    });
+  });
+})();
+</script>
+
+
+</main>
+
+<div class="card-modal-overlay" id="card-modal-overlay" hidden>
+  <div class="card-modal" role="dialog" aria-modal="true" aria-labelledby="card-modal-title">
+    <div class="card-modal-header">
+      <button type="button" class="card-modal-versions-btn" id="card-modal-versions-btn">View versions</button>
+      <button type="button" class="card-modal-close" id="card-modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="card-modal-body" id="card-modal-body">
+      <div class="card-modal-art-col">
+        <button type="button" class="card-modal-flip-btn" id="card-modal-flip-btn" title="Flip card" hidden>⟲</button>
+        <div class="card-modal-tilt" id="card-modal-tilt">
+          <div class="card-modal-flip-inner" id="card-modal-flip-inner">
+            <img class="card-modal-art" id="card-modal-img" alt="">
+            <img class="card-modal-art card-modal-art-back" id="card-modal-img-back" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="card-modal-info">
+        <div class="card-modal-title-row">
+          <h2 id="card-modal-title"></h2>
+          <span class="card-modal-domains" id="card-modal-domains"></span>
+        </div>
+        <div>
+          <div class="card-modal-field-label">Effect</div>
+          <div class="card-modal-field-value" id="card-modal-effect"></div>
+        </div>
+        <div id="card-modal-flavor-wrap">
+          <div class="card-modal-field-label">Flavor</div>
+          <div class="card-modal-field-value card-modal-flavor" id="card-modal-flavor"></div>
+        </div>
+        <div class="card-modal-grid">
+          <div id="card-modal-cost-wrap"><div class="card-modal-field-label">Cost</div><div class="card-modal-field-value" id="card-modal-cost"></div></div>
+          <div id="card-modal-might-wrap"><div class="card-modal-field-label">Might</div><div class="card-modal-field-value" id="card-modal-might"></div></div>
+        </div>
+        <div class="card-modal-grid">
+          <div><div class="card-modal-field-label">Set</div><div class="card-modal-field-value" id="card-modal-set"></div></div>
+          <div><div class="card-modal-field-label">Card Number</div><div class="card-modal-field-value" id="card-modal-number"></div></div>
+          <div><div class="card-modal-field-label">Rarity</div><div class="card-modal-field-value" id="card-modal-rarity"></div></div>
+          <div><div class="card-modal-field-label">Promo</div><div class="card-modal-field-value" id="card-modal-promo"></div></div>
+          <div><div class="card-modal-field-label">Legality</div><div class="card-modal-field-value" id="card-modal-legality"></div></div>
+          <div><div class="card-modal-field-label">Card type</div><div class="card-modal-field-value" id="card-modal-type"></div></div>
+        </div>
+      </div>
+      <div id="card-modal-token-section" hidden>
+        <hr class="card-modal-token-divider">
+        <div class="card-modal-tokens" id="card-modal-tokens"></div>
+      </div>
+    </div>
+    <div class="card-modal-versions" id="card-modal-versions">
+      <div class="card-modal-versions-section">
+        <div class="card-modal-versions-title">All versions</div>
+        <div class="card-modal-printings-grid" id="card-modal-printings-grid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Generic click-to-sort for any <table class="sortable">. Headers opt in with
+// data-type="number|text"; a <td> can override its sort key via data-sort
+// (e.g. "62.3" for a "62.3% (21)" cell, or "" for a "—" placeholder so it
+// consistently sorts to one end instead of wherever string comparison puts it).
+(function () {
+  function cellSortValue(td, type) {
+    const raw = td.hasAttribute('data-sort') ? td.getAttribute('data-sort') : td.textContent.trim();
+    if (type === 'number') {
+      const n = parseFloat(raw.replace(/[^0-9.\-]/g, ''));
+      return isNaN(n) ? -Infinity : n;
+    }
+    return raw.toLowerCase();
+  }
+
+  document.querySelectorAll('table.sortable').forEach(function (table) {
+    // Real position among ALL <th> (not just sortable ones) - some columns
+    // (e.g. domain badges) have no data-type but still occupy a <td> slot,
+    // so filtering headers first would desync colIndex from row.cells[].
+    const allHeaders = Array.from(table.querySelectorAll('th'));
+    const sortableHeaders = allHeaders.filter(function (h) { return h.dataset.type; });
+
+    function applySort(th, dir) {
+      const colIndex = allHeaders.indexOf(th);
+      const type = th.dataset.type;
+      const asc = dir === 'asc';
+      sortableHeaders.forEach(function (h) {
+        h.classList.remove('sorted');
+        delete h.dataset.dir;
+      });
+      th.classList.add('sorted');
+      th.dataset.dir = dir;
+
+      const tbody = table.tBodies[0];
+      const rows = Array.from(tbody.rows);
+      rows.sort(function (r1, r2) {
+        const v1 = cellSortValue(r1.cells[colIndex], type);
+        const v2 = cellSortValue(r2.cells[colIndex], type);
+        if (v1 < v2) return asc ? -1 : 1;
+        if (v1 > v2) return asc ? 1 : -1;
+        return 0;
+      });
+      rows.forEach(function (r) { tbody.appendChild(r); });
+    }
+
+    // Exposed so page-specific scripts can force a default sort (e.g. Card
+    // Stats re-sorting when the active Zone changes) without duplicating
+    // this logic.
+    table.applySort = applySort;
+
+    sortableHeaders.forEach(function (th) {
+      th.addEventListener('click', function () {
+        applySort(th, th.dataset.dir !== 'asc' ? 'asc' : 'desc');
+      });
+    });
+  });
+})();
+
+// Generic pagination for any <table data-paginate="N"> - shows N rows per
+// page with Prev/Next controls appended right after the table. Rows are
+// paginated by DOM order, so it plays nicely with the sortable script above:
+// a header click reorders rows first (its own listener runs before this
+// one, since this one is attached after), then this resets to page 1 so
+// what you see is page 1 of the NEW order, not stale row identities.
+//
+// A page with its own search/filter box (decks.html, tournaments.html)
+// already toggles row visibility for "doesn't match the filter" - if this
+// used the same style.display switch for "not on the current page", the
+// two would fight over the same property with no way to tell "filtered
+// out" from "just a different page" apart. Those filters mark a
+// non-matching row with the .filter-hidden CLASS instead (never touching
+// style.display themselves) and dispatch 'paginate:refresh' on the table
+// after; this only ever paginates over rows NOT in that set, and owns
+// style.display exclusively for the rows that pass the filter.
+(function () {
+  document.querySelectorAll('table[data-paginate]').forEach(function (table) {
+    const pageSize = parseInt(table.dataset.paginate, 10);
+    const tbody = table.tBodies[0];
+    let page = 1;
+
+    // By default the nav goes right after the table itself, but a table
+    // nested inside its own bordered box (e.g. a pairings-box) can point
+    // this at that box's selector so the nav lands below the box instead
+    // of squeezed inside its bottom padding.
+    const anchor = table.dataset.paginateAfter ? table.closest(table.dataset.paginateAfter) : table;
+    const nav = document.createElement('div');
+    nav.className = 'table-pagination';
+    anchor.parentNode.insertBefore(nav, anchor.nextSibling);
+
+    function render() {
+      const allRows = Array.from(tbody.rows);
+      const rows = allRows.filter(function (r) { return !r.classList.contains('filter-hidden'); });
+      const totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
+      page = Math.min(Math.max(page, 1), totalPages);
+      rows.forEach(function (r, i) {
+        r.style.display = (i >= (page - 1) * pageSize && i < page * pageSize) ? '' : 'none';
+      });
+      nav.innerHTML = '';
+      if (totalPages <= 1) return;
+      const prev = document.createElement('button');
+      prev.type = 'button';
+      prev.textContent = '← Prev';
+      prev.disabled = page === 1;
+      prev.addEventListener('click', function () { page--; render(); });
+      const info = document.createElement('span');
+      info.className = 'table-pagination-info';
+      info.textContent = 'Page ' + page + ' of ' + totalPages;
+      const next = document.createElement('button');
+      next.type = 'button';
+      next.textContent = 'Next →';
+      next.disabled = page === totalPages;
+      next.addEventListener('click', function () { page++; render(); });
+      nav.appendChild(prev);
+      nav.appendChild(info);
+      nav.appendChild(next);
+    }
+
+    table.querySelectorAll('th[data-type]').forEach(function (th) {
+      th.addEventListener('click', function () { page = 1; render(); });
+    });
+
+    // Fired by a page's own filter/search logic after it updates which
+    // rows carry .filter-hidden - resets to page 1 since a new search
+    // changes the result count, not just row order.
+    table.addEventListener('paginate:refresh', function () { page = 1; render(); });
+
+    render();
+  });
+})();
+
+// Generic reordering for any <div class="filter-panel"> that has a search
+// box in it: checked options float to the top, unchecked ones stay below in
+// their existing (server-rendered alphabetical) order. Filter-panels with no
+// search box (e.g. Tournament Size) are short enough not to need this.
+(function () {
+  document.querySelectorAll('.filter-panel').forEach(function (panel) {
+    if (!panel.querySelector('.panel-search')) return;
+    const checkboxes = panel.querySelectorAll('input[type="checkbox"], input[type="radio"]');
+    function reorder() {
+      const labels = Array.from(panel.querySelectorAll('label'));
+      const checked = labels.filter(function (l) { return l.querySelector('input').checked; });
+      const unchecked = labels.filter(function (l) { return !l.querySelector('input').checked; });
+      checked.concat(unchecked).forEach(function (l) { panel.appendChild(l); });
+    }
+    checkboxes.forEach(function (cb) { cb.addEventListener('change', reorder); });
+  });
+})();
+
+// Generic type-to-filter for any <input class="panel-search"> - narrows the
+// <label> siblings inside its .filter-panel by substring match.
+(function () {
+  document.querySelectorAll('.panel-search').forEach(function (input) {
+    input.addEventListener('input', function () {
+      const term = input.value.trim().toLowerCase();
+      input.parentElement.querySelectorAll('label').forEach(function (label) {
+        label.style.display = label.textContent.toLowerCase().includes(term) ? '' : 'none';
+      });
+    });
+  });
+})();
+
+// Generic open/close behavior for any <details class="filter-group">:
+// opening one closes the others, a click inside the panel doesn't bubble up
+// and close it, and clicking outside any of them closes whichever is open.
+(function () {
+  const filterGroups = Array.from(document.querySelectorAll('.filter-group'));
+  if (!filterGroups.length) return;
+  document.querySelectorAll('.filter-panel').forEach(function (panel) {
+    panel.addEventListener('click', function (e) { e.stopPropagation(); });
+  });
+  filterGroups.forEach(function (group) {
+    group.addEventListener('toggle', function () {
+      if (group.open) {
+        filterGroups.forEach(function (other) {
+          if (other !== group) other.open = false;
+        });
+      }
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.filter-group')) {
+      filterGroups.forEach(function (group) { group.open = false; });
+    }
+  });
+})();
+
+// Generic "clickable row" navigation for any element with a [data-href]
+// attribute (legend-row, card-row, deck-row, ...) - delegated on document so
+// every page gets it for free instead of each script wiring its own rows.
+// Plain click navigates in place; Ctrl/Cmd/Shift+click or a middle-click
+// (auxclick, button 1) opens in a new tab, matching how a real <a> behaves -
+// clicks landing on an actual <a> inside the row are left alone either way.
+(function () {
+  function clickableRow(e) {
+    const row = e.target.closest('[data-href]');
+    return row && !e.target.closest('a') ? row : null;
+  }
+  document.addEventListener('click', function (e) {
+    const row = clickableRow(e);
+    if (!row) return;
+    if (e.ctrlKey || e.metaKey || e.shiftKey) {
+      window.open(row.dataset.href, '_blank');
+    } else {
+      window.location.href = row.dataset.href;
+    }
+  });
+  document.addEventListener('auxclick', function (e) {
+    if (e.button !== 1) return;
+    const row = clickableRow(e);
+    if (!row) return;
+    e.preventDefault();
+    window.open(row.dataset.href, '_blank');
+  });
+  // Middle-click's own default (autoscroll mode) engages on mousedown, before
+  // auxclick ever fires on mouseup - without blocking it here first, the
+  // browser eats the gesture as a scroll-drag instead of letting the row open.
+  document.addEventListener('mousedown', function (e) {
+    if (e.button === 1 && clickableRow(e)) e.preventDefault();
+  });
+})();
+
+// Shared zoomable card-detail popup (see .card-modal-* markup above) - any
+// page opts in by giving its .card-tile elements a data-idx and embedding a
+// #card-details-data JSON script tag in that same order. A page with neither
+// is a no-op here.
+const CARD_TYPE_ICONS = {
+  Unit: 'unit',
+  'Champion Unit': 'unit',
+  Spell: 'spell',
+  'Signature Spell': 'spell',
+  Legend: 'legend',
+  Battlefield: 'battlefield',
+  Runes: 'rune',
+  Gear: 'gear',
+};
+
+const RARITY_ICONS = {
+  Common: 'common',
+  Uncommon: 'uncommon',
+  Rare: 'rare',
+  Epic: 'epic',
+  Showcase: 'showcase',
+};
+
+function iconedText(container, text, iconMap, iconBaseUrl) {
+  container.innerHTML = '';
+  if (text && iconMap[text]) {
+    const icon = document.createElement('img');
+    icon.src = iconBaseUrl + iconMap[text] + '.webp?width=32';
+    icon.alt = '';
+    icon.style.cssText = 'width:16px;height:16px;vertical-align:-3px;margin-right:5px';
+    container.appendChild(icon);
+  }
+  container.appendChild(document.createTextNode(text || '—'));
+}
+
+(function () {
+  const dataEl = document.getElementById('card-details-data');
+  const tiles = Array.from(document.querySelectorAll('[data-idx]'));
+  if (!dataEl || !tiles.length) return;
+  const cards = JSON.parse(dataEl.textContent);
+
+  const overlay = document.getElementById('card-modal-overlay');
+  const img = document.getElementById('card-modal-img');
+  const imgBack = document.getElementById('card-modal-img-back');
+  const tiltEl = document.getElementById('card-modal-tilt');
+  const flipInner = document.getElementById('card-modal-flip-inner');
+  const artCol = document.querySelector('.card-modal-art-col');
+  const els = {
+    title: document.getElementById('card-modal-title'),
+    effect: document.getElementById('card-modal-effect'),
+    flavorWrap: document.getElementById('card-modal-flavor-wrap'),
+    flavor: document.getElementById('card-modal-flavor'),
+    set: document.getElementById('card-modal-set'),
+    number: document.getElementById('card-modal-number'),
+    rarity: document.getElementById('card-modal-rarity'),
+    costWrap: document.getElementById('card-modal-cost-wrap'),
+    cost: document.getElementById('card-modal-cost'),
+    mightWrap: document.getElementById('card-modal-might-wrap'),
+    might: document.getElementById('card-modal-might'),
+    promo: document.getElementById('card-modal-promo'),
+    legality: document.getElementById('card-modal-legality'),
+    type: document.getElementById('card-modal-type'),
+    domains: document.getElementById('card-modal-domains'),
+  };
+  const body = document.getElementById('card-modal-body');
+  const versionsBtn = document.getElementById('card-modal-versions-btn');
+  const versionsPanel = document.getElementById('card-modal-versions');
+  const printingsGrid = document.getElementById('card-modal-printings-grid');
+  const flipBtn = document.getElementById('card-modal-flip-btn');
+  const tokenSection = document.getElementById('card-modal-token-section');
+  const tokensList = document.getElementById('card-modal-tokens');
+
+  let current = 0;
+  let showingBack = false;
+
+  function closeVersions() {
+    versionsPanel.classList.remove('open');
+    body.style.display = '';
+    versionsBtn.textContent = 'View versions';
+  }
+
+  // Sets every field specific to ONE face's own identity (name, effect,
+  // flavor, might, type, domains) - called with the front face on open and
+  // with the back face on flip, so a dual-faced token's text always
+  // matches whichever face is actually showing, not just its image.
+  // Set/Card Number/Rarity/Promo/Legality/Cost describe the physical
+  // printing as a whole (shared by both faces) and are set once in show(),
+  // not here.
+  function applyFace(face) {
+    els.title.textContent = face.name;
+    els.effect.innerHTML = face.description || '—';
+    if (face.flavor) {
+      els.flavorWrap.style.display = '';
+      els.flavor.innerHTML = face.flavor;
+    } else {
+      els.flavorWrap.style.display = 'none';
+    }
+    if (face.might !== null && face.might !== undefined) {
+      els.mightWrap.style.display = '';
+      els.might.innerHTML = '';
+      const mightIcon = document.createElement('img');
+      mightIcon.src = '/static/img/icons/might.webp';
+      mightIcon.alt = 'Might';
+      mightIcon.style.cssText = 'height:1.2em;width:auto;vertical-align:middle;margin-right:4px';
+      els.might.appendChild(mightIcon);
+      els.might.appendChild(document.createTextNode(face.might));
+    } else {
+      els.mightWrap.style.display = 'none';
+    }
+    iconedText(els.type, face.card_type, CARD_TYPE_ICONS, 'https://cdn.piltoverarchive.com/types/');
+    els.domains.innerHTML = '';
+    if (!face.landscape) {
+      (face.colors || []).filter(function (name) { return name !== 'Colorless'; }).forEach(function (name) {
+        const icon = document.createElement('img');
+        icon.src = '/static/img/domains/' + name + '.webp';
+        icon.alt = name;
+        icon.title = name;
+        els.domains.appendChild(icon);
+      });
+    }
+  }
+
+  function show(idx) {
+    current = (idx + cards.length) % cards.length;
+    const c = cards[current];
+    closeVersions();
+    versionsBtn.style.display = (c.printings && c.printings.length > 1) ? '' : 'none';
+
+    printingsGrid.innerHTML = '';
+    (c.printings || []).forEach(function (p) {
+      const tile = document.createElement('div');
+      tile.className = 'card-modal-printing' + (c.landscape ? ' landscape' : '') + (p.banned ? ' card-tile-banned' : '');
+      const pImg = document.createElement('img');
+      pImg.src = p.image_url || '';
+      pImg.alt = c.name;
+      pImg.loading = 'lazy';
+      tile.appendChild(pImg);
+      const cap = document.createElement('div');
+      cap.className = 'card-modal-printing-caption';
+      cap.textContent = [p.set_name, p.card_number ? ('#' + p.card_number) : null, p.rarity, p.promo ? 'Promo' : null]
+        .filter(Boolean).join(' · ');
+      tile.appendChild(cap);
+      tile.addEventListener('click', function () {
+        img.src = p.image_url || '';
+        els.set.textContent = p.set_code && p.set_name ? (p.set_code + ' - ' + p.set_name) : (p.set_name || '—');
+        els.number.textContent = p.card_number || '—';
+        iconedText(els.rarity, p.rarity, RARITY_ICONS, 'https://cdn.piltoverarchive.com/rarities/');
+        els.promo.textContent = p.promo ? 'Yes' : 'No';
+        els.legality.textContent = p.banned ? 'Banned' : 'Legal';
+        tiltEl.classList.toggle('card-tile-banned', !!p.banned);
+        closeVersions();
+      });
+      printingsGrid.appendChild(tile);
+    });
+
+    img.src = c.image_url || '';
+    img.alt = c.name;
+    imgBack.src = (c.back && c.back.image_url) || '';
+    imgBack.alt = c.name;
+    artCol.classList.toggle('landscape', c.landscape);
+    tiltEl.classList.toggle('card-tile-banned', c.legality === 'Banned');
+    showingBack = false;
+    flipInner.classList.remove('flipped');
+    flipBtn.hidden = !c.back;
+    applyFace(c);
+    els.set.textContent = c.set_code && c.set_name ? (c.set_code + ' - ' + c.set_name) : (c.set_name || '—');
+    els.number.textContent = c.card_number || '—';
+    iconedText(els.rarity, c.rarity, RARITY_ICONS, 'https://cdn.piltoverarchive.com/rarities/');
+    if (c.cost !== null && c.cost !== undefined && c.card_type !== 'Token') {
+      els.costWrap.style.display = '';
+      els.cost.innerHTML = '';
+      const costIcon = document.createElement('img');
+      costIcon.src = '/static/img/icons/energy-' + c.cost + '.svg';
+      costIcon.alt = c.cost + ' Energy';
+      costIcon.style.cssText = 'height:1.4em;width:auto;vertical-align:middle';
+      els.cost.appendChild(costIcon);
+      const colors = c.colors && c.colors.length ? c.colors : [];
+      for (let i = 0; i < (c.rune_cost || 0) && colors.length; i++) {
+        const runeIcon = document.createElement('img');
+        runeIcon.src = '/static/img/domains/' + colors[i % colors.length] + '.webp';
+        runeIcon.alt = colors[i % colors.length];
+        runeIcon.style.cssText = 'height:1.4em;width:auto;vertical-align:middle;margin-left:2px';
+        els.cost.appendChild(runeIcon);
+      }
+    } else {
+      els.costWrap.style.display = 'none';
+    }
+    els.promo.textContent = c.promo ? 'Yes' : 'No';
+    els.legality.textContent = c.legality || '—';
+
+    tokensList.innerHTML = '';
+    const relatedTokens = c.related_tokens || [];
+    tokenSection.hidden = relatedTokens.length === 0;
+    relatedTokens.forEach(function (t) {
+      const item = document.createElement('div');
+      item.className = 'card-modal-token-item' + (t.landscape ? ' landscape' : '');
+      if (t.image_url) {
+        const artWrap = document.createElement('div');
+        // A token's own banned status lives on its dedicated entry in
+        // `cards` (appended by _attach_related_tokens), addressed by
+        // t.idx - not on this related_tokens row itself.
+        const tokenDetail = (t.idx !== undefined && t.idx !== null) ? cards[t.idx] : null;
+        artWrap.className = 'card-modal-token-item-art-wrap'
+          + ((tokenDetail && tokenDetail.legality === 'Banned') ? ' card-tile-banned' : '');
+        const tImg = document.createElement('img');
+        tImg.className = 'card-modal-token-item-art';
+        tImg.src = t.image_url;
+        tImg.alt = t.name;
+        tImg.loading = 'lazy';
+        // Swaps the modal in place to the token's own dedicated popup
+        // entry, opened directly by array position - NOT by card_code
+        // (openCardByCode), since a dual-faced token's card_code is
+        // shared with its own catalog tile, which only ever shows its
+        // FRONT face; matching by code there could open the wrong face's
+        // name/art instead of the specific one this section is showing.
+        if (t.idx !== undefined && t.idx !== null) {
+          tImg.classList.add('card-modal-token-item-art-clickable');
+          tImg.addEventListener('click', function () { open(t.idx); });
+        }
+        artWrap.appendChild(tImg);
+        item.appendChild(artWrap);
+      }
+      const info = document.createElement('div');
+      info.className = 'card-modal-token-item-info';
+      const name = document.createElement('div');
+      name.className = 'card-modal-token-item-name';
+      name.textContent = t.name + ' Token';
+      info.appendChild(name);
+      if (t.might !== null && t.might !== undefined) {
+        const mightRow = document.createElement('div');
+        mightRow.className = 'card-modal-token-item-might';
+        const mightIcon = document.createElement('img');
+        mightIcon.src = '/static/img/icons/might.webp';
+        mightIcon.alt = 'Might';
+        mightRow.appendChild(mightIcon);
+        mightRow.appendChild(document.createTextNode(t.might));
+        info.appendChild(mightRow);
+      }
+      const desc = document.createElement('div');
+      desc.className = 'card-modal-token-item-desc';
+      desc.innerHTML = t.description || '—';
+      info.appendChild(desc);
+      item.appendChild(info);
+      tokensList.appendChild(item);
+    });
+  }
+
+  function open(idx) {
+    show(idx);
+    overlay.hidden = false;
+  }
+
+  function close() {
+    overlay.hidden = true;
+  }
+
+  // 3D tilt-on-hover: rotate the art toward whichever corner the cursor is
+  // over (max ~12deg either axis), snapping back via the CSS transition
+  // above once the pointer leaves.
+  artCol.addEventListener('mousemove', function (e) {
+    const rect = tiltEl.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    const rotateY = (px - 0.5) * 24;
+    const rotateX = (0.5 - py) * 24;
+    tiltEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    tiltEl.style.boxShadow = `${-rotateY}px ${rotateX}px 24px rgba(0,0,0,.35)`;
+  });
+  artCol.addEventListener('mouseleave', function () {
+    tiltEl.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    tiltEl.style.boxShadow = 'none';
+  });
+
+  tiles.forEach(function (tile) {
+    tile.addEventListener('click', function () {
+      // A click-drag to select the card name text under a tile still fires
+      // a plain `click` on mouseup - without this, that click always opened
+      // the modal too, yanking focus away mid-selection instead of leaving
+      // the highlighted text alone.
+      if (window.getSelection().toString()) return;
+      open(parseInt(tile.dataset.idx, 10));
+    });
+  });
+
+  versionsBtn.addEventListener('click', function () {
+    const willOpen = !versionsPanel.classList.contains('open');
+    versionsPanel.classList.toggle('open', willOpen);
+    body.style.display = willOpen ? 'none' : '';
+    versionsBtn.textContent = willOpen ? '← Back to card' : 'View versions';
+  });
+
+  flipBtn.addEventListener('click', function () {
+    showingBack = !showingBack;
+    flipInner.classList.toggle('flipped', showingBack);
+    const c = cards[current];
+    applyFace(showingBack && c.back ? c.back : c);
+  });
+
+  window.openCardByCode = function (cardCode) {
+    const idx = cards.findIndex(function (c) { return c.card_code === cardCode; });
+    if (idx >= 0) open(idx);
+  };
+
+  document.getElementById('card-modal-close').addEventListener('click', close);
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+
+  document.addEventListener('keydown', function (e) {
+    if (overlay.hidden) return;
+    if (e.key === 'Escape') close();
+  });
+})();
+</script>
+</body>
+</html>
