@@ -1680,6 +1680,20 @@
 // page opts in by giving its .card-tile elements a data-idx and embedding a
 // #card-details-data JSON script tag in that same order. A page with neither
 // is a no-op here.
+// Root-absolute on the live Flask app; a static (non-Flask) export of this
+// page needs to rewrite this one literal to wherever it placed static/
+// instead (same trick as MATRIX_DATA_BASE in index.html) - every dynamic
+// icon.src built below reads through this constant specifically so there's
+// one place to rewrite, not one per call site.
+const STATIC_BASE = 'static/';
+// Same deal as STATIC_BASE, for the one spot (Matrix table rebuild, see
+// index.html) that constructs a /legend/<name> link in JS instead of Jinja -
+// a static export rewrites this whole function body to the slugified
+// legend-<slug>.html filename it wrote that page under (see
+// _legend_filename() in mobile_export.py, which this must stay identical to).
+function legendHref(name) {
+  return 'legend-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') + '.html';
+}
 const CARD_TYPE_ICONS = {
   Unit: 'unit',
   'Champion Unit': 'unit',
@@ -1777,7 +1791,7 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
       els.mightWrap.style.display = '';
       els.might.innerHTML = '';
       const mightIcon = document.createElement('img');
-      mightIcon.src = '/static/img/icons/might.webp';
+      mightIcon.src = STATIC_BASE + 'img/icons/might.webp';
       mightIcon.alt = 'Might';
       mightIcon.style.cssText = 'height:1.2em;width:auto;vertical-align:middle;margin-right:4px';
       els.might.appendChild(mightIcon);
@@ -1790,7 +1804,7 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
     if (!face.landscape) {
       (face.colors || []).filter(function (name) { return name !== 'Colorless'; }).forEach(function (name) {
         const icon = document.createElement('img');
-        icon.src = '/static/img/domains/' + name + '.webp';
+        icon.src = STATIC_BASE + 'img/domains/' + name + '.webp';
         icon.alt = name;
         icon.title = name;
         els.domains.appendChild(icon);
@@ -1848,14 +1862,14 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
       els.costWrap.style.display = '';
       els.cost.innerHTML = '';
       const costIcon = document.createElement('img');
-      costIcon.src = '/static/img/icons/energy-' + c.cost + '.svg';
+      costIcon.src = STATIC_BASE + 'img/icons/energy-' + c.cost + '.svg';
       costIcon.alt = c.cost + ' Energy';
       costIcon.style.cssText = 'height:1.4em;width:auto;vertical-align:middle';
       els.cost.appendChild(costIcon);
       const colors = c.colors && c.colors.length ? c.colors : [];
       for (let i = 0; i < (c.rune_cost || 0) && colors.length; i++) {
         const runeIcon = document.createElement('img');
-        runeIcon.src = '/static/img/domains/' + colors[i % colors.length] + '.webp';
+        runeIcon.src = STATIC_BASE + 'img/domains/' + colors[i % colors.length] + '.webp';
         runeIcon.alt = colors[i % colors.length];
         runeIcon.style.cssText = 'height:1.4em;width:auto;vertical-align:middle;margin-left:2px';
         els.cost.appendChild(runeIcon);
@@ -1908,7 +1922,7 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
         const mightRow = document.createElement('div');
         mightRow.className = 'card-modal-token-item-might';
         const mightIcon = document.createElement('img');
-        mightIcon.src = '/static/img/icons/might.webp';
+        mightIcon.src = STATIC_BASE + 'img/icons/might.webp';
         mightIcon.alt = 'Might';
         mightRow.appendChild(mightIcon);
         mightRow.appendChild(document.createTextNode(t.might));
