@@ -1581,13 +1581,13 @@
 </div>
 
 <script>
-// Stamps a fresh epoch into localStorage and reloads - the header button
-// Called by the Data tab's own button (see about.html) - deliberately not
-// exposed anywhere else, this is a one-off force-refresh escape hatch, not
-// something meant to be used casually from every screen. Honored on every
-// OTHER page too, not just the one it's clicked from: this is a static
-// export with no service worker, so the only way
-// to guarantee a stale cached page (GitHub Pages sends Cache-Control:
+// Stamps a fresh epoch into localStorage and reloads. Called by the Data
+// tab's own button (see about.html) - deliberately not exposed anywhere
+// else, this is a one-off force-refresh escape hatch, not something meant
+// to be used casually from every screen. Honored on every OTHER page too,
+// not just the one it's clicked from: this is a static export with no
+// service worker, so the only way to guarantee a stale cached page (GitHub
+// Pages sends Cache-Control:
 // max-age=600) gets a real network fetch instead of serving the old copy is
 // to navigate to a URL variant that was never cached before. The first page
 // load anywhere that doesn't yet carry the current epoch in its own URL
@@ -1595,8 +1595,19 @@
 // copy of itself with ?_cb=<epoch> appended - a brand new cache key, so it's
 // always a real fetch. Once a page's URL carries the current epoch this is a
 // no-op, so it only ever redirects once per page per click.
-function forceRefreshApp() {
+// fetch(..., {cache:'reload'}) has real, spec-defined "skip the cache check,
+// go straight to network, then overwrite the cache entry with what came
+// back" semantics - stronger than just hoping a new URL forces a real fetch
+// (which some WebView builds don't honor as reliably as a desktop browser).
+// Its result is thrown away on purpose: the point isn't this fetch's HTML,
+// it's that it leaves a fresh copy sitting in cache for the navigation
+// right after it to actually find.
+async function _warmFreshCache(path) {
+  try { await fetch(path, { cache: 'reload' }); } catch (e) { /* offline etc. - fall through to the redirect anyway */ }
+}
+async function forceRefreshApp() {
   localStorage.setItem('forceRefreshEpoch', Date.now().toString());
+  await _warmFreshCache(location.pathname + location.search);
   location.reload();
 }
 (function () {
@@ -1605,7 +1616,7 @@ function forceRefreshApp() {
   if (new URLSearchParams(location.search).get('_cb') === epoch) return;
   const url = new URL(location.href);
   url.searchParams.set('_cb', epoch);
-  location.replace(url.toString());
+  _warmFreshCache(url.toString()).then(function () { location.replace(url.toString()); });
 })();
 
 // Generic click-to-sort for any <table class="sortable">. Headers opt in with
