@@ -455,6 +455,8 @@
      colored by sign (not by favorability, unlike .wr-good/.wr-bad above). */
   .guide-body .trend-up { color: rgb(26,152,80); font-weight: 700; }
   .guide-body .trend-down { color: rgb(217,69,69); font-weight: 700; }
+  /* Entran/Salen block - one extra step in from its parent legend heading. */
+  .guide-body .matchup-swap { display: block; padding-left: 15px; }
   .guide-header-row { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
   .guide-header-info { flex: 1 1 320px; min-width: 0; }
   .guide-deck-link {
@@ -627,26 +629,37 @@
 <p>Fuera del top 10: <strong><span class="card-ref" data-idx="6">Azir</span></strong> (3.5%) sí está cubierto — <span class="card-ref" data-idx="5">Pickpocket</span> es específicamente fuerte contra él. <strong>Aurora</strong> ocupa buena parte del sideboard de esta guía (<span class="card-ref" data-idx="28">Turn to Dust</span>, <span class="card-ref" data-idx="45">Unchecked Power</span>, <span class="card-ref" data-idx="46">Frozen Fortress</span>, corte de Star-Crossed) pero no aparece en ningún deck registrado en la base de datos actual del Controlador — puede ser rarísima en tu meta local o no estar bien capturada en los datos, conviene comprobarlo. <strong>Miracle Cannon</strong> se menciona 3 veces como matchup relevante — es una versión de <span class="card-ref" data-idx="7">Kennen</span> centrada en meter mucha presión de golpe (burst), no un legend aparte.</p>
 <p>La mitad del top 10 (Kai'Sa, Diana, Nasus, Draven, Jayce) se queda sin plan de sideboard en esta guía.</p>
 <h2>Plan de sideboard por matchup</h2>
-<h3>Master Yi</h3>
-<p><strong>Entran:</strong> <span class="swap-in">+2 <span class="card-ref" data-idx="38">Kha'Zix</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="45">Unchecked Power</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span></p>
-<h3>Draven</h3>
-<p><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="56">Acceptable Losses</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="42">Aspiring Engineer</span></span></p>
-<h3>Kennen (Miracle Cannon)</h3>
-<p><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="56">Acceptable Losses</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="5">Pickpocket</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="45">Unchecked Power</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="28">Turn to Dust</span></span></p>
-<h3>Kennen (hook)</h3>
-<p><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="28">Turn to Dust</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="56">Acceptable Losses</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="45">Unchecked Power</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="40">Angler Beast</span></span></p>
-<h3>Irelia</h3>
-<p><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span>, <span class="swap-in">+2 <span class="card-ref" data-idx="38">Kha'Zix</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="56">Acceptable Losses</span></span></p>
-<h3>Azir</h3>
-<p><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="56">Acceptable Losses</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="5">Pickpocket</span></span></p>
-<h3>Diana</h3>
-<p><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-in">+2 <span class="card-ref" data-idx="38">Kha'Zix</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span></p>
-<h3>Mirror (Ezreal vs Ezreal)</h3>
-<p><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="56">Acceptable Losses</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="28">Turn to Dust</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="42">Aspiring Engineer</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span></p>
-<h3>Rengar</h3>
-<p><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="45">Unchecked Power</span></span>, <span class="swap-in">+2 <span class="card-ref" data-idx="38">Kha'Zix</span></span></p>
-<h3>Kha'Zix</h3>
-<p><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-in">+2 <span class="card-ref" data-idx="38">Kha'Zix</span></span></p></div>
+<h3>Master Yi (4)</h3>
+<p><span class="matchup-swap"><strong>Entran:</strong> <span class="swap-in">+2 <span class="card-ref" data-idx="38">Kha'Zix</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="45">Unchecked Power</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span><br>
+<strong>Salen:</strong> <span class="swap-out">-1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-out">-1 <span class="card-ref" data-idx="28">Turn to Dust</span></span>, <span class="swap-out">-2 <span class="card-ref" data-idx="17">Gust</span></span></span></p>
+<h3>Draven (3)</h3>
+<p><span class="matchup-swap"><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="56">Acceptable Losses</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="42">Aspiring Engineer</span></span><br>
+<strong>Salen:</strong> <span class="swap-out">-1 <span class="card-ref" data-idx="36">Sprite Fountain</span></span>, <span class="swap-out">-1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-out">-1 <span class="card-ref" data-idx="28">Turn to Dust</span></span></span></p>
+<h3>Kennen (Miracle Cannon) (4)</h3>
+<p><span class="matchup-swap"><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="56">Acceptable Losses</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="5">Pickpocket</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="45">Unchecked Power</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="28">Turn to Dust</span></span><br>
+<strong>Salen:</strong> <span class="swap-out">-1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-out">-2 <span class="card-ref" data-idx="17">Gust</span></span>, <span class="swap-out">-1 <span class="card-ref" data-idx="2">Treasure Trove</span></span></span></p>
+<h3>Kennen (hook) (4)</h3>
+<p><span class="matchup-swap"><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="28">Turn to Dust</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="56">Acceptable Losses</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="45">Unchecked Power</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="40">Angler Beast</span></span><br>
+<strong>Salen:</strong> <span class="swap-out">-1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-out">-2 <span class="card-ref" data-idx="2">Treasure Trove</span></span>, <span class="swap-out">-1 <span class="card-ref" data-idx="25">Star-Crossed</span></span></span></p>
+<h3>Irelia (4)</h3>
+<p><span class="matchup-swap"><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span>, <span class="swap-in">+2 <span class="card-ref" data-idx="38">Kha'Zix</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="56">Acceptable Losses</span></span><br>
+<strong>Salen:</strong> <span class="swap-out">-1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-out">-1 <span class="card-ref" data-idx="28">Turn to Dust</span></span>, <span class="swap-out">-2 <span class="card-ref" data-idx="25">Star-Crossed</span></span></span></p>
+<h3>Azir (3)</h3>
+<p><span class="matchup-swap"><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="56">Acceptable Losses</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="5">Pickpocket</span></span><br>
+<strong>Salen:</strong> <span class="swap-out">-2 <span class="card-ref" data-idx="17">Gust</span></span>, <span class="swap-out">-1 <span class="card-ref" data-idx="10">Bellows Breath</span></span></span></p>
+<h3>Diana (4)</h3>
+<p><span class="matchup-swap"><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-in">+2 <span class="card-ref" data-idx="38">Kha'Zix</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span><br>
+<strong>Salen:</strong> <span class="swap-out">-1 <span class="card-ref" data-idx="28">Turn to Dust</span></span>, <span class="swap-out">-2 <span class="card-ref" data-idx="17">Gust</span></span>, <span class="swap-out">-1 <span class="card-ref" data-idx="10">Bellows Breath</span></span></span></p>
+<h3>Mirror (Ezreal vs Ezreal) (4)</h3>
+<p><span class="matchup-swap"><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="56">Acceptable Losses</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="28">Turn to Dust</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="42">Aspiring Engineer</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span><br>
+<strong>Salen:</strong> <span class="swap-out">-1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-out">-2 <span class="card-ref" data-idx="17">Gust</span></span>, <span class="swap-out">-1 <span class="card-ref" data-idx="10">Bellows Breath</span></span></span></p>
+<h3>Rengar (4)</h3>
+<p><span class="matchup-swap"><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="45">Unchecked Power</span></span>, <span class="swap-in">+2 <span class="card-ref" data-idx="38">Kha'Zix</span></span><br>
+<strong>Salen:</strong> <span class="swap-out">-1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-out">-1 <span class="card-ref" data-idx="28">Turn to Dust</span></span>, <span class="swap-out">-1 <span class="card-ref" data-idx="17">Gust</span></span>, <span class="swap-out">-1 <span class="card-ref" data-idx="10">Bellows Breath</span></span></span></p>
+<h3>Kha'Zix (4)</h3>
+<p><span class="matchup-swap"><strong>Entran:</strong> <span class="swap-in">+1 <span class="card-ref" data-idx="44">Mindsplitter</span></span>, <span class="swap-in">+1 <span class="card-ref" data-idx="27">Hard Bargain</span></span>, <span class="swap-in">+2 <span class="card-ref" data-idx="38">Kha'Zix</span></span><br>
+<strong>Salen:</strong> <span class="swap-out">-1 <span class="card-ref" data-idx="28">Turn to Dust</span></span>, <span class="swap-out">-2 <span class="card-ref" data-idx="17">Gust</span></span>
+, <span class="swap-out">-1 <span class="card-ref" data-idx="10">Bellows Breath</span></span></span></p></div>
   
 </div>
 
