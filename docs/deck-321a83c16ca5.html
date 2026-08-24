@@ -267,7 +267,10 @@
     background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
     width: 100%; max-width: 900px; max-height: 90vh; overflow-y: auto;
   }
-  .card-modal-header { display: flex; justify-content: flex-end; align-items: center; padding: 10px 14px 0; }
+  .card-modal-header {
+    display: flex; justify-content: flex-end; align-items: center; padding: 10px 14px 0;
+    position: sticky; top: 0; z-index: 10; background: var(--card-bg); border-radius: 12px 12px 0 0;
+  }
   .card-modal-versions-btn {
     margin-right: auto; background: var(--page); border: 1px solid var(--border); border-radius: 999px;
     color: var(--text-secondary); cursor: pointer; padding: 5px 14px; font-size: 12px; font-weight: 600;
@@ -2028,14 +2031,14 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
   }
 
   // 3D tilt-on-hover: rotate the art toward whichever corner the cursor is
-  // over (max ~12deg either axis), snapping back via the CSS transition
+  // over (max ~14.4deg either axis), snapping back via the CSS transition
   // above once the pointer leaves.
   function applyTilt(clientX, clientY) {
     const rect = tiltEl.getBoundingClientRect();
     const px = (clientX - rect.left) / rect.width;
     const py = (clientY - rect.top) / rect.height;
-    const rotateY = (px - 0.5) * 24;
-    const rotateX = (0.5 - py) * 24;
+    const rotateY = (px - 0.5) * 28.8;
+    const rotateX = (0.5 - py) * 28.8;
     tiltEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     tiltEl.style.boxShadow = `${-rotateY}px ${rotateX}px 24px rgba(0,0,0,.35)`;
   }

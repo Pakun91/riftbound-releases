@@ -267,7 +267,10 @@
     background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
     width: 100%; max-width: 900px; max-height: 90vh; overflow-y: auto;
   }
-  .card-modal-header { display: flex; justify-content: flex-end; align-items: center; padding: 10px 14px 0; }
+  .card-modal-header {
+    display: flex; justify-content: flex-end; align-items: center; padding: 10px 14px 0;
+    position: sticky; top: 0; z-index: 10; background: var(--card-bg); border-radius: 12px 12px 0 0;
+  }
   .card-modal-versions-btn {
     margin-right: auto; background: var(--page); border: 1px solid var(--border); border-radius: 999px;
     color: var(--text-secondary); cursor: pointer; padding: 5px 14px; font-size: 12px; font-weight: 600;
@@ -520,7 +523,7 @@
   <h2 class="deck-header-title">Rumble, Mechanized Menace</h2>
   <div class="deck-meta-row">
     <span class="deck-meta-chip">18 decks analyzed</span>
-    <span class="deck-meta-chip">42% win rate</span>
+    <span class="deck-meta-chip">41% win rate</span>
     <span class="deck-meta-chip">0.6% play rate</span>
     
       <img class="domain-icon" src="static/img/domains/Fury.webp" alt="Fury" title="Fury">
@@ -676,21 +679,15 @@
             </tr>
             
             <tr>
-              <td><a href="legend-diana-scorn-of-the-moon.html">Diana, Scorn of the Moon</a></td>
-              <td class="num">67%</td>
-              <td class="matches">(18)</td>
-            </tr>
-            
-            <tr>
               <td><a href="legend-sivir-battle-mistress.html">Sivir, Battle Mistress</a></td>
               <td class="num">67%</td>
               <td class="matches">(6)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
+              <td><a href="legend-diana-scorn-of-the-moon.html">Diana, Scorn of the Moon</a></td>
               <td class="num">65%</td>
-              <td class="matches">(26)</td>
+              <td class="matches">(20)</td>
             </tr>
             
             <tr>
@@ -700,15 +697,15 @@
             </tr>
             
             <tr>
-              <td><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
+              <td><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
               <td class="num">62%</td>
-              <td class="matches">(13)</td>
+              <td class="matches">(29)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-ornn-fire-below-the-mountain.html">Ornn, Fire Below the Mountain</a></td>
-              <td class="num">58%</td>
-              <td class="matches">(19)</td>
+              <td><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
+              <td class="num">62%</td>
+              <td class="matches">(13)</td>
             </tr>
             
             <tr>
@@ -718,15 +715,21 @@
             </tr>
             
             <tr>
-              <td><a href="legend-akali-rogue-assassin.html">Akali, Rogue Assassin</a></td>
-              <td class="num">56%</td>
-              <td class="matches">(16)</td>
+              <td><a href="legend-ornn-fire-below-the-mountain.html">Ornn, Fire Below the Mountain</a></td>
+              <td class="num">55%</td>
+              <td class="matches">(20)</td>
             </tr>
             
             <tr>
               <td><a href="legend-fiora-grand-duelist.html">Fiora, Grand Duelist</a></td>
               <td class="num">54%</td>
               <td class="matches">(13)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-akali-rogue-assassin.html">Akali, Rogue Assassin</a></td>
+              <td class="num">53%</td>
+              <td class="matches">(19)</td>
             </tr>
             
             <tr>
@@ -742,27 +745,27 @@
             </tr>
             
             <tr>
-              <td><a href="legend-master-yi-wuju-master.html">Master Yi, Wuju Master</a></td>
-              <td class="num">50%</td>
-              <td class="matches">(8)</td>
-            </tr>
-            
-            <tr>
               <td><a href="legend-mel-soul-s-reflection.html">Mel, Soul&#39;s Reflection</a></td>
               <td class="num">44%</td>
               <td class="matches">(9)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
-              <td class="num">40%</td>
-              <td class="matches">(30)</td>
+              <td><a href="legend-master-yi-wuju-master.html">Master Yi, Wuju Master</a></td>
+              <td class="num">44%</td>
+              <td class="matches">(9)</td>
             </tr>
             
             <tr>
               <td><a href="legend-pyke-bloodharbor-ripper.html">Pyke, Bloodharbor Ripper</a></td>
-              <td class="num">36%</td>
-              <td class="matches">(14)</td>
+              <td class="num">40%</td>
+              <td class="matches">(15)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
+              <td class="num">39%</td>
+              <td class="matches">(31)</td>
             </tr>
             
           </tbody>
@@ -780,8 +783,8 @@
             
             <tr>
               <td><a href="legend-leblanc-deceiver.html">LeBlanc, Deceiver</a></td>
-              <td class="num">11%</td>
-              <td class="matches">(9)</td>
+              <td class="num">9%</td>
+              <td class="matches">(11)</td>
             </tr>
             
             <tr>
@@ -791,21 +794,27 @@
             </tr>
             
             <tr>
-              <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
-              <td class="num">19%</td>
-              <td class="matches">(42)</td>
-            </tr>
-            
-            <tr>
               <td><a href="legend-draven-glorious-executioner.html">Draven, Glorious Executioner</a></td>
-              <td class="num">21%</td>
-              <td class="matches">(24)</td>
+              <td class="num">20%</td>
+              <td class="matches">(25)</td>
             </tr>
             
             <tr>
               <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
+              <td class="num">20%</td>
+              <td class="matches">(20)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-lux-lady-of-luminosity.html">Lux, Lady of Luminosity</a></td>
+              <td class="num">20%</td>
+              <td class="matches">(5)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
               <td class="num">21%</td>
-              <td class="matches">(19)</td>
+              <td class="matches">(43)</td>
             </tr>
             
             <tr>
@@ -816,14 +825,14 @@
             
             <tr>
               <td><a href="legend-master-yi-wuju-bladesman.html">Master Yi, Wuju Bladesman</a></td>
-              <td class="num">25%</td>
-              <td class="matches">(36)</td>
+              <td class="num">29%</td>
+              <td class="matches">(42)</td>
             </tr>
             
             <tr>
               <td><a href="legend-jayce-defender-of-tomorrow.html">Jayce, Defender of Tomorrow</a></td>
-              <td class="num">27%</td>
-              <td class="matches">(15)</td>
+              <td class="num">29%</td>
+              <td class="matches">(17)</td>
             </tr>
             
             <tr>
@@ -846,24 +855,30 @@
             
             <tr>
               <td><a href="legend-azir-emperor-of-the-sands.html">Azir, Emperor of the Sands</a></td>
-              <td class="num">35%</td>
-              <td class="matches">(20)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-pyke-bloodharbor-ripper.html">Pyke, Bloodharbor Ripper</a></td>
-              <td class="num">36%</td>
-              <td class="matches">(14)</td>
+              <td class="num">33%</td>
+              <td class="matches">(21)</td>
             </tr>
             
             <tr>
               <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
+              <td class="num">39%</td>
+              <td class="matches">(31)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-pyke-bloodharbor-ripper.html">Pyke, Bloodharbor Ripper</a></td>
               <td class="num">40%</td>
-              <td class="matches">(30)</td>
+              <td class="matches">(15)</td>
             </tr>
             
             <tr>
               <td><a href="legend-mel-soul-s-reflection.html">Mel, Soul&#39;s Reflection</a></td>
+              <td class="num">44%</td>
+              <td class="matches">(9)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-master-yi-wuju-master.html">Master Yi, Wuju Master</a></td>
               <td class="num">44%</td>
               <td class="matches">(9)</td>
             </tr>
@@ -875,27 +890,15 @@
             </tr>
             
             <tr>
-              <td><a href="legend-master-yi-wuju-master.html">Master Yi, Wuju Master</a></td>
-              <td class="num">50%</td>
-              <td class="matches">(8)</td>
+              <td><a href="legend-akali-rogue-assassin.html">Akali, Rogue Assassin</a></td>
+              <td class="num">53%</td>
+              <td class="matches">(19)</td>
             </tr>
             
             <tr>
               <td><a href="legend-lillia-bashful-bloom.html">Lillia, Bashful Bloom</a></td>
               <td class="num">53%</td>
               <td class="matches">(19)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-fiora-grand-duelist.html">Fiora, Grand Duelist</a></td>
-              <td class="num">54%</td>
-              <td class="matches">(13)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-akali-rogue-assassin.html">Akali, Rogue Assassin</a></td>
-              <td class="num">56%</td>
-              <td class="matches">(16)</td>
             </tr>
             
           </tbody>
@@ -3344,14 +3347,14 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
   }
 
   // 3D tilt-on-hover: rotate the art toward whichever corner the cursor is
-  // over (max ~12deg either axis), snapping back via the CSS transition
+  // over (max ~14.4deg either axis), snapping back via the CSS transition
   // above once the pointer leaves.
   function applyTilt(clientX, clientY) {
     const rect = tiltEl.getBoundingClientRect();
     const px = (clientX - rect.left) / rect.width;
     const py = (clientY - rect.top) / rect.height;
-    const rotateY = (px - 0.5) * 24;
-    const rotateX = (0.5 - py) * 24;
+    const rotateY = (px - 0.5) * 28.8;
+    const rotateX = (0.5 - py) * 28.8;
     tiltEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     tiltEl.style.boxShadow = `${-rotateY}px ${rotateX}px 24px rgba(0,0,0,.35)`;
   }

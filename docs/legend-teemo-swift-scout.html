@@ -267,7 +267,10 @@
     background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
     width: 100%; max-width: 900px; max-height: 90vh; overflow-y: auto;
   }
-  .card-modal-header { display: flex; justify-content: flex-end; align-items: center; padding: 10px 14px 0; }
+  .card-modal-header {
+    display: flex; justify-content: flex-end; align-items: center; padding: 10px 14px 0;
+    position: sticky; top: 0; z-index: 10; background: var(--card-bg); border-radius: 12px 12px 0 0;
+  }
   .card-modal-versions-btn {
     margin-right: auto; background: var(--page); border: 1px solid var(--border); border-radius: 999px;
     color: var(--text-secondary); cursor: pointer; padding: 5px 14px; font-size: 12px; font-weight: 600;
@@ -646,15 +649,21 @@
           <tbody>
             
             <tr>
-              <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
-              <td class="num">67%</td>
-              <td class="matches">(6)</td>
+              <td><a href="legend-shen-eye-of-twilight.html">Shen, Eye of Twilight</a></td>
+              <td class="num">100%</td>
+              <td class="matches">(5)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-fiora-grand-duelist.html">Fiora, Grand Duelist</a></td>
+              <td><a href="legend-viktor-herald-of-the-arcane.html">Viktor, Herald of the Arcane</a></td>
               <td class="num">60%</td>
               <td class="matches">(5)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
+              <td class="num">57%</td>
+              <td class="matches">(7)</td>
             </tr>
             
             <tr>
@@ -664,15 +673,33 @@
             </tr>
             
             <tr>
-              <td><a href="legend-vex-gloomist.html">Vex, Gloomist</a></td>
-              <td class="num">44%</td>
-              <td class="matches">(9)</td>
+              <td><a href="legend-fiora-grand-duelist.html">Fiora, Grand Duelist</a></td>
+              <td class="num">50%</td>
+              <td class="matches">(6)</td>
             </tr>
             
             <tr>
               <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
+              <td class="num">43%</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-vex-gloomist.html">Vex, Gloomist</a></td>
               <td class="num">40%</td>
-              <td class="matches">(5)</td>
+              <td class="matches">(10)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
+              <td class="num">35%</td>
+              <td class="matches">(17)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-azir-emperor-of-the-sands.html">Azir, Emperor of the Sands</a></td>
+              <td class="num">33%</td>
+              <td class="matches">(9)</td>
             </tr>
             
             <tr>
@@ -682,27 +709,15 @@
             </tr>
             
             <tr>
-              <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
-              <td class="num">30%</td>
-              <td class="matches">(10)</td>
-            </tr>
-            
-            <tr>
               <td><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
-              <td class="num">20%</td>
-              <td class="matches">(5)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-azir-emperor-of-the-sands.html">Azir, Emperor of the Sands</a></td>
-              <td class="num">14%</td>
-              <td class="matches">(7)</td>
+              <td class="num">17%</td>
+              <td class="matches">(6)</td>
             </tr>
             
             <tr>
               <td><a href="legend-master-yi-wuju-bladesman.html">Master Yi, Wuju Bladesman</a></td>
-              <td class="num">9%</td>
-              <td class="matches">(11)</td>
+              <td class="num">13%</td>
+              <td class="matches">(16)</td>
             </tr>
             
           </tbody>
@@ -720,26 +735,14 @@
             
             <tr>
               <td><a href="legend-master-yi-wuju-bladesman.html">Master Yi, Wuju Bladesman</a></td>
-              <td class="num">9%</td>
-              <td class="matches">(11)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-azir-emperor-of-the-sands.html">Azir, Emperor of the Sands</a></td>
-              <td class="num">14%</td>
-              <td class="matches">(7)</td>
+              <td class="num">13%</td>
+              <td class="matches">(16)</td>
             </tr>
             
             <tr>
               <td><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
-              <td class="num">20%</td>
-              <td class="matches">(5)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
-              <td class="num">30%</td>
-              <td class="matches">(10)</td>
+              <td class="num">17%</td>
+              <td class="matches">(6)</td>
             </tr>
             
             <tr>
@@ -749,15 +752,27 @@
             </tr>
             
             <tr>
-              <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
-              <td class="num">40%</td>
-              <td class="matches">(5)</td>
+              <td><a href="legend-azir-emperor-of-the-sands.html">Azir, Emperor of the Sands</a></td>
+              <td class="num">33%</td>
+              <td class="matches">(9)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
+              <td class="num">35%</td>
+              <td class="matches">(17)</td>
             </tr>
             
             <tr>
               <td><a href="legend-vex-gloomist.html">Vex, Gloomist</a></td>
-              <td class="num">44%</td>
-              <td class="matches">(9)</td>
+              <td class="num">40%</td>
+              <td class="matches">(10)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
+              <td class="num">43%</td>
+              <td class="matches">(7)</td>
             </tr>
             
             <tr>
@@ -768,14 +783,26 @@
             
             <tr>
               <td><a href="legend-fiora-grand-duelist.html">Fiora, Grand Duelist</a></td>
+              <td class="num">50%</td>
+              <td class="matches">(6)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
+              <td class="num">57%</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-viktor-herald-of-the-arcane.html">Viktor, Herald of the Arcane</a></td>
               <td class="num">60%</td>
               <td class="matches">(5)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
-              <td class="num">67%</td>
-              <td class="matches">(6)</td>
+              <td><a href="legend-shen-eye-of-twilight.html">Shen, Eye of Twilight</a></td>
+              <td class="num">100%</td>
+              <td class="matches">(5)</td>
             </tr>
             
           </tbody>
@@ -2445,14 +2472,14 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
   }
 
   // 3D tilt-on-hover: rotate the art toward whichever corner the cursor is
-  // over (max ~12deg either axis), snapping back via the CSS transition
+  // over (max ~14.4deg either axis), snapping back via the CSS transition
   // above once the pointer leaves.
   function applyTilt(clientX, clientY) {
     const rect = tiltEl.getBoundingClientRect();
     const px = (clientX - rect.left) / rect.width;
     const py = (clientY - rect.top) / rect.height;
-    const rotateY = (px - 0.5) * 24;
-    const rotateX = (0.5 - py) * 24;
+    const rotateY = (px - 0.5) * 28.8;
+    const rotateX = (0.5 - py) * 28.8;
     tiltEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     tiltEl.style.boxShadow = `${-rotateY}px ${rotateX}px 24px rgba(0,0,0,.35)`;
   }

@@ -267,7 +267,10 @@
     background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
     width: 100%; max-width: 900px; max-height: 90vh; overflow-y: auto;
   }
-  .card-modal-header { display: flex; justify-content: flex-end; align-items: center; padding: 10px 14px 0; }
+  .card-modal-header {
+    display: flex; justify-content: flex-end; align-items: center; padding: 10px 14px 0;
+    position: sticky; top: 0; z-index: 10; background: var(--card-bg); border-radius: 12px 12px 0 0;
+  }
   .card-modal-versions-btn {
     margin-right: auto; background: var(--page); border: 1px solid var(--border); border-radius: 999px;
     color: var(--text-secondary); cursor: pointer; padding: 5px 14px; font-size: 12px; font-weight: 600;
@@ -466,8 +469,8 @@
   #decks-table { table-layout: fixed; }
   #decks-table th:nth-child(1), #decks-table td:nth-child(1) { width: 9%; }
   #decks-table th:nth-child(2), #decks-table td:nth-child(2) { width: 26%; }
-  #decks-table th:nth-child(3), #decks-table td:nth-child(3) { width: 18%; }
-  #decks-table th:nth-child(4), #decks-table td:nth-child(4) { width: 27%; }
+  #decks-table th:nth-child(3), #decks-table td:nth-child(3) { width: 31%; }
+  #decks-table th:nth-child(4), #decks-table td:nth-child(4) { width: 14%; }
   #decks-table th:nth-child(5), #decks-table td:nth-child(5) { width: 6%; }
   #decks-table th:nth-child(6), #decks-table td:nth-child(6) { width: 7%; }
   #decks-table th:nth-child(7), #decks-table td:nth-child(7) { width: 7%; }
@@ -487,7 +490,7 @@
        640px undershot this: .col-date's own min-width:100px at this
        column's 9% share needs the TABLE itself at least 100/0.09 = 1111px
        before that 100px is actually reachable (same math for .col-legend's
-       180px at 18% => 1000px) - below that the date visibly didn't fit,
+       180px at 31% => 581px) - below that the date visibly didn't fit,
        exactly as reported. 1120px clears every column's stated minimum. */
     #decks-table { min-width: 1120px; }
     .filter-panel { max-width: calc(100vw - 32px); }
@@ -64859,14 +64862,14 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
   }
 
   // 3D tilt-on-hover: rotate the art toward whichever corner the cursor is
-  // over (max ~12deg either axis), snapping back via the CSS transition
+  // over (max ~14.4deg either axis), snapping back via the CSS transition
   // above once the pointer leaves.
   function applyTilt(clientX, clientY) {
     const rect = tiltEl.getBoundingClientRect();
     const px = (clientX - rect.left) / rect.width;
     const py = (clientY - rect.top) / rect.height;
-    const rotateY = (px - 0.5) * 24;
-    const rotateX = (0.5 - py) * 24;
+    const rotateY = (px - 0.5) * 28.8;
+    const rotateX = (0.5 - py) * 28.8;
     tiltEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     tiltEl.style.boxShadow = `${-rotateY}px ${rotateX}px 24px rgba(0,0,0,.35)`;
   }

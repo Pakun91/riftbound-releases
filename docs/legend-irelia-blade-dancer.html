@@ -267,7 +267,10 @@
     background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
     width: 100%; max-width: 900px; max-height: 90vh; overflow-y: auto;
   }
-  .card-modal-header { display: flex; justify-content: flex-end; align-items: center; padding: 10px 14px 0; }
+  .card-modal-header {
+    display: flex; justify-content: flex-end; align-items: center; padding: 10px 14px 0;
+    position: sticky; top: 0; z-index: 10; background: var(--card-bg); border-radius: 12px 12px 0 0;
+  }
   .card-modal-versions-btn {
     margin-right: auto; background: var(--page); border: 1px solid var(--border); border-radius: 999px;
     color: var(--text-secondary); cursor: pointer; padding: 5px 14px; font-size: 12px; font-weight: 600;
@@ -520,7 +523,7 @@
   <h2 class="deck-header-title">Irelia, Blade Dancer</h2>
   <div class="deck-meta-row">
     <span class="deck-meta-chip">263 decks analyzed</span>
-    <span class="deck-meta-chip">52% win rate</span>
+    <span class="deck-meta-chip">51% win rate</span>
     <span class="deck-meta-chip">8.3% play rate</span>
     
       <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
@@ -673,9 +676,21 @@
           <tbody>
             
             <tr>
-              <td><a href="legend-volibear-relentless-storm.html">Volibear, Relentless Storm</a></td>
+              <td><a href="legend-miss-fortune-bounty-hunter.html">Miss Fortune, Bounty Hunter</a></td>
+              <td class="num">86%</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-yasuo-unforgiven.html">Yasuo, Unforgiven</a></td>
               <td class="num">83%</td>
               <td class="matches">(6)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-jhin-virtuoso.html">Jhin, Virtuoso</a></td>
+              <td class="num">81%</td>
+              <td class="matches">(31)</td>
             </tr>
             
             <tr>
@@ -685,21 +700,15 @@
             </tr>
             
             <tr>
-              <td><a href="legend-jhin-virtuoso.html">Jhin, Virtuoso</a></td>
-              <td class="num">80%</td>
-              <td class="matches">(30)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-miss-fortune-bounty-hunter.html">Miss Fortune, Bounty Hunter</a></td>
-              <td class="num">80%</td>
-              <td class="matches">(5)</td>
-            </tr>
-            
-            <tr>
               <td><a href="legend-renekton-butcher-of-the-sands.html">Renekton, Butcher of the Sands</a></td>
               <td class="num">77%</td>
               <td class="matches">(22)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-shen-eye-of-twilight.html">Shen, Eye of Twilight</a></td>
+              <td class="num">75%</td>
+              <td class="matches">(28)</td>
             </tr>
             
             <tr>
@@ -709,27 +718,27 @@
             </tr>
             
             <tr>
-              <td><a href="legend-shen-eye-of-twilight.html">Shen, Eye of Twilight</a></td>
-              <td class="num">74%</td>
-              <td class="matches">(27)</td>
-            </tr>
-            
-            <tr>
               <td><a href="legend-poppy-keeper-of-the-hammer.html">Poppy, Keeper of the Hammer</a></td>
               <td class="num">73%</td>
               <td class="matches">(15)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-mel-soul-s-reflection.html">Mel, Soul&#39;s Reflection</a></td>
-              <td class="num">70%</td>
-              <td class="matches">(119)</td>
+              <td><a href="legend-ivern-green-father.html">Ivern, Green Father</a></td>
+              <td class="num">71%</td>
+              <td class="matches">(56)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-ivern-green-father.html">Ivern, Green Father</a></td>
-              <td class="num">70%</td>
-              <td class="matches">(54)</td>
+              <td><a href="legend-volibear-relentless-storm.html">Volibear, Relentless Storm</a></td>
+              <td class="num">71%</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-mel-soul-s-reflection.html">Mel, Soul&#39;s Reflection</a></td>
+              <td class="num">69%</td>
+              <td class="matches">(121)</td>
             </tr>
             
             <tr>
@@ -741,7 +750,7 @@
             <tr>
               <td><a href="legend-ambessa-matriarch-of-war.html">Ambessa, Matriarch of War</a></td>
               <td class="num">68%</td>
-              <td class="matches">(74)</td>
+              <td class="matches">(76)</td>
             </tr>
             
             <tr>
@@ -751,21 +760,27 @@
             </tr>
             
             <tr>
-              <td><a href="legend-kai-sa-daughter-of-the-void.html">Kai&#39;Sa, Daughter of the Void</a></td>
-              <td class="num">67%</td>
-              <td class="matches">(93)</td>
-            </tr>
-            
-            <tr>
               <td><a href="legend-ezreal-prodigal-explorer.html">Ezreal, Prodigal Explorer</a></td>
-              <td class="num">66%</td>
-              <td class="matches">(148)</td>
+              <td class="num">67%</td>
+              <td class="matches">(158)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-annie-dark-child.html">Annie, Dark Child</a></td>
+              <td><a href="legend-kai-sa-daughter-of-the-void.html">Kai&#39;Sa, Daughter of the Void</a></td>
               <td class="num">66%</td>
-              <td class="matches">(38)</td>
+              <td class="matches">(113)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-lucian-purifier.html">Lucian, Purifier</a></td>
+              <td class="num">66%</td>
+              <td class="matches">(50)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-pyke-bloodharbor-ripper.html">Pyke, Bloodharbor Ripper</a></td>
+              <td class="num">65%</td>
+              <td class="matches">(62)</td>
             </tr>
             
             <tr>
@@ -777,19 +792,7 @@
             <tr>
               <td><a href="legend-vi-piltover-enforcer.html">Vi, Piltover Enforcer</a></td>
               <td class="num">65%</td>
-              <td class="matches">(54)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-lucian-purifier.html">Lucian, Purifier</a></td>
-              <td class="num">65%</td>
-              <td class="matches">(48)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-pyke-bloodharbor-ripper.html">Pyke, Bloodharbor Ripper</a></td>
-              <td class="num">63%</td>
-              <td class="matches">(57)</td>
+              <td class="matches">(55)</td>
             </tr>
             
           </tbody>
@@ -807,122 +810,122 @@
             
             <tr>
               <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
-              <td class="num">39%</td>
-              <td class="matches">(269)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
-              <td class="num">43%</td>
-              <td class="matches">(162)</td>
+              <td class="num">38%</td>
+              <td class="matches">(299)</td>
             </tr>
             
             <tr>
               <td><a href="legend-master-yi-wuju-bladesman.html">Master Yi, Wuju Bladesman</a></td>
               <td class="num">44%</td>
-              <td class="matches">(606)</td>
+              <td class="matches">(698)</td>
             </tr>
             
             <tr>
               <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
               <td class="num">44%</td>
-              <td class="matches">(601)</td>
+              <td class="matches">(668)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-diana-scorn-of-the-moon.html">Diana, Scorn of the Moon</a></td>
-              <td class="num">45%</td>
-              <td class="matches">(228)</td>
+              <td><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
+              <td class="num">44%</td>
+              <td class="matches">(170)</td>
             </tr>
             
             <tr>
               <td><a href="legend-draven-glorious-executioner.html">Draven, Glorious Executioner</a></td>
               <td class="num">45%</td>
-              <td class="matches">(211)</td>
+              <td class="matches">(224)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
-              <td class="num">47%</td>
-              <td class="matches">(301)</td>
+              <td><a href="legend-diana-scorn-of-the-moon.html">Diana, Scorn of the Moon</a></td>
+              <td class="num">46%</td>
+              <td class="matches">(254)</td>
             </tr>
             
             <tr>
               <td><a href="legend-viktor-herald-of-the-arcane.html">Viktor, Herald of the Arcane</a></td>
+              <td class="num">46%</td>
+              <td class="matches">(134)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
               <td class="num">48%</td>
-              <td class="matches">(122)</td>
+              <td class="matches">(328)</td>
             </tr>
             
             <tr>
               <td><a href="legend-azir-emperor-of-the-sands.html">Azir, Emperor of the Sands</a></td>
-              <td class="num">49%</td>
-              <td class="matches">(284)</td>
+              <td class="num">48%</td>
+              <td class="matches">(312)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-fiora-grand-duelist.html">Fiora, Grand Duelist</a></td>
+              <td class="num">48%</td>
+              <td class="matches">(91)</td>
             </tr>
             
             <tr>
               <td><a href="legend-leblanc-deceiver.html">LeBlanc, Deceiver</a></td>
               <td class="num">51%</td>
-              <td class="matches">(189)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-akali-rogue-assassin.html">Akali, Rogue Assassin</a></td>
-              <td class="num">51%</td>
-              <td class="matches">(138)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-fiora-grand-duelist.html">Fiora, Grand Duelist</a></td>
-              <td class="num">51%</td>
-              <td class="matches">(85)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-vex-gloomist.html">Vex, Gloomist</a></td>
-              <td class="num">52%</td>
-              <td class="matches">(96)</td>
+              <td class="matches">(208)</td>
             </tr>
             
             <tr>
               <td><a href="legend-jayce-defender-of-tomorrow.html">Jayce, Defender of Tomorrow</a></td>
-              <td class="num">54%</td>
-              <td class="matches">(183)</td>
+              <td class="num">52%</td>
+              <td class="matches">(206)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-jax-grandmaster-at-arms.html">Jax, Grandmaster at Arms</a></td>
+              <td><a href="legend-akali-rogue-assassin.html">Akali, Rogue Assassin</a></td>
+              <td class="num">53%</td>
+              <td class="matches">(147)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-vex-gloomist.html">Vex, Gloomist</a></td>
+              <td class="num">53%</td>
+              <td class="matches">(100)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-sivir-battle-mistress.html">Sivir, Battle Mistress</a></td>
               <td class="num">54%</td>
-              <td class="matches">(28)</td>
+              <td class="matches">(35)</td>
             </tr>
             
             <tr>
               <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
               <td class="num">55%</td>
-              <td class="matches">(243)</td>
+              <td class="matches">(255)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-sivir-battle-mistress.html">Sivir, Battle Mistress</a></td>
+              <td><a href="legend-jax-grandmaster-at-arms.html">Jax, Grandmaster at Arms</a></td>
+              <td class="num">55%</td>
+              <td class="matches">(31)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-sett-the-boss.html">Sett, The Boss</a></td>
               <td class="num">56%</td>
-              <td class="matches">(32)</td>
+              <td class="matches">(16)</td>
             </tr>
             
             <tr>
               <td><a href="legend-ornn-fire-below-the-mountain.html">Ornn, Fire Below the Mountain</a></td>
               <td class="num">59%</td>
-              <td class="matches">(80)</td>
+              <td class="matches">(81)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-sett-the-boss.html">Sett, The Boss</a></td>
+              <td><a href="legend-lux-lady-of-luminosity.html">Lux, Lady of Luminosity</a></td>
               <td class="num">60%</td>
-              <td class="matches">(15)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-ahri-nine-tailed-fox.html">Ahri, Nine-Tailed Fox</a></td>
-              <td class="num">60%</td>
-              <td class="matches">(5)</td>
+              <td class="matches">(47)</td>
             </tr>
             
           </tbody>
@@ -4410,14 +4413,14 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
   }
 
   // 3D tilt-on-hover: rotate the art toward whichever corner the cursor is
-  // over (max ~12deg either axis), snapping back via the CSS transition
+  // over (max ~14.4deg either axis), snapping back via the CSS transition
   // above once the pointer leaves.
   function applyTilt(clientX, clientY) {
     const rect = tiltEl.getBoundingClientRect();
     const px = (clientX - rect.left) / rect.width;
     const py = (clientY - rect.top) / rect.height;
-    const rotateY = (px - 0.5) * 24;
-    const rotateX = (0.5 - py) * 24;
+    const rotateY = (px - 0.5) * 28.8;
+    const rotateX = (0.5 - py) * 28.8;
     tiltEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     tiltEl.style.boxShadow = `${-rotateY}px ${rotateX}px 24px rgba(0,0,0,.35)`;
   }
