@@ -1,7 +1,7 @@
 {
   "source": "https://riftdecks.com/stats/winrate?metagame_id=4&date_range=all",
   "captured_by": "real Chrome via Playwright (riftbound_data.extract_table)",
-  "captured_at": "2026-08-27",
+  "captured_at": "2026-08-28",
   "legends": [
     {
       "name": "Kennen",
@@ -634,8 +634,8 @@
         },
         "Rengar, Pridestalker": {
           "win_rate": 46,
-          "matches": 468,
-          "wins": 215,
+          "matches": 469,
+          "wins": 216,
           "losses": 253,
           "ci_low": 41,
           "ci_high": 50
@@ -873,12 +873,12 @@
           "ci_high": 77
         },
         "Lux, Lady of Luminosity": {
-          "win_rate": 37,
-          "matches": 43,
+          "win_rate": 36,
+          "matches": 44,
           "wins": 16,
-          "losses": 27,
-          "ci_low": 23,
-          "ci_high": 53
+          "losses": 28,
+          "ci_low": 22,
+          "ci_high": 52
         },
         "Jax, Grandmaster at Arms": {
           "win_rate": 59,
@@ -1372,9 +1372,9 @@
         },
         "Master Yi, Wuju Bladesman": {
           "win_rate": 54,
-          "matches": 468,
+          "matches": 469,
           "wins": 253,
-          "losses": 215,
+          "losses": 216,
           "ci_low": 50,
           "ci_high": 59
         },
@@ -1396,11 +1396,11 @@
         },
         "Reksai, Void Burrower": {
           "win_rate": 60,
-          "matches": 221,
+          "matches": 222,
           "wins": 133,
-          "losses": 88,
+          "losses": 89,
           "ci_low": 53,
-          "ci_high": 67
+          "ci_high": 66
         },
         "Diana, Scorn of the Moon": {
           "win_rate": 49,
@@ -1412,10 +1412,10 @@
         },
         "Nasus, Curator of the Sands": {
           "win_rate": 56,
-          "matches": 169,
+          "matches": 170,
           "wins": 95,
-          "losses": 74,
-          "ci_low": 48,
+          "losses": 75,
+          "ci_low": 49,
           "ci_high": 64
         },
         "Draven, Glorious Executioner": {
@@ -1508,11 +1508,11 @@
         },
         "Ornn, Fire Below the Mountain": {
           "win_rate": 68,
-          "matches": 68,
-          "wins": 46,
+          "matches": 69,
+          "wins": 47,
           "losses": 22,
-          "ci_low": 55,
-          "ci_high": 78
+          "ci_low": 56,
+          "ci_high": 79
         },
         "Ambessa, Matriarch of War": {
           "win_rate": 80,
@@ -1808,9 +1808,9 @@
           "ci_high": 52
         },
         "Jayce, Defender of Tomorrow": {
-          "win_rate": 42,
-          "matches": 114,
-          "wins": 48,
+          "win_rate": 43,
+          "matches": 115,
+          "wins": 49,
           "losses": 66,
           "ci_low": 33,
           "ci_high": 52
@@ -1872,20 +1872,20 @@
           "ci_high": 64
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 68,
-          "matches": 84,
+          "win_rate": 67,
+          "matches": 85,
           "wins": 57,
-          "losses": 27,
-          "ci_low": 57,
-          "ci_high": 78
+          "losses": 28,
+          "ci_low": 56,
+          "ci_high": 77
         },
         "Ornn, Fire Below the Mountain": {
-          "win_rate": 43,
-          "matches": 54,
-          "wins": 23,
+          "win_rate": 44,
+          "matches": 55,
+          "wins": 24,
           "losses": 31,
-          "ci_low": 29,
-          "ci_high": 57
+          "ci_low": 30,
+          "ci_high": 58
         },
         "Ambessa, Matriarch of War": {
           "win_rate": 81,
@@ -2134,10 +2134,10 @@
         },
         "Rengar, Pridestalker": {
           "win_rate": 40,
-          "matches": 221,
-          "wins": 88,
+          "matches": 222,
+          "wins": 89,
           "losses": 133,
-          "ci_low": 33,
+          "ci_low": 34,
           "ci_high": 47
         },
         "Azir, Emperor of the Sands": {
@@ -2245,12 +2245,12 @@
           "ci_high": 80
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 68,
-          "matches": 63,
+          "win_rate": 67,
+          "matches": 64,
           "wins": 43,
-          "losses": 20,
-          "ci_low": 55,
-          "ci_high": 79
+          "losses": 21,
+          "ci_low": 54,
+          "ci_high": 78
         },
         "Ornn, Fire Below the Mountain": {
           "win_rate": 45,
@@ -2365,12 +2365,12 @@
           "ci_high": 83
         },
         "Lux, Lady of Luminosity": {
-          "win_rate": 50,
-          "matches": 20,
-          "wins": 10,
+          "win_rate": 52,
+          "matches": 21,
+          "wins": 11,
           "losses": 10,
-          "ci_low": 27,
-          "ci_high": 73
+          "ci_low": 30,
+          "ci_high": 74
         },
         "Jax, Grandmaster at Arms": {
           "win_rate": 73,
@@ -2880,11 +2880,11 @@
         },
         "Rengar, Pridestalker": {
           "win_rate": 44,
-          "matches": 169,
-          "wins": 74,
+          "matches": 170,
+          "wins": 75,
           "losses": 95,
           "ci_low": 36,
-          "ci_high": 52
+          "ci_high": 51
         },
         "Azir, Emperor of the Sands": {
           "win_rate": 44,
@@ -2920,9 +2920,9 @@
         },
         "Leblanc, Deceiver": {
           "win_rate": 38,
-          "matches": 91,
+          "matches": 92,
           "wins": 35,
-          "losses": 56,
+          "losses": 57,
           "ci_low": 28,
           "ci_high": 49
         },
@@ -2999,12 +2999,12 @@
           "ci_high": 52
         },
         "Ornn, Fire Below the Mountain": {
-          "win_rate": 46,
-          "matches": 74,
+          "win_rate": 45,
+          "matches": 75,
           "wins": 34,
-          "losses": 40,
+          "losses": 41,
           "ci_low": 34,
-          "ci_high": 58
+          "ci_high": 57
         },
         "Ambessa, Matriarch of War": {
           "win_rate": 50,
@@ -3658,8 +3658,8 @@
         },
         "Nasus, Curator of the Sands": {
           "win_rate": 62,
-          "matches": 91,
-          "wins": 56,
+          "matches": 92,
+          "wins": 57,
           "losses": 35,
           "ci_low": 51,
           "ci_high": 72
@@ -3754,11 +3754,11 @@
         },
         "Ambessa, Matriarch of War": {
           "win_rate": 57,
-          "matches": 35,
-          "wins": 20,
-          "losses": 15,
+          "matches": 37,
+          "wins": 21,
+          "losses": 16,
           "ci_low": 39,
-          "ci_high": 74
+          "ci_high": 73
         },
         "Kai'sa, Daughter of the Void": {
           "win_rate": 61,
@@ -3857,12 +3857,12 @@
           "ci_high": 82
         },
         "Lux, Lady of Luminosity": {
-          "win_rate": 32,
-          "matches": 19,
-          "wins": 6,
+          "win_rate": 35,
+          "matches": 20,
+          "wins": 7,
           "losses": 13,
-          "ci_low": 13,
-          "ci_high": 57
+          "ci_low": 15,
+          "ci_high": 59
         },
         "Jax, Grandmaster at Arms": {
           "win_rate": 67,
@@ -3873,12 +3873,12 @@
           "ci_high": 90
         },
         "Renekton, Butcher of the Sands": {
-          "win_rate": 67,
-          "matches": 15,
-          "wins": 10,
+          "win_rate": 69,
+          "matches": 16,
+          "wins": 11,
           "losses": 5,
-          "ci_low": 38,
-          "ci_high": 88
+          "ci_low": 41,
+          "ci_high": 89
         },
         "Renata Glasc, Chem-Baroness": {
           "win_rate": 67,
@@ -3998,10 +3998,10 @@
           "ci_high": 67
         },
         "Azir, Emperor of the Sands": {
-          "win_rate": 58,
-          "matches": 114,
+          "win_rate": 57,
+          "matches": 115,
           "wins": 66,
-          "losses": 48,
+          "losses": 49,
           "ci_low": 48,
           "ci_high": 67
         },
@@ -4102,12 +4102,12 @@
           "ci_high": 71
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 62,
-          "matches": 39,
+          "win_rate": 60,
+          "matches": 40,
           "wins": 24,
-          "losses": 15,
-          "ci_low": 45,
-          "ci_high": 77
+          "losses": 16,
+          "ci_low": 43,
+          "ci_high": 75
         },
         "Ornn, Fire Below the Mountain": {
           "win_rate": 56,
@@ -4238,12 +4238,12 @@
           "ci_high": 84
         },
         "Renekton, Butcher of the Sands": {
-          "win_rate": 56,
-          "matches": 9,
+          "win_rate": 50,
+          "matches": 10,
           "wins": 5,
-          "losses": 4,
-          "ci_low": 21,
-          "ci_high": 86
+          "losses": 5,
+          "ci_low": 19,
+          "ci_high": 81
         },
         "Renata Glasc, Chem-Baroness": {
           "win_rate": 40,
@@ -6902,20 +6902,20 @@
           "ci_high": 43
         },
         "Azir, Emperor of the Sands": {
-          "win_rate": 32,
-          "matches": 84,
-          "wins": 27,
+          "win_rate": 33,
+          "matches": 85,
+          "wins": 28,
           "losses": 57,
-          "ci_low": 22,
-          "ci_high": 43
+          "ci_low": 23,
+          "ci_high": 44
         },
         "Reksai, Void Burrower": {
-          "win_rate": 32,
-          "matches": 63,
-          "wins": 20,
+          "win_rate": 33,
+          "matches": 64,
+          "wins": 21,
           "losses": 43,
-          "ci_low": 21,
-          "ci_high": 45
+          "ci_low": 22,
+          "ci_high": 46
         },
         "Diana, Scorn of the Moon": {
           "win_rate": 28,
@@ -6950,12 +6950,12 @@
           "ci_high": 42
         },
         "Jayce, Defender of Tomorrow": {
-          "win_rate": 38,
-          "matches": 39,
-          "wins": 15,
+          "win_rate": 40,
+          "matches": 40,
+          "wins": 16,
           "losses": 24,
-          "ci_low": 23,
-          "ci_high": 55
+          "ci_low": 25,
+          "ci_high": 57
         },
         "Khazix, Voidreaver": {
           "win_rate": 36,
@@ -7126,12 +7126,12 @@
           "ci_high": 85
         },
         "Lux, Lady of Luminosity": {
-          "win_rate": 60,
-          "matches": 10,
+          "win_rate": 55,
+          "matches": 11,
           "wins": 6,
-          "losses": 4,
-          "ci_low": 26,
-          "ci_high": 88
+          "losses": 5,
+          "ci_low": 23,
+          "ci_high": 83
         },
         "Jax, Grandmaster at Arms": {
           "win_rate": 50,
@@ -7142,12 +7142,12 @@
           "ci_high": 81
         },
         "Renekton, Butcher of the Sands": {
-          "win_rate": 45,
-          "matches": 11,
-          "wins": 5,
+          "win_rate": 50,
+          "matches": 12,
+          "wins": 6,
           "losses": 6,
-          "ci_low": 17,
-          "ci_high": 77
+          "ci_low": 21,
+          "ci_high": 79
         },
         "Renata Glasc, Chem-Baroness": {
           "win_rate": 89,
@@ -7252,19 +7252,19 @@
         },
         "Rengar, Pridestalker": {
           "win_rate": 32,
-          "matches": 68,
+          "matches": 69,
           "wins": 22,
-          "losses": 46,
-          "ci_low": 22,
-          "ci_high": 45
+          "losses": 47,
+          "ci_low": 21,
+          "ci_high": 44
         },
         "Azir, Emperor of the Sands": {
-          "win_rate": 57,
-          "matches": 54,
+          "win_rate": 56,
+          "matches": 55,
           "wins": 31,
-          "losses": 23,
-          "ci_low": 43,
-          "ci_high": 71
+          "losses": 24,
+          "ci_low": 42,
+          "ci_high": 70
         },
         "Reksai, Void Burrower": {
           "win_rate": 55,
@@ -7283,11 +7283,11 @@
           "ci_high": 59
         },
         "Nasus, Curator of the Sands": {
-          "win_rate": 54,
-          "matches": 74,
-          "wins": 40,
+          "win_rate": 55,
+          "matches": 75,
+          "wins": 41,
           "losses": 34,
-          "ci_low": 42,
+          "ci_low": 43,
           "ci_high": 66
         },
         "Draven, Glorious Executioner": {
@@ -7499,11 +7499,11 @@
           "ci_high": 59
         },
         "Renekton, Butcher of the Sands": {
-          "win_rate": 75,
-          "matches": 8,
-          "wins": 6,
+          "win_rate": 78,
+          "matches": 9,
+          "wins": 7,
           "losses": 2,
-          "ci_low": 35,
+          "ci_low": 40,
           "ci_high": 97
         },
         "Renata Glasc, Chem-Baroness": {
@@ -7673,10 +7673,10 @@
         },
         "Leblanc, Deceiver": {
           "win_rate": 43,
-          "matches": 35,
-          "wins": 15,
-          "losses": 20,
-          "ci_low": 26,
+          "matches": 37,
+          "wins": 16,
+          "losses": 21,
+          "ci_low": 27,
           "ci_high": 61
         },
         "Jayce, Defender of Tomorrow": {
@@ -12197,9 +12197,9 @@
     "Lux, Lady of Luminosity": {
       "overall": {
         "win_rate": 50,
-        "matches": 456,
-        "wins": 228,
-        "losses": 228,
+        "matches": 460,
+        "wins": 230,
+        "losses": 230,
         "ci_low": 45,
         "ci_high": 54
       },
@@ -12213,12 +12213,12 @@
           "ci_high": 43
         },
         "Master Yi, Wuju Bladesman": {
-          "win_rate": 63,
-          "matches": 43,
-          "wins": 27,
+          "win_rate": 64,
+          "matches": 44,
+          "wins": 28,
           "losses": 16,
-          "ci_low": 47,
-          "ci_high": 77
+          "ci_low": 48,
+          "ci_high": 78
         },
         "Irelia, Blade Dancer": {
           "win_rate": 39,
@@ -12245,12 +12245,12 @@
           "ci_high": 83
         },
         "Reksai, Void Burrower": {
-          "win_rate": 50,
-          "matches": 20,
+          "win_rate": 48,
+          "matches": 21,
           "wins": 10,
-          "losses": 10,
-          "ci_low": 27,
-          "ci_high": 73
+          "losses": 11,
+          "ci_low": 26,
+          "ci_high": 70
         },
         "Diana, Scorn of the Moon": {
           "win_rate": 26,
@@ -12277,12 +12277,12 @@
           "ci_high": 66
         },
         "Leblanc, Deceiver": {
-          "win_rate": 68,
-          "matches": 19,
+          "win_rate": 65,
+          "matches": 20,
           "wins": 13,
-          "losses": 6,
-          "ci_low": 43,
-          "ci_high": 87
+          "losses": 7,
+          "ci_low": 41,
+          "ci_high": 85
         },
         "Jayce, Defender of Tomorrow": {
           "win_rate": 78,
@@ -12349,12 +12349,12 @@
           "ci_high": 86
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 40,
-          "matches": 10,
-          "wins": 4,
+          "win_rate": 45,
+          "matches": 11,
+          "wins": 5,
           "losses": 6,
-          "ci_low": 12,
-          "ci_high": 74
+          "ci_low": 17,
+          "ci_high": 77
         },
         "Ornn, Fire Below the Mountain": {
           "win_rate": 78,
@@ -12845,9 +12845,9 @@
     "Renekton, Butcher of the Sands": {
       "overall": {
         "win_rate": 42,
-        "matches": 402,
-        "wins": 169,
-        "losses": 233,
+        "matches": 406,
+        "wins": 171,
+        "losses": 235,
         "ci_low": 37,
         "ci_high": 47
       },
@@ -12925,20 +12925,20 @@
           "ci_high": 88
         },
         "Leblanc, Deceiver": {
-          "win_rate": 33,
-          "matches": 15,
+          "win_rate": 31,
+          "matches": 16,
           "wins": 5,
-          "losses": 10,
-          "ci_low": 12,
-          "ci_high": 62
+          "losses": 11,
+          "ci_low": 11,
+          "ci_high": 59
         },
         "Jayce, Defender of Tomorrow": {
-          "win_rate": 44,
-          "matches": 9,
-          "wins": 4,
+          "win_rate": 50,
+          "matches": 10,
+          "wins": 5,
           "losses": 5,
-          "ci_low": 14,
-          "ci_high": 79
+          "ci_low": 19,
+          "ci_high": 81
         },
         "Khazix, Voidreaver": {
           "win_rate": 13,
@@ -12997,20 +12997,20 @@
           "ci_high": 78
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 55,
-          "matches": 11,
+          "win_rate": 50,
+          "matches": 12,
           "wins": 6,
-          "losses": 5,
-          "ci_low": 23,
-          "ci_high": 83
+          "losses": 6,
+          "ci_low": 21,
+          "ci_high": 79
         },
         "Ornn, Fire Below the Mountain": {
-          "win_rate": 25,
-          "matches": 8,
+          "win_rate": 22,
+          "matches": 9,
           "wins": 2,
-          "losses": 6,
+          "losses": 7,
           "ci_low": 3,
-          "ci_high": 65
+          "ci_high": 60
         },
         "Ambessa, Matriarch of War": {
           "win_rate": 45,
