@@ -6,6 +6,14 @@
 <meta name="color-scheme" content="light dark">
 <title>Annie, Dark Child — YBE artesserviles</title>
 <link rel="icon" type="image/png" href="static/img/favicon.png">
+<!-- Capacitor's core JS (registerPlugin/Plugins proxy) - needed to call the
+     App plugin (hardware back button, exitApp) from this unbundled static
+     site. Native injects its own bridge script (nativePromise/nativeCallback,
+     PluginHeaders) automatically before this runs; this file only adds the
+     JS-side registerPlugin() on top of that. A no-op include on desktop/web,
+     where window.Capacitor never gets defined. See the back-button handler
+     near the end of this file. -->
+<script src="static/js/capacitor.js"></script>
 <style>
   :root {
     color-scheme: light;
@@ -2145,6 +2153,56 @@ function iconedText(container, text, iconMap, iconBaseUrl) {
   document.addEventListener('keydown', function (e) {
     if (overlay.hidden) return;
     if (e.key === 'Escape') close();
+  });
+})();
+
+// Android hardware back button (Capacitor 'App' plugin - see capacitor.js
+// include in <head>). Only ever runs inside the packaged app: on desktop/web
+// window.Capacitor stays undefined, so this is a no-op there. Without this,
+// Android's default action for an unhandled back press is to close the
+// Activity outright - every single press, even from the first screen -
+// since neither this project nor stock Capacitor wires anything to the
+// button on its own.
+//
+// Priorities, matching how the app is actually structured (a handful of
+// top-level list/stats pages reachable from the navbar, each linking into
+// "detail" pages that read back their filter query from history naturally
+// since filter changes use history.replaceState - see the various
+// history.replaceState call sites across index.html/cards.html):
+//   1. card-modal open (any page) -> close it, nothing else.
+//   2. Stats/Matrix or Stats/Cards -> Stats/Legends (its home sub-tab),
+//      always, regardless of how it was reached.
+//   3. A detail page (deck-*, legend-*, guide-*) -> back through real
+//      history when there is any (lands on whatever list/filter was showing
+//      before, since that page's own history entry already carries its last
+//      replaceState'd query string); otherwise fall back to that page's flat
+//      parent (e.g. opened via a shared deep link, with no prior history).
+//   4. Anything else - one of the flat/root pages themselves - exit the app.
+(function () {
+  if (typeof Capacitor === 'undefined' || !Capacitor.registerPlugin || !Capacitor.isNativePlatform || !Capacitor.isNativePlatform()) return;
+  const App = Capacitor.registerPlugin('App');
+  const cardModalOverlay = document.getElementById('card-modal-overlay');
+  const cardModalClose = document.getElementById('card-modal-close');
+
+  App.addListener('backButton', function (data) {
+    if (cardModalOverlay && !cardModalOverlay.hidden) {
+      cardModalClose.click();
+      return;
+    }
+
+    const file = location.pathname.split('/').pop() || 'stats-legends.html';
+
+    if (file === 'stats-matrix.html' || file === 'stats-cards.html') {
+      location.href = 'stats-legends.html';
+    } else if (file.indexOf('deck-') === 0) {
+      if (data.canGoBack) history.back(); else location.href = 'decks.html';
+    } else if (file.indexOf('legend-') === 0) {
+      if (data.canGoBack) history.back(); else location.href = 'stats-legends.html';
+    } else if (file.indexOf('guide-') === 0) {
+      if (data.canGoBack) history.back(); else location.href = 'guides.html';
+    } else {
+      App.exitApp();
+    }
   });
 })();
 </script>
