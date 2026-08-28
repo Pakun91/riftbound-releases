@@ -6,6 +6,7 @@
 <meta name="color-scheme" content="light dark">
 <title>Mel, Soul&#39;s Reflection — Riftbound</title>
 <link rel="icon" type="image/png" href="static/img/favicon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&display=swap">
 <!-- Capacitor's core JS (registerPlugin/Plugins proxy) - needed to call the
      App plugin (hardware back button, exitApp) from this unbundled static
      site. Native injects its own bridge script (nativePromise/nativeCallback,
@@ -72,9 +73,24 @@
     display: flex; align-items: center; gap: 32px;
     position: sticky; top: 0; z-index: 100;
   }
-  header.site h1 { font-size: 17px; margin: 0; }
-  header.site .brand-link { text-decoration: none; }
+  header.site h1 { font-size: 17px; margin: 0; display: flex; align-items: center; gap: 10px; }
+  header.site .brand-link { text-decoration: none; display: flex; align-items: center; gap: 10px; }
   header.site .brand-link:hover { text-decoration: none; }
+  /* Same gold->orange vertical gradient as the logo PNG itself (sampled
+     from the file: ~#D08700 at the top of a glyph, ~#EF7A00 at the bottom)
+     applied as text so "Stats" reads as part of one continuous wordmark
+     instead of a separately-colored label bolted on next to it. */
+  header.site .brand-stats {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    background: linear-gradient(to bottom, #D08700, #EF7A00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
   .navbar-links { display: flex; gap: 28px; font-size: 14px; font-weight: 600; }
   .navbar-links a {
     position: relative; color: #c7c7c7; text-decoration: none; padding-bottom: 4px;
@@ -507,7 +523,7 @@
 </head>
 <body>
 <header class="site">
-  <h1 style="line-height:0"><a href="index.html" class="brand-link"><img src="static/img/riftbound_logo.png" alt="Riftbound" style="height:26px;width:auto;vertical-align:middle"></a></h1>
+  <h1 style="line-height:0"><a href="index.html" class="brand-link"><img src="static/img/riftbound_logo.png" alt="Riftbound" style="height:26px;width:auto;vertical-align:middle"><span class="brand-stats">Stats</span></a></h1>
   <nav class="navbar-links">
     <a href="stats-legends.html" class="active">Stats</a>
     <a href="decks.html" class="">Decks</a>
@@ -569,13 +585,13 @@
         <line x1="18" y1="10.0" x2="282" y2="10.0" stroke="var(--gridline)" stroke-width="1" />
         
         
-        <polyline points="18.0,50.0 36.9,68.3 55.7,70.0 74.6,70.0 93.4,75.2 112.3,77.1 131.1,76.8 150.0,76.8 168.9,77.4 187.7,77.4 206.6,77.4 225.4,83.2 244.3,83.2 263.1,83.2 282.0,83.2" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        <polyline points="18.0,50.0 36.9,67.2 55.7,70.0 74.6,70.0 93.4,76.4 112.3,76.8 131.1,76.8 150.0,77.4 168.9,77.4 187.7,77.4 206.6,77.4 225.4,83.2 244.3,83.2 263.1,83.2" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
         
         <circle cx="18.0" cy="50.0" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="18.0" cy="50.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 66.7%"></circle>
         
-        <circle cx="36.9" cy="68.3" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="36.9" cy="68.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 51.4%"></circle>
+        <circle cx="36.9" cy="67.2" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="36.9" cy="67.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 52.3%"></circle>
         
         <circle cx="55.7" cy="70.0" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="55.7" cy="70.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 50.0%"></circle>
@@ -583,17 +599,17 @@
         <circle cx="74.6" cy="70.0" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="74.6" cy="70.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 50.0%"></circle>
         
-        <circle cx="93.4" cy="75.2" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="93.4" cy="75.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 45.7%"></circle>
+        <circle cx="93.4" cy="76.4" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="93.4" cy="76.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 44.7%"></circle>
         
-        <circle cx="112.3" cy="77.1" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="112.3" cy="77.1" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 44.1%"></circle>
+        <circle cx="112.3" cy="76.8" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="112.3" cy="76.8" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 44.3%"></circle>
         
         <circle cx="131.1" cy="76.8" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="131.1" cy="76.8" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 44.3%"></circle>
         
-        <circle cx="150.0" cy="76.8" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="150.0" cy="76.8" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 44.3%"></circle>
+        <circle cx="150.0" cy="77.4" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="150.0" cy="77.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 43.8%"></circle>
         
         <circle cx="168.9" cy="77.4" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="168.9" cy="77.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 43.8%"></circle>
@@ -613,18 +629,15 @@
         <circle cx="263.1" cy="83.2" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="263.1" cy="83.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 39.0%"></circle>
         
-        <circle cx="282.0" cy="83.2" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="282.0" cy="83.2" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 39.0%"></circle>
         
         
+        <polyline points="18.0,127.4 36.9,123.6 55.7,123.9 74.6,123.9 93.4,126.9 112.3,127.0 131.1,127.0 150.0,127.8 168.9,127.5 187.7,127.5 206.6,127.5 225.4,128.1 244.3,128.1 263.1,128.1" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
         
-        <polyline points="18.0,127.1 36.9,124.7 55.7,123.9 74.6,123.9 93.4,125.7 112.3,127.0 131.1,127.0 150.0,127.0 168.9,127.5 187.7,127.5 206.6,127.5 225.4,127.6 244.3,128.1 263.1,128.1 282.0,128.1" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        <circle cx="18.0" cy="127.4" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="18.0" cy="127.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.2%"></circle>
         
-        <circle cx="18.0" cy="127.1" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="18.0" cy="127.1" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.4%"></circle>
-        
-        <circle cx="36.9" cy="124.7" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="36.9" cy="124.7" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 4.4%"></circle>
+        <circle cx="36.9" cy="123.6" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="36.9" cy="123.6" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 5.3%"></circle>
         
         <circle cx="55.7" cy="123.9" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="55.7" cy="123.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 5.1%"></circle>
@@ -632,8 +645,8 @@
         <circle cx="74.6" cy="123.9" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="74.6" cy="123.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 5.1%"></circle>
         
-        <circle cx="93.4" cy="125.7" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="93.4" cy="125.7" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.6%"></circle>
+        <circle cx="93.4" cy="126.9" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="93.4" cy="126.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.6%"></circle>
         
         <circle cx="112.3" cy="127.0" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="112.3" cy="127.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.5%"></circle>
@@ -641,8 +654,8 @@
         <circle cx="131.1" cy="127.0" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="131.1" cy="127.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.5%"></circle>
         
-        <circle cx="150.0" cy="127.0" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="150.0" cy="127.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.5%"></circle>
+        <circle cx="150.0" cy="127.8" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="150.0" cy="127.8" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 1.8%"></circle>
         
         <circle cx="168.9" cy="127.5" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="168.9" cy="127.5" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.1%"></circle>
@@ -653,8 +666,8 @@
         <circle cx="206.6" cy="127.5" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="206.6" cy="127.5" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.1%"></circle>
         
-        <circle cx="225.4" cy="127.6" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="225.4" cy="127.6" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.0%"></circle>
+        <circle cx="225.4" cy="128.1" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="225.4" cy="128.1" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 1.6%"></circle>
         
         <circle cx="244.3" cy="128.1" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="244.3" cy="128.1" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 1.6%"></circle>
@@ -662,20 +675,17 @@
         <circle cx="263.1" cy="128.1" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="263.1" cy="128.1" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 1.6%"></circle>
         
-        <circle cx="282.0" cy="128.1" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="282.0" cy="128.1" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 1.6%"></circle>
         
         
+        <text x="18.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">01-08</text>
         
-        <text x="18.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">31-07</text>
+        <text x="93.4" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">09-08</text>
         
-        <text x="93.4" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">08-08</text>
+        <text x="168.9" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">17-08</text>
         
-        <text x="168.9" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">16-08</text>
+        <text x="244.3" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">25-08</text>
         
-        <text x="244.3" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">24-08</text>
-        
-        <text x="282.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">28-08</text>
+        <text x="282.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">29-08</text>
         
       </svg>
       <div class="chart-legend-key">
@@ -771,8 +781,8 @@
             
             <tr>
               <td><a href="legend-vex-gloomist.html">Vex, Gloomist</a></td>
-              <td class="num">52%</td>
-              <td class="matches">(31)</td>
+              <td class="num">50%</td>
+              <td class="matches">(32)</td>
             </tr>
             
             <tr>
@@ -869,7 +879,7 @@
             <tr>
               <td><a href="legend-master-yi-wuju-bladesman.html">Master Yi, Wuju Bladesman</a></td>
               <td class="num">32%</td>
-              <td class="matches">(141)</td>
+              <td class="matches">(142)</td>
             </tr>
             
             <tr>
@@ -888,12 +898,6 @@
               <td><a href="legend-lux-lady-of-luminosity.html">Lux, Lady of Luminosity</a></td>
               <td class="num">33%</td>
               <td class="matches">(6)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-renekton-butcher-of-the-sands.html">Renekton, Butcher of the Sands</a></td>
-              <td class="num">38%</td>
-              <td class="matches">(8)</td>
             </tr>
             
             <tr>
@@ -924,6 +928,12 @@
               <td><a href="legend-kai-sa-daughter-of-the-void.html">Kai&#39;Sa, Daughter of the Void</a></td>
               <td class="num">44%</td>
               <td class="matches">(18)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-renekton-butcher-of-the-sands.html">Renekton, Butcher of the Sands</a></td>
+              <td class="num">44%</td>
+              <td class="matches">(9)</td>
             </tr>
             
             <tr>

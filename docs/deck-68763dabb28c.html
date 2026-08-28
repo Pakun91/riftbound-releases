@@ -6,6 +6,7 @@
 <meta name="color-scheme" content="light dark">
 <title>Nasus, Curator of the Sands — 师出六角亭</title>
 <link rel="icon" type="image/png" href="static/img/favicon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&display=swap">
 <!-- Capacitor's core JS (registerPlugin/Plugins proxy) - needed to call the
      App plugin (hardware back button, exitApp) from this unbundled static
      site. Native injects its own bridge script (nativePromise/nativeCallback,
@@ -72,9 +73,24 @@
     display: flex; align-items: center; gap: 32px;
     position: sticky; top: 0; z-index: 100;
   }
-  header.site h1 { font-size: 17px; margin: 0; }
-  header.site .brand-link { text-decoration: none; }
+  header.site h1 { font-size: 17px; margin: 0; display: flex; align-items: center; gap: 10px; }
+  header.site .brand-link { text-decoration: none; display: flex; align-items: center; gap: 10px; }
   header.site .brand-link:hover { text-decoration: none; }
+  /* Same gold->orange vertical gradient as the logo PNG itself (sampled
+     from the file: ~#D08700 at the top of a glyph, ~#EF7A00 at the bottom)
+     applied as text so "Stats" reads as part of one continuous wordmark
+     instead of a separately-colored label bolted on next to it. */
+  header.site .brand-stats {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    background: linear-gradient(to bottom, #D08700, #EF7A00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
   .navbar-links { display: flex; gap: 28px; font-size: 14px; font-weight: 600; }
   .navbar-links a {
     position: relative; color: #c7c7c7; text-decoration: none; padding-bottom: 4px;
@@ -572,7 +588,7 @@
 </head>
 <body>
 <header class="site">
-  <h1 style="line-height:0"><a href="index.html" class="brand-link"><img src="static/img/riftbound_logo.png" alt="Riftbound" style="height:26px;width:auto;vertical-align:middle"></a></h1>
+  <h1 style="line-height:0"><a href="index.html" class="brand-link"><img src="static/img/riftbound_logo.png" alt="Riftbound" style="height:26px;width:auto;vertical-align:middle"><span class="brand-stats">Stats</span></a></h1>
   <nav class="navbar-links">
     <a href="stats-legends.html" class="">Stats</a>
     <a href="decks.html" class="active">Decks</a>

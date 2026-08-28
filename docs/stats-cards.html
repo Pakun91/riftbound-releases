@@ -6,6 +6,7 @@
 <meta name="color-scheme" content="light dark">
 <title>Riftbound — Deck Analysis</title>
 <link rel="icon" type="image/png" href="static/img/favicon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&display=swap">
 <!-- Capacitor's core JS (registerPlugin/Plugins proxy) - needed to call the
      App plugin (hardware back button, exitApp) from this unbundled static
      site. Native injects its own bridge script (nativePromise/nativeCallback,
@@ -72,9 +73,24 @@
     display: flex; align-items: center; gap: 32px;
     position: sticky; top: 0; z-index: 100;
   }
-  header.site h1 { font-size: 17px; margin: 0; }
-  header.site .brand-link { text-decoration: none; }
+  header.site h1 { font-size: 17px; margin: 0; display: flex; align-items: center; gap: 10px; }
+  header.site .brand-link { text-decoration: none; display: flex; align-items: center; gap: 10px; }
   header.site .brand-link:hover { text-decoration: none; }
+  /* Same gold->orange vertical gradient as the logo PNG itself (sampled
+     from the file: ~#D08700 at the top of a glyph, ~#EF7A00 at the bottom)
+     applied as text so "Stats" reads as part of one continuous wordmark
+     instead of a separately-colored label bolted on next to it. */
+  header.site .brand-stats {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    background: linear-gradient(to bottom, #D08700, #EF7A00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
   .navbar-links { display: flex; gap: 28px; font-size: 14px; font-weight: 600; }
   .navbar-links a {
     position: relative; color: #c7c7c7; text-decoration: none; padding-bottom: 4px;
@@ -593,7 +609,7 @@
 </head>
 <body>
 <header class="site">
-  <h1 style="line-height:0"><a href="index.html" class="brand-link"><img src="static/img/riftbound_logo.png" alt="Riftbound" style="height:26px;width:auto;vertical-align:middle"></a></h1>
+  <h1 style="line-height:0"><a href="index.html" class="brand-link"><img src="static/img/riftbound_logo.png" alt="Riftbound" style="height:26px;width:auto;vertical-align:middle"><span class="brand-stats">Stats</span></a></h1>
   <nav class="navbar-links">
     <a href="stats-legends.html" class="active">Stats</a>
     <a href="decks.html" class="">Decks</a>
@@ -644,7 +660,7 @@
       <div style="display:flex;align-items:center;gap:6px">
         <input id="cs-date-from" type="date" value="2026-07-25" style="padding:6px 8px;border-radius:6px;background:var(--card-bg);color:var(--text-primary);font-size:13px">
         <span class="muted" style="font-size:12px">to</span>
-        <input id="cs-date-to" type="date" value="2026-08-28" style="padding:6px 8px;border-radius:6px;background:var(--card-bg);color:var(--text-primary);font-size:13px">
+        <input id="cs-date-to" type="date" value="2026-08-29" style="padding:6px 8px;border-radius:6px;background:var(--card-bg);color:var(--text-primary);font-size:13px">
       </div>
     </div>
   </div>
@@ -3937,9 +3953,9 @@
             <span style="color:#1a9850;font-weight:600">55.2%</span> <span class="muted" style="font-size:11px">(148)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="-0.1">
+        <td class="num col-wrtrend" data-sort="0.6">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 0.1%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.6%</span>
           
         </td>
       </tr>
@@ -4050,9 +4066,9 @@
             <span style="color:#1a9850;font-weight:600">55.5%</span> <span class="muted" style="font-size:11px">(94)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="9.3">
+        <td class="num col-wrtrend" data-sort="-4.7">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 9.3%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 4.7%</span>
           
         </td>
       </tr>
@@ -4507,9 +4523,9 @@
             <span style="color:#1a9850;font-weight:600">53.7%</span> <span class="muted" style="font-size:11px">(117)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="0.2">
+        <td class="num col-wrtrend" data-sort="3.2">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.2%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 3.2%</span>
           
         </td>
       </tr>
@@ -5769,9 +5785,9 @@
             <span style="color:#d94545;font-weight:600">41.5%</span> <span class="muted" style="font-size:11px">(21)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="-3.1">
+        <td class="num col-wrtrend" data-sort="16.5">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 3.1%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 16.5%</span>
           
         </td>
       </tr>
@@ -7445,9 +7461,9 @@
             <span style="color:#d94545;font-weight:600">49.4%</span> <span class="muted" style="font-size:11px">(58)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="-4.9">
+        <td class="num col-wrtrend" data-sort="5.5">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 4.9%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 5.5%</span>
           
         </td>
       </tr>
@@ -7733,9 +7749,9 @@
             <span style="color:#d94545;font-weight:600">47.9%</span> <span class="muted" style="font-size:11px">(57)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="11.1">
+        <td class="num col-wrtrend" data-sort="2.5">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 11.1%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 2.5%</span>
           
         </td>
       </tr>
@@ -7844,9 +7860,9 @@
             <span style="color:#d94545;font-weight:600">41.7%</span> <span class="muted" style="font-size:11px">(58)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="4.2">
+        <td class="num col-wrtrend" data-sort="-6.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 4.2%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 6.3%</span>
           
         </td>
       </tr>
@@ -8097,9 +8113,9 @@
             <span style="color:#1a9850;font-weight:600">58.0%</span> <span class="muted" style="font-size:11px">(55)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="-1.3">
+        <td class="num col-wrtrend" data-sort="-0.4">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 1.3%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.4%</span>
           
         </td>
       </tr>
@@ -8628,9 +8644,9 @@
             <span style="color:#1a9850;font-weight:600">51.0%</span> <span class="muted" style="font-size:11px">(77)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="-1.2">
+        <td class="num col-wrtrend" data-sort="2.4">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 1.2%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 2.4%</span>
           
         </td>
       </tr>
@@ -8809,9 +8825,9 @@
             <span style="color:#1a9850;font-weight:600">55.0%</span> <span class="muted" style="font-size:11px">(61)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="5.0">
+        <td class="num col-wrtrend" data-sort="-3.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 5.0%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 3.3%</span>
           
         </td>
       </tr>
@@ -9165,9 +9181,9 @@
             <span style="color:#1a9850;font-weight:600">51.4%</span> <span class="muted" style="font-size:11px">(44)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="1.4">
+        <td class="num col-wrtrend" data-sort="-1.0">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 1.4%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 1.0%</span>
           
         </td>
       </tr>
@@ -10042,9 +10058,9 @@
             <span style="color:#1a9850;font-weight:600">51.2%</span> <span class="muted" style="font-size:11px">(61)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="0.6">
+        <td class="num col-wrtrend" data-sort="4.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.6%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 4.3%</span>
           
         </td>
       </tr>
@@ -10466,9 +10482,9 @@
             <span style="color:#d94545;font-weight:600">45.3%</span> <span class="muted" style="font-size:11px">(28)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="-7.3">
+        <td class="num col-wrtrend" data-sort="4.1">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 7.3%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 4.1%</span>
           
         </td>
       </tr>
@@ -10787,10 +10803,8 @@
             <span style="color:#1a9850;font-weight:600">50.4%</span> <span class="muted" style="font-size:11px">(32)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="-3.8">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 3.8%</span>
-          
+        <td class="num col-wrtrend" data-sort="">
+          <span class="muted">—</span>
         </td>
       </tr>
       
@@ -10966,9 +10980,9 @@
             <span style="color:#d94545;font-weight:600">44.6%</span> <span class="muted" style="font-size:11px">(44)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="0.8">
+        <td class="num col-wrtrend" data-sort="5.6">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.8%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 5.6%</span>
           
         </td>
       </tr>
@@ -11044,9 +11058,9 @@
             <span style="color:#1a9850;font-weight:600">59.2%</span> <span class="muted" style="font-size:11px">(60)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="0.8">
+        <td class="num col-wrtrend" data-sort="2.5">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.8%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 2.5%</span>
           
         </td>
       </tr>
@@ -11544,9 +11558,9 @@
             <span style="color:#1a9850;font-weight:600">52.2%</span> <span class="muted" style="font-size:11px">(33)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="16.2">
+        <td class="num col-wrtrend" data-sort="-7.2">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 16.2%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 7.2%</span>
           
         </td>
       </tr>
@@ -11690,9 +11704,9 @@
             <span style="color:#d94545;font-weight:600">48.1%</span> <span class="muted" style="font-size:11px">(44)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="-1.9">
+        <td class="num col-wrtrend" data-sort="-7.7">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 1.9%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 7.7%</span>
           
         </td>
       </tr>
@@ -12258,9 +12272,9 @@
             <span style="color:#d94545;font-weight:600">45.5%</span> <span class="muted" style="font-size:11px">(43)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="10.6">
+        <td class="num col-wrtrend" data-sort="-0.6">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 10.6%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.6%</span>
           
         </td>
       </tr>
@@ -13028,9 +13042,9 @@
             <span style="color:#d94545;font-weight:600">44.3%</span> <span class="muted" style="font-size:11px">(36)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="9.1">
+        <td class="num col-wrtrend" data-sort="1.2">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 9.1%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 1.2%</span>
           
         </td>
       </tr>
@@ -13386,9 +13400,9 @@
             <span style="color:#d94545;font-weight:600">41.0%</span> <span class="muted" style="font-size:11px">(45)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="1.0">
+        <td class="num col-wrtrend" data-sort="-5.7">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 1.0%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 5.7%</span>
           
         </td>
       </tr>
@@ -13915,9 +13929,9 @@
             <span style="color:#d94545;font-weight:600">48.5%</span> <span class="muted" style="font-size:11px">(35)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="0.1">
+        <td class="num col-wrtrend" data-sort="-0.5">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 0.1%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 0.5%</span>
           
         </td>
       </tr>
@@ -15251,9 +15265,9 @@
             <span style="color:#d94545;font-weight:600">38.2%</span> <span class="muted" style="font-size:11px">(24)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="38.2">
+        <td class="num col-wrtrend" data-sort="-6.4">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 38.2%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 6.4%</span>
           
         </td>
       </tr>
@@ -16062,9 +16076,9 @@
             <span style="color:#d94545;font-weight:600">37.8%</span> <span class="muted" style="font-size:11px">(19)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="37.8">
+        <td class="num col-wrtrend" data-sort="0.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 37.8%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 0.3%</span>
           
         </td>
       </tr>
@@ -16873,9 +16887,9 @@
             <span style="color:#d94545;font-weight:600">35.3%</span> <span class="muted" style="font-size:11px">(28)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="18.6">
+        <td class="num col-wrtrend" data-sort="-3.3">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 18.6%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 3.3%</span>
           
         </td>
       </tr>
@@ -17192,9 +17206,9 @@
             <span style="color:#d94545;font-weight:600">37.4%</span> <span class="muted" style="font-size:11px">(24)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="-2.6">
+        <td class="num col-wrtrend" data-sort="-4.2">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 2.6%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 4.2%</span>
           
         </td>
       </tr>
@@ -18034,9 +18048,9 @@
             <span style="color:#d94545;font-weight:600">39.9%</span> <span class="muted" style="font-size:11px">(23)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="6.6">
+        <td class="num col-wrtrend" data-sort="1.1">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 6.6%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 1.1%</span>
           
         </td>
       </tr>
@@ -18497,9 +18511,9 @@
             <span style="color:#d94545;font-weight:600">34.5%</span> <span class="muted" style="font-size:11px">(18)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="11.4">
+        <td class="num col-wrtrend" data-sort="-3.2">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 11.4%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 3.2%</span>
           
         </td>
       </tr>
@@ -18573,9 +18587,9 @@
             <span style="color:#d94545;font-weight:600">44.5%</span> <span class="muted" style="font-size:11px">(18)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="-5.5">
+        <td class="num col-wrtrend" data-sort="2.6">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 5.5%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 2.6%</span>
           
         </td>
       </tr>
@@ -18686,9 +18700,9 @@
             <span style="color:#1a9850;font-weight:600">50.5%</span> <span class="muted" style="font-size:11px">(16)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="10.5">
+        <td class="num col-wrtrend" data-sort="6.7">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 10.5%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 6.7%</span>
           
         </td>
       </tr>
@@ -19538,8 +19552,10 @@
             <span style="color:#d94545;font-weight:600">46.8%</span> <span class="muted" style="font-size:11px">(16)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="">
-          <span class="muted">—</span>
+        <td class="num col-wrtrend" data-sort="-1.4">
+          
+            <span style="color:#d94545;font-weight:600">&#9660; 1.4%</span>
+          
         </td>
       </tr>
       
@@ -19577,9 +19593,9 @@
             <span style="color:#d94545;font-weight:600">44.2%</span> <span class="muted" style="font-size:11px">(18)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="-3.2">
+        <td class="num col-wrtrend" data-sort="4.2">
           
-            <span style="color:#d94545;font-weight:600">&#9660; 3.2%</span>
+            <span style="color:#1a9850;font-weight:600">&#9650; 4.2%</span>
           
         </td>
       </tr>
@@ -20567,10 +20583,8 @@
             <span style="color:#1a9850;font-weight:600">51.4%</span> <span class="muted" style="font-size:11px">(12)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="-15.3">
-          
-            <span style="color:#d94545;font-weight:600">&#9660; 15.3%</span>
-          
+        <td class="num col-wrtrend" data-sort="">
+          <span class="muted">—</span>
         </td>
       </tr>
       
@@ -21446,9 +21460,9 @@
             <span style="color:#d94545;font-weight:600">47.6%</span> <span class="muted" style="font-size:11px">(4)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="22.6">
+        <td class="num col-wrtrend" data-sort="-12.4">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 22.6%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 12.4%</span>
           
         </td>
       </tr>
@@ -21555,8 +21569,10 @@
             <span style="color:#d94545;font-weight:600">35.9%</span> <span class="muted" style="font-size:11px">(11)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="">
-          <span class="muted">—</span>
+        <td class="num col-wrtrend" data-sort="-8.5">
+          
+            <span style="color:#d94545;font-weight:600">&#9660; 8.5%</span>
+          
         </td>
       </tr>
       
@@ -22014,8 +22030,10 @@
             <span style="color:#d94545;font-weight:600">47.8%</span> <span class="muted" style="font-size:11px">(10)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="">
-          <span class="muted">—</span>
+        <td class="num col-wrtrend" data-sort="6.1">
+          
+            <span style="color:#1a9850;font-weight:600">&#9650; 6.1%</span>
+          
         </td>
       </tr>
       
@@ -23768,8 +23786,10 @@
             <span style="color:#d94545;font-weight:600">29.0%</span> <span class="muted" style="font-size:11px">(10)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="">
-          <span class="muted">—</span>
+        <td class="num col-wrtrend" data-sort="-0.2">
+          
+            <span style="color:#d94545;font-weight:600">&#9660; 0.2%</span>
+          
         </td>
       </tr>
       
@@ -24690,9 +24710,9 @@
             <span style="color:#d94545;font-weight:600">39.1%</span> <span class="muted" style="font-size:11px">(4)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="14.1">
+        <td class="num col-wrtrend" data-sort="-14.2">
           
-            <span style="color:#1a9850;font-weight:600">&#9650; 14.1%</span>
+            <span style="color:#d94545;font-weight:600">&#9660; 14.2%</span>
           
         </td>
       </tr>
@@ -27406,8 +27426,10 @@
             <span style="color:#d94545;font-weight:600">42.4%</span> <span class="muted" style="font-size:11px">(5)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="">
-          <span class="muted">—</span>
+        <td class="num col-wrtrend" data-sort="3.9">
+          
+            <span style="color:#1a9850;font-weight:600">&#9650; 3.9%</span>
+          
         </td>
       </tr>
       
@@ -32154,10 +32176,8 @@
             <span style="color:#d94545;font-weight:600">0.0%</span> <span class="muted" style="font-size:11px">(2)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="0.0">
-          
-            <span class="muted">&#9679; 0%</span>
-          
+        <td class="num col-wrtrend" data-sort="">
+          <span class="muted">—</span>
         </td>
       </tr>
       
@@ -41165,10 +41185,8 @@
             <span style="color:#1a9850;font-weight:600">50.0%</span> <span class="muted" style="font-size:11px">(1)</span>
           
         </td>
-        <td class="num col-wrtrend" data-sort="0.0">
-          
-            <span class="muted">&#9679; 0%</span>
-          
+        <td class="num col-wrtrend" data-sort="">
+          <span class="muted">—</span>
         </td>
       </tr>
       

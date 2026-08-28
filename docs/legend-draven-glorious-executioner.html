@@ -6,6 +6,7 @@
 <meta name="color-scheme" content="light dark">
 <title>Draven, Glorious Executioner — Riftbound</title>
 <link rel="icon" type="image/png" href="static/img/favicon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&display=swap">
 <!-- Capacitor's core JS (registerPlugin/Plugins proxy) - needed to call the
      App plugin (hardware back button, exitApp) from this unbundled static
      site. Native injects its own bridge script (nativePromise/nativeCallback,
@@ -72,9 +73,24 @@
     display: flex; align-items: center; gap: 32px;
     position: sticky; top: 0; z-index: 100;
   }
-  header.site h1 { font-size: 17px; margin: 0; }
-  header.site .brand-link { text-decoration: none; }
+  header.site h1 { font-size: 17px; margin: 0; display: flex; align-items: center; gap: 10px; }
+  header.site .brand-link { text-decoration: none; display: flex; align-items: center; gap: 10px; }
   header.site .brand-link:hover { text-decoration: none; }
+  /* Same gold->orange vertical gradient as the logo PNG itself (sampled
+     from the file: ~#D08700 at the top of a glyph, ~#EF7A00 at the bottom)
+     applied as text so "Stats" reads as part of one continuous wordmark
+     instead of a separately-colored label bolted on next to it. */
+  header.site .brand-stats {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    background: linear-gradient(to bottom, #D08700, #EF7A00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
   .navbar-links { display: flex; gap: 28px; font-size: 14px; font-weight: 600; }
   .navbar-links a {
     position: relative; color: #c7c7c7; text-decoration: none; padding-bottom: 4px;
@@ -507,7 +523,7 @@
 </head>
 <body>
 <header class="site">
-  <h1 style="line-height:0"><a href="index.html" class="brand-link"><img src="static/img/riftbound_logo.png" alt="Riftbound" style="height:26px;width:auto;vertical-align:middle"></a></h1>
+  <h1 style="line-height:0"><a href="index.html" class="brand-link"><img src="static/img/riftbound_logo.png" alt="Riftbound" style="height:26px;width:auto;vertical-align:middle"><span class="brand-stats">Stats</span></a></h1>
   <nav class="navbar-links">
     <a href="stats-legends.html" class="active">Stats</a>
     <a href="decks.html" class="">Decks</a>
@@ -569,10 +585,10 @@
         <line x1="18" y1="10.0" x2="282" y2="10.0" stroke="var(--gridline)" stroke-width="1" />
         
         
-        <polyline points="36.9,52.0 55.7,65.7 74.6,65.7 93.4,63.8 112.3,64.1 131.1,63.5 150.0,63.5 168.9,70.0 187.7,70.0 206.6,70.0 225.4,60.0 244.3,60.0 263.1,60.0 282.0,60.0" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        <polyline points="36.9,60.8 55.7,65.7 74.6,65.7 93.4,65.0 112.3,63.5 131.1,63.5 150.0,70.0 168.9,70.0 187.7,70.0 206.6,70.0 225.4,60.0 244.3,60.0 263.1,60.0" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
         
-        <circle cx="36.9" cy="52.0" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="36.9" cy="52.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 65.0%"></circle>
+        <circle cx="36.9" cy="60.8" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="36.9" cy="60.8" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 57.7%"></circle>
         
         <circle cx="55.7" cy="65.7" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="55.7" cy="65.7" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 53.6%"></circle>
@@ -580,17 +596,17 @@
         <circle cx="74.6" cy="65.7" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="74.6" cy="65.7" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 53.6%"></circle>
         
-        <circle cx="93.4" cy="63.8" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="93.4" cy="63.8" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 55.2%"></circle>
+        <circle cx="93.4" cy="65.0" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="93.4" cy="65.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 54.2%"></circle>
         
-        <circle cx="112.3" cy="64.1" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="112.3" cy="64.1" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 54.9%"></circle>
+        <circle cx="112.3" cy="63.5" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="112.3" cy="63.5" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 55.4%"></circle>
         
         <circle cx="131.1" cy="63.5" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="131.1" cy="63.5" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 55.4%"></circle>
         
-        <circle cx="150.0" cy="63.5" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="150.0" cy="63.5" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 55.4%"></circle>
+        <circle cx="150.0" cy="70.0" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="150.0" cy="70.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 50.0%"></circle>
         
         <circle cx="168.9" cy="70.0" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="168.9" cy="70.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 50.0%"></circle>
@@ -610,18 +626,15 @@
         <circle cx="263.1" cy="60.0" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="263.1" cy="60.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 58.3%"></circle>
         
-        <circle cx="282.0" cy="60.0" r="2.5" fill="var(--series-1)" />
-        <circle class="trend-point" cx="282.0" cy="60.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 58.3%"></circle>
         
         
+        <polyline points="18.0,128.4 36.9,126.6 55.7,126.3 74.6,126.3 93.4,125.9 112.3,125.9 131.1,125.9 150.0,123.9 168.9,124.6 187.7,124.6 206.6,124.6 225.4,125.7 244.3,125.7 263.1,125.7" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
         
-        <polyline points="18.0,127.7 36.9,127.4 55.7,126.3 74.6,126.3 93.4,126.4 112.3,125.9 131.1,125.9 150.0,125.9 168.9,124.6 187.7,124.6 206.6,124.6 225.4,125.6 244.3,125.7 263.1,125.7 282.0,125.7" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        <circle cx="18.0" cy="128.4" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="18.0" cy="128.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 1.3%"></circle>
         
-        <circle cx="18.0" cy="127.7" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="18.0" cy="127.7" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 1.9%"></circle>
-        
-        <circle cx="36.9" cy="127.4" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="36.9" cy="127.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.2%"></circle>
+        <circle cx="36.9" cy="126.6" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="36.9" cy="126.6" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 2.8%"></circle>
         
         <circle cx="55.7" cy="126.3" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="55.7" cy="126.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.1%"></circle>
@@ -629,8 +642,8 @@
         <circle cx="74.6" cy="126.3" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="74.6" cy="126.3" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.1%"></circle>
         
-        <circle cx="93.4" cy="126.4" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="93.4" cy="126.4" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.0%"></circle>
+        <circle cx="93.4" cy="125.9" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="93.4" cy="125.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.4%"></circle>
         
         <circle cx="112.3" cy="125.9" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="112.3" cy="125.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.4%"></circle>
@@ -638,8 +651,8 @@
         <circle cx="131.1" cy="125.9" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="131.1" cy="125.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.4%"></circle>
         
-        <circle cx="150.0" cy="125.9" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="150.0" cy="125.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.4%"></circle>
+        <circle cx="150.0" cy="123.9" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="150.0" cy="123.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 5.1%"></circle>
         
         <circle cx="168.9" cy="124.6" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="168.9" cy="124.6" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 4.5%"></circle>
@@ -650,8 +663,8 @@
         <circle cx="206.6" cy="124.6" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="206.6" cy="124.6" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 4.5%"></circle>
         
-        <circle cx="225.4" cy="125.6" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="225.4" cy="125.6" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.7%"></circle>
+        <circle cx="225.4" cy="125.7" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="225.4" cy="125.7" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.6%"></circle>
         
         <circle cx="244.3" cy="125.7" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="244.3" cy="125.7" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.6%"></circle>
@@ -659,20 +672,17 @@
         <circle cx="263.1" cy="125.7" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="263.1" cy="125.7" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.6%"></circle>
         
-        <circle cx="282.0" cy="125.7" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="282.0" cy="125.7" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 3.6%"></circle>
         
         
+        <text x="18.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">01-08</text>
         
-        <text x="18.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">31-07</text>
+        <text x="93.4" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">09-08</text>
         
-        <text x="93.4" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">08-08</text>
+        <text x="168.9" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">17-08</text>
         
-        <text x="168.9" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">16-08</text>
+        <text x="244.3" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">25-08</text>
         
-        <text x="244.3" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">24-08</text>
-        
-        <text x="282.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">28-08</text>
+        <text x="282.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">29-08</text>
         
       </svg>
       <div class="chart-legend-key">
@@ -731,12 +741,6 @@
             </tr>
             
             <tr>
-              <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
-              <td class="num">64%</td>
-              <td class="matches">(124)</td>
-            </tr>
-            
-            <tr>
               <td><a href="legend-zed-master-of-shadows.html">Zed, Master of Shadows</a></td>
               <td class="num">64%</td>
               <td class="matches">(25)</td>
@@ -746,6 +750,12 @@
               <td><a href="legend-jax-grandmaster-at-arms.html">Jax, Grandmaster at Arms</a></td>
               <td class="num">64%</td>
               <td class="matches">(14)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
+              <td class="num">63%</td>
+              <td class="matches">(125)</td>
             </tr>
             
             <tr>
@@ -797,15 +807,15 @@
             </tr>
             
             <tr>
-              <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
-              <td class="num">56%</td>
-              <td class="matches">(140)</td>
+              <td><a href="legend-renekton-butcher-of-the-sands.html">Renekton, Butcher of the Sands</a></td>
+              <td class="num">57%</td>
+              <td class="matches">(7)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-kai-sa-daughter-of-the-void.html">Kai&#39;Sa, Daughter of the Void</a></td>
+              <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
               <td class="num">56%</td>
-              <td class="matches">(36)</td>
+              <td class="matches">(140)</td>
             </tr>
             
           </tbody>
@@ -830,7 +840,7 @@
             <tr>
               <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
               <td class="num">36%</td>
-              <td class="matches">(362)</td>
+              <td class="matches">(364)</td>
             </tr>
             
             <tr>
@@ -852,6 +862,12 @@
             </tr>
             
             <tr>
+              <td><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
+              <td class="num">45%</td>
+              <td class="matches">(176)</td>
+            </tr>
+            
+            <tr>
               <td><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
               <td class="num">45%</td>
               <td class="matches">(105)</td>
@@ -861,12 +877,6 @@
               <td><a href="legend-sivir-battle-mistress.html">Sivir, Battle Mistress</a></td>
               <td class="num">45%</td>
               <td class="matches">(20)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-rengar-pridestalker.html">Rengar, Pridestalker</a></td>
-              <td class="num">46%</td>
-              <td class="matches">(175)</td>
             </tr>
             
             <tr>
@@ -884,7 +894,7 @@
             <tr>
               <td><a href="legend-master-yi-wuju-bladesman.html">Master Yi, Wuju Bladesman</a></td>
               <td class="num">48%</td>
-              <td class="matches">(305)</td>
+              <td class="matches">(306)</td>
             </tr>
             
             <tr>
@@ -924,21 +934,21 @@
             </tr>
             
             <tr>
-              <td><a href="legend-renekton-butcher-of-the-sands.html">Renekton, Butcher of the Sands</a></td>
-              <td class="num">50%</td>
-              <td class="matches">(6)</td>
-            </tr>
-            
-            <tr>
               <td><a href="legend-irelia-blade-dancer.html">Irelia, Blade Dancer</a></td>
-              <td class="num">53%</td>
-              <td class="matches">(236)</td>
+              <td class="num">54%</td>
+              <td class="matches">(237)</td>
             </tr>
             
             <tr>
               <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
               <td class="num">56%</td>
               <td class="matches">(140)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-kai-sa-daughter-of-the-void.html">Kai&#39;Sa, Daughter of the Void</a></td>
+              <td class="num">56%</td>
+              <td class="matches">(36)</td>
             </tr>
             
           </tbody>
