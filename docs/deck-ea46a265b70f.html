@@ -1,0 +1,2186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Lillia, Bashful Bloom — 卡殿.Noob曜绘</title>
+<link rel="icon" type="image/png" href="static/img/favicon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&display=swap">
+<!-- Capacitor's core JS (registerPlugin/Plugins proxy) - needed to call the
+     App plugin (hardware back button, exitApp) from this unbundled static
+     site. Native injects its own bridge script (nativePromise/nativeCallback,
+     PluginHeaders) automatically before this runs; this file only adds the
+     JS-side registerPlugin() on top of that. A no-op include on desktop/web,
+     where window.Capacitor never gets defined. See the back-button handler
+     near the end of this file. -->
+<script src="static/js/capacitor.js"></script>
+<style>
+  :root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --card-bg:        #ffffff;
+    --link:           #A85300;
+    --link-hover:     #7A3D00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page:           #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --card-bg:        #17171a;
+      --link:           #F0A03D;
+      --link-hover:     #F5B15C;
+    }
+  }
+  * { box-sizing: border-box; }
+  /* Belt-and-suspenders: every genuinely wide element (tables, the Matrix
+     grid) gets its OWN overflow-x:auto container below, so this never hides
+     reachable content - it only stops one missed/future wide element from
+     shifting the whole page's horizontal scroll position, which is what
+     throws off anything using position:fixed centering (e.g. the card
+     modal) on mobile browsers. */
+  html { overflow-x: hidden; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  a { color: var(--link); text-decoration: none; transition: color .15s ease; }
+  a:hover { color: var(--link-hover); }
+  header.site {
+    background: #16161a;
+    padding: 14px 28px;
+    border-bottom: 1px solid rgba(240,160,61,0.25);
+    display: flex; align-items: center; gap: 32px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  header.site h1 { font-size: 17px; margin: 0; display: flex; align-items: center; gap: 10px; }
+  header.site .brand-link { text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  header.site .brand-link:hover { text-decoration: none; }
+  /* Same gold->orange vertical gradient as the logo PNG itself (sampled
+     from the file: ~#D08700 at the top of a glyph, ~#EF7A00 at the bottom)
+     applied as text so "Stats" reads as part of one continuous wordmark
+     instead of a separately-colored label bolted on next to it. */
+  header.site .brand-stats {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    background: linear-gradient(to bottom, #D08700, #EF7A00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .navbar-links { display: flex; gap: 28px; font-size: 14px; font-weight: 600; }
+  .navbar-links a {
+    position: relative; color: #c7c7c7; text-decoration: none; padding-bottom: 4px;
+    transition: color .15s ease;
+  }
+  .navbar-links a:hover { color: #F0A03D; text-decoration: none; }
+  .navbar-links a.active { color: #F0A03D; }
+  .navbar-links a.active::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -5px; height: 2px;
+    background: #F0A03D; border-radius: 1px;
+    box-shadow: 0 0 4px #F0A03D, 0 0 10px #F0A03D, 0 0 16px 1px #F0A03D;
+  }
+  header.site .sub { color: #8c8c8c; font-size: 13px; margin-left: auto; white-space: nowrap; }
+  main { max-width: 1080px; margin: 0 auto; padding: 24px 28px 60px; }
+  /* Opt-in escape hatch for the one view that genuinely can't fit its
+     content in the site's normal width (the Matchup Matrix grid, which
+     has 35+ legend columns) - every other page/tab stays on the default
+     main width above, so this must be applied deliberately per page via
+     the main_class block below, not left as every page's default. */
+  main.main-wide { max-width: min(96vw, 1900px); }
+  /* Real content footprint, unaffected by main's own left/right padding -
+     giving two pages the same declared width only matches on screen if
+     both reach it the same way. main itself needs enough room (>1200+56px)
+     for this to actually render at its full 1200px instead of shrinking to
+     fit a too-narrow main. */
+  .narrow { max-width: 1200px; margin: 0 auto; }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  /* Shared "no results" placeholder (message + faded Lonely Poro art) for
+     every filterable page - see /Stats/Matrix for the original. */
+  .empty-state { text-align: center; padding: 40px 0; }
+  .empty-state-art { position: relative; max-width: 1300px; margin: 0 auto; background: var(--card-bg); border-radius: 8px; overflow: hidden; }
+  .empty-state-art img { display: block; width: 100%; height: auto; }
+  .empty-state-art .fade { position: absolute; pointer-events: none; }
+  .empty-state-art .fade-top, .empty-state-art .fade-bottom { left: 0; right: 0; height: 30%; }
+  .empty-state-art .fade-left, .empty-state-art .fade-right { top: 0; bottom: 0; width: 18%; }
+  .empty-state-art .fade-top { top: 0; background: linear-gradient(to bottom, var(--card-bg), transparent); }
+  .empty-state-art .fade-bottom { bottom: 0; background: linear-gradient(to top, var(--card-bg), transparent); }
+  .empty-state-art .fade-left { left: 0; background: linear-gradient(to right, var(--card-bg), transparent); }
+  .empty-state-art .fade-right { right: 0; background: linear-gradient(to left, var(--card-bg), transparent); }
+  .empty-state p { margin: 0 0 12px; font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; color: var(--text-muted); font-weight: 600; font-size: 12px;
+       text-transform: uppercase; letter-spacing: .04em; padding: 6px 10px; border-bottom: 1px solid var(--gridline); }
+  table.sortable th[data-type] { cursor: pointer; user-select: none; white-space: nowrap; }
+  table.sortable th[data-type]:hover { color: var(--text-secondary); }
+  table.sortable th[data-type]::after {
+    content: '↕'; display: inline-block; width: 10px; margin-left: 2px; opacity: .5; font-size: 10px;
+  }
+  table.sortable th[data-type].sorted::after { opacity: 1; color: var(--series-1); }
+  table.sortable th[data-type].sorted[data-dir="asc"]::after { content: '▲'; }
+  table.sortable th[data-type].sorted[data-dir="desc"]::after { content: '▼'; }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--gridline); }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: color-mix(in srgb, var(--series-1) 6%, transparent); }
+  .table-pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 14px; margin-top: 14px; font-size: 13px; }
+  .table-pagination button {
+    padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border);
+    background: var(--page); color: var(--text-secondary); cursor: pointer; font-size: 12px;
+  }
+  .table-pagination button:hover:not(:disabled) { color: var(--text-primary); border-color: var(--text-muted); }
+  .table-pagination button:disabled { opacity: .4; cursor: default; }
+  .table-pagination-info { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+  /* A row a page's own filter/search marks as not matching - see the
+     paginate:refresh listener in the generic pagination script for why
+     this is a class and not the pagination script's own style.display. */
+  .filter-hidden { display: none; }
+  .num { font-variant-numeric: tabular-nums; text-align: right; }
+  .muted { color: var(--text-muted); }
+  .secondary { color: var(--text-secondary); }
+  .help-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 13px; height: 13px; border-radius: 50%; margin-left: 3px;
+    background: var(--border); color: var(--text-muted);
+    font-size: 9px; font-weight: 700; font-style: normal; text-transform: none;
+    letter-spacing: normal; cursor: help; vertical-align: middle;
+  }
+  .help-icon:hover { background: var(--series-1); color: #fff; }
+  .stat-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
+  .stat-tile { flex: 1; min-width: 120px; background: var(--card-bg); border: 1px solid var(--border);
+               border-radius: 10px; padding: 14px 16px; }
+  .stat-tile .value { font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stat-tile .label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .domain-icon { width: 26px; height: 26px; vertical-align: middle; margin-right: 4px; display: inline-block; }
+  h2 { font-size: 15px; margin: 0 0 14px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .breadcrumb { font-size: 12px; margin-bottom: 14px; }
+  .breadcrumb a { color: #F0A03D; font-weight: 600; }
+  .breadcrumb a:hover { color: #F5B15C; }
+  .breadcrumb .sep { margin: 0 8px; color: var(--text-muted); }
+  .breadcrumb .current { color: var(--text-secondary); font-weight: 600; }
+
+  /* Shared card-tile grid + zoomable card-detail popup - any page can opt in
+     by giving its .card-tile elements a data-idx (position in that page's
+     own card list) and embedding a #card-details-data JSON script tag with
+     that same list, shaped like riftbound_data.analysis._card_detail(). */
+  .card-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+  .card-tile { position: relative; width: 154px; flex: 0 0 auto; }
+  .card-tile img {
+    width: 154px; aspect-ratio: 120 / 168; height: auto; object-fit: cover; border-radius: 8px;
+    border: 1px solid var(--border); display: block; background: var(--page);
+  }
+  .card-tile-noimg {
+    width: 154px; aspect-ratio: 120 / 168; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--page); display: flex; align-items: center; justify-content: center;
+    text-align: center; font-size: 12px; color: var(--text-muted); padding: 8px;
+  }
+  .card-tile-caption {
+    font-size: 12px; color: var(--text-secondary); margin-top: 4px; line-height: 1.3;
+    max-width: 154px; margin-left: 5px;
+    /* Otherwise inherits pointer from the parent .card-tile[data-idx] -
+       this text is only ever selectable, never itself a click target
+       (opening the modal is still handled by the tile as a whole), so it
+       gets the browser's normal text-selection cursor instead. */
+    cursor: text;
+  }
+  .card-grid-fill { display: grid; grid-template-columns: repeat(6, 1fr); }
+  .card-grid-fill .card-tile { width: auto; }
+  .card-grid-fill .card-tile img,
+  .card-grid-fill .card-tile-noimg { width: 100%; height: auto; aspect-ratio: 120 / 168; }
+  .card-grid-fill .card-tile-caption { max-width: 100%; }
+  .card-tile-landscape { width: 210px; flex: 0 0 auto; }
+  .card-tile-landscape img,
+  .card-tile-landscape .card-tile-noimg { width: 210px; height: 150px; }
+  .card-tile-landscape img { object-fit: contain; background: var(--border); }
+  .card-grid-fill-landscape { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .card-grid-fill-landscape .card-tile-landscape { width: auto; }
+  .card-grid-fill-landscape .card-tile-landscape img,
+  .card-grid-fill-landscape .card-tile-landscape .card-tile-noimg { width: 100%; height: auto; aspect-ratio: 210 / 150; }
+  .card-tile-landscape .card-tile-caption { max-width: 210px; }
+  .card-grid-fill-landscape .card-tile-landscape .card-tile-caption { max-width: 100%; }
+  /* A landscape tile inside a plain (portrait-oriented) .card-grid-fill -
+     e.g. Battlefields mixed into the Cards catalog grid - keeps the same
+     column width as its portrait neighbors (not the standalone 210px
+     .card-tile-landscape width) while still using the landscape aspect
+     ratio, so it reads as "this card's own shape" without breaking the
+     grid's alignment. Needs a compound (.card-tile.card-tile-landscape)
+     selector to reliably out-specificity the plain rules above regardless
+     of source order. */
+  .card-grid-fill .card-tile.card-tile-landscape { width: auto; }
+  .card-grid-fill .card-tile.card-tile-landscape img,
+  .card-grid-fill .card-tile.card-tile-landscape .card-tile-noimg {
+    width: 100%; height: auto; aspect-ratio: 210 / 150;
+  }
+  .card-grid-fill .card-tile.card-tile-landscape .card-tile-caption { max-width: 100%; }
+  .card-tile-img-wrap { position: relative; }
+  /* Corner ribbon for banned cards - opt in by adding this class to whatever
+     element directly wraps the <img> (.card-tile-img-wrap normally, or
+     .card-tile itself for the rare tile that skips the wrap div). Width/left
+     use % (not px) so the same rule scales correctly across every tile size
+     in play (154px portrait, 210px landscape, 100%-fill grid, the 183px
+     .card-tile-lg legend portrait). */
+  .card-tile-banned { overflow: hidden; }
+  .card-tile-banned img, .card-tile-banned .card-tile-noimg { filter: grayscale(55%) brightness(.7); }
+  .card-tile-banned::after {
+    content: 'Banned'; position: absolute; top: 20px; left: -15%; width: 65%;
+    transform: rotate(-45deg); transform-origin: center;
+    background: #c0272d; color: #fff; font-size: 11px; font-weight: 800;
+    letter-spacing: .05em; text-transform: uppercase; text-align: center;
+    padding: 3px 0; box-shadow: 0 1px 4px rgba(0,0,0,.4); pointer-events: none; z-index: 2;
+  }
+  /* The modal's own art (300-460px) is much bigger than any catalog tile
+     (150-210px) the rule above was sized for - left/width already track
+     that fine since they're %, but the fixed-px font-size/padding/top need
+     their own scaled-up pass here or the band reads as a thin scratch. */
+  .card-modal-tilt.card-tile-banned::after {
+    top: 40px; font-size: 22px; padding: 7px 0;
+  }
+  .qty-badge {
+    position: absolute; bottom: 16px; right: 6px; background: rgba(11,11,11,1); color: #fff;
+    font-size: 12px; font-weight: 700; padding: 1px 7px; border-radius: 999px;
+    font-variant-numeric: tabular-nums;
+  }
+  .card-info-btn {
+    position: absolute; top: 6px; right: 6px; width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(11,11,11,.72); color: #fff; border: none; cursor: pointer;
+    font-size: 12px; font-style: italic; font-weight: 700; line-height: 1; font-family: Georgia, serif;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-info-btn:hover { background: var(--series-1); }
+  .card-tile[data-idx] { cursor: pointer; }
+  tr[data-idx] { cursor: pointer; }
+  tr[data-href] { cursor: pointer; }
+
+  .card-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 1000;
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+  }
+  .card-modal-overlay[hidden] { display: none; }
+  .card-modal {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
+    width: 100%; max-width: 900px; max-height: 90vh; overflow-y: auto;
+  }
+  .card-modal-header {
+    display: flex; justify-content: flex-end; align-items: center; padding: 10px 14px 0;
+    position: sticky; top: 0; z-index: 10; background: var(--card-bg); border-radius: 12px 12px 0 0;
+  }
+  .card-modal-versions-btn {
+    margin-right: auto; background: var(--page); border: 1px solid var(--border); border-radius: 999px;
+    color: var(--text-secondary); cursor: pointer; padding: 5px 14px; font-size: 12px; font-weight: 600;
+  }
+  .card-modal-versions-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+  .card-modal-versions { display: none; padding: 4px 20px 20px; }
+  .card-modal-versions.open { display: block; }
+  .card-modal-versions-section { margin-bottom: 20px; }
+  .card-modal-versions-title {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .04em;
+    color: var(--text-muted); margin-bottom: 8px; font-weight: 600;
+  }
+  .card-modal-printings-grid { display: flex; flex-wrap: wrap; gap: 16px; }
+  .card-modal-printing { width: 220px; cursor: pointer; position: relative; }
+  .card-modal-printing:hover .card-modal-printing-caption { color: var(--text-primary); }
+  .card-modal-printing img {
+    width: 100%; aspect-ratio: 63 / 88; object-fit: contain; border-radius: 12px; display: block;
+  }
+  .card-modal-printing.landscape img { aspect-ratio: 210 / 150; }
+  .card-modal-printing-caption { font-size: 12px; color: var(--text-muted); margin-top: 6px; text-align: center; }
+  .card-modal-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .card-modal-info h2 {
+    margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.01em;
+    display: inline-block; background: linear-gradient(90deg,#C58900,#F27C00);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .card-modal-domains { display: flex; gap: 4px; }
+  .card-modal-domains img { width: 22px; height: 22px; }
+  .card-modal-close {
+    background: none; border: none; color: var(--text-muted); cursor: pointer;
+    font-size: 22px; line-height: 1; padding: 2px 4px;
+  }
+  .card-modal-close:hover { color: var(--text-primary); }
+  .card-modal-body { display: flex; gap: 24px; padding: 20px 30px; flex-wrap: wrap; }
+  .card-modal-art-col { flex: 0 0 300px; perspective: 1000px; position: relative; }
+  .card-modal-flip-btn {
+    position: absolute; top: 8px; right: 8px; z-index: 2; width: 32px; height: 32px;
+    border-radius: 50%; border: none; background: #000; color: #fff;
+    cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;
+  }
+  .card-modal-flip-btn:hover { background: #000; }
+  /* `display: flex` above ties with the browser's own [hidden]{display:none}
+     on specificity, and since this stylesheet loads after that default one,
+     it was winning - the button showed even when JS set `hidden`. This
+     wins outright (class + attribute selector). */
+  .card-modal-flip-btn[hidden] { display: none; }
+  .card-modal-art-col.landscape { flex: 0 0 460px; }
+  /* Two nested 3D layers so the hover-tilt and the click-to-flip animate
+     independently instead of fighting over the same inline `transform`:
+     .card-modal-tilt is the mousemove target (tracks the cursor), and
+     .card-modal-flip-inner (a child of it) is the click target (rotates
+     180deg to reveal the back face) - CSS composes nested 3D transforms
+     across parent/child automatically. */
+  .card-modal-tilt {
+    position: relative; width: 100%; aspect-ratio: 63 / 88; transform-style: preserve-3d; will-change: transform;
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s ease; border-radius: 12px;
+  }
+  .card-modal-art-col.landscape .card-modal-tilt { aspect-ratio: 210 / 150; }
+  .card-modal-flip-inner {
+    position: relative; width: 100%; height: 100%; transform-style: preserve-3d;
+    transition: transform .6s cubic-bezier(.4,.2,.2,1);
+  }
+  .card-modal-flip-inner.flipped { transform: rotateY(180deg); }
+  .card-modal-art {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+    border-radius: 12px; display: block; backface-visibility: hidden;
+  }
+  .card-modal-art-back { transform: rotateY(180deg); }
+  .card-modal-info { flex: 1 1 320px; min-width: 260px; display: flex; flex-direction: column; gap: 16px; }
+  /* Its own full-width row below both the art and info columns (not just
+     inside .card-modal-info), so the divider spans the whole modal width
+     and reads as a clear break between the card and its token(s). */
+  #card-modal-token-section { flex: 1 1 100%; margin-top: 24px; }
+  .card-modal-token-divider { border: none; border-top: 1px solid var(--border); margin: 0 0 16px; }
+  .card-modal-tokens { display: flex; flex-direction: column; gap: 20px; }
+  .card-modal-token-item { display: flex; gap: 16px; }
+  .card-modal-token-item-art-wrap {
+    position: relative; width: 150px; aspect-ratio: 63 / 88; border-radius: 10px;
+    flex-shrink: 0; background: var(--page); overflow: hidden;
+  }
+  .card-modal-token-item.landscape .card-modal-token-item-art-wrap { width: 230px; aspect-ratio: 210 / 150; }
+  .card-modal-token-item-art { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .card-modal-token-item-art-clickable { cursor: pointer; transition: transform .15s ease; }
+  .card-modal-token-item-art-clickable:hover { transform: scale(1.06); }
+  .card-modal-token-item-info { display: flex; flex-direction: column; gap: 8px; padding-top: 4px; }
+  .card-modal-token-item-name { font-size: 18px; font-weight: 800; color: var(--text-primary); }
+  .card-modal-token-item-might { display: flex; align-items: center; gap: 5px; font-size: 14px; color: var(--text-secondary); }
+  .card-modal-token-item-might img { height: 1.2em; width: auto; }
+  .card-modal-token-item-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+  .card-modal-field-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .04em;
+    color: var(--text-muted); margin-bottom: 3px;
+  }
+  .card-modal-field-value { font-size: 14px; color: var(--text-primary); white-space: pre-line; }
+  .card-modal-field-value ul { margin: 4px 0; padding-left: 20px; white-space: normal; }
+  .card-modal-field-value li { margin: 2px 0; }
+  .card-modal-flavor { font-style: italic; color: var(--text-secondary); }
+  .card-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; }
+
+  .deck-header-title {
+    margin: 0 0 12px; font-size: 30px; font-weight: 800; letter-spacing: -0.01em;
+    display: inline-block; background: linear-gradient(90deg,#C58900,#F27C00);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  /* The player-name portion is a real link now - repeats the parent's own
+     gradient-text trick (background:inherit copies the computed gradient
+     down) so it keeps reading as part of the same title instead of
+     suddenly switching to solid link-blue mid-heading. */
+  .deck-header-title a {
+    background: inherit; -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .deck-header-title a:hover { filter: brightness(1.2); }
+  .deck-meta-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .deck-meta-chip {
+    display: inline-flex; align-items: center; gap: 6px; background: var(--page);
+    border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px;
+    font-size: 12px; font-weight: 600; color: var(--text-secondary);
+  }
+  .deck-meta-chip .domain-icon { width: 15px; height: 15px; }
+
+  /* Site-wide phone layout (~600px and under covers every real device in
+     portrait; the plantillas hijas below add their own page-specific rules
+     under the same breakpoint for anything not generic enough to belong
+     here - filter rows, per-page tables, chart SVGs). Nothing here clips
+     content (no overflow-x:hidden) - wide things (tables, the Matrix grid)
+     get their own overflow-x:auto container instead, so content stays
+     reachable by scrolling within it rather than getting cut off. */
+  @media (max-width: 600px) {
+    header.site { padding: 10px 14px; gap: 10px; flex-wrap: wrap; }
+    header.site .sub { display: none; }
+    .navbar-links { gap: 8px 14px; font-size: 13px; flex-wrap: wrap; }
+    main { padding: 16px 12px 40px; }
+    .card { padding: 14px; }
+    table { font-size: 13px; }
+    th, td { padding: 6px 7px; }
+    .card-grid-fill { grid-template-columns: repeat(3, 1fr); }
+    .card-modal-overlay { padding: 10px; }
+    .card-modal-body { padding: 14px 16px; gap: 16px; }
+    .card-modal-art-col, .card-modal-art-col.landscape { flex: 0 1 auto; width: 100%; max-width: 260px; margin: 0 auto; }
+    .card-modal-info { min-width: 0; }
+    .deck-header-title { font-size: 22px; }
+    /* Every filter row on the site pushes its last group right with a plain
+       inline margin-left:auto - fine on desktop (lines it up against the
+       far edge), but once a row wraps onto several lines on a phone, that
+       same auto margin shoves whichever group ends up alone on its own line
+       over to the right (or centers it) instead of stacking flush left with
+       everything else. The [style*=] selector below catches every one of
+       them (they're plain inline styles) without needing a class/id added
+       to every template that has one; !important is required because a
+       plain inline style attribute otherwise outranks a stylesheet rule
+       regardless of selector. */
+    [style*="margin-left:auto"] { margin-left: 0 !important; }
+  }
+
+  
+  .export-menu { position: relative; }
+  .export-trigger-btn { cursor: pointer; transition: border-color .15s ease, color .15s ease; }
+  .export-trigger-btn:hover { border-color: var(--series-1); color: var(--series-1); }
+  .export-menu-panel {
+    position: absolute; top: calc(100% + 6px); right: 0; z-index: 10; min-width: 190px;
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px;
+    padding: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); display: flex; flex-direction: column;
+  }
+  .export-menu-section-label {
+    padding: 6px 10px 4px; font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .05em; color: var(--text-muted);
+  }
+  .export-menu-divider { height: 1px; background: var(--border); margin: 4px 6px; }
+  .export-menu-item {
+    display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+    padding: 8px 10px; border: none; border-radius: 6px; background: none;
+    color: var(--text-primary); font-size: 13px; cursor: pointer;
+  }
+  .export-menu-item svg { flex-shrink: 0; color: var(--text-muted); }
+  .export-menu-item:hover { background: color-mix(in srgb, var(--series-1) 8%, transparent); }
+  .export-menu-item:hover svg { color: var(--series-1); }
+  /* display:flex above ties with the browser's own [hidden]{display:none}
+     on specificity and would win since this stylesheet loads later -
+     same bug class as the card-modal flip button elsewhere in this app. */
+  .export-menu-panel[hidden] { display: none; }
+  .proxy-progress-overlay {
+    position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,.55);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .proxy-progress-overlay[hidden] { display: none; }
+  .proxy-progress-box {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
+    padding: 26px 30px; width: 280px; text-align: center; box-shadow: 0 12px 32px rgba(0,0,0,.3);
+  }
+  .proxy-progress-title { font-size: 14px; font-weight: 600; margin-bottom: 14px; }
+  .proxy-progress-track {
+    height: 8px; border-radius: 999px; background: var(--page); border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .proxy-progress-fill {
+    height: 100%; width: 0%; background: var(--series-1); border-radius: 999px;
+    transition: width .25s ease;
+  }
+  .proxy-progress-pct {
+    margin-top: 8px; font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums;
+  }
+  .top-row { display: flex; align-items: flex-start; gap: 24px; flex-wrap: nowrap; }
+  .subsection h2 { margin-top: 0 !important; }
+  .subsection:first-child { flex: 0 0 auto; }
+  .runes-battlefields-row { display: flex; gap: 24px; align-items: flex-start; flex-wrap: nowrap; }
+  .runes-block { border-left: 1px solid var(--border); padding-left: 24px; }
+  .battlefields-block { border-left: 1px solid var(--border); padding-left: 24px; }
+  .section-heading { margin: 22px 0 10px; }
+  .section-heading-tight { margin-top: 12px; }
+  .section-heading-tighter { margin-top: 10px; }
+  .subsection-grow { flex: 1 1 0; min-width: 0; }
+  .card-grid-fill-landscape { min-width: 0; }
+  .card-grid-stacked { flex-wrap: nowrap; gap: 0; width: 154px; flex: 0 0 auto; }
+  .card-grid-stacked .card-tile:not(:first-child) { margin-left: -154px; }
+  .card-grid-stacked .card-tile:last-child { width: 77px; overflow: hidden; }
+  .card-grid-stacked .card-tile:last-child .card-tile-img-wrap { width: 154px; }
+  .card-grid-stacked .card-tile:last-child .qty-badge { left: 13px; right: auto; bottom: 19px; }
+  .card-grid-stacked .card-tile:first-child .qty-badge { right: 13px; bottom: 19px; }
+  .card-grid-stacked .card-tile:hover { z-index: 1; }
+  .card-grid-stacked .card-tile:last-child:hover { width: 154px; overflow: visible; }
+  .card-grid-top { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+  .card-grid-2x2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .card-grid-2x2 .card-tile-landscape { width: 100%; }
+  .card-grid-2x2 .card-tile-landscape img,
+  .card-grid-2x2 .card-tile-landscape .card-tile-noimg { width: 100%; height: auto; aspect-ratio: 210 / 150; }
+  .card-grid-2x2 .card-tile-caption { max-width: 100%; }
+
+  main { max-width: 1560px; }
+  .page-layout { display: flex; align-items: flex-start; gap: 20px; }
+  .main-col { flex: 1 1 auto; min-width: 0; }
+  .main-col > .card { max-width: 950px; margin: 0 auto; }
+  .sidebar {
+    flex: 0 0 500px; width: 500px; background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; margin-top: 32px;
+  }
+  @media (max-width: 1400px) {
+    .page-layout { flex-direction: column; }
+    .sidebar { width: 100%; }
+  }
+  @media (max-width: 600px) {
+    /* Both rows below are "nowrap" by design on desktop (Legend/Champion
+       scrolls horizontally in its own strip; Runes sits left of
+       Battlefields) - .subsection:first-child has no min-width:0, so with 2
+       tiles (Legend + Champion) it can be wider than a phone screen and,
+       being flex:0 0 auto, refuses to shrink and lets that force the whole
+       row past the viewport instead of scrolling internally like it's meant
+       to. Wrapping + min-width:0 here is what actually lets
+       .card-grid-top's own overflow-x:auto (already there) do its job. */
+    .top-row { flex-wrap: wrap; }
+    .subsection:first-child { min-width: 0; width: 100%; }
+    .runes-battlefields-row { flex-wrap: wrap; }
+  }
+  .sidebar-tabs { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 1px solid var(--gridline); }
+  .tab-btn {
+    position: relative; flex: 1; background: none; border: none; padding: 8px 4px; font-size: 13px; font-weight: 600;
+    color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  }
+  .tab-btn.active { color: var(--series-1); }
+  .tab-btn.active::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+    background: var(--series-1); border-radius: 1px;
+    box-shadow: 0 0 4px var(--series-1), 0 0 10px var(--series-1), 0 0 16px 1px var(--series-1);
+  }
+  .mini-stat-row { display: flex; gap: 8px; margin-bottom: 16px; }
+  .mini-stat {
+    flex: 1; background: var(--page); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 6px; text-align: center;
+  }
+  .mini-stat-icon { width: 18px; height: 18px; color: var(--series-1); margin-bottom: 4px; }
+  .mini-stat-value { font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .mini-stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .03em; margin-top: 2px; }
+  .sidebar-card {
+    background: var(--page); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px 12px; margin-bottom: 12px;
+  }
+  .sidebar-card-title { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+  .stacked-bar { display: flex; height: 10px; border-radius: 999px; overflow: hidden; background: var(--gridline); }
+  .stacked-bar-seg + .stacked-bar-seg { border-left: 2px solid var(--page); }
+  .stacked-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .legend-chip { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text-secondary); }
+  .legend-chip i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  #hand-display { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  #hand-display .card-tile { width: auto; cursor: pointer; }
+  #hand-display .card-tile img, #hand-display .card-tile-noimg { width: 100%; height: auto; aspect-ratio: 120/168; }
+  #hand-display .card-tile.selected img { outline: 3px solid var(--series-1); outline-offset: -3px; }
+  #hand-display .card-tile-caption { max-width: 100%; }
+  #hand-display .card-tile-img-wrap { position: relative; }
+  .breadcrumb { max-width: 950px; margin-left: auto; margin-right: auto; }
+
+</style>
+</head>
+<body>
+<header class="site">
+  <h1 style="line-height:0"><a href="index.html" class="brand-link"><img src="static/img/riftbound_logo.png" alt="Riftbound" style="height:26px;width:auto;vertical-align:middle"><span class="brand-stats">Stats</span></a></h1>
+  <nav class="navbar-links">
+    <a href="stats-legends.html" class="">Stats</a>
+    <a href="decks.html" class="active">Decks</a>
+    <a href="cards.html" class="">Cards</a>
+    <a href="tournaments.html" class="">Tournaments</a>
+    <a href="guides.html" class="">Guides</a>
+  </nav>
+  <span class="sub"></span>
+</header>
+<main class="">
+
+
+<div class="page-layout">
+<div class="main-col">
+<nav class="breadcrumb">
+  <a href="index.html">Home</a><span class="sep">›</span><a href="decks.html">Decks</a><span class="sep">›</span><a href="legend-lillia-bashful-bloom.html">Lillia, Bashful Bloom</a>
+</nav>
+<div class="card">
+  
+  
+  <h2 class="deck-header-title"><a href="legend-lillia-bashful-bloom.html">Lillia, Bashful Bloom</a> — <a href="decks?q=%E5%8D%A1%E6%AE%BF.Noob%E6%9B%9C%E7%BB%98">卡殿.Noob曜绘</a></h2>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px">
+    <div class="deck-meta-row" style="margin-bottom:0">
+      <span class="deck-meta-chip">S4 Wuhan Regional Open</span>
+      <span class="deck-meta-chip">2026-08-29</span>
+      <span class="deck-meta-chip">
+        Rank #505
+        
+      </span>
+      
+        <img class="domain-icon" src="static/img/domains/Calm.webp" alt="Calm" title="Calm">
+      
+        <img class="domain-icon" src="static/img/domains/Mind.webp" alt="Mind" title="Mind">
+      
+    </div>
+    <div class="export-menu" style="flex-shrink:0">
+      <button type="button" id="export-trigger" class="deck-meta-chip export-trigger-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+        Export
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="export-menu-panel" id="export-menu-panel" hidden>
+        <div class="export-menu-section-label">Share</div>
+        <button type="button" class="export-menu-item" id="export-link-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <span class="export-menu-item-label">Copy Link</span>
+        </button>
+        <div class="export-menu-divider"></div>
+        <div class="export-menu-section-label">Clipboard</div>
+        <button type="button" class="export-menu-item" id="export-text-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
+          <span class="export-menu-item-label">Copy as Text</span>
+        </button>
+        <button type="button" class="export-menu-item" id="export-locator-text-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
+          <span class="export-menu-item-label">Copy for Locator</span>
+        </button>
+        <button type="button" class="export-menu-item" id="export-tts-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span class="export-menu-item-label">Copy TTS Code</span>
+        </button>
+        <div class="export-menu-divider"></div>
+        <div class="export-menu-section-label">Print</div>
+        <button type="button" class="export-menu-item" id="export-proxies-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+          <span class="export-menu-item-label">Export Proxies</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="proxy-progress-overlay" id="proxy-progress-overlay" hidden>
+    <div class="proxy-progress-box">
+      <div class="proxy-progress-title" id="proxy-progress-title">Creating PDF…</div>
+      <div class="proxy-progress-track"><div class="proxy-progress-fill" id="proxy-progress-fill"></div></div>
+      <div class="proxy-progress-pct" id="proxy-progress-pct">0%</div>
+      <button type="button" class="clear-btn" id="proxy-progress-cancel" style="margin-top:14px">Close</button>
+    </div>
+  </div>
+
+  <div class="top-row">
+    <div class="subsection">
+      <h2 style="font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin:22px 0 10px">
+        Legend &amp; Champion
+      </h2>
+      <div class="card-grid card-grid-top">
+        
+        <div class="card-tile" data-idx="0">
+          <div class="card-tile-img-wrap">
+            
+              <img src="https://static.dotgg.gg/riftbound/cards/UNL-189.webp" alt="Lillia, Bashful Bloom" loading="lazy">
+            
+            
+          </div>
+          <div class="card-tile-caption">Lillia, Bashful Bloom</div>
+        </div>
+        
+        <div class="card-tile" data-idx="1">
+          <div class="card-tile-img-wrap">
+            
+              <img src="https://static.dotgg.gg/riftbound/cards/UNL-082.webp" alt="Lillia, Fae Fawn" loading="lazy">
+            
+            
+          </div>
+          <div class="card-tile-caption">Lillia, Fae Fawn</div>
+        </div>
+        
+      </div>
+    </div>
+
+    <div class="subsection subsection-grow">
+      <div class="runes-battlefields-row">
+        
+        
+        <div class="runes-block">
+          <h2 style="font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin:22px 0 10px">
+            Runes <span class="muted" style="text-transform:none;letter-spacing:0">(12)</span>
+          </h2>
+          <div class="card-grid card-grid-stacked">
+            
+            <div class="card-tile" data-idx="21">
+              <div class="card-tile-img-wrap">
+                
+                  <img src="https://static.dotgg.gg/riftbound/cards/OGN-042a.webp" alt="Calm Rune" loading="lazy">
+                
+                <span class="qty-badge">&times;5</span>
+              </div>
+            </div>
+            
+            <div class="card-tile" data-idx="22">
+              <div class="card-tile-img-wrap">
+                
+                  <img src="https://static.dotgg.gg/riftbound/cards/OGN-089a.webp" alt="Mind Rune" loading="lazy">
+                
+                <span class="qty-badge">&times;7</span>
+              </div>
+            </div>
+            
+          </div>
+          <div class="card-tile-caption">Calm and Mind Rune</div>
+        </div>
+        
+
+        <div class="battlefields-block" style="flex:1 1 200px; min-width:0">
+          <h2 style="font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin:22px 0 10px">
+            Battlefields
+          </h2>
+          <div class="card-grid card-grid-2x2">
+            
+            <div class="card-tile card-tile-landscape" data-idx="18">
+              
+                <img src="https://static.dotgg.gg/riftbound/cards/UNL-210.webp" alt="Forbidding Waste" loading="lazy">
+              
+              <div class="card-tile-caption">Forbidding Waste</div>
+            </div>
+            
+            <div class="card-tile card-tile-landscape" data-idx="19">
+              
+                <img src="https://static.dotgg.gg/riftbound/cards/SFD-217.webp" alt="Seat of Power" loading="lazy">
+              
+              <div class="card-tile-caption">Seat of Power</div>
+            </div>
+            
+            <div class="card-tile card-tile-landscape" data-idx="20">
+              
+                <img src="https://static.dotgg.gg/riftbound/cards/SFD-220.webp" alt="Treasure Hoard" loading="lazy">
+              
+              <div class="card-tile-caption">Treasure Hoard</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  
+  <h2 class="section-heading section-heading-tight" style="font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em">
+    Main Deck <span class="muted" style="text-transform:none;letter-spacing:0">(39)</span>
+  </h2>
+  <div class="card-grid card-grid-fill">
+    
+    <div class="card-tile" data-idx="2">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-058.webp" alt="Patched Porobot" loading="lazy">
+        
+        <span class="qty-badge">&times;3</span>
+      </div>
+      <div class="card-tile-caption">Patched Porobot</div>
+    </div>
+    
+    <div class="card-tile" data-idx="3">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-053.webp" alt="Scuttle Crab" loading="lazy">
+        
+        <span class="qty-badge">&times;3</span>
+      </div>
+      <div class="card-tile-caption">Scuttle Crab</div>
+    </div>
+    
+    <div class="card-tile" data-idx="4">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-037.webp" alt="Tomb-Raider Barbara" loading="lazy">
+        
+        
+      </div>
+      <div class="card-tile-caption">Tomb-Raider Barbara</div>
+    </div>
+    
+    <div class="card-tile" data-idx="5">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-080.webp" alt="Hwei, Brooding Painter" loading="lazy">
+        
+        <span class="qty-badge">&times;3</span>
+      </div>
+      <div class="card-tile-caption">Hwei, Brooding Painter</div>
+    </div>
+    
+    <div class="card-tile" data-idx="6">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-116.webp" alt="Thousand-Tailed Watcher" loading="lazy">
+        
+        <span class="qty-badge">&times;2</span>
+      </div>
+      <div class="card-tile-caption">Thousand-Tailed Watcher</div>
+    </div>
+    
+    <div class="card-tile" data-idx="7">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-051.webp" alt="Guardian Angel" loading="lazy">
+        
+        <span class="qty-badge">&times;2</span>
+      </div>
+      <div class="card-tile-caption">Guardian Angel</div>
+    </div>
+    
+    <div class="card-tile" data-idx="8">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-078.webp" alt="Sprite Fountain" loading="lazy">
+        
+        <span class="qty-badge">&times;3</span>
+      </div>
+      <div class="card-tile-caption">Sprite Fountain</div>
+    </div>
+    
+    <div class="card-tile" data-idx="9">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-043.webp" alt="Charm" loading="lazy">
+        
+        
+      </div>
+      <div class="card-tile-caption">Charm</div>
+    </div>
+    
+    <div class="card-tile" data-idx="10">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-045.webp" alt="Defy" loading="lazy">
+        
+        <span class="qty-badge">&times;3</span>
+      </div>
+      <div class="card-tile-caption">Defy</div>
+    </div>
+    
+    <div class="card-tile" data-idx="11">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-046.webp" alt="En Garde" loading="lazy">
+        
+        <span class="qty-badge">&times;2</span>
+      </div>
+      <div class="card-tile-caption">En Garde</div>
+    </div>
+    
+    <div class="card-tile" data-idx="12">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-095.webp" alt="Stupefy" loading="lazy">
+        
+        <span class="qty-badge">&times;3</span>
+      </div>
+      <div class="card-tile-caption">Stupefy</div>
+    </div>
+    
+    <div class="card-tile" data-idx="13">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-058.webp" alt="Discipline" loading="lazy">
+        
+        <span class="qty-badge">&times;3</span>
+      </div>
+      <div class="card-tile-caption">Discipline</div>
+    </div>
+    
+    <div class="card-tile" data-idx="14">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-043.webp" alt="Emperor&#39;s Divide" loading="lazy">
+        
+        <span class="qty-badge">&times;2</span>
+      </div>
+      <div class="card-tile-caption">Emperor&#39;s Divide</div>
+    </div>
+    
+    <div class="card-tile" data-idx="15">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-034.webp" alt="Resonating Strike" loading="lazy">
+        
+        <span class="qty-badge">&times;2</span>
+      </div>
+      <div class="card-tile-caption">Resonating Strike</div>
+    </div>
+    
+    <div class="card-tile" data-idx="16">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-083.webp" alt="Smoke and Mirrors" loading="lazy">
+        
+        <span class="qty-badge">&times;3</span>
+      </div>
+      <div class="card-tile-caption">Smoke and Mirrors</div>
+    </div>
+    
+    <div class="card-tile" data-idx="17">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-069.webp" alt="Sprite Burst" loading="lazy">
+        
+        <span class="qty-badge">&times;3</span>
+      </div>
+      <div class="card-tile-caption">Sprite Burst</div>
+    </div>
+    
+  </div>
+  
+  
+  
+  
+  
+  <h2 class="section-heading section-heading-tighter" style="font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em">
+    Sideboard <span class="muted" style="text-transform:none;letter-spacing:0">(10)</span>
+  </h2>
+  <div class="card-grid card-grid-fill">
+    
+    <div class="card-tile" data-idx="23">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-040.webp" alt="Decree of Focus" loading="lazy">
+        
+        <span class="qty-badge">&times;2</span>
+      </div>
+      <div class="card-tile-caption">Decree of Focus</div>
+    </div>
+    
+    <div class="card-tile" data-idx="24">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-061.webp" alt="Decree of Insight" loading="lazy">
+        
+        <span class="qty-badge">&times;2</span>
+      </div>
+      <div class="card-tile-caption">Decree of Insight</div>
+    </div>
+    
+    <div class="card-tile" data-idx="25">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/UNL-190.webp" alt="Lilting Lullaby" loading="lazy">
+        
+        
+      </div>
+      <div class="card-tile-caption">Lilting Lullaby</div>
+    </div>
+    
+    <div class="card-tile" data-idx="26">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-060.webp" alt="Mask of Foresight" loading="lazy">
+        
+        
+      </div>
+      <div class="card-tile-caption">Mask of Foresight</div>
+    </div>
+    
+    <div class="card-tile" data-idx="27">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/SFD-053.webp" alt="Janna, Savior" loading="lazy">
+        
+        
+      </div>
+      <div class="card-tile-caption">Janna, Savior</div>
+    </div>
+    
+    <div class="card-tile" data-idx="28">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/VEN-037.webp" alt="Tomb-Raider Barbara" loading="lazy">
+        
+        <span class="qty-badge">&times;2</span>
+      </div>
+      <div class="card-tile-caption">Tomb-Raider Barbara</div>
+    </div>
+    
+    <div class="card-tile" data-idx="29">
+      <div class="card-tile-img-wrap">
+        
+          <img src="https://static.dotgg.gg/riftbound/cards/OGN-123.webp" alt="Unchecked Power" loading="lazy">
+        
+        
+      </div>
+      <div class="card-tile-caption">Unchecked Power</div>
+    </div>
+    
+  </div>
+  
+  
+</div>
+</div>
+
+<aside class="sidebar">
+  <div class="sidebar-tabs">
+    <button type="button" class="tab-btn active" data-tab="stats">Stats</button>
+    <button type="button" class="tab-btn" data-tab="hands">Hands</button>
+  </div>
+
+  <div class="tab-panel" id="tab-stats">
+    <div class="mini-stat-row">
+      <div class="mini-stat">
+        <svg class="mini-stat-icon" viewBox="0 0 24 24" fill="none" color="currentColor" aria-hidden="true"><path d="M8.64298 3.14559L6.93816 3.93362C4.31272 5.14719 3 5.75397 3 6.75C3 7.74603 4.31272 8.35281 6.93817 9.56638L8.64298 10.3544C10.2952 11.1181 11.1214 11.5 12 11.5C12.8786 11.5 13.7048 11.1181 15.357 10.3544L17.0618 9.56638C19.6873 8.35281 21 7.74603 21 6.75C21 5.75397 19.6873 5.14719 17.0618 3.93362L15.357 3.14559C13.7048 2.38186 12.8786 2 12 2C11.1214 2 10.2952 2.38186 8.64298 3.14559Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M20.788 11.0972C20.9293 11.2959 21 11.5031 21 11.7309C21 12.7127 19.6873 13.3109 17.0618 14.5072L15.357 15.284C13.7048 16.0368 12.8786 16.4133 12 16.4133C11.1214 16.4133 10.2952 16.0368 8.64298 15.284L6.93817 14.5072C4.31272 13.3109 3 12.7127 3 11.7309C3 11.5031 3.07067 11.2959 3.212 11.0972" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M20.3767 16.2661C20.7922 16.5971 21 16.927 21 17.3176C21 18.2995 19.6873 18.8976 17.0618 20.0939L15.357 20.8707C13.7048 21.6236 12.8786 22 12 22C11.1214 22 10.2952 21.6236 8.64298 20.8707L6.93817 20.0939C4.31272 18.8976 3 18.2995 3 17.3176C3 16.927 3.20778 16.5971 3.62334 16.2661" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+        <div class="mini-stat-value">40</div><div class="mini-stat-label">Cards</div>
+      </div>
+      <div class="mini-stat">
+        <svg class="mini-stat-icon" viewBox="0 0 24 24" fill="none" color="currentColor" aria-hidden="true"><path d="M5.22576 11.3294L12.224 2.34651C12.7713 1.64397 13.7972 2.08124 13.7972 3.01707V9.96994C13.7972 10.5305 14.1995 10.985 14.6958 10.985H18.0996C18.8729 10.985 19.2851 12.0149 18.7742 12.6706L11.776 21.6535C11.2287 22.356 10.2028 21.9188 10.2028 20.9829V14.0301C10.2028 13.4695 9.80048 13.015 9.3042 13.015H5.90035C5.12711 13.015 4.71494 11.9851 5.22576 11.3294Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+        <div class="mini-stat-value">2.5</div><div class="mini-stat-label">Avg Energy</div>
+      </div>
+      <div class="mini-stat">
+        <svg class="mini-stat-icon" viewBox="2.3 2.5 19 19" fill="none"><path d="M11.5917 4.02379C11.7105 4.07134 11.7817 4.16639 11.8055 4.28525C11.8531 4.57051 11.9006 4.85583 11.9243 5.16486C11.9719 5.66406 11.972 6.1632 12.0195 6.66241C12.0195 6.9239 11.9482 7.13786 11.8293 7.35181C11.6154 7.68461 11.3301 7.99367 11.0448 8.27893C10.4981 8.82568 9.92766 9.34864 9.38091 9.89539C9.09565 10.1806 8.81033 10.5134 8.57261 10.8224C8.42998 10.9888 8.33488 11.2028 8.26357 11.4167C8.16848 11.6307 8.21597 11.8208 8.3586 12.011C8.50123 12.2487 8.7153 12.4152 8.92924 12.5816C9.49976 12.9857 10.1416 13.2947 10.8309 13.4611C11.0924 13.5324 11.3539 13.4611 11.5679 13.2947C11.8769 13.057 12.0909 12.7717 12.1859 12.3914C12.2335 12.2012 12.1859 12.0111 12.0908 11.8447C11.9957 11.702 11.8531 11.607 11.6867 11.6307C11.449 11.6545 11.2351 11.702 10.9974 11.7496C10.8785 11.7496 10.7834 11.7496 10.6645 11.7021C10.4981 11.6307 10.3555 11.5118 10.2367 11.3692C10.1178 11.2028 10.1178 11.0839 10.2367 10.9175C10.5219 10.4897 10.8547 10.1093 11.2588 9.80028C11.3777 9.70519 11.4965 9.65766 11.6391 9.58634C11.7817 9.51503 11.9007 9.53882 12.0433 9.61014C12.1859 9.70522 12.3286 9.80032 12.4712 9.91918C12.9942 10.3946 13.5171 10.9176 13.8736 11.5356C13.9687 11.702 14.0401 11.8922 14.1114 12.0586C14.159 12.1537 14.159 12.2725 14.1114 12.3914C14.0401 12.5578 13.9687 12.748 13.8736 12.9144C13.5171 13.5562 13.0654 14.103 12.5424 14.6022C12.1145 15.0063 11.5915 15.1489 11.021 15.0776C10.0939 14.9825 9.26199 14.6735 8.42999 14.2931C7.78815 13.9841 7.19389 13.6275 6.67091 13.1521C6.40942 12.9144 6.17164 12.6766 6.00524 12.3914C5.88638 12.2012 5.81512 11.9873 5.76758 11.7734V11.488C5.86266 10.9888 6.17167 10.6085 6.4807 10.2519C6.74219 9.99046 6.97994 9.70523 7.2652 9.46751C8.23984 8.56419 9.14312 7.61328 9.90382 6.51978C10.4981 5.71155 11.0449 4.87955 11.5441 4H11.6867L11.5917 4.02379Z" fill="url(#rune-rainbow-a)"/><path d="M11.8775 19.9524C11.6873 19.9049 11.616 19.7622 11.5685 19.5958C11.4734 19.263 11.3783 18.9064 11.307 18.5736C11.2357 18.1933 11.2356 17.8129 11.402 17.4564C11.4971 17.2187 11.6873 17.0047 11.8537 16.8146C12.2816 16.3391 12.7571 15.9112 13.2325 15.5071C13.9456 14.889 14.6349 14.271 15.1816 13.4866C15.348 13.2488 15.5145 12.9874 15.6571 12.7496C15.776 12.5832 15.7522 12.393 15.6571 12.2029C15.4432 11.7512 15.158 11.3233 14.8727 10.9192C14.5162 10.3962 14.0645 9.94458 13.6366 9.46914C13.4939 9.30274 13.3275 9.13629 13.1849 8.96989C13.1374 8.89857 13.0898 8.82727 13.0423 8.75595C12.971 8.63709 13.0423 8.49447 13.1611 8.4707C13.2562 8.4707 13.3513 8.4707 13.4464 8.4707C13.6365 8.54202 13.8267 8.61335 13.9931 8.70843C14.9677 9.27895 15.9186 9.9208 16.7507 10.729C17.0121 10.9905 17.2499 11.2757 17.4876 11.5848C17.6777 11.7987 17.7965 12.0602 17.8678 12.3455V12.5832C17.749 13.0111 17.5114 13.3677 17.2499 13.7005C17.0597 13.9382 16.8694 14.1521 16.6793 14.3661C16.0374 15.103 15.3956 15.8161 14.7776 16.553C13.8505 17.6941 12.9234 18.8589 11.9963 20H11.8537L11.8775 19.9524Z" fill="url(#rune-rainbow-b)"/><defs><linearGradient id="rune-rainbow-a" x1="7.69308" y1="6.66242" x2="13.0179" y2="14.2694" gradientUnits="userSpaceOnUse"><stop offset="0.14" stop-color="#E5362C"/><stop offset="0.38" stop-color="#EC6812"/><stop offset="0.54" stop-color="#E4BF00"/><stop offset="0.68" stop-color="#22AC39"/><stop offset="0.83" stop-color="#056FB8"/></linearGradient><linearGradient id="rune-rainbow-b" x1="10.7127" y1="10.1585" x2="15.7523" y2="17.3374" gradientUnits="userSpaceOnUse"><stop offset="0.14" stop-color="#E5362C"/><stop offset="0.38" stop-color="#EC6812"/><stop offset="0.54" stop-color="#E4BF00"/><stop offset="0.68" stop-color="#22AC39"/><stop offset="0.83" stop-color="#056FB8"/></linearGradient></defs></svg>
+        <div class="mini-stat-value" style="position:relative;top:-5px">0.4</div><div class="mini-stat-label" style="position:relative;top:-5px">Avg Runes Recycled</div>
+      </div>
+      <div class="mini-stat">
+        <svg class="mini-stat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15.7938 7.88519L16.7882 15.8057L11.8849 21.0175L6.98178 15.8057L7.97616 7.88519C4.30733 6.95941 2.25 4.35352 2.25 4.35352V11.3825C2.25 13.4055 2.86722 15.4286 3.99873 17.2116C5.54169 19.6117 8.11326 22.629 11.8849 24.0005C15.6566 22.629 18.2283 19.6117 19.7713 17.2116C20.9371 15.4286 21.5199 13.4055 21.5199 11.3825V4.45638C21.5199 4.45638 19.2226 6.95937 15.7252 7.85087L15.7938 7.88519Z" fill="currentColor"/><path d="M15.7942 5.93188C15.7942 4.80037 14.8684 3.87457 13.7369 3.87457H13.0169L12.6055 1.57733C12.9826 1.44018 13.257 1.1658 13.257 0.857203C13.257 0.377169 12.6397 0 11.8854 0C11.131 0 10.5138 0.377169 10.5138 0.857203C10.5138 1.1658 10.7882 1.44018 11.1653 1.57733L10.7539 3.87457H10.0339C8.90236 3.87457 7.97656 4.80037 7.97656 5.93188H10.5138L9.45093 14.9153L11.8511 17.4184L14.2512 14.9153L13.1883 5.93188H15.7599H15.7942Z" fill="currentColor"/></svg>
+        <div class="mini-stat-value">3.2</div><div class="mini-stat-label">Avg Might</div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Energy curve</div>
+      <svg viewBox="0 0 460 160" width="100%" style="display:block;margin-top:7px">
+        <line x1="24" y1="140" x2="452" y2="140" stroke="var(--baseline)" stroke-width="1" />
+        
+          <rect x="24.0" y="140.0" width="40.4" height="1" rx="3" ry="3" fill="#008300">
+            <title>Cost 0: 0 cards</title>
+          </rect>
+          
+          <text x="44.2" y="152" text-anchor="middle" font-size="9" fill="var(--text-muted)">0</text>
+        
+          <rect x="72.4" y="86.9" width="40.4" height="53.1" rx="3" ry="3" fill="#008300">
+            <title>Cost 1: 9 cards</title>
+          </rect>
+          <text x="92.60000000000001" y="83.9" text-anchor="middle" font-size="9" fill="var(--text-secondary)">9</text>
+          <text x="92.60000000000001" y="152" text-anchor="middle" font-size="9" fill="var(--text-muted)">1</text>
+        
+          <rect x="120.9" y="16.0" width="40.4" height="124.0" rx="3" ry="3" fill="#008300">
+            <title>Cost 2: 21 cards</title>
+          </rect>
+          <text x="141.1" y="13.0" text-anchor="middle" font-size="9" fill="var(--text-secondary)">21</text>
+          <text x="141.1" y="152" text-anchor="middle" font-size="9" fill="var(--text-muted)">2</text>
+        
+          <rect x="169.3" y="140.0" width="40.4" height="1" rx="3" ry="3" fill="#008300">
+            <title>Cost 3: 0 cards</title>
+          </rect>
+          
+          <text x="189.5" y="152" text-anchor="middle" font-size="9" fill="var(--text-muted)">3</text>
+        
+          <rect x="217.8" y="134.1" width="40.4" height="5.9" rx="3" ry="3" fill="#008300">
+            <title>Cost 4: 1 cards</title>
+          </rect>
+          <text x="238.0" y="131.1" text-anchor="middle" font-size="9" fill="var(--text-secondary)">1</text>
+          <text x="238.0" y="152" text-anchor="middle" font-size="9" fill="var(--text-muted)">4</text>
+        
+          <rect x="266.2" y="104.6" width="40.4" height="35.4" rx="3" ry="3" fill="#008300">
+            <title>Cost 5: 6 cards</title>
+          </rect>
+          <text x="286.4" y="101.6" text-anchor="middle" font-size="9" fill="var(--text-secondary)">6</text>
+          <text x="286.4" y="152" text-anchor="middle" font-size="9" fill="var(--text-muted)">5</text>
+        
+          <rect x="314.7" y="140.0" width="40.4" height="1" rx="3" ry="3" fill="#008300">
+            <title>Cost 6: 0 cards</title>
+          </rect>
+          
+          <text x="334.9" y="152" text-anchor="middle" font-size="9" fill="var(--text-muted)">6</text>
+        
+          <rect x="363.1" y="128.2" width="40.4" height="11.8" rx="3" ry="3" fill="#008300">
+            <title>Cost 7: 2 cards</title>
+          </rect>
+          <text x="383.3" y="125.19999999999999" text-anchor="middle" font-size="9" fill="var(--text-secondary)">2</text>
+          <text x="383.3" y="152" text-anchor="middle" font-size="9" fill="var(--text-muted)">7</text>
+        
+          <rect x="411.6" y="140.0" width="40.4" height="1" rx="3" ry="3" fill="#008300">
+            <title>Cost 8+: 0 cards</title>
+          </rect>
+          
+          <text x="431.8" y="152" text-anchor="middle" font-size="9" fill="var(--text-muted)">8+</text>
+        
+      </svg>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Runes Recycled curve</div>
+      <svg viewBox="0 0 460 120" width="100%" style="display:block;margin-top:7px">
+        <line x1="24" y1="100" x2="452" y2="100" stroke="var(--baseline)" stroke-width="1" />
+        
+          
+          
+          <text x="63.6" y="112" text-anchor="middle" font-size="9" fill="var(--text-muted)">0</text>
+        
+          
+            <rect x="111.2" y="64.0" width="79.2" height="36.0" fill="#008300"
+                  stroke="var(--page)" stroke-width="1">
+              <title>Calm, recycles 1: 6 cards</title>
+            </rect>
+            <text x="150.8" y="85.0" text-anchor="middle" font-size="9" fill="#fff">6</text>
+          
+            <rect x="111.2" y="16.0" width="79.2" height="48.0" fill="#2a78d6"
+                  stroke="var(--page)" stroke-width="1">
+              <title>Mind, recycles 1: 8 cards</title>
+            </rect>
+            <text x="150.8" y="43.0" text-anchor="middle" font-size="9" fill="#fff">8</text>
+          
+          <text x="150.8" y="13.0" text-anchor="middle" font-size="9" fill="var(--text-secondary)">14</text>
+          <text x="150.8" y="112" text-anchor="middle" font-size="9" fill="var(--text-muted)">1</text>
+        
+          
+          
+          <text x="238.0" y="112" text-anchor="middle" font-size="9" fill="var(--text-muted)">2</text>
+        
+          
+          
+          <text x="325.20000000000005" y="112" text-anchor="middle" font-size="9" fill="var(--text-muted)">3</text>
+        
+          
+          
+          <text x="412.40000000000003" y="112" text-anchor="middle" font-size="9" fill="var(--text-muted)">4+</text>
+        
+      </svg>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Runes Recycled by cost</div>
+      <svg viewBox="0 0 460 140" width="100%" style="display:block;margin-top:7px">
+        <defs>
+          <linearGradient id="recycle-signature-split" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="50%" stop-color="#008300"/>
+            <stop offset="50%" stop-color="#2a78d6"/>
+          </linearGradient>
+        </defs>
+        <line x1="24" y1="120" x2="452" y2="120" stroke="var(--baseline)" stroke-width="1" />
+        
+          
+          
+          <text x="44.2" y="132" text-anchor="middle" font-size="9" fill="var(--text-muted)">0</text>
+        
+          
+            <rect x="72.4" y="36.8" width="40.4" height="83.2" fill="#008300"
+                  stroke="var(--page)" stroke-width="1">
+              <title>Calm, cost 1: 4 cards</title>
+            </rect>
+            <text x="92.60000000000001" y="81.4" text-anchor="middle" font-size="9" fill="#fff">4</text>
+          
+          <text x="92.60000000000001" y="33.8" text-anchor="middle" font-size="9" fill="var(--text-secondary)">4</text>
+          <text x="92.60000000000001" y="132" text-anchor="middle" font-size="9" fill="var(--text-muted)">1</text>
+        
+          
+            <rect x="120.9" y="78.4" width="40.4" height="41.6" fill="#008300"
+                  stroke="var(--page)" stroke-width="1">
+              <title>Calm, cost 2: 2 cards</title>
+            </rect>
+            <text x="141.1" y="102.2" text-anchor="middle" font-size="9" fill="#fff">2</text>
+          
+            <rect x="120.9" y="16.0" width="40.4" height="62.4" fill="#2a78d6"
+                  stroke="var(--page)" stroke-width="1">
+              <title>Mind, cost 2: 3 cards</title>
+            </rect>
+            <text x="141.1" y="50.2" text-anchor="middle" font-size="9" fill="#fff">3</text>
+          
+          <text x="141.1" y="13.0" text-anchor="middle" font-size="9" fill="var(--text-secondary)">5</text>
+          <text x="141.1" y="132" text-anchor="middle" font-size="9" fill="var(--text-muted)">2</text>
+        
+          
+          
+          <text x="189.5" y="132" text-anchor="middle" font-size="9" fill="var(--text-muted)">3</text>
+        
+          
+          
+          <text x="238.0" y="132" text-anchor="middle" font-size="9" fill="var(--text-muted)">4</text>
+        
+          
+            <rect x="266.2" y="57.6" width="40.4" height="62.4" fill="#2a78d6"
+                  stroke="var(--page)" stroke-width="1">
+              <title>Mind, cost 5: 3 cards</title>
+            </rect>
+            <text x="286.4" y="91.8" text-anchor="middle" font-size="9" fill="#fff">3</text>
+          
+          <text x="286.4" y="54.6" text-anchor="middle" font-size="9" fill="var(--text-secondary)">3</text>
+          <text x="286.4" y="132" text-anchor="middle" font-size="9" fill="var(--text-muted)">5</text>
+        
+          
+          
+          <text x="334.9" y="132" text-anchor="middle" font-size="9" fill="var(--text-muted)">6</text>
+        
+          
+            <rect x="363.1" y="78.4" width="40.4" height="41.6" fill="#2a78d6"
+                  stroke="var(--page)" stroke-width="1">
+              <title>Mind, cost 7: 2 cards</title>
+            </rect>
+            <text x="383.3" y="102.2" text-anchor="middle" font-size="9" fill="#fff">2</text>
+          
+          <text x="383.3" y="75.4" text-anchor="middle" font-size="9" fill="var(--text-secondary)">2</text>
+          <text x="383.3" y="132" text-anchor="middle" font-size="9" fill="var(--text-muted)">7</text>
+        
+          
+          
+          <text x="431.8" y="132" text-anchor="middle" font-size="9" fill="var(--text-muted)">8+</text>
+        
+      </svg>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Domains</div>
+      <div class="stacked-bar">
+        <div class="stacked-bar-seg" style="width:51.3%;background:#2a78d6" title="Mind: 20"></div><div class="stacked-bar-seg" style="width:48.7%;background:#008300" title="Calm: 19"></div>
+      </div>
+      <div class="stacked-legend">
+        <span class="legend-chip"><i style="background:#2a78d6"></i>Mind 20</span><span class="legend-chip"><i style="background:#008300"></i>Calm 19</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Card types</div>
+      <div class="stacked-bar">
+        <div class="stacked-bar-seg" style="width:56.4%;background:#4a3aa7" title="Spell: 22"></div><div class="stacked-bar-seg" style="width:30.8%;background:#2a78d6" title="Unit: 12"></div><div class="stacked-bar-seg" style="width:12.8%;background:#eda100" title="Gear: 5"></div>
+      </div>
+      <div class="stacked-legend">
+        <span class="legend-chip"><i style="background:#4a3aa7"></i>Spell 22</span><span class="legend-chip"><i style="background:#2a78d6"></i>Unit 12</span><span class="legend-chip"><i style="background:#eda100"></i>Gear 5</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-hands" style="display:none">
+    <p class="secondary" style="margin-top:0;font-size:13px">
+      Draw a 4-card opening hand from the Main Deck (39 cards — the Champion doesn't count, it starts in its own zone). Pick up to 2 to mulligan.
+    </p>
+    <button type="button" id="draw-hand-btn" class="clear-btn" style="width:100%;margin-bottom:12px">Draw hand</button>
+    <div id="hand-display" class="card-grid"></div>
+    <button type="button" id="mulligan-btn" class="clear-btn" style="width:100%;margin-top:12px;display:none">Mulligan</button>
+  </div>
+</aside>
+</div>
+
+<script type="application/json" id="deck-pool">[{"banned": false, "card_code": "VEN-058", "cost": 2, "count": 3, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-058.webp", "name": "Patched Porobot"}, {"banned": false, "card_code": "UNL-053", "cost": 2, "count": 3, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-053.webp", "name": "Scuttle Crab"}, {"banned": false, "card_code": "VEN-037", "cost": 4, "count": 1, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-037.webp", "name": "Tomb-Raider Barbara"}, {"banned": false, "card_code": "UNL-080", "cost": 5, "count": 3, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-080.webp", "name": "Hwei, Brooding Painter"}, {"banned": false, "card_code": "OGN-116", "cost": 7, "count": 2, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-116.webp", "name": "Thousand-Tailed Watcher"}, {"banned": false, "card_code": "SFD-051", "cost": 2, "count": 2, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051.webp", "name": "Guardian Angel"}, {"banned": false, "card_code": "UNL-078", "cost": 2, "count": 3, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-078.webp", "name": "Sprite Fountain"}, {"banned": false, "card_code": "OGN-043", "cost": 1, "count": 1, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-043.webp", "name": "Charm"}, {"banned": false, "card_code": "OGN-045", "cost": 1, "count": 3, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-045.webp", "name": "Defy"}, {"banned": false, "card_code": "OGN-046", "cost": 1, "count": 2, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-046.webp", "name": "En Garde"}, {"banned": false, "card_code": "OGN-095", "cost": 1, "count": 3, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-095.webp", "name": "Stupefy"}, {"banned": false, "card_code": "OGN-058", "cost": 2, "count": 3, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-058.webp", "name": "Discipline"}, {"banned": false, "card_code": "SFD-043", "cost": 2, "count": 2, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-043.webp", "name": "Emperor\u0027s Divide"}, {"banned": false, "card_code": "VEN-034", "cost": 2, "count": 2, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-034.webp", "name": "Resonating Strike"}, {"banned": false, "card_code": "UNL-083", "cost": 2, "count": 3, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-083.webp", "name": "Smoke and Mirrors"}, {"banned": false, "card_code": "UNL-069", "cost": 5, "count": 3, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-069.webp", "name": "Sprite Burst"}]</script>
+<script type="application/json" id="card-details-data">[{"card_code": "UNL-189", "card_number": "189", "card_type": "Legend", "colors": ["Calm", "Mind"], "cost": null, "description": "\u003cimg src=\"static/img/icons/energy-4.svg\" alt=\"4 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, \u003cimg src=\"static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Play a ready 3 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sprite unit token with \u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. This ability costs \u003cimg src=\"static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e less for each friendly unit with \u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-189.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Lillia, Bashful Bloom", "printings": [{"banned": false, "card_code": "UNL-230-STAR", "card_number": "230", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-230-STAR.webp", "promo": false, "rarity": "Showcase", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-230", "card_number": "230", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-230.webp", "promo": false, "rarity": "Showcase", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-189", "card_number": "189", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-189.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": null, "related_tokens": [{"description": "\u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Kill me at the start of your Beginning Phase, before scoring.)", "idx": 30, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-274.webp", "landscape": false, "might": 3, "name": "Sprite Unit"}], "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "UNL-082", "card_number": "082", "card_type": "Champion", "colors": ["Mind"], "cost": 3, "description": "\u003cimg src=\"static/img/keywords/accelerate.svg\" alt=\"Accelerate\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may pay \u003cimg src=\"static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"static/img/domains/Mind.webp\" alt=\"Mind\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e as an additional cost to have me enter ready.)\u003cbr\u003eWhen I move from a location, play a 3 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sprite unit token with \u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e there. (Kill it at the start of its controller\u0026#x27;s Beginning Phase, before scoring.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-082.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Lillia, Fae Fawn", "printings": [{"banned": false, "card_code": "UNL-082A", "card_number": "082", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-082A.webp", "promo": false, "rarity": "Showcase", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-082b-P", "card_number": "082", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-082b-P.webp", "promo": true, "rarity": "Showcase", "set_code": "UNL", "set_name": "Unleashed"}, {"banned": false, "card_code": "UNL-082", "card_number": "082", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-082.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Rare", "related_tokens": [{"description": "\u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Kill me at the start of your Beginning Phase, before scoring.)", "idx": 30, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-274.webp", "landscape": false, "might": 3, "name": "Sprite Unit"}], "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "VEN-058", "card_number": "058", "card_type": "Unit", "colors": ["Mind"], "cost": 2, "description": "(I enter exhausted.)\u003cbr\u003eWhen you play me, if you control 3 or more other gear, draw 1.", "flavor": "Attempts to synthetically replicate a poro\u0026#x27;s whimsy and pure adorable nature have yielded mixed results.", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-058.webp", "landscape": false, "legality": "Legal", "might": 2, "name": "Patched Porobot", "printings": [{"banned": false, "card_code": "VEN-058", "card_number": "058", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-058.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}, {"banned": false, "card_code": "VEN-058-P", "card_number": "058", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-058.webp", "promo": true, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "UNL-053", "card_number": "053", "card_type": "Unit", "colors": ["Calm"], "cost": 2, "description": "(Units with 0 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e can conquer and hold.)\u003cbr\u003eWhen you play me, draw 1.\u003cbr\u003e\u003cimg src=\"static/img/keywords/deathknell.svg\" alt=\"Deathknell\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Choose an opponent. They reveal their hand. You can look at their facedown cards this turn. Gain 1 XP. (When I die, get the effects.)", "flavor": "As harmless as it is delicious.", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-053.webp", "landscape": false, "legality": "Legal", "might": 0, "name": "Scuttle Crab", "printings": [{"banned": false, "card_code": "UNL-053", "card_number": "053", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-053.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "VEN-037", "card_number": "037", "card_type": "Unit", "colors": ["Calm"], "cost": 4, "description": "When you play me, if you control 7 or more runes, choose an enemy gear. If it\u0026#x27;s \u003cimg src=\"static/img/keywords/empowered.svg\" alt=\"Empowered\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, disempower it. Otherwise, kill it.", "flavor": "Wait for her signal. Don\u0026#x27;t worry, you\u0026#x27;ll know.", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-037.webp", "landscape": false, "legality": "Legal", "might": 4, "name": "Tomb-Raider Barbara", "printings": [{"banned": false, "card_code": "VEN-037", "card_number": "037", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-037.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}, {"banned": false, "card_code": "VEN-037-P", "card_number": "037", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-037.webp", "promo": true, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "UNL-080", "card_number": "080", "card_type": "Champion Unit", "colors": ["Mind"], "cost": 5, "description": "When I move, draw 1, then discard 1. Then, do the following based on the discarded card\u0026#x27;s type:\u003cul\u003e\u003cli\u003eSpell \u2014 Draw 1.\u003c/li\u003e\u003cli\u003eGear \u2014 Ready up to 2 runes.\u003c/li\u003e\u003cli\u003eUnit \u2014 Give me +3 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.\u003c/li\u003e\u003c/ul\u003e", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-080.webp", "landscape": false, "legality": "Legal", "might": 5, "name": "Hwei, Brooding Painter", "printings": [{"banned": false, "card_code": "UNL-080", "card_number": "080", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-080.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "OGN-116", "card_number": "116", "card_type": "Unit", "colors": ["Mind"], "cost": 7, "description": "\u003cimg src=\"static/img/keywords/accelerate.svg\" alt=\"Accelerate\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (You may pay \u003cimg src=\"static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e\u003cimg src=\"static/img/domains/Mind.webp\" alt=\"Mind\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e as an additional cost to have me enter ready.)\u003cbr\u003eWhen you play me, give enemy units -3 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn, to a minimum of 1 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.", "flavor": "You will know when you\u0026#x27;ve pushed the wilds too far.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-116.webp", "landscape": false, "legality": "Legal", "might": 7, "name": "Thousand-Tailed Watcher", "printings": [{"banned": false, "card_code": "OGN-116", "card_number": "116", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-116.webp", "promo": false, "rarity": "Rare", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-051", "card_number": "051", "card_type": "Gear", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/equip.svg\" alt=\"Equip\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (\u003cimg src=\"static/img/domains/Calm.webp\" alt=\"Calm\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: Attach this to a unit you control.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Guardian Angel", "printings": [{"banned": false, "card_code": "SFD-051", "card_number": "051", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-051-P2", "card_number": "051", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051-P2.webp", "promo": true, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}, {"banned": false, "card_code": "SFD-051-P", "card_number": "051", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-051-P.webp", "promo": true, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "UNL-078", "card_number": "078", "card_type": "Gear", "colors": ["Mind"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Kill this at the start of its controller\u0026#x27;s Beginning Phase, before scoring.)\u003cbr\u003eWhen you play this, play a ready 3 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sprite unit token with \u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to your base.\u003cbr\u003e\u003cimg src=\"static/img/keywords/deathknell.svg\" alt=\"Deathknell\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Repeat this gear\u0026#x27;s play effect. (When this dies, get the effect.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-078.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Sprite Fountain", "printings": [{"banned": false, "card_code": "UNL-078", "card_number": "078", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-078.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "related_tokens": [{"description": "\u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Kill me at the start of your Beginning Phase, before scoring.)", "idx": 30, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-274.webp", "landscape": false, "might": 3, "name": "Sprite Unit"}], "rune_cost": 1, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "OGN-043", "card_number": "043", "card_type": "Spell", "colors": ["Calm"], "cost": 1, "description": "Move an enemy unit.", "flavor": "\u201cThere\u2019s no harm in looking.\u201d  \n\u2014 Common last words", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-043.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Charm", "printings": [{"banned": false, "card_code": "OGN-043", "card_number": "043", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-043.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-045", "card_number": "045", "card_type": "Spell", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eCounter a spell that costs no more than \u003cimg src=\"static/img/icons/energy-4.svg\" alt=\"4 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e and no more than \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.", "flavor": "\u201cNo.\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-045.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Defy", "printings": [{"banned": false, "card_code": "OGN-045", "card_number": "045", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-045.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 1, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-046", "card_number": "046", "card_type": "Spell", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eGive a friendly unit +1 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn, then an additional +1 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn if it is the only unit you control there.", "flavor": "\u201cIs this supposed to be a challenge?\u201d \u2014Fiora", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-046.webp", "landscape": false, "legality": "Legal", "might": null, "name": "En Garde", "printings": [{"banned": false, "card_code": "OGN-046", "card_number": "046", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-046.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-095", "card_number": "095", "card_type": "Spell", "colors": ["Mind"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eGive a unit -1 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn, to a minimum of 1 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. Draw 1.", "flavor": "It\u2019s easier to outsmart an opponent with a concussion.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-095.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Stupefy", "printings": [{"banned": false, "card_code": "OGN-095", "card_number": "095", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-095.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "OGN-058", "card_number": "058", "card_type": "Spell", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eGive a unit +2 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn. Draw 1.", "flavor": "A blade is only as sharp as the one who wields it.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-058.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Discipline", "printings": [{"banned": false, "card_code": "OGN-058", "card_number": "058", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-058.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "OGN-058-P", "card_number": "058", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-058-P.webp", "promo": true, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-043", "card_number": "043", "card_type": "Spell", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003e\u003cimg src=\"static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eMove any number of friendly units at a battlefield to their base.", "flavor": "The sands of battle shift at Azir\u2019s command.", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-043.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Emperor\u0027s Divide", "printings": [{"banned": false, "card_code": "SFD-043", "card_number": "043", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-043.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "VEN-034", "card_number": "034", "card_type": "Spell", "colors": ["Calm"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003e\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eChoose a battlefield you control and a unit you control at a different location. Move that unit to that battlefield and give it +2 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-034.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Resonating Strike", "printings": [{"banned": false, "card_code": "VEN-034", "card_number": "034", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-034.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 1, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "UNL-083", "card_number": "083", "card_type": "Spell", "colors": ["Mind"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/hidden.svg\" alt=\"Hidden\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Hide now for \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to react with later for \u003cimg src=\"static/img/icons/energy-0.svg\" alt=\"0 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e.)\u003cbr\u003e\u003cimg src=\"static/img/keywords/action.svg\" alt=\"Action\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play on your turn or in showdowns.)\u003cbr\u003eChoose a unit you control and another unit you control at a different location. If at least one of them has \u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, move each to the other\u0026#x27;s location. Draw 1.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-083.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Smoke and Mirrors", "printings": [{"banned": false, "card_code": "UNL-083", "card_number": "083", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-083.webp", "promo": false, "rarity": "Rare", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "UNL-069", "card_number": "069", "card_type": "Spell", "colors": ["Mind"], "cost": 5, "description": "Play two ready 3 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Sprite unit tokens with \u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (Kill each at the start of its controller\u0026#x27;s Beginning Phase, before scoring.)", "flavor": "They\u2019re lovely, while they last.", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-069.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Sprite Burst", "printings": [{"banned": false, "card_code": "UNL-069", "card_number": "069", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-069.webp", "promo": false, "rarity": "Common", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Common", "related_tokens": [{"description": "\u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Kill me at the start of your Beginning Phase, before scoring.)", "idx": 30, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-274.webp", "landscape": false, "might": 3, "name": "Sprite Unit"}], "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "UNL-210", "card_number": "210", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "While a unit here is defending alone, it has -2 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (It\u0026#x27;s alone if there are no other friendly units here.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-210.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Forbidding Waste", "printings": [{"banned": false, "card_code": "UNL-210", "card_number": "210", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-210.webp", "promo": false, "rarity": "Uncommon", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "SFD-217", "card_number": "217", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "When you conquer here, draw 1 for each other battlefield you or allies control..", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-217.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Seat of Power", "printings": [{"banned": false, "card_code": "SFD-217", "card_number": "217", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-217.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "SFD-220", "card_number": "220", "card_type": "Battlefield", "colors": ["Colorless"], "cost": null, "description": "When you conquer here, you may pay \u003cimg src=\"static/img/icons/energy-1.svg\" alt=\"1 Energy\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e to play a Gold gear token exhausted.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-220.webp", "landscape": true, "legality": "Legal", "might": null, "name": "Treasure Hoard", "printings": [{"banned": false, "card_code": "SFD-220", "card_number": "220", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-220.webp", "promo": false, "rarity": "Uncommon", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Uncommon", "related_tokens": [{"description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Kill this, \u003cimg src=\"static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: \u003cimg src=\"static/img/keywords/add.svg\" alt=\"Add\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (Abilities that add resources can\u0026#x27;t be reacted to.)", "idx": 31, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-T05x.webp", "landscape": false, "might": null, "name": "Gold Gear"}], "rune_cost": 0, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "VEN-R02", "card_number": null, "card_type": "Runes", "colors": ["Calm"], "cost": null, "description": "[NO TEXT]", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-042a.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Calm Rune", "printings": [{"banned": false, "card_code": "VEN-R02a", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-R02a.webp", "promo": false, "rarity": "Showcase", "set_code": null, "set_name": "Vendetta"}, {"banned": false, "card_code": "UNL-R02a", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-R02a.webp", "promo": false, "rarity": "Showcase", "set_code": null, "set_name": "Unleashed"}, {"banned": false, "card_code": "SFD-R02a", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-R02a.webp", "promo": false, "rarity": "Showcase", "set_code": null, "set_name": "Spiritforged"}, {"banned": false, "card_code": "OGN-042a", "card_number": "042", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-042a.webp", "promo": false, "rarity": "Showcase", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "UNL-R02b", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-R02b.webp", "promo": true, "rarity": "Showcase", "set_code": null, "set_name": "Unleashed"}, {"banned": false, "card_code": "SFD-R02b", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-R02b.webp", "promo": true, "rarity": "Showcase", "set_code": null, "set_name": "Spiritforged"}, {"banned": false, "card_code": "OGN-042b", "card_number": "042", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-042b.webp", "promo": true, "rarity": "Showcase", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "VEN-R02", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-R02.webp", "promo": false, "rarity": "Common", "set_code": null, "set_name": "Vendetta"}, {"banned": false, "card_code": "UNL-R02", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-R02.webp", "promo": false, "rarity": "Common", "set_code": null, "set_name": "Unleashed"}, {"banned": false, "card_code": "SFD-R02", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-R02.webp", "promo": false, "rarity": "Common", "set_code": null, "set_name": "Spiritforged"}, {"banned": false, "card_code": "OGN-042", "card_number": "042", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-042.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "VEN-R02b-P", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-R02.webp", "promo": true, "rarity": "Common", "set_code": null, "set_name": "Vendetta"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": null, "set_name": "Vendetta"}, {"card_code": "VEN-R03", "card_number": null, "card_type": "Runes", "colors": ["Mind"], "cost": null, "description": "[NO TEXT]", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-089a.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Mind Rune", "printings": [{"banned": false, "card_code": "VEN-R03a", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-R03a.webp", "promo": false, "rarity": "Showcase", "set_code": null, "set_name": "Vendetta"}, {"banned": false, "card_code": "UNL-R03a", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-R03a.webp", "promo": false, "rarity": "Showcase", "set_code": null, "set_name": "Unleashed"}, {"banned": false, "card_code": "SFD-R03a", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-R03a.webp", "promo": false, "rarity": "Showcase", "set_code": null, "set_name": "Spiritforged"}, {"banned": false, "card_code": "OGN-089a", "card_number": "089", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-089a.webp", "promo": false, "rarity": "Showcase", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "UNL-R03b", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-R03b.webp", "promo": true, "rarity": "Showcase", "set_code": null, "set_name": "Unleashed"}, {"banned": false, "card_code": "SFD-R03b", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-R03b.webp", "promo": true, "rarity": "Showcase", "set_code": null, "set_name": "Spiritforged"}, {"banned": false, "card_code": "OGN-089b", "card_number": "089", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-089b.webp", "promo": true, "rarity": "Showcase", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "VEN-R03", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-R03.webp", "promo": false, "rarity": "Common", "set_code": null, "set_name": "Vendetta"}, {"banned": false, "card_code": "UNL-R03", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-R03.webp", "promo": false, "rarity": "Common", "set_code": null, "set_name": "Unleashed"}, {"banned": false, "card_code": "SFD-R03", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-R03.webp", "promo": false, "rarity": "Common", "set_code": null, "set_name": "Spiritforged"}, {"banned": false, "card_code": "OGN-089", "card_number": "089", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-089.webp", "promo": false, "rarity": "Common", "set_code": "OGN", "set_name": "Origins"}, {"banned": false, "card_code": "VEN-R03b-P", "card_number": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-R03.webp", "promo": true, "rarity": "Common", "set_code": null, "set_name": "Vendetta"}], "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": null, "set_name": "Vendetta"}, {"card_code": "VEN-040", "card_number": "040", "card_type": "Sideboard", "colors": ["Calm"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eChoose a friendly unit that\u0026#x27;s in combat with an enemy Fury (\u003cimg src=\"static/img/domains/Fury.webp\" alt=\"Fury\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e) unit or that\u0026#x27;s being chosen by an enemy Fury spell. Give it +4 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-040.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Decree of Focus", "printings": [{"banned": false, "card_code": "VEN-040", "card_number": "040", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-040.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "VEN-061", "card_number": "061", "card_type": "Sideboard", "colors": ["Mind"], "cost": 1, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eIgnore \u003cimg src=\"static/img/keywords/deflect.svg\" alt=\"Deflect\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e while paying this spell\u0026#x27;s cost.\u003cbr\u003eGive an enemy Body (\u003cimg src=\"static/img/domains/Body.webp\" alt=\"Body\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e) unit -5 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.", "flavor": "Force is artless. Be inspired.", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-061.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Decree of Insight", "printings": [{"banned": false, "card_code": "VEN-061", "card_number": "061", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-061.webp", "promo": false, "rarity": "Rare", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Rare", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "UNL-190", "card_number": "190", "card_type": "Sideboard", "colors": ["Calm", "Mind"], "cost": 2, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve.)\u003cbr\u003eCounter a spell. Its controller can\u0026#x27;t play spells this turn.", "flavor": "\u201cSleepy time!\u201d  \n\u2014Lillia", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-190.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Lilting Lullaby", "printings": [{"banned": false, "card_code": "UNL-190", "card_number": "190", "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-190.webp", "promo": false, "rarity": "Epic", "set_code": "UNL", "set_name": "Unleashed"}], "promo": false, "rarity": "Epic", "rune_cost": 2, "set_code": "UNL", "set_name": "Unleashed"}, {"card_code": "OGN-060", "card_number": "060", "card_type": "Sideboard", "colors": ["Calm"], "cost": 2, "description": "When a friendly unit attacks or defends alone, give it +1 \u003cimg src=\"static/img/icons/might.webp\" alt=\"Might\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e this turn.", "flavor": "To know the future, you must first accept it.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-060.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Mask of Foresight", "printings": [{"banned": false, "card_code": "OGN-060", "card_number": "060", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-060.webp", "promo": false, "rarity": "Uncommon", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"card_code": "SFD-053", "card_number": "053", "card_type": "Sideboard", "colors": ["Calm"], "cost": 3, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Play any time, even before spells and abilities resolve, including to a battlefield you control.)\u003cbr\u003eWhen you play me, heal your units here, then move an enemy unit from here to its base.", "flavor": "\u201cGale winds unleashed!\u201d", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-053.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Janna, Savior", "printings": [{"banned": false, "card_code": "SFD-053", "card_number": "053", "image_url": "https://static.dotgg.gg/riftbound/cards/SFD-053.webp", "promo": false, "rarity": "Rare", "set_code": "SFD", "set_name": "Spiritforged"}], "promo": false, "rarity": "Rare", "rune_cost": 1, "set_code": "SFD", "set_name": "Spiritforged"}, {"card_code": "VEN-037", "card_number": "037", "card_type": "Sideboard", "colors": ["Calm"], "cost": 4, "description": "When you play me, if you control 7 or more runes, choose an enemy gear. If it\u0026#x27;s \u003cimg src=\"static/img/keywords/empowered.svg\" alt=\"Empowered\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e, disempower it. Otherwise, kill it.", "flavor": "Wait for her signal. Don\u0026#x27;t worry, you\u0026#x27;ll know.", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-037.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Tomb-Raider Barbara", "printings": [{"banned": false, "card_code": "VEN-037", "card_number": "037", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-037.webp", "promo": false, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}, {"banned": false, "card_code": "VEN-037-P", "card_number": "037", "image_url": "https://static.dotgg.gg/riftbound/cards/VEN-037.webp", "promo": true, "rarity": "Uncommon", "set_code": "VEN", "set_name": "Vendetta"}], "promo": false, "rarity": "Uncommon", "rune_cost": 0, "set_code": "VEN", "set_name": "Vendetta"}, {"card_code": "OGN-123", "card_number": "123", "card_type": "Sideboard", "colors": ["Mind"], "cost": 7, "description": "Exhaust all friendly units, then deal 12 to ALL units at battlefields.", "flavor": "That\u2019s enough.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-123.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Unchecked Power", "printings": [{"banned": false, "card_code": "OGN-123", "card_number": "123", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-123.webp", "promo": false, "rarity": "Epic", "set_code": "OGN", "set_name": "Origins"}], "promo": false, "rarity": "Epic", "rune_cost": 2, "set_code": "OGN", "set_name": "Origins"}, {"_idx": 30, "card_code": "OGN-274", "card_number": "274", "card_type": "Token", "colors": ["Colorless"], "cost": 0, "description": "\u003cimg src=\"static/img/keywords/temporary.svg\" alt=\"Temporary\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e (Kill me at the start of your Beginning Phase, before scoring.)", "flavor": "Dreams rarely linger, but the dreamer is still changed.", "image_url": "https://static.dotgg.gg/riftbound/cards/OGN-274.webp", "landscape": false, "legality": "Legal", "might": 3, "name": "Sprite", "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": "OGN", "set_name": "Origins"}, {"_idx": 31, "card_code": "UNL-T05x", "card_number": null, "card_type": "Token", "colors": ["Colorless"], "cost": 0, "description": "\u003cimg src=\"static/img/keywords/reaction.svg\" alt=\"Reaction\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e Kill this, \u003cimg src=\"static/img/icons/tap.webp\" alt=\"Exhaust\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e: \u003cimg src=\"static/img/keywords/add.svg\" alt=\"Add\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e \u003cimg src=\"static/img/icons/rune.webp\" alt=\"Rune\" style=\"height:1.1em;width:auto;vertical-align:middle;display:inline-block\"\u003e. (Abilities that add resources can\u0026#x27;t be reacted to.)", "flavor": null, "image_url": "https://static.dotgg.gg/riftbound/cards/UNL-T05x.webp", "landscape": false, "legality": "Legal", "might": null, "name": "Gold", "promo": false, "rarity": "Common", "rune_cost": 0, "set_code": null, "set_name": "Unleashed"}]</script>
+<script type="application/json" id="export-text-data">"Legend:\n1 Lillia, Bashful Bloom\n\nChampion:\n1 Lillia, Fae Fawn\n\nMainDeck:\n3 Patched Porobot\n3 Scuttle Crab\n1 Tomb-Raider Barbara\n3 Hwei, Brooding Painter\n2 Thousand-Tailed Watcher\n2 Guardian Angel\n3 Sprite Fountain\n1 Charm\n3 Defy\n2 En Garde\n3 Stupefy\n3 Discipline\n2 Emperor\u0027s Divide\n2 Resonating Strike\n3 Smoke and Mirrors\n3 Sprite Burst\n\nBattlefields:\n1 Forbidding Waste\n1 Seat of Power\n1 Treasure Hoard\n\nRunes:\n5 Calm Rune\n7 Mind Rune\n\nSideboard:\n2 Decree of Focus\n2 Decree of Insight\n1 Lilting Lullaby\n1 Mask of Foresight\n1 Janna, Savior\n2 Tomb-Raider Barbara\n1 Unchecked Power\n"</script>
+<script type="application/json" id="export-locator-text-data">"Legend:\n1 Lillia, Bashful Bloom\nChampion:\n1 Lillia, Fae Fawn\n\nBattlefield:\n1 Forbidding Waste\n1 Seat of Power\n1 Treasure Hoard\n\nRunes:\n5 Calm Rune\n7 Mind Rune\n\nMain Deck:\n3 Patched Porobot\n3 Scuttle Crab\n1 Tomb-Raider Barbara\n3 Hwei, Brooding Painter\n2 Thousand-Tailed Watcher\n2 Guardian Angel\n3 Sprite Fountain\n1 Charm\n3 Defy\n2 En Garde\n3 Stupefy\n3 Discipline\n2 Emperor\u0027s Divide\n2 Resonating Strike\n3 Smoke and Mirrors\n3 Sprite Burst\n\nSideboard:\n2 Decree of Focus\n2 Decree of Insight\n1 Lilting Lullaby\n1 Mask of Foresight\n1 Janna, Savior\n2 Tomb-Raider Barbara\n1 Unchecked Power\n"</script>
+<script type="application/json" id="export-tts-data">"UNL-189-1 UNL-082-1 VEN-058-1 VEN-058-1 VEN-058-1 UNL-053-1 UNL-053-1 UNL-053-1 VEN-037-1 UNL-080-1 UNL-080-1 UNL-080-1 OGN-116-1 OGN-116-1 SFD-051-1 SFD-051-1 UNL-078-1 UNL-078-1 UNL-078-1 OGN-043-1 OGN-045-1 OGN-045-1 OGN-045-1 OGN-046-1 OGN-046-1 OGN-095-1 OGN-095-1 OGN-095-1 OGN-058-1 OGN-058-1 OGN-058-1 SFD-043-1 SFD-043-1 VEN-034-1 VEN-034-1 UNL-083-1 UNL-083-1 UNL-083-1 UNL-069-1 UNL-069-1 UNL-069-1 UNL-210-1 SFD-217-1 SFD-220-1 VEN-040-1 VEN-040-1 VEN-061-1 VEN-061-1 UNL-190-1 OGN-060-1 SFD-053-1 VEN-037-1 VEN-037-1 OGN-123-1"</script>
+
+
+<script>
+(function () {
+  const exportTrigger = document.getElementById('export-trigger');
+  const exportPanel = document.getElementById('export-menu-panel');
+  const exportText = JSON.parse(document.getElementById('export-text-data').textContent);
+  const exportLocatorText = JSON.parse(document.getElementById('export-locator-text-data').textContent);
+  const exportTts = JSON.parse(document.getElementById('export-tts-data').textContent);
+
+  // A single shared timeout (not one per copy click) so a stale pending
+  // hide/label-revert from an earlier click can never fire mid-way through
+  // a later interaction and yank the menu shut under it.
+  let hideTimeout = null;
+
+  exportTrigger.addEventListener('click', function (e) {
+    e.stopPropagation();
+    clearTimeout(hideTimeout);
+    exportPanel.hidden = !exportPanel.hidden;
+  });
+  document.addEventListener('click', function () {
+    clearTimeout(hideTimeout);
+    exportPanel.hidden = true;
+  });
+  // Without this, a click on an item bubbles up to the document listener
+  // above and closes the menu instantly - before the user ever sees the
+  // "Copied!" feedback below.
+  exportPanel.addEventListener('click', function (e) { e.stopPropagation(); });
+
+  function wireCopyButton(id, getText) {
+    const btn = document.getElementById(id);
+    const label = btn.querySelector('.export-menu-item-label');
+    btn.addEventListener('click', function () {
+      navigator.clipboard.writeText(getText()).then(function () {
+        const original = label.textContent;
+        label.textContent = 'Copied!';
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(function () {
+          label.textContent = original;
+          exportPanel.hidden = true;
+        }, 900);
+      });
+    });
+  }
+  wireCopyButton('export-link-btn', function () { return location.origin + location.pathname; });
+  wireCopyButton('export-text-btn', function () { return exportText; });
+  wireCopyButton('export-locator-text-btn', function () { return exportLocatorText; });
+  wireCopyButton('export-tts-btn', function () { return exportTts; });
+
+  const proxyOverlay = document.getElementById('proxy-progress-overlay');
+  const proxyTitle = document.getElementById('proxy-progress-title');
+  const proxyFill = document.getElementById('proxy-progress-fill');
+  const proxyPct = document.getElementById('proxy-progress-pct');
+  const proxyCancelBtn = document.getElementById('proxy-progress-cancel');
+
+  function setProxyProgress(fraction) {
+    const pct = Math.round(fraction * 100);
+    proxyFill.style.width = pct + '%';
+    proxyPct.textContent = pct + '%';
+  }
+
+  document.getElementById('export-proxies-btn').addEventListener('click', function () {
+    exportPanel.hidden = true;
+    proxyTitle.textContent = 'Creating PDF…';
+    proxyCancelBtn.textContent = 'Cancel';
+    setProxyProgress(0);
+    proxyOverlay.hidden = false;
+
+    fetch(location.pathname + '/proxies/start', { method: 'POST' })
+      .then(function (r) { return r.json(); })
+      .then(function (data) { pollProxyProgress(data.job_id); })
+      .catch(function () { showProxyError('Could not start the export.'); });
+  });
+
+  function pollProxyProgress(jobId) {
+    const poll = setInterval(function () {
+      fetch('/proxies/' + jobId + '/progress')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          setProxyProgress(data.progress || 0);
+          if (!data.done) return;
+          clearInterval(poll);
+          if (data.error) {
+            showProxyError(data.error);
+            return;
+          }
+          setProxyProgress(1);
+          proxyTitle.textContent = 'Done';
+          // A plain navigation (not fetch) so the browser's own download
+          // handling kicks in from the Content-Disposition header, instead
+          // of pulling the PDF bytes into a JS-managed blob for no reason.
+          window.location.href = '/proxies/' + jobId + '/download';
+          setTimeout(function () { proxyOverlay.hidden = true; }, 600);
+        })
+        .catch(function () {
+          clearInterval(poll);
+          showProxyError('Lost connection while building the PDF.');
+        });
+    }, 500);
+  }
+
+  function showProxyError(message) {
+    proxyTitle.textContent = message;
+    proxyCancelBtn.textContent = 'Close';
+  }
+
+  proxyCancelBtn.addEventListener('click', function () { proxyOverlay.hidden = true; });
+
+  document.querySelectorAll('.tab-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-panel').forEach(function (p) { p.style.display = 'none'; });
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).style.display = '';
+    });
+  });
+})();
+
+(function () {
+  const pool = JSON.parse(document.getElementById('deck-pool').textContent);
+  const handEl = document.getElementById('hand-display');
+  const drawBtn = document.getElementById('draw-hand-btn');
+  const mulliganBtn = document.getElementById('mulligan-btn');
+
+  let deck = [];
+  let hand = [];
+  let selected = new Set();
+
+  function buildDeck() {
+    const d = [];
+    pool.forEach(function (c, ci) {
+      for (let i = 0; i < c.count; i++) d.push(Object.assign({}, c, { uid: ci + '-' + i }));
+    });
+    return d;
+  }
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  function render() {
+    handEl.innerHTML = '';
+    hand.forEach(function (c) {
+      const tile = document.createElement('div');
+      tile.className = 'card-tile' + (selected.has(c.uid) ? ' selected' : '');
+      tile.title = c.name + (c.cost !== null && c.cost !== undefined ? ' · ' + c.cost + ' Energy' : '');
+      const imgWrap = document.createElement('div');
+      imgWrap.className = 'card-tile-img-wrap' + (c.banned ? ' card-tile-banned' : '');
+      if (c.image_url) {
+        const img = document.createElement('img');
+        img.src = c.image_url; img.alt = c.name; img.loading = 'lazy';
+        imgWrap.appendChild(img);
+      } else {
+        const ph = document.createElement('div');
+        ph.className = 'card-tile-noimg'; ph.textContent = c.name;
+        imgWrap.appendChild(ph);
+      }
+      if (c.card_code) {
+        const infoBtn = document.createElement('button');
+        infoBtn.type = 'button';
+        infoBtn.className = 'card-info-btn';
+        infoBtn.title = 'View card info';
+        infoBtn.textContent = 'i';
+        infoBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          window.openCardByCode(c.card_code);
+        });
+        imgWrap.appendChild(infoBtn);
+      }
+      tile.appendChild(imgWrap);
+      const cap = document.createElement('div');
+      cap.className = 'card-tile-caption'; cap.textContent = c.name;
+      tile.appendChild(cap);
+      tile.addEventListener('click', function () {
+        if (selected.has(c.uid)) selected.delete(c.uid);
+        else if (selected.size < 2) selected.add(c.uid);
+        render();
+      });
+      handEl.appendChild(tile);
+    });
+    mulliganBtn.style.display = hand.length ? '' : 'none';
+    mulliganBtn.textContent = selected.size ? 'Mulligan (' + selected.size + ')' : 'Mulligan (pick up to 2 cards)';
+    mulliganBtn.disabled = selected.size === 0;
+  }
+
+  drawBtn.addEventListener('click', function () {
+    deck = shuffle(buildDeck());
+    hand = deck.splice(0, 4);
+    selected = new Set();
+    render();
+  });
+
+  mulliganBtn.addEventListener('click', function () {
+    const keep = hand.filter(function (c) { return !selected.has(c.uid); });
+    const setAside = hand.filter(function (c) { return selected.has(c.uid); });
+    deck = deck.concat(setAside);
+    shuffle(deck);
+    const drawn = deck.splice(0, setAside.length);
+    hand = keep.concat(drawn);
+    selected = new Set();
+    render();
+  });
+})();
+</script>
+
+
+</main>
+
+<div class="card-modal-overlay" id="card-modal-overlay" hidden>
+  <div class="card-modal" role="dialog" aria-modal="true" aria-labelledby="card-modal-title">
+    <div class="card-modal-header">
+      <button type="button" class="card-modal-versions-btn" id="card-modal-versions-btn">View versions</button>
+      <button type="button" class="card-modal-close" id="card-modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="card-modal-body" id="card-modal-body">
+      <div class="card-modal-art-col">
+        <button type="button" class="card-modal-flip-btn" id="card-modal-flip-btn" title="Flip card" hidden>⟲</button>
+        <div class="card-modal-tilt" id="card-modal-tilt">
+          <div class="card-modal-flip-inner" id="card-modal-flip-inner">
+            <img class="card-modal-art" id="card-modal-img" alt="">
+            <img class="card-modal-art card-modal-art-back" id="card-modal-img-back" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="card-modal-info">
+        <div class="card-modal-title-row">
+          <h2 id="card-modal-title"></h2>
+          <span class="card-modal-domains" id="card-modal-domains"></span>
+        </div>
+        <div>
+          <div class="card-modal-field-label">Effect</div>
+          <div class="card-modal-field-value" id="card-modal-effect"></div>
+        </div>
+        <div id="card-modal-flavor-wrap">
+          <div class="card-modal-field-label">Flavor</div>
+          <div class="card-modal-field-value card-modal-flavor" id="card-modal-flavor"></div>
+        </div>
+        <div class="card-modal-grid">
+          <div id="card-modal-cost-wrap"><div class="card-modal-field-label">Cost</div><div class="card-modal-field-value" id="card-modal-cost"></div></div>
+          <div id="card-modal-might-wrap"><div class="card-modal-field-label">Might</div><div class="card-modal-field-value" id="card-modal-might"></div></div>
+        </div>
+        <div class="card-modal-grid">
+          <div><div class="card-modal-field-label">Set</div><div class="card-modal-field-value" id="card-modal-set"></div></div>
+          <div><div class="card-modal-field-label">Card Number</div><div class="card-modal-field-value" id="card-modal-number"></div></div>
+          <div><div class="card-modal-field-label">Rarity</div><div class="card-modal-field-value" id="card-modal-rarity"></div></div>
+          <div><div class="card-modal-field-label">Promo</div><div class="card-modal-field-value" id="card-modal-promo"></div></div>
+          <div><div class="card-modal-field-label">Legality</div><div class="card-modal-field-value" id="card-modal-legality"></div></div>
+          <div><div class="card-modal-field-label">Card type</div><div class="card-modal-field-value" id="card-modal-type"></div></div>
+        </div>
+      </div>
+      <div id="card-modal-token-section" hidden>
+        <hr class="card-modal-token-divider">
+        <div class="card-modal-tokens" id="card-modal-tokens"></div>
+      </div>
+    </div>
+    <div class="card-modal-versions" id="card-modal-versions">
+      <div class="card-modal-versions-section">
+        <div class="card-modal-versions-title">All versions</div>
+        <div class="card-modal-printings-grid" id="card-modal-printings-grid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Stamps a fresh epoch into localStorage and reloads. Called by the Data
+// tab's own button (see about.html) - deliberately not exposed anywhere
+// else, this is a one-off force-refresh escape hatch, not something meant
+// to be used casually from every screen. Honored on every OTHER page too,
+// not just the one it's clicked from: this is a static export with no
+// service worker, so the only way to guarantee a stale cached page (GitHub
+// Pages sends Cache-Control:
+// max-age=600) gets a real network fetch instead of serving the old copy is
+// to navigate to a URL variant that was never cached before. The first page
+// load anywhere that doesn't yet carry the current epoch in its own URL
+// redirects once (via replace(), so it doesn't add a back-button stop) to a
+// copy of itself with ?_cb=<epoch> appended - a brand new cache key, so it's
+// always a real fetch. Once a page's URL carries the current epoch this is a
+// no-op, so it only ever redirects once per page per click.
+// fetch(..., {cache:'reload'}) has real, spec-defined "skip the cache check,
+// go straight to network, then overwrite the cache entry with what came
+// back" semantics - stronger than just hoping a new URL forces a real fetch
+// (which some WebView builds don't honor as reliably as a desktop browser).
+// Its result is thrown away on purpose: the point isn't this fetch's HTML,
+// it's that it leaves a fresh copy sitting in cache for the navigation
+// right after it to actually find.
+async function _warmFreshCache(path) {
+  try { await fetch(path, { cache: 'reload' }); } catch (e) { /* offline etc. - fall through to the redirect anyway */ }
+}
+async function forceRefreshApp() {
+  localStorage.setItem('forceRefreshEpoch', Date.now().toString());
+  await _warmFreshCache(location.pathname + location.search);
+  location.reload();
+}
+(function () {
+  const epoch = localStorage.getItem('forceRefreshEpoch');
+  if (!epoch) return;
+  if (new URLSearchParams(location.search).get('_cb') === epoch) return;
+  const url = new URL(location.href);
+  url.searchParams.set('_cb', epoch);
+  _warmFreshCache(url.toString()).then(function () { location.replace(url.toString()); });
+})();
+
+// Generic click-to-sort for any <table class="sortable">. Headers opt in with
+// data-type="number|text"; a <td> can override its sort key via data-sort
+// (e.g. "62.3" for a "62.3% (21)" cell, or "" for a "—" placeholder so it
+// consistently sorts to one end instead of wherever string comparison puts it).
+(function () {
+  function cellSortValue(td, type) {
+    const raw = td.hasAttribute('data-sort') ? td.getAttribute('data-sort') : td.textContent.trim();
+    if (type === 'number') {
+      const n = parseFloat(raw.replace(/[^0-9.\-]/g, ''));
+      return isNaN(n) ? -Infinity : n;
+    }
+    return raw.toLowerCase();
+  }
+
+  document.querySelectorAll('table.sortable').forEach(function (table) {
+    // Real position among ALL <th> (not just sortable ones) - some columns
+    // (e.g. domain badges) have no data-type but still occupy a <td> slot,
+    // so filtering headers first would desync colIndex from row.cells[].
+    const allHeaders = Array.from(table.querySelectorAll('th'));
+    const sortableHeaders = allHeaders.filter(function (h) { return h.dataset.type; });
+
+    function applySort(th, dir) {
+      const colIndex = allHeaders.indexOf(th);
+      const type = th.dataset.type;
+      const asc = dir === 'asc';
+      sortableHeaders.forEach(function (h) {
+        h.classList.remove('sorted');
+        delete h.dataset.dir;
+      });
+      th.classList.add('sorted');
+      th.dataset.dir = dir;
+
+      const tbody = table.tBodies[0];
+      const rows = Array.from(tbody.rows);
+      rows.sort(function (r1, r2) {
+        const v1 = cellSortValue(r1.cells[colIndex], type);
+        const v2 = cellSortValue(r2.cells[colIndex], type);
+        if (v1 < v2) return asc ? -1 : 1;
+        if (v1 > v2) return asc ? 1 : -1;
+        return 0;
+      });
+      rows.forEach(function (r) { tbody.appendChild(r); });
+    }
+
+    // Exposed so page-specific scripts can force a default sort (e.g. Card
+    // Stats re-sorting when the active Zone changes) without duplicating
+    // this logic.
+    table.applySort = applySort;
+
+    sortableHeaders.forEach(function (th) {
+      th.addEventListener('click', function () {
+        applySort(th, th.dataset.dir !== 'asc' ? 'asc' : 'desc');
+      });
+    });
+  });
+})();
+
+// Generic pagination for any <table data-paginate="N"> - shows N rows per
+// page with Prev/Next controls appended right after the table. Rows are
+// paginated by DOM order, so it plays nicely with the sortable script above:
+// a header click reorders rows first (its own listener runs before this
+// one, since this one is attached after), then this resets to page 1 so
+// what you see is page 1 of the NEW order, not stale row identities.
+//
+// A page with its own search/filter box (decks.html, tournaments.html)
+// already toggles row visibility for "doesn't match the filter" - if this
+// used the same style.display switch for "not on the current page", the
+// two would fight over the same property with no way to tell "filtered
+// out" from "just a different page" apart. Those filters mark a
+// non-matching row with the .filter-hidden CLASS instead (never touching
+// style.display themselves) and dispatch 'paginate:refresh' on the table
+// after; this only ever paginates over rows NOT in that set, and owns
+// style.display exclusively for the rows that pass the filter.
+(function () {
+  document.querySelectorAll('table[data-paginate]').forEach(function (table) {
+    const pageSize = parseInt(table.dataset.paginate, 10);
+    const tbody = table.tBodies[0];
+    let page = 1;
+
+    // By default the nav goes right after the table itself, but a table
+    // nested inside its own bordered box (e.g. a pairings-box) can point
+    // this at that box's selector so the nav lands below the box instead
+    // of squeezed inside its bottom padding.
+    const anchor = table.dataset.paginateAfter ? table.closest(table.dataset.paginateAfter) : table;
+    const nav = document.createElement('div');
+    nav.className = 'table-pagination';
+    anchor.parentNode.insertBefore(nav, anchor.nextSibling);
+
+    function render() {
+      const allRows = Array.from(tbody.rows);
+      const rows = allRows.filter(function (r) { return !r.classList.contains('filter-hidden'); });
+      const totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
+      page = Math.min(Math.max(page, 1), totalPages);
+      rows.forEach(function (r, i) {
+        r.style.display = (i >= (page - 1) * pageSize && i < page * pageSize) ? '' : 'none';
+      });
+      nav.innerHTML = '';
+      if (totalPages <= 1) return;
+      const prev = document.createElement('button');
+      prev.type = 'button';
+      prev.textContent = '← Prev';
+      prev.disabled = page === 1;
+      prev.addEventListener('click', function () { page--; render(); });
+      const info = document.createElement('span');
+      info.className = 'table-pagination-info';
+      info.textContent = 'Page ' + page + ' of ' + totalPages;
+      const next = document.createElement('button');
+      next.type = 'button';
+      next.textContent = 'Next →';
+      next.disabled = page === totalPages;
+      next.addEventListener('click', function () { page++; render(); });
+      nav.appendChild(prev);
+      nav.appendChild(info);
+      nav.appendChild(next);
+    }
+
+    table.querySelectorAll('th[data-type]').forEach(function (th) {
+      th.addEventListener('click', function () { page = 1; render(); });
+    });
+
+    // Fired by a page's own filter/search logic after it updates which
+    // rows carry .filter-hidden - resets to page 1 since a new search
+    // changes the result count, not just row order.
+    table.addEventListener('paginate:refresh', function () { page = 1; render(); });
+
+    render();
+  });
+})();
+
+// Generic reordering for any <div class="filter-panel"> that has a search
+// box in it: checked options float to the top, unchecked ones stay below in
+// their existing (server-rendered alphabetical) order. Filter-panels with no
+// search box (e.g. Tournament Size) are short enough not to need this.
+(function () {
+  document.querySelectorAll('.filter-panel').forEach(function (panel) {
+    if (!panel.querySelector('.panel-search')) return;
+    const checkboxes = panel.querySelectorAll('input[type="checkbox"], input[type="radio"]');
+    function reorder() {
+      const labels = Array.from(panel.querySelectorAll('label'));
+      const checked = labels.filter(function (l) { return l.querySelector('input').checked; });
+      const unchecked = labels.filter(function (l) { return !l.querySelector('input').checked; });
+      checked.concat(unchecked).forEach(function (l) { panel.appendChild(l); });
+    }
+    checkboxes.forEach(function (cb) { cb.addEventListener('change', reorder); });
+  });
+})();
+
+// Generic type-to-filter for any <input class="panel-search"> - narrows the
+// <label> siblings inside its .filter-panel by substring match.
+(function () {
+  document.querySelectorAll('.panel-search').forEach(function (input) {
+    input.addEventListener('input', function () {
+      const term = input.value.trim().toLowerCase();
+      input.parentElement.querySelectorAll('label').forEach(function (label) {
+        label.style.display = label.textContent.toLowerCase().includes(term) ? '' : 'none';
+      });
+    });
+  });
+})();
+
+// Generic open/close behavior for any <details class="filter-group">:
+// opening one closes the others, a click inside the panel doesn't bubble up
+// and close it, and clicking outside any of them closes whichever is open.
+(function () {
+  const filterGroups = Array.from(document.querySelectorAll('.filter-group'));
+  if (!filterGroups.length) return;
+  document.querySelectorAll('.filter-panel').forEach(function (panel) {
+    panel.addEventListener('click', function (e) { e.stopPropagation(); });
+  });
+  filterGroups.forEach(function (group) {
+    group.addEventListener('toggle', function () {
+      if (group.open) {
+        filterGroups.forEach(function (other) {
+          if (other !== group) other.open = false;
+        });
+      }
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.filter-group')) {
+      filterGroups.forEach(function (group) { group.open = false; });
+    }
+  });
+})();
+
+// Generic "clickable row" navigation for any element with a [data-href]
+// attribute (legend-row, card-row, deck-row, ...) - delegated on document so
+// every page gets it for free instead of each script wiring its own rows.
+// Plain click navigates in place; Ctrl/Cmd/Shift+click or a middle-click
+// (auxclick, button 1) opens in a new tab, matching how a real <a> behaves -
+// clicks landing on an actual <a> inside the row are left alone either way.
+(function () {
+  function clickableRow(e) {
+    const row = e.target.closest('[data-href]');
+    return row && !e.target.closest('a') ? row : null;
+  }
+  document.addEventListener('click', function (e) {
+    const row = clickableRow(e);
+    if (!row) return;
+    if (e.ctrlKey || e.metaKey || e.shiftKey) {
+      window.open(row.dataset.href, '_blank');
+    } else {
+      window.location.href = row.dataset.href;
+    }
+  });
+  document.addEventListener('auxclick', function (e) {
+    if (e.button !== 1) return;
+    const row = clickableRow(e);
+    if (!row) return;
+    e.preventDefault();
+    window.open(row.dataset.href, '_blank');
+  });
+  // Middle-click's own default (autoscroll mode) engages on mousedown, before
+  // auxclick ever fires on mouseup - without blocking it here first, the
+  // browser eats the gesture as a scroll-drag instead of letting the row open.
+  document.addEventListener('mousedown', function (e) {
+    if (e.button === 1 && clickableRow(e)) e.preventDefault();
+  });
+})();
+
+// Shared zoomable card-detail popup (see .card-modal-* markup above) - any
+// page opts in by giving its .card-tile elements a data-idx and embedding a
+// #card-details-data JSON script tag in that same order. A page with neither
+// is a no-op here.
+// Root-absolute on the live Flask app; a static (non-Flask) export of this
+// page needs to rewrite this one literal to wherever it placed static/
+// instead (same trick as MATRIX_DATA_BASE in index.html) - every dynamic
+// icon.src built below reads through this constant specifically so there's
+// one place to rewrite, not one per call site.
+const STATIC_BASE = 'static/';
+// Same deal as STATIC_BASE, for the one spot (Matrix table rebuild, see
+// index.html) that constructs a /legend/<name> link in JS instead of Jinja -
+// a static export rewrites this whole function body to the slugified
+// legend-<slug>.html filename it wrote that page under (see
+// _legend_filename() in mobile_export.py, which this must stay identical to).
+function legendHref(name) {
+  return 'legend-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') + '.html';
+}
+const CARD_TYPE_ICONS = {
+  Unit: 'unit',
+  'Champion Unit': 'unit',
+  Spell: 'spell',
+  'Signature Spell': 'spell',
+  Legend: 'legend',
+  Battlefield: 'battlefield',
+  Runes: 'rune',
+  Gear: 'gear',
+};
+
+const RARITY_ICONS = {
+  Common: 'common',
+  Uncommon: 'uncommon',
+  Rare: 'rare',
+  Epic: 'epic',
+  Showcase: 'showcase',
+};
+
+function iconedText(container, text, iconMap, iconBaseUrl) {
+  container.innerHTML = '';
+  if (text && iconMap[text]) {
+    const icon = document.createElement('img');
+    icon.src = iconBaseUrl + iconMap[text] + '.webp?width=32';
+    icon.alt = '';
+    icon.style.cssText = 'width:16px;height:16px;vertical-align:-3px;margin-right:5px';
+    container.appendChild(icon);
+  }
+  container.appendChild(document.createTextNode(text || '—'));
+}
+
+(function () {
+  const dataEl = document.getElementById('card-details-data');
+  const tiles = Array.from(document.querySelectorAll('[data-idx]'));
+  if (!dataEl || !tiles.length) return;
+  const cards = JSON.parse(dataEl.textContent);
+
+  const overlay = document.getElementById('card-modal-overlay');
+  const img = document.getElementById('card-modal-img');
+  const imgBack = document.getElementById('card-modal-img-back');
+  const tiltEl = document.getElementById('card-modal-tilt');
+  const flipInner = document.getElementById('card-modal-flip-inner');
+  const artCol = document.querySelector('.card-modal-art-col');
+  const els = {
+    title: document.getElementById('card-modal-title'),
+    effect: document.getElementById('card-modal-effect'),
+    flavorWrap: document.getElementById('card-modal-flavor-wrap'),
+    flavor: document.getElementById('card-modal-flavor'),
+    set: document.getElementById('card-modal-set'),
+    number: document.getElementById('card-modal-number'),
+    rarity: document.getElementById('card-modal-rarity'),
+    costWrap: document.getElementById('card-modal-cost-wrap'),
+    cost: document.getElementById('card-modal-cost'),
+    mightWrap: document.getElementById('card-modal-might-wrap'),
+    might: document.getElementById('card-modal-might'),
+    promo: document.getElementById('card-modal-promo'),
+    legality: document.getElementById('card-modal-legality'),
+    type: document.getElementById('card-modal-type'),
+    domains: document.getElementById('card-modal-domains'),
+  };
+  const body = document.getElementById('card-modal-body');
+  const versionsBtn = document.getElementById('card-modal-versions-btn');
+  const versionsPanel = document.getElementById('card-modal-versions');
+  const printingsGrid = document.getElementById('card-modal-printings-grid');
+  const flipBtn = document.getElementById('card-modal-flip-btn');
+  const tokenSection = document.getElementById('card-modal-token-section');
+  const tokensList = document.getElementById('card-modal-tokens');
+
+  let current = 0;
+  let showingBack = false;
+
+  function closeVersions() {
+    versionsPanel.classList.remove('open');
+    body.style.display = '';
+    versionsBtn.textContent = 'View versions';
+  }
+
+  // Sets every field specific to ONE face's own identity (name, effect,
+  // flavor, might, type, domains) - called with the front face on open and
+  // with the back face on flip, so a dual-faced token's text always
+  // matches whichever face is actually showing, not just its image.
+  // Set/Card Number/Rarity/Promo/Legality/Cost describe the physical
+  // printing as a whole (shared by both faces) and are set once in show(),
+  // not here.
+  function applyFace(face) {
+    els.title.textContent = face.name;
+    els.effect.innerHTML = face.description || '—';
+    if (face.flavor) {
+      els.flavorWrap.style.display = '';
+      els.flavor.innerHTML = face.flavor;
+    } else {
+      els.flavorWrap.style.display = 'none';
+    }
+    if (face.might !== null && face.might !== undefined) {
+      els.mightWrap.style.display = '';
+      els.might.innerHTML = '';
+      const mightIcon = document.createElement('img');
+      mightIcon.src = STATIC_BASE + 'img/icons/might.webp';
+      mightIcon.alt = 'Might';
+      mightIcon.style.cssText = 'height:1.2em;width:auto;vertical-align:middle;margin-right:4px';
+      els.might.appendChild(mightIcon);
+      els.might.appendChild(document.createTextNode(face.might));
+    } else {
+      els.mightWrap.style.display = 'none';
+    }
+    iconedText(els.type, face.card_type, CARD_TYPE_ICONS, 'https://cdn.piltoverarchive.com/types/');
+    els.domains.innerHTML = '';
+    if (!face.landscape) {
+      (face.colors || []).filter(function (name) { return name !== 'Colorless'; }).forEach(function (name) {
+        const icon = document.createElement('img');
+        icon.src = STATIC_BASE + 'img/domains/' + name + '.webp';
+        icon.alt = name;
+        icon.title = name;
+        els.domains.appendChild(icon);
+      });
+    }
+  }
+
+  function show(idx) {
+    current = (idx + cards.length) % cards.length;
+    const c = cards[current];
+    closeVersions();
+    versionsBtn.style.display = (c.printings && c.printings.length > 1) ? '' : 'none';
+
+    printingsGrid.innerHTML = '';
+    (c.printings || []).forEach(function (p) {
+      const tile = document.createElement('div');
+      tile.className = 'card-modal-printing' + (c.landscape ? ' landscape' : '') + (p.banned ? ' card-tile-banned' : '');
+      const pImg = document.createElement('img');
+      pImg.src = p.image_url || '';
+      pImg.alt = c.name;
+      pImg.loading = 'lazy';
+      tile.appendChild(pImg);
+      const cap = document.createElement('div');
+      cap.className = 'card-modal-printing-caption';
+      cap.textContent = [p.set_name, p.card_number ? ('#' + p.card_number) : null, p.rarity, p.promo ? 'Promo' : null]
+        .filter(Boolean).join(' · ');
+      tile.appendChild(cap);
+      tile.addEventListener('click', function () {
+        img.src = p.image_url || '';
+        els.set.textContent = p.set_code && p.set_name ? (p.set_code + ' - ' + p.set_name) : (p.set_name || '—');
+        els.number.textContent = p.card_number || '—';
+        iconedText(els.rarity, p.rarity, RARITY_ICONS, 'https://cdn.piltoverarchive.com/rarities/');
+        els.promo.textContent = p.promo ? 'Yes' : 'No';
+        els.legality.textContent = p.banned ? 'Banned' : 'Legal';
+        tiltEl.classList.toggle('card-tile-banned', !!p.banned);
+        closeVersions();
+      });
+      printingsGrid.appendChild(tile);
+    });
+
+    img.src = c.image_url || '';
+    img.alt = c.name;
+    imgBack.src = (c.back && c.back.image_url) || '';
+    imgBack.alt = c.name;
+    artCol.classList.toggle('landscape', c.landscape);
+    tiltEl.classList.toggle('card-tile-banned', c.legality === 'Banned');
+    showingBack = false;
+    flipInner.classList.remove('flipped');
+    flipBtn.hidden = !c.back;
+    applyFace(c);
+    els.set.textContent = c.set_code && c.set_name ? (c.set_code + ' - ' + c.set_name) : (c.set_name || '—');
+    els.number.textContent = c.card_number || '—';
+    iconedText(els.rarity, c.rarity, RARITY_ICONS, 'https://cdn.piltoverarchive.com/rarities/');
+    if (c.cost !== null && c.cost !== undefined && c.card_type !== 'Token') {
+      els.costWrap.style.display = '';
+      els.cost.innerHTML = '';
+      const costIcon = document.createElement('img');
+      costIcon.src = STATIC_BASE + 'img/icons/energy-' + c.cost + '.svg';
+      costIcon.alt = c.cost + ' Energy';
+      costIcon.style.cssText = 'height:1.4em;width:auto;vertical-align:middle';
+      els.cost.appendChild(costIcon);
+      const colors = c.colors && c.colors.length ? c.colors : [];
+      for (let i = 0; i < (c.rune_cost || 0) && colors.length; i++) {
+        const runeIcon = document.createElement('img');
+        runeIcon.src = STATIC_BASE + 'img/domains/' + colors[i % colors.length] + '.webp';
+        runeIcon.alt = colors[i % colors.length];
+        runeIcon.style.cssText = 'height:1.4em;width:auto;vertical-align:middle;margin-left:2px';
+        els.cost.appendChild(runeIcon);
+      }
+    } else {
+      els.costWrap.style.display = 'none';
+    }
+    els.promo.textContent = c.promo ? 'Yes' : 'No';
+    els.legality.textContent = c.legality || '—';
+
+    tokensList.innerHTML = '';
+    const relatedTokens = c.related_tokens || [];
+    tokenSection.hidden = relatedTokens.length === 0;
+    relatedTokens.forEach(function (t) {
+      const item = document.createElement('div');
+      item.className = 'card-modal-token-item' + (t.landscape ? ' landscape' : '');
+      if (t.image_url) {
+        const artWrap = document.createElement('div');
+        // A token's own banned status lives on its dedicated entry in
+        // `cards` (appended by _attach_related_tokens), addressed by
+        // t.idx - not on this related_tokens row itself.
+        const tokenDetail = (t.idx !== undefined && t.idx !== null) ? cards[t.idx] : null;
+        artWrap.className = 'card-modal-token-item-art-wrap'
+          + ((tokenDetail && tokenDetail.legality === 'Banned') ? ' card-tile-banned' : '');
+        const tImg = document.createElement('img');
+        tImg.className = 'card-modal-token-item-art';
+        tImg.src = t.image_url;
+        tImg.alt = t.name;
+        tImg.loading = 'lazy';
+        // Swaps the modal in place to the token's own dedicated popup
+        // entry, opened directly by array position - NOT by card_code
+        // (openCardByCode), since a dual-faced token's card_code is
+        // shared with its own catalog tile, which only ever shows its
+        // FRONT face; matching by code there could open the wrong face's
+        // name/art instead of the specific one this section is showing.
+        if (t.idx !== undefined && t.idx !== null) {
+          tImg.classList.add('card-modal-token-item-art-clickable');
+          tImg.addEventListener('click', function () { open(t.idx); });
+        }
+        artWrap.appendChild(tImg);
+        item.appendChild(artWrap);
+      }
+      const info = document.createElement('div');
+      info.className = 'card-modal-token-item-info';
+      const name = document.createElement('div');
+      name.className = 'card-modal-token-item-name';
+      name.textContent = t.name + ' Token';
+      info.appendChild(name);
+      if (t.might !== null && t.might !== undefined) {
+        const mightRow = document.createElement('div');
+        mightRow.className = 'card-modal-token-item-might';
+        const mightIcon = document.createElement('img');
+        mightIcon.src = STATIC_BASE + 'img/icons/might.webp';
+        mightIcon.alt = 'Might';
+        mightRow.appendChild(mightIcon);
+        mightRow.appendChild(document.createTextNode(t.might));
+        info.appendChild(mightRow);
+      }
+      const desc = document.createElement('div');
+      desc.className = 'card-modal-token-item-desc';
+      desc.innerHTML = t.description || '—';
+      info.appendChild(desc);
+      item.appendChild(info);
+      tokensList.appendChild(item);
+    });
+  }
+
+  function open(idx) {
+    show(idx);
+    overlay.hidden = false;
+  }
+
+  function close() {
+    overlay.hidden = true;
+  }
+
+  // 3D tilt-on-hover: rotate the art toward whichever corner the cursor is
+  // over (max ~14.4deg either axis), snapping back via the CSS transition
+  // above once the pointer leaves.
+  function applyTilt(clientX, clientY) {
+    const rect = tiltEl.getBoundingClientRect();
+    const px = (clientX - rect.left) / rect.width;
+    const py = (clientY - rect.top) / rect.height;
+    const rotateY = (px - 0.5) * 28.8;
+    const rotateX = (0.5 - py) * 28.8;
+    tiltEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    tiltEl.style.boxShadow = `${-rotateY}px ${rotateX}px 24px rgba(0,0,0,.35)`;
+  }
+  function resetTilt() {
+    tiltEl.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    tiltEl.style.boxShadow = 'none';
+  }
+  artCol.addEventListener('mousemove', function (e) { applyTilt(e.clientX, e.clientY); });
+  artCol.addEventListener('mouseleave', resetTilt);
+  // Touch equivalent - mousemove/mouseleave never fire from a finger drag,
+  // so without this the tilt effect (and the flip button's hover-adjacent
+  // feel) was silent on a phone. preventDefault stops the drag from also
+  // scrolling the page behind the modal; {passive:false} is required for
+  // that to actually take effect (a touchmove listener is passive, and
+  // preventDefault a silent no-op, by default).
+  artCol.addEventListener('touchmove', function (e) {
+    if (!e.touches.length) return;
+    e.preventDefault();
+    applyTilt(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: false });
+  artCol.addEventListener('touchend', resetTilt);
+  artCol.addEventListener('touchcancel', resetTilt);
+
+  tiles.forEach(function (tile) {
+    tile.addEventListener('click', function () {
+      // A click-drag to select the card name text under a tile still fires
+      // a plain `click` on mouseup - without this, that click always opened
+      // the modal too, yanking focus away mid-selection instead of leaving
+      // the highlighted text alone.
+      if (window.getSelection().toString()) return;
+      open(parseInt(tile.dataset.idx, 10));
+    });
+  });
+
+  versionsBtn.addEventListener('click', function () {
+    const willOpen = !versionsPanel.classList.contains('open');
+    versionsPanel.classList.toggle('open', willOpen);
+    body.style.display = willOpen ? 'none' : '';
+    versionsBtn.textContent = willOpen ? '← Back to card' : 'View versions';
+  });
+
+  flipBtn.addEventListener('click', function () {
+    showingBack = !showingBack;
+    flipInner.classList.toggle('flipped', showingBack);
+    const c = cards[current];
+    applyFace(showingBack && c.back ? c.back : c);
+  });
+
+  window.openCardByCode = function (cardCode) {
+    const idx = cards.findIndex(function (c) { return c.card_code === cardCode; });
+    if (idx >= 0) open(idx);
+  };
+
+  document.getElementById('card-modal-close').addEventListener('click', close);
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+
+  document.addEventListener('keydown', function (e) {
+    if (overlay.hidden) return;
+    if (e.key === 'Escape') close();
+  });
+})();
+
+// Android hardware back button (Capacitor 'App' plugin - see capacitor.js
+// include in <head>). Only ever runs inside the packaged app: on desktop/web
+// window.Capacitor stays undefined, so this is a no-op there. Without this,
+// Android's default action for an unhandled back press is to close the
+// Activity outright - every single press, even from the first screen -
+// since neither this project nor stock Capacitor wires anything to the
+// button on its own.
+//
+// Priorities, matching how the app is actually structured (a handful of
+// top-level list/stats pages reachable from the navbar, each linking into
+// "detail" pages that read back their filter query from history naturally
+// since filter changes use history.replaceState - see the various
+// history.replaceState call sites across index.html/cards.html):
+//   1. card-modal open (any page) -> close it, nothing else.
+//   2. Stats/Matrix or Stats/Cards -> Stats/Legends (its home sub-tab),
+//      always, regardless of how it was reached.
+//   3. A detail page (deck-*, legend-*, guide-*) -> back through real
+//      history when there is any (lands on whatever list/filter was showing
+//      before, since that page's own history entry already carries its last
+//      replaceState'd query string); otherwise fall back to that page's flat
+//      parent (e.g. opened via a shared deep link, with no prior history).
+//   4. Anything else - one of the flat/root pages themselves - exit the app.
+(function () {
+  if (typeof Capacitor === 'undefined' || !Capacitor.registerPlugin || !Capacitor.isNativePlatform || !Capacitor.isNativePlatform()) return;
+  const App = Capacitor.registerPlugin('App');
+  const cardModalOverlay = document.getElementById('card-modal-overlay');
+  const cardModalClose = document.getElementById('card-modal-close');
+
+  App.addListener('backButton', function (data) {
+    if (cardModalOverlay && !cardModalOverlay.hidden) {
+      cardModalClose.click();
+      return;
+    }
+
+    const file = location.pathname.split('/').pop() || 'stats-legends.html';
+
+    if (file === 'stats-matrix.html' || file === 'stats-cards.html') {
+      location.href = 'stats-legends.html';
+    } else if (file.indexOf('deck-') === 0) {
+      if (data.canGoBack) history.back(); else location.href = 'decks.html';
+    } else if (file.indexOf('legend-') === 0) {
+      if (data.canGoBack) history.back(); else location.href = 'stats-legends.html';
+    } else if (file.indexOf('guide-') === 0) {
+      if (data.canGoBack) history.back(); else location.href = 'guides.html';
+    } else {
+      App.exitApp();
+    }
+  });
+})();
+</script>
+</body>
+</html>
