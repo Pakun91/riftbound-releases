@@ -585,7 +585,10 @@
         <line x1="18" y1="10.0" x2="282" y2="10.0" stroke="var(--gridline)" stroke-width="1" />
         
         
-        <polyline points="36.9,85.0 55.7,85.0 74.6,85.0" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        <polyline points="18.0,85.0 36.9,85.0 55.7,85.0 74.6,85.0" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        
+        <circle cx="18.0" cy="85.0" r="2.5" fill="var(--series-1)" />
+        <circle class="trend-point" cx="18.0" cy="85.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 37.5%"></circle>
         
         <circle cx="36.9" cy="85.0" r="2.5" fill="var(--series-1)" />
         <circle class="trend-point" cx="36.9" cy="85.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Win rate: 37.5%"></circle>
@@ -598,10 +601,10 @@
         
         
         
-        <polyline points="18.0,130.0 36.9,129.6 55.7,129.6 74.6,129.6 93.4,129.9 112.3,129.9 131.1,129.9 150.0,129.9 168.9,130.0 187.7,130.0 206.6,130.0 225.4,129.9 244.3,129.9 263.1,129.9 282.0,129.9" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+        <polyline points="18.0,129.5 36.9,129.6 55.7,129.6 74.6,129.6 93.4,129.9 112.3,129.9 131.1,129.9 150.0,130.0 168.9,130.0 187.7,130.0 206.6,130.0 225.4,129.9 244.3,129.9 263.1,129.9" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
         
-        <circle cx="18.0" cy="130.0" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="18.0" cy="130.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 0.0%"></circle>
+        <circle cx="18.0" cy="129.5" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="18.0" cy="129.5" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 0.4%"></circle>
         
         <circle cx="36.9" cy="129.6" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="36.9" cy="129.6" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 0.3%"></circle>
@@ -621,8 +624,8 @@
         <circle cx="131.1" cy="129.9" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="131.1" cy="129.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 0.1%"></circle>
         
-        <circle cx="150.0" cy="129.9" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="150.0" cy="129.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 0.1%"></circle>
+        <circle cx="150.0" cy="130.0" r="2.5" fill="#eda100" />
+        <circle class="trend-point" cx="150.0" cy="130.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 0.0%"></circle>
         
         <circle cx="168.9" cy="130.0" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="168.9" cy="130.0" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 0.0%"></circle>
@@ -642,20 +645,17 @@
         <circle cx="263.1" cy="129.9" r="2.5" fill="#eda100" />
         <circle class="trend-point" cx="263.1" cy="129.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 0.1%"></circle>
         
-        <circle cx="282.0" cy="129.9" r="2.5" fill="#eda100" />
-        <circle class="trend-point" cx="282.0" cy="129.9" r="7" fill="transparent" style="cursor:pointer" data-tooltip="Play rate: 0.1%"></circle>
         
         
+        <text x="18.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">08-08</text>
         
-        <text x="18.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">07-08</text>
+        <text x="93.4" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">16-08</text>
         
-        <text x="93.4" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">15-08</text>
+        <text x="168.9" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">24-08</text>
         
-        <text x="168.9" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">23-08</text>
+        <text x="244.3" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">01-09</text>
         
-        <text x="244.3" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">31-08</text>
-        
-        <text x="282.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">04-09</text>
+        <text x="282.0" y="146" text-anchor="middle" font-size="9" fill="var(--text-muted)">05-09</text>
         
       </svg>
       <div class="chart-legend-key">
@@ -672,21 +672,9 @@
           <tbody>
             
             <tr>
-              <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
-              <td class="num">60%</td>
-              <td class="matches">(5)</td>
-            </tr>
-            
-            <tr>
               <td><a href="legend-azir-emperor-of-the-sands.html">Azir, Emperor of the Sands</a></td>
               <td class="num">56%</td>
               <td class="matches">(9)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-viktor-herald-of-the-arcane.html">Viktor, Herald of the Arcane</a></td>
-              <td class="num">50%</td>
-              <td class="matches">(8)</td>
             </tr>
             
             <tr>
@@ -703,8 +691,32 @@
             
             <tr>
               <td><a href="legend-master-yi-wuju-bladesman.html">Master Yi, Wuju Bladesman</a></td>
+              <td class="num">46%</td>
+              <td class="matches">(13)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
               <td class="num">43%</td>
-              <td class="matches">(14)</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-leblanc-deceiver.html">LeBlanc, Deceiver</a></td>
+              <td class="num">43%</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-viktor-herald-of-the-arcane.html">Viktor, Herald of the Arcane</a></td>
+              <td class="num">43%</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
+              <td class="num">40%</td>
+              <td class="matches">(10)</td>
             </tr>
             
             <tr>
@@ -714,21 +726,15 @@
             </tr>
             
             <tr>
-              <td><a href="legend-leblanc-deceiver.html">LeBlanc, Deceiver</a></td>
+              <td><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
               <td class="num">40%</td>
               <td class="matches">(5)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
+              <td><a href="legend-irelia-blade-dancer.html">Irelia, Blade Dancer</a></td>
               <td class="num">33%</td>
               <td class="matches">(9)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-irelia-blade-dancer.html">Irelia, Blade Dancer</a></td>
-              <td class="num">29%</td>
-              <td class="matches">(7)</td>
             </tr>
             
             <tr>
@@ -763,21 +769,21 @@
             </tr>
             
             <tr>
-              <td><a href="legend-irelia-blade-dancer.html">Irelia, Blade Dancer</a></td>
-              <td class="num">29%</td>
-              <td class="matches">(7)</td>
-            </tr>
-            
-            <tr>
               <td><a href="legend-rek-sai-void-burrower.html">Rek&#39;Sai, Void Burrower</a></td>
               <td class="num">29%</td>
               <td class="matches">(7)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
+              <td><a href="legend-irelia-blade-dancer.html">Irelia, Blade Dancer</a></td>
               <td class="num">33%</td>
               <td class="matches">(9)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-kennen-heart-of-the-tempest.html">Kennen, Heart of the Tempest</a></td>
+              <td class="num">40%</td>
+              <td class="matches">(10)</td>
             </tr>
             
             <tr>
@@ -787,21 +793,33 @@
             </tr>
             
             <tr>
-              <td><a href="legend-leblanc-deceiver.html">LeBlanc, Deceiver</a></td>
+              <td><a href="legend-kha-zix-voidreaver.html">Kha&#39;Zix, Voidreaver</a></td>
               <td class="num">40%</td>
               <td class="matches">(5)</td>
             </tr>
             
             <tr>
-              <td><a href="legend-master-yi-wuju-bladesman.html">Master Yi, Wuju Bladesman</a></td>
+              <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
               <td class="num">43%</td>
-              <td class="matches">(14)</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-leblanc-deceiver.html">LeBlanc, Deceiver</a></td>
+              <td class="num">43%</td>
+              <td class="matches">(7)</td>
             </tr>
             
             <tr>
               <td><a href="legend-viktor-herald-of-the-arcane.html">Viktor, Herald of the Arcane</a></td>
-              <td class="num">50%</td>
-              <td class="matches">(8)</td>
+              <td class="num">43%</td>
+              <td class="matches">(7)</td>
+            </tr>
+            
+            <tr>
+              <td><a href="legend-master-yi-wuju-bladesman.html">Master Yi, Wuju Bladesman</a></td>
+              <td class="num">46%</td>
+              <td class="matches">(13)</td>
             </tr>
             
             <tr>
@@ -820,12 +838,6 @@
               <td><a href="legend-azir-emperor-of-the-sands.html">Azir, Emperor of the Sands</a></td>
               <td class="num">56%</td>
               <td class="matches">(9)</td>
-            </tr>
-            
-            <tr>
-              <td><a href="legend-nasus-curator-of-the-sands.html">Nasus, Curator of the Sands</a></td>
-              <td class="num">60%</td>
-              <td class="matches">(5)</td>
             </tr>
             
           </tbody>
