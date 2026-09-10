@@ -1,7 +1,7 @@
 {
   "source": "https://riftdecks.com/stats/winrate?metagame_id=4&date_range=all",
   "captured_by": "real Chrome via Playwright (riftbound_data.extract_table)",
-  "captured_at": "2026-09-10",
+  "captured_at": "2026-09-11",
   "legends": [
     {
       "name": "Kennen",
@@ -615,10 +615,10 @@
       "opponents": {
         "Rengar, Pridestalker": {
           "win_rate": 47,
-          "matches": 833,
-          "wins": 392,
+          "matches": 832,
+          "wins": 391,
           "losses": 441,
-          "ci_low": 44,
+          "ci_low": 43,
           "ci_high": 50
         },
         "Azir, Emperor of the Sands": {
@@ -639,9 +639,9 @@
         },
         "Diana, Scorn of the Moon": {
           "win_rate": 53,
-          "matches": 570,
+          "matches": 569,
           "wins": 302,
-          "losses": 268,
+          "losses": 267,
           "ci_low": 49,
           "ci_high": 57
         },
@@ -671,10 +671,10 @@
         },
         "Akali, Rogue Assassin": {
           "win_rate": 66,
-          "matches": 403,
-          "wins": 266,
+          "matches": 402,
+          "wins": 265,
           "losses": 137,
-          "ci_low": 61,
+          "ci_low": 62,
           "ci_high": 71
         },
         "Draven, Glorious Executioner": {
@@ -767,8 +767,8 @@
         },
         "Ivern, Green Father": {
           "win_rate": 61,
-          "matches": 96,
-          "wins": 59,
+          "matches": 95,
+          "wins": 58,
           "losses": 37,
           "ci_low": 51,
           "ci_high": 71
@@ -799,10 +799,10 @@
         },
         "Lucian, Purifier": {
           "win_rate": 58,
-          "matches": 84,
-          "wins": 49,
+          "matches": 83,
+          "wins": 48,
           "losses": 35,
-          "ci_low": 47,
+          "ci_low": 46,
           "ci_high": 69
         },
         "Shen, Eye of Twilight": {
@@ -830,12 +830,12 @@
           "ci_high": 50
         },
         "Master Yi, Wuju Master": {
-          "win_rate": 61,
-          "matches": 44,
+          "win_rate": 60,
+          "matches": 45,
           "wins": 27,
-          "losses": 17,
-          "ci_low": 45,
-          "ci_high": 76
+          "losses": 18,
+          "ci_low": 44,
+          "ci_high": 74
         },
         "Rumble, Mechanized Menace": {
           "win_rate": 74,
@@ -1195,12 +1195,12 @@
           "ci_high": 69
         },
         "Master Yi, Wuju Master": {
-          "win_rate": 67,
-          "matches": 54,
+          "win_rate": 65,
+          "matches": 55,
           "wins": 36,
-          "losses": 18,
-          "ci_low": 53,
-          "ci_high": 79
+          "losses": 19,
+          "ci_low": 51,
+          "ci_high": 78
         },
         "Rumble, Mechanized Menace": {
           "win_rate": 64,
@@ -1353,11 +1353,11 @@
         },
         "Master Yi, Wuju Bladesman": {
           "win_rate": 53,
-          "matches": 833,
+          "matches": 832,
           "wins": 441,
-          "losses": 392,
+          "losses": 391,
           "ci_low": 50,
-          "ci_high": 56
+          "ci_high": 57
         },
         "Irelia, Blade Dancer": {
           "win_rate": 53,
@@ -1576,12 +1576,12 @@
           "ci_high": 86
         },
         "Master Yi, Wuju Master": {
-          "win_rate": 80,
-          "matches": 44,
+          "win_rate": 78,
+          "matches": 45,
           "wins": 35,
-          "losses": 9,
-          "ci_low": 65,
-          "ci_high": 90
+          "losses": 10,
+          "ci_low": 63,
+          "ci_high": 89
         },
         "Rumble, Mechanized Menace": {
           "win_rate": 45,
@@ -2496,8 +2496,8 @@
         },
         "Master Yi, Wuju Bladesman": {
           "win_rate": 47,
-          "matches": 570,
-          "wins": 268,
+          "matches": 569,
+          "wins": 267,
           "losses": 302,
           "ci_low": 43,
           "ci_high": 51
@@ -2719,12 +2719,12 @@
           "ci_high": 77
         },
         "Master Yi, Wuju Master": {
-          "win_rate": 68,
-          "matches": 41,
+          "win_rate": 67,
+          "matches": 42,
           "wins": 28,
-          "losses": 13,
-          "ci_low": 52,
-          "ci_high": 82
+          "losses": 14,
+          "ci_low": 50,
+          "ci_high": 80
         },
         "Rumble, Mechanized Menace": {
           "win_rate": 42,
@@ -4020,11 +4020,11 @@
         },
         "Master Yi, Wuju Bladesman": {
           "win_rate": 34,
-          "matches": 403,
+          "matches": 402,
           "wins": 137,
-          "losses": 266,
+          "losses": 265,
           "ci_low": 29,
-          "ci_high": 39
+          "ci_high": 38
         },
         "Irelia, Blade Dancer": {
           "win_rate": 49,
@@ -4243,12 +4243,12 @@
           "ci_high": 75
         },
         "Master Yi, Wuju Master": {
-          "win_rate": 54,
-          "matches": 24,
-          "wins": 13,
+          "win_rate": 56,
+          "matches": 25,
+          "wins": 14,
           "losses": 11,
-          "ci_low": 33,
-          "ci_high": 74
+          "ci_low": 35,
+          "ci_high": 76
         },
         "Rumble, Mechanized Menace": {
           "win_rate": 54,
@@ -8560,9 +8560,9 @@
         },
         "Master Yi, Wuju Bladesman": {
           "win_rate": 39,
-          "matches": 96,
+          "matches": 95,
           "wins": 37,
-          "losses": 59,
+          "losses": 58,
           "ci_low": 29,
           "ci_high": 49
         },
@@ -8783,12 +8783,12 @@
           "ci_high": 82
         },
         "Master Yi, Wuju Master": {
-          "win_rate": 38,
-          "matches": 16,
+          "win_rate": 35,
+          "matches": 17,
           "wins": 6,
-          "losses": 10,
-          "ci_low": 15,
-          "ci_high": 65
+          "losses": 11,
+          "ci_low": 14,
+          "ci_high": 62
         },
         "Rumble, Mechanized Menace": {
           "win_rate": 15,
@@ -10012,11 +10012,11 @@
         },
         "Master Yi, Wuju Bladesman": {
           "win_rate": 42,
-          "matches": 84,
+          "matches": 83,
           "wins": 35,
-          "losses": 49,
+          "losses": 48,
           "ci_low": 31,
-          "ci_high": 53
+          "ci_high": 54
         },
         "Irelia, Blade Dancer": {
           "win_rate": 36,
@@ -10235,12 +10235,12 @@
           "ci_high": 99
         },
         "Master Yi, Wuju Master": {
-          "win_rate": 67,
-          "matches": 9,
+          "win_rate": 60,
+          "matches": 10,
           "wins": 6,
-          "losses": 3,
-          "ci_low": 30,
-          "ci_high": 93
+          "losses": 4,
+          "ci_low": 26,
+          "ci_high": 88
         },
         "Rumble, Mechanized Menace": {
           "win_rate": 20,
@@ -11467,11 +11467,11 @@
     "Master Yi, Wuju Master": {
       "overall": {
         "win_rate": 42,
-        "matches": 769,
-        "wins": 323,
-        "losses": 446,
-        "ci_low": 38,
-        "ci_high": 45
+        "matches": 776,
+        "wins": 326,
+        "losses": 450,
+        "ci_low": 39,
+        "ci_high": 46
       },
       "opponents": {
         "Kennen, Heart of the Tempest": {
@@ -11483,28 +11483,28 @@
           "ci_high": 48
         },
         "Master Yi, Wuju Bladesman": {
-          "win_rate": 39,
-          "matches": 44,
-          "wins": 17,
+          "win_rate": 40,
+          "matches": 45,
+          "wins": 18,
           "losses": 27,
-          "ci_low": 24,
-          "ci_high": 55
+          "ci_low": 26,
+          "ci_high": 56
         },
         "Irelia, Blade Dancer": {
-          "win_rate": 33,
-          "matches": 54,
-          "wins": 18,
+          "win_rate": 35,
+          "matches": 55,
+          "wins": 19,
           "losses": 36,
-          "ci_low": 21,
-          "ci_high": 47
+          "ci_low": 22,
+          "ci_high": 49
         },
         "Rengar, Pridestalker": {
-          "win_rate": 20,
-          "matches": 44,
-          "wins": 9,
+          "win_rate": 22,
+          "matches": 45,
+          "wins": 10,
           "losses": 35,
-          "ci_low": 10,
-          "ci_high": 35
+          "ci_low": 11,
+          "ci_high": 37
         },
         "Azir, Emperor of the Sands": {
           "win_rate": 33,
@@ -11523,12 +11523,12 @@
           "ci_high": 63
         },
         "Diana, Scorn of the Moon": {
-          "win_rate": 32,
-          "matches": 41,
-          "wins": 13,
+          "win_rate": 33,
+          "matches": 42,
+          "wins": 14,
           "losses": 28,
-          "ci_low": 18,
-          "ci_high": 48
+          "ci_low": 20,
+          "ci_high": 50
         },
         "Leblanc, Deceiver": {
           "win_rate": 42,
@@ -11555,12 +11555,12 @@
           "ci_high": 47
         },
         "Akali, Rogue Assassin": {
-          "win_rate": 46,
-          "matches": 24,
+          "win_rate": 44,
+          "matches": 25,
           "wins": 11,
-          "losses": 13,
-          "ci_low": 26,
-          "ci_high": 67
+          "losses": 14,
+          "ci_low": 24,
+          "ci_high": 65
         },
         "Draven, Glorious Executioner": {
           "win_rate": 59,
@@ -11651,12 +11651,12 @@
           "ci_high": 52
         },
         "Ivern, Green Father": {
-          "win_rate": 63,
-          "matches": 16,
-          "wins": 10,
+          "win_rate": 65,
+          "matches": 17,
+          "wins": 11,
           "losses": 6,
-          "ci_low": 35,
-          "ci_high": 85
+          "ci_low": 38,
+          "ci_high": 86
         },
         "Zed, Master of Shadows": {
           "win_rate": 63,
@@ -11683,12 +11683,12 @@
           "ci_high": 95
         },
         "Lucian, Purifier": {
-          "win_rate": 33,
-          "matches": 9,
-          "wins": 3,
+          "win_rate": 40,
+          "matches": 10,
+          "wins": 4,
           "losses": 6,
-          "ci_low": 7,
-          "ci_high": 70
+          "ci_low": 12,
+          "ci_high": 74
         },
         "Shen, Eye of Twilight": {
           "win_rate": 56,
