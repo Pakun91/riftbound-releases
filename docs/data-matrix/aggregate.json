@@ -1,7 +1,7 @@
 {
   "source": "https://riftdecks.com/stats/winrate?metagame_id=4&date_range=all",
   "captured_by": "real Chrome via Playwright (riftbound_data.extract_table)",
-  "captured_at": "2026-09-11",
+  "captured_at": "2026-09-12",
   "legends": [
     {
       "name": "Kennen",
@@ -1315,11 +1315,11 @@
           "ci_high": 86
         },
         "Jinx, Loose Cannon": {
-          "win_rate": 89,
-          "matches": 9,
-          "wins": 8,
+          "win_rate": 90,
+          "matches": 10,
+          "wins": 9,
           "losses": 1,
-          "ci_low": 52,
+          "ci_low": 55,
           "ci_high": 100
         },
         "Darius, Hand of Noxus": {
@@ -1369,9 +1369,9 @@
         },
         "Azir, Emperor of the Sands": {
           "win_rate": 51,
-          "matches": 403,
+          "matches": 404,
           "wins": 206,
-          "losses": 197,
+          "losses": 198,
           "ci_low": 46,
           "ci_high": 56
         },
@@ -1750,8 +1750,8 @@
         },
         "Rengar, Pridestalker": {
           "win_rate": 49,
-          "matches": 403,
-          "wins": 197,
+          "matches": 404,
+          "wins": 198,
           "losses": 206,
           "ci_low": 44,
           "ci_high": 54
@@ -5331,11 +5331,11 @@
         },
         "Zed, Master of Shadows": {
           "win_rate": 67,
-          "matches": 42,
-          "wins": 28,
+          "matches": 43,
+          "wins": 29,
           "losses": 14,
-          "ci_low": 50,
-          "ci_high": 80
+          "ci_low": 51,
+          "ci_high": 81
         },
         "Vi, Piltover Enforcer": {
           "win_rate": 64,
@@ -9013,11 +9013,11 @@
         },
         "Ezreal, Prodigal Explorer": {
           "win_rate": 33,
-          "matches": 42,
+          "matches": 43,
           "wins": 14,
-          "losses": 28,
-          "ci_low": 20,
-          "ci_high": 50
+          "losses": 29,
+          "ci_low": 19,
+          "ci_high": 49
         },
         "Lillia, Bashful Bloom": {
           "win_rate": 28,
@@ -16566,11 +16566,11 @@
     },
     "Jinx, Loose Cannon": {
       "overall": {
-        "win_rate": 28,
-        "matches": 149,
-        "wins": 42,
-        "losses": 107,
-        "ci_low": 21,
+        "win_rate": 27,
+        "matches": 150,
+        "wins": 40,
+        "losses": 110,
+        "ci_low": 20,
         "ci_high": 35
       },
       "opponents": {
@@ -16591,12 +16591,12 @@
           "ci_high": 37
         },
         "Irelia, Blade Dancer": {
-          "win_rate": 11,
-          "matches": 9,
+          "win_rate": 10,
+          "matches": 10,
           "wins": 1,
-          "losses": 8,
+          "losses": 9,
           "ci_low": 0,
-          "ci_high": 48
+          "ci_high": 45
         },
         "Rengar, Pridestalker": {
           "win_rate": 29,
