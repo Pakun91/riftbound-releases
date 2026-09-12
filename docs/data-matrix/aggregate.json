@@ -1,7 +1,7 @@
 {
   "source": "https://riftdecks.com/stats/winrate?metagame_id=4&date_range=all",
   "captured_by": "real Chrome via Playwright (riftbound_data.extract_table)",
-  "captured_at": "2026-09-12",
+  "captured_at": "2026-09-13",
   "legends": [
     {
       "name": "Kennen",
@@ -290,25 +290,25 @@
         },
         "Nasus, Curator of the Sands": {
           "win_rate": 61,
-          "matches": 503,
+          "matches": 504,
           "wins": 307,
-          "losses": 196,
+          "losses": 197,
           "ci_low": 56,
           "ci_high": 65
         },
         "Jayce, Defender of Tomorrow": {
           "win_rate": 73,
-          "matches": 496,
-          "wins": 362,
+          "matches": 498,
+          "wins": 364,
           "losses": 134,
           "ci_low": 69,
           "ci_high": 77
         },
         "Akali, Rogue Assassin": {
-          "win_rate": 66,
-          "matches": 497,
-          "wins": 328,
-          "losses": 169,
+          "win_rate": 65,
+          "matches": 498,
+          "wins": 324,
+          "losses": 174,
           "ci_low": 61,
           "ci_high": 70
         },
@@ -322,9 +322,9 @@
         },
         "Khazix, Voidreaver": {
           "win_rate": 53,
-          "matches": 478,
-          "wins": 253,
-          "losses": 225,
+          "matches": 480,
+          "wins": 254,
+          "losses": 226,
           "ci_low": 48,
           "ci_high": 57
         },
@@ -338,8 +338,8 @@
         },
         "Lillia, Bashful Bloom": {
           "win_rate": 60,
-          "matches": 340,
-          "wins": 204,
+          "matches": 341,
+          "wins": 205,
           "losses": 136,
           "ci_low": 54,
           "ci_high": 65
@@ -370,9 +370,9 @@
         },
         "Fiora, Grand Duelist": {
           "win_rate": 58,
-          "matches": 263,
-          "wins": 153,
-          "losses": 110,
+          "matches": 265,
+          "wins": 154,
+          "losses": 111,
           "ci_low": 52,
           "ci_high": 64
         },
@@ -386,11 +386,11 @@
         },
         "Kai'sa, Daughter of the Void": {
           "win_rate": 55,
-          "matches": 221,
+          "matches": 222,
           "wins": 122,
-          "losses": 99,
+          "losses": 100,
           "ci_low": 48,
-          "ci_high": 61
+          "ci_high": 62
         },
         "Ambessa, Matriarch of War": {
           "win_rate": 75,
@@ -442,10 +442,10 @@
         },
         "Shen, Eye of Twilight": {
           "win_rate": 67,
-          "matches": 81,
-          "wins": 54,
+          "matches": 82,
+          "wins": 55,
           "losses": 27,
-          "ci_low": 55,
+          "ci_low": 56,
           "ci_high": 77
         },
         "Jhin, Virtuoso": {
@@ -615,8 +615,8 @@
       "opponents": {
         "Rengar, Pridestalker": {
           "win_rate": 47,
-          "matches": 832,
-          "wins": 391,
+          "matches": 833,
+          "wins": 392,
           "losses": 441,
           "ci_low": 43,
           "ci_high": 50
@@ -686,11 +686,11 @@
           "ci_high": 58
         },
         "Khazix, Voidreaver": {
-          "win_rate": 60,
-          "matches": 397,
-          "wins": 238,
-          "losses": 159,
-          "ci_low": 55,
+          "win_rate": 61,
+          "matches": 398,
+          "wins": 243,
+          "losses": 155,
+          "ci_low": 56,
           "ci_high": 65
         },
         "Ezreal, Prodigal Explorer": {
@@ -734,26 +734,26 @@
           "ci_high": 64
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 47,
-          "matches": 212,
-          "wins": 100,
-          "losses": 112,
+          "win_rate": 46,
+          "matches": 213,
+          "wins": 98,
+          "losses": 115,
           "ci_low": 40,
-          "ci_high": 54
+          "ci_high": 53
         },
         "Mel, Soul's Reflection": {
           "win_rate": 68,
-          "matches": 200,
-          "wins": 136,
+          "matches": 201,
+          "wins": 137,
           "losses": 64,
           "ci_low": 61,
-          "ci_high": 74
+          "ci_high": 75
         },
         "Kai'sa, Daughter of the Void": {
-          "win_rate": 64,
-          "matches": 229,
-          "wins": 147,
-          "losses": 82,
+          "win_rate": 63,
+          "matches": 230,
+          "wins": 145,
+          "losses": 85,
           "ci_low": 57,
           "ci_high": 70
         },
@@ -870,11 +870,11 @@
           "ci_high": 76
         },
         "Renekton, Butcher of the Sands": {
-          "win_rate": 77,
-          "matches": 35,
-          "wins": 27,
+          "win_rate": 78,
+          "matches": 36,
+          "wins": 28,
           "losses": 8,
-          "ci_low": 60,
+          "ci_low": 61,
           "ci_high": 90
         },
         "Renata Glasc, Chem-Baroness": {
@@ -1052,8 +1052,8 @@
         },
         "Khazix, Voidreaver": {
           "win_rate": 47,
-          "matches": 301,
-          "wins": 141,
+          "matches": 302,
+          "wins": 142,
           "losses": 160,
           "ci_low": 41,
           "ci_high": 52
@@ -1099,12 +1099,12 @@
           "ci_high": 63
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 51,
-          "matches": 171,
-          "wins": 87,
-          "losses": 84,
+          "win_rate": 50,
+          "matches": 173,
+          "wins": 86,
+          "losses": 87,
           "ci_low": 43,
-          "ci_high": 59
+          "ci_high": 58
         },
         "Mel, Soul's Reflection": {
           "win_rate": 69,
@@ -1236,10 +1236,10 @@
         },
         "Renekton, Butcher of the Sands": {
           "win_rate": 76,
-          "matches": 33,
-          "wins": 25,
+          "matches": 34,
+          "wins": 26,
           "losses": 8,
-          "ci_low": 58,
+          "ci_low": 59,
           "ci_high": 89
         },
         "Renata Glasc, Chem-Baroness": {
@@ -1353,9 +1353,9 @@
         },
         "Master Yi, Wuju Bladesman": {
           "win_rate": 53,
-          "matches": 832,
+          "matches": 833,
           "wins": 441,
-          "losses": 391,
+          "losses": 392,
           "ci_low": 50,
           "ci_high": 57
         },
@@ -1417,10 +1417,10 @@
         },
         "Akali, Rogue Assassin": {
           "win_rate": 64,
-          "matches": 233,
-          "wins": 149,
+          "matches": 234,
+          "wins": 150,
           "losses": 84,
-          "ci_low": 57,
+          "ci_low": 58,
           "ci_high": 70
         },
         "Draven, Glorious Executioner": {
@@ -1480,12 +1480,12 @@
           "ci_high": 67
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 60,
-          "matches": 152,
+          "win_rate": 59,
+          "matches": 154,
           "wins": 91,
-          "losses": 61,
-          "ci_low": 52,
-          "ci_high": 68
+          "losses": 63,
+          "ci_low": 51,
+          "ci_high": 67
         },
         "Mel, Soul's Reflection": {
           "win_rate": 77,
@@ -1773,11 +1773,11 @@
           "ci_high": 60
         },
         "Leblanc, Deceiver": {
-          "win_rate": 44,
-          "matches": 272,
-          "wins": 120,
-          "losses": 152,
-          "ci_low": 38,
+          "win_rate": 45,
+          "matches": 273,
+          "wins": 123,
+          "losses": 150,
+          "ci_low": 39,
           "ci_high": 51
         },
         "Nasus, Curator of the Sands": {
@@ -1925,20 +1925,20 @@
           "ci_high": 89
         },
         "Lucian, Purifier": {
-          "win_rate": 47,
-          "matches": 45,
-          "wins": 21,
+          "win_rate": 48,
+          "matches": 46,
+          "wins": 22,
           "losses": 24,
-          "ci_low": 32,
-          "ci_high": 62
+          "ci_low": 33,
+          "ci_high": 63
         },
         "Shen, Eye of Twilight": {
-          "win_rate": 70,
-          "matches": 30,
-          "wins": 21,
+          "win_rate": 71,
+          "matches": 31,
+          "wins": 22,
           "losses": 9,
-          "ci_low": 51,
-          "ci_high": 85
+          "ci_low": 52,
+          "ci_high": 86
         },
         "Jhin, Virtuoso": {
           "win_rate": 79,
@@ -2900,12 +2900,12 @@
           "ci_high": 54
         },
         "Azir, Emperor of the Sands": {
-          "win_rate": 56,
-          "matches": 272,
-          "wins": 152,
-          "losses": 120,
+          "win_rate": 55,
+          "matches": 273,
+          "wins": 150,
+          "losses": 123,
           "ci_low": 49,
-          "ci_high": 62
+          "ci_high": 61
         },
         "Reksai, Void Burrower": {
           "win_rate": 59,
@@ -2957,11 +2957,11 @@
         },
         "Khazix, Voidreaver": {
           "win_rate": 40,
-          "matches": 149,
+          "matches": 150,
           "wins": 60,
-          "losses": 89,
+          "losses": 90,
           "ci_low": 32,
-          "ci_high": 49
+          "ci_high": 48
         },
         "Ezreal, Prodigal Explorer": {
           "win_rate": 58,
@@ -2988,10 +2988,10 @@
           "ci_high": 63
         },
         "Viktor, Herald of the Arcane": {
-          "win_rate": 61,
-          "matches": 119,
-          "wins": 73,
-          "losses": 46,
+          "win_rate": 60,
+          "matches": 120,
+          "wins": 72,
+          "losses": 48,
           "ci_low": 51,
           "ci_high": 69
         },
@@ -3076,12 +3076,12 @@
           "ci_high": 62
         },
         "Shen, Eye of Twilight": {
-          "win_rate": 67,
-          "matches": 30,
+          "win_rate": 65,
+          "matches": 31,
           "wins": 20,
-          "losses": 10,
-          "ci_low": 47,
-          "ci_high": 83
+          "losses": 11,
+          "ci_low": 45,
+          "ci_high": 81
         },
         "Jhin, Virtuoso": {
           "win_rate": 52,
@@ -3236,12 +3236,12 @@
           "ci_high": 99
         },
         "Lee Sin, Blind Monk": {
-          "win_rate": 0,
-          "matches": 2,
-          "wins": 0,
+          "win_rate": 33,
+          "matches": 3,
+          "wins": 1,
           "losses": 2,
-          "ci_low": 0,
-          "ci_high": 84
+          "ci_low": 1,
+          "ci_high": 91
         }
       }
     },
@@ -3250,8 +3250,8 @@
       "opponents": {
         "Kennen, Heart of the Tempest": {
           "win_rate": 39,
-          "matches": 503,
-          "wins": 196,
+          "matches": 504,
+          "wins": 197,
           "losses": 307,
           "ci_low": 35,
           "ci_high": 44
@@ -3385,11 +3385,11 @@
           "ci_high": 56
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 35,
-          "matches": 96,
-          "wins": 34,
+          "win_rate": 36,
+          "matches": 97,
+          "wins": 35,
           "losses": 62,
-          "ci_low": 26,
+          "ci_low": 27,
           "ci_high": 46
         },
         "Mel, Soul's Reflection": {
@@ -3631,9 +3631,9 @@
       "opponents": {
         "Kennen, Heart of the Tempest": {
           "win_rate": 27,
-          "matches": 496,
+          "matches": 498,
           "wins": 134,
-          "losses": 362,
+          "losses": 364,
           "ci_low": 23,
           "ci_high": 31
         },
@@ -3718,10 +3718,10 @@
           "ci_high": 69
         },
         "Khazix, Voidreaver": {
-          "win_rate": 45,
-          "matches": 144,
-          "wins": 65,
-          "losses": 79,
+          "win_rate": 46,
+          "matches": 145,
+          "wins": 67,
+          "losses": 78,
           "ci_low": 37,
           "ci_high": 54
         },
@@ -4011,10 +4011,10 @@
       "overall": null,
       "opponents": {
         "Kennen, Heart of the Tempest": {
-          "win_rate": 34,
-          "matches": 497,
-          "wins": 169,
-          "losses": 328,
+          "win_rate": 35,
+          "matches": 498,
+          "wins": 174,
+          "losses": 324,
           "ci_low": 30,
           "ci_high": 39
         },
@@ -4036,11 +4036,11 @@
         },
         "Rengar, Pridestalker": {
           "win_rate": 36,
-          "matches": 233,
+          "matches": 234,
           "wins": 84,
-          "losses": 149,
+          "losses": 150,
           "ci_low": 30,
-          "ci_high": 43
+          "ci_high": 42
         },
         "Azir, Emperor of the Sands": {
           "win_rate": 36,
@@ -4148,10 +4148,10 @@
         },
         "Fiora, Grand Duelist": {
           "win_rate": 47,
-          "matches": 113,
-          "wins": 53,
+          "matches": 114,
+          "wins": 54,
           "losses": 60,
-          "ci_low": 37,
+          "ci_low": 38,
           "ci_high": 57
         },
         "Mel, Soul's Reflection": {
@@ -4163,12 +4163,12 @@
           "ci_high": 65
         },
         "Kai'sa, Daughter of the Void": {
-          "win_rate": 57,
-          "matches": 51,
+          "win_rate": 56,
+          "matches": 52,
           "wins": 29,
-          "losses": 22,
-          "ci_low": 42,
-          "ci_high": 71
+          "losses": 23,
+          "ci_low": 41,
+          "ci_high": 70
         },
         "Ambessa, Matriarch of War": {
           "win_rate": 40,
@@ -4774,25 +4774,25 @@
       "opponents": {
         "Kennen, Heart of the Tempest": {
           "win_rate": 47,
-          "matches": 478,
-          "wins": 225,
-          "losses": 253,
+          "matches": 480,
+          "wins": 226,
+          "losses": 254,
           "ci_low": 43,
           "ci_high": 52
         },
         "Master Yi, Wuju Bladesman": {
-          "win_rate": 40,
-          "matches": 397,
-          "wins": 159,
-          "losses": 238,
+          "win_rate": 39,
+          "matches": 398,
+          "wins": 155,
+          "losses": 243,
           "ci_low": 35,
-          "ci_high": 45
+          "ci_high": 44
         },
         "Irelia, Blade Dancer": {
           "win_rate": 53,
-          "matches": 301,
+          "matches": 302,
           "wins": 160,
-          "losses": 141,
+          "losses": 142,
           "ci_low": 48,
           "ci_high": 59
         },
@@ -4830,10 +4830,10 @@
         },
         "Leblanc, Deceiver": {
           "win_rate": 60,
-          "matches": 149,
-          "wins": 89,
+          "matches": 150,
+          "wins": 90,
           "losses": 60,
-          "ci_low": 51,
+          "ci_low": 52,
           "ci_high": 68
         },
         "Nasus, Curator of the Sands": {
@@ -4845,10 +4845,10 @@
           "ci_high": 66
         },
         "Jayce, Defender of Tomorrow": {
-          "win_rate": 55,
-          "matches": 144,
-          "wins": 79,
-          "losses": 65,
+          "win_rate": 54,
+          "matches": 145,
+          "wins": 78,
+          "losses": 67,
           "ci_low": 46,
           "ci_high": 63
         },
@@ -4878,16 +4878,16 @@
         },
         "Lillia, Bashful Bloom": {
           "win_rate": 65,
-          "matches": 101,
-          "wins": 66,
-          "losses": 35,
+          "matches": 103,
+          "wins": 67,
+          "losses": 36,
           "ci_low": 55,
-          "ci_high": 75
+          "ci_high": 74
         },
         "Ornn, Fire Below the Mountain": {
           "win_rate": 64,
-          "matches": 91,
-          "wins": 58,
+          "matches": 92,
+          "wins": 59,
           "losses": 33,
           "ci_low": 53,
           "ci_high": 74
@@ -5274,12 +5274,12 @@
           "ci_high": 54
         },
         "Viktor, Herald of the Arcane": {
-          "win_rate": 65,
-          "matches": 71,
+          "win_rate": 64,
+          "matches": 72,
           "wins": 46,
-          "losses": 25,
-          "ci_low": 53,
-          "ci_high": 76
+          "losses": 26,
+          "ci_low": 52,
+          "ci_high": 75
         },
         "Vex, Gloomist": {
           "win_rate": 52,
@@ -5362,12 +5362,12 @@
           "ci_high": 91
         },
         "Shen, Eye of Twilight": {
-          "win_rate": 81,
-          "matches": 16,
+          "win_rate": 76,
+          "matches": 17,
           "wins": 13,
-          "losses": 3,
-          "ci_low": 54,
-          "ci_high": 96
+          "losses": 4,
+          "ci_low": 50,
+          "ci_high": 93
         },
         "Jhin, Virtuoso": {
           "win_rate": 36,
@@ -5490,12 +5490,12 @@
           "ci_high": 76
         },
         "Leona, Radiant Dawn": {
-          "win_rate": 50,
-          "matches": 2,
+          "win_rate": 33,
+          "matches": 3,
           "wins": 1,
-          "losses": 1,
+          "losses": 2,
           "ci_low": 1,
-          "ci_high": 99
+          "ci_high": 91
         },
         "Ahri, Nine-Tailed Fox": {
           "win_rate": 80,
@@ -5522,12 +5522,12 @@
           "ci_high": 99
         },
         "Lee Sin, Blind Monk": {
-          "win_rate": 100,
-          "matches": 1,
+          "win_rate": 50,
+          "matches": 2,
           "wins": 1,
-          "losses": 0,
-          "ci_low": 2,
-          "ci_high": 100
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
         }
       }
     },
@@ -5536,9 +5536,9 @@
       "opponents": {
         "Kennen, Heart of the Tempest": {
           "win_rate": 40,
-          "matches": 340,
+          "matches": 341,
           "wins": 136,
-          "losses": 204,
+          "losses": 205,
           "ci_low": 35,
           "ci_high": 46
         },
@@ -5632,10 +5632,10 @@
         },
         "Khazix, Voidreaver": {
           "win_rate": 35,
-          "matches": 101,
-          "wins": 35,
-          "losses": 66,
-          "ci_low": 25,
+          "matches": 103,
+          "wins": 36,
+          "losses": 67,
+          "ci_low": 26,
           "ci_high": 45
         },
         "Ezreal, Prodigal Explorer": {
@@ -5647,10 +5647,10 @@
           "ci_high": 63
         },
         "Ornn, Fire Below the Mountain": {
-          "win_rate": 49,
-          "matches": 78,
+          "win_rate": 48,
+          "matches": 79,
           "wins": 38,
-          "losses": 40,
+          "losses": 41,
           "ci_low": 37,
           "ci_high": 60
         },
@@ -6013,9 +6013,9 @@
         },
         "Khazix, Voidreaver": {
           "win_rate": 36,
-          "matches": 91,
+          "matches": 92,
           "wins": 33,
-          "losses": 58,
+          "losses": 59,
           "ci_low": 26,
           "ci_high": 47
         },
@@ -6028,9 +6028,9 @@
           "ci_high": 68
         },
         "Lillia, Bashful Bloom": {
-          "win_rate": 51,
-          "matches": 78,
-          "wins": 40,
+          "win_rate": 52,
+          "matches": 79,
+          "wins": 41,
           "losses": 38,
           "ci_low": 40,
           "ci_high": 63
@@ -6052,12 +6052,12 @@
           "ci_high": 58
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 53,
-          "matches": 68,
+          "win_rate": 52,
+          "matches": 69,
           "wins": 36,
-          "losses": 32,
+          "losses": 33,
           "ci_low": 40,
-          "ci_high": 65
+          "ci_high": 64
         },
         "Mel, Soul's Reflection": {
           "win_rate": 68,
@@ -6353,10 +6353,10 @@
           "ci_high": 65
         },
         "Leblanc, Deceiver": {
-          "win_rate": 39,
-          "matches": 119,
-          "wins": 46,
-          "losses": 73,
+          "win_rate": 40,
+          "matches": 120,
+          "wins": 48,
+          "losses": 72,
           "ci_low": 31,
           "ci_high": 49
         },
@@ -6401,12 +6401,12 @@
           "ci_high": 65
         },
         "Ezreal, Prodigal Explorer": {
-          "win_rate": 35,
-          "matches": 71,
-          "wins": 25,
+          "win_rate": 36,
+          "matches": 72,
+          "wins": 26,
           "losses": 46,
-          "ci_low": 24,
-          "ci_high": 47
+          "ci_low": 25,
+          "ci_high": 48
         },
         "Lillia, Bashful Bloom": {
           "win_rate": 26,
@@ -6441,12 +6441,12 @@
           "ci_high": 78
         },
         "Mel, Soul's Reflection": {
-          "win_rate": 58,
-          "matches": 45,
+          "win_rate": 57,
+          "matches": 46,
           "wins": 26,
-          "losses": 19,
-          "ci_low": 42,
-          "ci_high": 72
+          "losses": 20,
+          "ci_low": 41,
+          "ci_high": 71
         },
         "Kai'sa, Daughter of the Void": {
           "win_rate": 45,
@@ -6569,12 +6569,12 @@
           "ci_high": 99
         },
         "Renekton, Butcher of the Sands": {
-          "win_rate": 88,
-          "matches": 8,
+          "win_rate": 78,
+          "matches": 9,
           "wins": 7,
-          "losses": 1,
-          "ci_low": 47,
-          "ci_high": 100
+          "losses": 2,
+          "ci_low": 40,
+          "ci_high": 97
         },
         "Renata Glasc, Chem-Baroness": {
           "win_rate": 62,
@@ -7060,35 +7060,35 @@
       "opponents": {
         "Kennen, Heart of the Tempest": {
           "win_rate": 42,
-          "matches": 263,
-          "wins": 110,
-          "losses": 153,
+          "matches": 265,
+          "wins": 111,
+          "losses": 154,
           "ci_low": 36,
           "ci_high": 48
         },
         "Master Yi, Wuju Bladesman": {
-          "win_rate": 53,
-          "matches": 212,
-          "wins": 112,
-          "losses": 100,
-          "ci_low": 46,
+          "win_rate": 54,
+          "matches": 213,
+          "wins": 115,
+          "losses": 98,
+          "ci_low": 47,
           "ci_high": 60
         },
         "Irelia, Blade Dancer": {
-          "win_rate": 49,
-          "matches": 171,
-          "wins": 84,
+          "win_rate": 50,
+          "matches": 173,
+          "wins": 86,
           "losses": 87,
-          "ci_low": 41,
+          "ci_low": 42,
           "ci_high": 57
         },
         "Rengar, Pridestalker": {
-          "win_rate": 40,
-          "matches": 152,
-          "wins": 61,
+          "win_rate": 41,
+          "matches": 154,
+          "wins": 63,
           "losses": 91,
-          "ci_low": 32,
-          "ci_high": 48
+          "ci_low": 33,
+          "ci_high": 49
         },
         "Azir, Emperor of the Sands": {
           "win_rate": 36,
@@ -7123,12 +7123,12 @@
           "ci_high": 39
         },
         "Nasus, Curator of the Sands": {
-          "win_rate": 65,
-          "matches": 96,
+          "win_rate": 64,
+          "matches": 97,
           "wins": 62,
-          "losses": 34,
+          "losses": 35,
           "ci_low": 54,
-          "ci_high": 74
+          "ci_high": 73
         },
         "Jayce, Defender of Tomorrow": {
           "win_rate": 30,
@@ -7140,11 +7140,11 @@
         },
         "Akali, Rogue Assassin": {
           "win_rate": 53,
-          "matches": 113,
+          "matches": 114,
           "wins": 60,
-          "losses": 53,
+          "losses": 54,
           "ci_low": 43,
-          "ci_high": 63
+          "ci_high": 62
         },
         "Draven, Glorious Executioner": {
           "win_rate": 42,
@@ -7179,11 +7179,11 @@
           "ci_high": 71
         },
         "Ornn, Fire Below the Mountain": {
-          "win_rate": 47,
-          "matches": 68,
-          "wins": 32,
+          "win_rate": 48,
+          "matches": 69,
+          "wins": 33,
           "losses": 36,
-          "ci_low": 35,
+          "ci_low": 36,
           "ci_high": 60
         },
         "Viktor, Herald of the Arcane": {
@@ -7211,12 +7211,12 @@
           "ci_high": 69
         },
         "Kai'sa, Daughter of the Void": {
-          "win_rate": 50,
-          "matches": 32,
-          "wins": 16,
+          "win_rate": 52,
+          "matches": 33,
+          "wins": 17,
           "losses": 16,
-          "ci_low": 32,
-          "ci_high": 68
+          "ci_low": 34,
+          "ci_high": 69
         },
         "Ambessa, Matriarch of War": {
           "win_rate": 58,
@@ -7268,10 +7268,10 @@
         },
         "Shen, Eye of Twilight": {
           "win_rate": 81,
-          "matches": 31,
-          "wins": 25,
+          "matches": 32,
+          "wins": 26,
           "losses": 6,
-          "ci_low": 63,
+          "ci_low": 64,
           "ci_high": 93
         },
         "Jhin, Virtuoso": {
@@ -7433,10 +7433,10 @@
         },
         "Master Yi, Wuju Bladesman": {
           "win_rate": 32,
-          "matches": 200,
+          "matches": 201,
           "wins": 64,
-          "losses": 136,
-          "ci_low": 26,
+          "losses": 137,
+          "ci_low": 25,
           "ci_high": 39
         },
         "Irelia, Blade Dancer": {
@@ -7552,12 +7552,12 @@
           "ci_high": 43
         },
         "Viktor, Herald of the Arcane": {
-          "win_rate": 42,
-          "matches": 45,
-          "wins": 19,
+          "win_rate": 43,
+          "matches": 46,
+          "wins": 20,
           "losses": 26,
-          "ci_low": 28,
-          "ci_high": 58
+          "ci_low": 29,
+          "ci_high": 59
         },
         "Vex, Gloomist": {
           "win_rate": 55,
@@ -7648,12 +7648,12 @@
           "ci_high": 77
         },
         "Lux, Lady of Luminosity": {
-          "win_rate": 64,
-          "matches": 11,
-          "wins": 7,
+          "win_rate": 67,
+          "matches": 12,
+          "wins": 8,
           "losses": 4,
-          "ci_low": 31,
-          "ci_high": 89
+          "ci_low": 35,
+          "ci_high": 90
         },
         "Master Yi, Wuju Master": {
           "win_rate": 30,
@@ -7760,12 +7760,12 @@
           "ci_high": 91
         },
         "Leona, Radiant Dawn": {
-          "win_rate": 60,
-          "matches": 5,
-          "wins": 3,
+          "win_rate": 67,
+          "matches": 6,
+          "wins": 4,
           "losses": 2,
-          "ci_low": 15,
-          "ci_high": 95
+          "ci_low": 22,
+          "ci_high": 96
         },
         "Ahri, Nine-Tailed Fox": {
           "win_rate": 60,
@@ -7806,17 +7806,17 @@
       "opponents": {
         "Kennen, Heart of the Tempest": {
           "win_rate": 45,
-          "matches": 221,
-          "wins": 99,
+          "matches": 222,
+          "wins": 100,
           "losses": 122,
-          "ci_low": 39,
+          "ci_low": 38,
           "ci_high": 52
         },
         "Master Yi, Wuju Bladesman": {
-          "win_rate": 36,
-          "matches": 229,
-          "wins": 82,
-          "losses": 147,
+          "win_rate": 37,
+          "matches": 230,
+          "wins": 85,
+          "losses": 145,
           "ci_low": 30,
           "ci_high": 43
         },
@@ -7885,12 +7885,12 @@
           "ci_high": 51
         },
         "Akali, Rogue Assassin": {
-          "win_rate": 43,
-          "matches": 51,
-          "wins": 22,
+          "win_rate": 44,
+          "matches": 52,
+          "wins": 23,
           "losses": 29,
-          "ci_low": 29,
-          "ci_high": 58
+          "ci_low": 30,
+          "ci_high": 59
         },
         "Draven, Glorious Executioner": {
           "win_rate": 46,
@@ -7949,12 +7949,12 @@
           "ci_high": 85
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 50,
-          "matches": 32,
+          "win_rate": 48,
+          "matches": 33,
           "wins": 16,
-          "losses": 16,
-          "ci_low": 32,
-          "ci_high": 68
+          "losses": 17,
+          "ci_low": 31,
+          "ci_high": 66
         },
         "Mel, Soul's Reflection": {
           "win_rate": 52,
@@ -10035,12 +10035,12 @@
           "ci_high": 52
         },
         "Azir, Emperor of the Sands": {
-          "win_rate": 53,
-          "matches": 45,
+          "win_rate": 52,
+          "matches": 46,
           "wins": 24,
-          "losses": 21,
-          "ci_low": 38,
-          "ci_high": 68
+          "losses": 22,
+          "ci_low": 37,
+          "ci_high": 67
         },
         "Reksai, Void Burrower": {
           "win_rate": 30,
@@ -10331,12 +10331,12 @@
           "ci_high": 98
         },
         "Leona, Radiant Dawn": {
-          "win_rate": 0,
-          "matches": 1,
-          "wins": 0,
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
           "losses": 1,
-          "ci_low": 0,
-          "ci_high": 98
+          "ci_low": 1,
+          "ci_high": 99
         },
         "Ahri, Nine-Tailed Fox": {
           "win_rate": 100,
@@ -10367,20 +10367,20 @@
     "Shen, Eye of Twilight": {
       "overall": {
         "win_rate": 33,
-        "matches": 941,
-        "wins": 311,
-        "losses": 630,
+        "matches": 946,
+        "wins": 312,
+        "losses": 634,
         "ci_low": 30,
         "ci_high": 36
       },
       "opponents": {
         "Kennen, Heart of the Tempest": {
           "win_rate": 33,
-          "matches": 81,
+          "matches": 82,
           "wins": 27,
-          "losses": 54,
+          "losses": 55,
           "ci_low": 23,
-          "ci_high": 45
+          "ci_high": 44
         },
         "Master Yi, Wuju Bladesman": {
           "win_rate": 33,
@@ -10407,12 +10407,12 @@
           "ci_high": 46
         },
         "Azir, Emperor of the Sands": {
-          "win_rate": 30,
-          "matches": 30,
+          "win_rate": 29,
+          "matches": 31,
           "wins": 9,
-          "losses": 21,
-          "ci_low": 15,
-          "ci_high": 49
+          "losses": 22,
+          "ci_low": 14,
+          "ci_high": 48
         },
         "Reksai, Void Burrower": {
           "win_rate": 17,
@@ -10431,12 +10431,12 @@
           "ci_high": 40
         },
         "Leblanc, Deceiver": {
-          "win_rate": 33,
-          "matches": 30,
-          "wins": 10,
+          "win_rate": 35,
+          "matches": 31,
+          "wins": 11,
           "losses": 20,
-          "ci_low": 17,
-          "ci_high": 53
+          "ci_low": 19,
+          "ci_high": 55
         },
         "Nasus, Curator of the Sands": {
           "win_rate": 46,
@@ -10479,12 +10479,12 @@
           "ci_high": 59
         },
         "Ezreal, Prodigal Explorer": {
-          "win_rate": 19,
-          "matches": 16,
-          "wins": 3,
+          "win_rate": 24,
+          "matches": 17,
+          "wins": 4,
           "losses": 13,
-          "ci_low": 4,
-          "ci_high": 46
+          "ci_low": 7,
+          "ci_high": 50
         },
         "Lillia, Bashful Bloom": {
           "win_rate": 41,
@@ -10520,11 +10520,11 @@
         },
         "Fiora, Grand Duelist": {
           "win_rate": 19,
-          "matches": 31,
+          "matches": 32,
           "wins": 6,
-          "losses": 25,
+          "losses": 26,
           "ci_low": 7,
-          "ci_high": 37
+          "ci_high": 36
         },
         "Mel, Soul's Reflection": {
           "win_rate": 45,
@@ -11103,9 +11103,9 @@
     "Lux, Lady of Luminosity": {
       "overall": {
         "win_rate": 51,
-        "matches": 806,
-        "wins": 411,
-        "losses": 395,
+        "matches": 808,
+        "wins": 412,
+        "losses": 396,
         "ci_low": 47,
         "ci_high": 54
       },
@@ -11263,12 +11263,12 @@
           "ci_high": 72
         },
         "Mel, Soul's Reflection": {
-          "win_rate": 36,
-          "matches": 11,
+          "win_rate": 33,
+          "matches": 12,
           "wins": 4,
-          "losses": 7,
-          "ci_low": 11,
-          "ci_high": 69
+          "losses": 8,
+          "ci_low": 10,
+          "ci_high": 65
         },
         "Kai'sa, Daughter of the Void": {
           "win_rate": 58,
@@ -11461,6 +11461,14 @@
           "losses": 1,
           "ci_low": 9,
           "ci_high": 99
+        },
+        "Lee Sin, Blind Monk": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
         }
       }
     },
@@ -13239,10 +13247,10 @@
     "Renekton, Butcher of the Sands": {
       "overall": {
         "win_rate": 37,
-        "matches": 595,
-        "wins": 220,
-        "losses": 375,
-        "ci_low": 33,
+        "matches": 599,
+        "wins": 222,
+        "losses": 377,
+        "ci_low": 34,
         "ci_high": 41
       },
       "opponents": {
@@ -13255,20 +13263,20 @@
           "ci_high": 63
         },
         "Master Yi, Wuju Bladesman": {
-          "win_rate": 23,
-          "matches": 35,
+          "win_rate": 22,
+          "matches": 36,
           "wins": 8,
-          "losses": 27,
+          "losses": 28,
           "ci_low": 10,
-          "ci_high": 40
+          "ci_high": 39
         },
         "Irelia, Blade Dancer": {
           "win_rate": 24,
-          "matches": 33,
+          "matches": 34,
           "wins": 8,
-          "losses": 25,
+          "losses": 26,
           "ci_low": 11,
-          "ci_high": 42
+          "ci_high": 41
         },
         "Rengar, Pridestalker": {
           "win_rate": 34,
@@ -13375,12 +13383,12 @@
           "ci_high": 56
         },
         "Viktor, Herald of the Arcane": {
-          "win_rate": 13,
-          "matches": 8,
-          "wins": 1,
+          "win_rate": 22,
+          "matches": 9,
+          "wins": 2,
           "losses": 7,
-          "ci_low": 0,
-          "ci_high": 53
+          "ci_low": 3,
+          "ci_high": 60
         },
         "Vex, Gloomist": {
           "win_rate": 23,
@@ -13589,6 +13597,14 @@
           "losses": 2,
           "ci_low": 1,
           "ci_high": 91
+        },
+        "Lee Sin, Blind Monk": {
+          "win_rate": 100,
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "ci_low": 2,
+          "ci_high": 100
         }
       }
     },
@@ -15911,9 +15927,9 @@
     "Leona, Radiant Dawn": {
       "overall": {
         "win_rate": 33,
-        "matches": 218,
-        "wins": 72,
-        "losses": 146,
+        "matches": 221,
+        "wins": 73,
+        "losses": 148,
         "ci_low": 26,
         "ci_high": 39
       },
@@ -16023,11 +16039,11 @@
           "ci_high": 72
         },
         "Ezreal, Prodigal Explorer": {
-          "win_rate": 50,
-          "matches": 2,
-          "wins": 1,
+          "win_rate": 67,
+          "matches": 3,
+          "wins": 2,
           "losses": 1,
-          "ci_low": 1,
+          "ci_low": 9,
           "ci_high": 99
         },
         "Lillia, Bashful Bloom": {
@@ -16071,12 +16087,12 @@
           "ci_high": 91
         },
         "Mel, Soul's Reflection": {
-          "win_rate": 40,
-          "matches": 5,
+          "win_rate": 33,
+          "matches": 6,
           "wins": 2,
-          "losses": 3,
-          "ci_low": 5,
-          "ci_high": 85
+          "losses": 4,
+          "ci_low": 4,
+          "ci_high": 78
         },
         "Kai'sa, Daughter of the Void": {
           "win_rate": 0,
@@ -16127,12 +16143,12 @@
           "ci_high": 84
         },
         "Lucian, Purifier": {
-          "win_rate": 100,
-          "matches": 1,
+          "win_rate": 50,
+          "matches": 2,
           "wins": 1,
-          "losses": 0,
-          "ci_low": 2,
-          "ci_high": 100
+          "losses": 1,
+          "ci_low": 1,
+          "ci_high": 99
         },
         "Shen, Eye of Twilight": {
           "win_rate": 100,
@@ -17086,12 +17102,12 @@
     },
     "Lee Sin, Blind Monk": {
       "overall": {
-        "win_rate": 45,
-        "matches": 77,
-        "wins": 35,
-        "losses": 42,
-        "ci_low": 34,
-        "ci_high": 57
+        "win_rate": 44,
+        "matches": 81,
+        "wins": 36,
+        "losses": 45,
+        "ci_low": 33,
+        "ci_high": 56
       },
       "opponents": {
         "Kennen, Heart of the Tempest": {
@@ -17151,12 +17167,12 @@
           "ci_high": 91
         },
         "Leblanc, Deceiver": {
-          "win_rate": 100,
-          "matches": 2,
+          "win_rate": 67,
+          "matches": 3,
           "wins": 2,
-          "losses": 0,
-          "ci_low": 16,
-          "ci_high": 100
+          "losses": 1,
+          "ci_low": 9,
+          "ci_high": 99
         },
         "Nasus, Curator of the Sands": {
           "win_rate": 75,
@@ -17199,12 +17215,12 @@
           "ci_high": 71
         },
         "Ezreal, Prodigal Explorer": {
-          "win_rate": 0,
-          "matches": 1,
-          "wins": 0,
+          "win_rate": 50,
+          "matches": 2,
+          "wins": 1,
           "losses": 1,
-          "ci_low": 0,
-          "ci_high": 98
+          "ci_low": 1,
+          "ci_high": 99
         },
         "Lillia, Bashful Bloom": {
           "win_rate": 0,
@@ -17270,6 +17286,14 @@
           "ci_low": 0,
           "ci_high": 98
         },
+        "Lux, Lady of Luminosity": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
+        },
         "Rumble, Mechanized Menace": {
           "win_rate": 50,
           "matches": 2,
@@ -17293,6 +17317,14 @@
           "losses": 0,
           "ci_low": 2,
           "ci_high": 100
+        },
+        "Renekton, Butcher of the Sands": {
+          "win_rate": 0,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "ci_low": 0,
+          "ci_high": 98
         },
         "Sett, The Boss": {
           "win_rate": 100,
