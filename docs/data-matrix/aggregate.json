@@ -1,7 +1,7 @@
 {
   "source": "https://riftdecks.com/stats/winrate?metagame_id=4&date_range=all",
   "captured_by": "real Chrome via Playwright (riftbound_data.extract_table)",
-  "captured_at": "2026-09-22",
+  "captured_at": "2026-09-23",
   "legends": [
     {
       "name": "Kennen",
@@ -655,9 +655,9 @@
         },
         "Jayce, Defender of Tomorrow": {
           "win_rate": 37,
-          "matches": 553,
+          "matches": 555,
           "wins": 205,
-          "losses": 348,
+          "losses": 350,
           "ci_low": 33,
           "ci_high": 41
         },
@@ -719,8 +719,8 @@
         },
         "Fiora, Grand Duelist": {
           "win_rate": 46,
-          "matches": 264,
-          "wins": 121,
+          "matches": 265,
+          "wins": 122,
           "losses": 143,
           "ci_low": 40,
           "ci_high": 52
@@ -972,8 +972,8 @@
       "opponents": {
         "Rengar, Pridestalker": {
           "win_rate": 47,
-          "matches": 726,
-          "wins": 341,
+          "matches": 727,
+          "wins": 342,
           "losses": 385,
           "ci_low": 44,
           "ci_high": 51
@@ -1004,19 +1004,19 @@
         },
         "Leblanc, Deceiver": {
           "win_rate": 50,
-          "matches": 479,
+          "matches": 480,
           "wins": 240,
-          "losses": 239,
+          "losses": 240,
           "ci_low": 46,
           "ci_high": 55
         },
         "Akali, Rogue Assassin": {
-          "win_rate": 50,
-          "matches": 387,
-          "wins": 194,
-          "losses": 193,
+          "win_rate": 51,
+          "matches": 388,
+          "wins": 198,
+          "losses": 190,
           "ci_low": 45,
-          "ci_high": 55
+          "ci_high": 56
         },
         "Jayce, Defender of Tomorrow": {
           "win_rate": 51,
@@ -1084,17 +1084,17 @@
         },
         "Fiora, Grand Duelist": {
           "win_rate": 51,
-          "matches": 222,
-          "wins": 113,
+          "matches": 223,
+          "wins": 114,
           "losses": 109,
           "ci_low": 44,
-          "ci_high": 58
+          "ci_high": 57
         },
         "Viktor, Herald of the Arcane": {
           "win_rate": 51,
-          "matches": 260,
+          "matches": 261,
           "wins": 133,
-          "losses": 127,
+          "losses": 128,
           "ci_low": 45,
           "ci_high": 57
         },
@@ -1345,9 +1345,9 @@
         },
         "Irelia, Blade Dancer": {
           "win_rate": 53,
-          "matches": 726,
+          "matches": 727,
           "wins": 385,
-          "losses": 341,
+          "losses": 342,
           "ci_low": 49,
           "ci_high": 56
         },
@@ -2869,9 +2869,9 @@
         },
         "Irelia, Blade Dancer": {
           "win_rate": 50,
-          "matches": 479,
+          "matches": 480,
           "wins": 240,
-          "losses": 239,
+          "losses": 240,
           "ci_low": 45,
           "ci_high": 54
         },
@@ -2908,12 +2908,12 @@
           "ci_high": 51
         },
         "Akali, Rogue Assassin": {
-          "win_rate": 70,
-          "matches": 224,
-          "wins": 157,
-          "losses": 67,
+          "win_rate": 69,
+          "matches": 225,
+          "wins": 155,
+          "losses": 70,
           "ci_low": 63,
-          "ci_high": 76
+          "ci_high": 75
         },
         "Jayce, Defender of Tomorrow": {
           "win_rate": 54,
@@ -2988,10 +2988,10 @@
           "ci_high": 75
         },
         "Viktor, Herald of the Arcane": {
-          "win_rate": 61,
-          "matches": 138,
-          "wins": 84,
-          "losses": 54,
+          "win_rate": 60,
+          "matches": 139,
+          "wins": 83,
+          "losses": 56,
           "ci_low": 52,
           "ci_high": 69
         },
@@ -3249,11 +3249,11 @@
           "ci_high": 40
         },
         "Irelia, Blade Dancer": {
-          "win_rate": 50,
-          "matches": 387,
-          "wins": 194,
-          "losses": 193,
-          "ci_low": 45,
+          "win_rate": 49,
+          "matches": 388,
+          "wins": 190,
+          "losses": 198,
+          "ci_low": 44,
           "ci_high": 55
         },
         "Rengar, Pridestalker": {
@@ -3289,11 +3289,11 @@
           "ci_high": 61
         },
         "Leblanc, Deceiver": {
-          "win_rate": 30,
-          "matches": 224,
-          "wins": 67,
-          "losses": 157,
-          "ci_low": 24,
+          "win_rate": 31,
+          "matches": 225,
+          "wins": 70,
+          "losses": 155,
+          "ci_low": 25,
           "ci_high": 37
         },
         "Jayce, Defender of Tomorrow": {
@@ -3623,8 +3623,8 @@
         },
         "Master Yi, Wuju Bladesman": {
           "win_rate": 63,
-          "matches": 553,
-          "wins": 348,
+          "matches": 555,
+          "wins": 350,
           "losses": 205,
           "ci_low": 59,
           "ci_high": 67
@@ -3711,10 +3711,10 @@
         },
         "Ornn, Fire Below the Mountain": {
           "win_rate": 55,
-          "matches": 150,
-          "wins": 82,
+          "matches": 152,
+          "wins": 84,
           "losses": 68,
-          "ci_low": 47,
+          "ci_low": 46,
           "ci_high": 63
         },
         "Lillia, Bashful Bloom": {
@@ -3742,10 +3742,10 @@
           "ci_high": 58
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 68,
-          "matches": 111,
-          "wins": 75,
-          "losses": 36,
+          "win_rate": 69,
+          "matches": 112,
+          "wins": 77,
+          "losses": 35,
           "ci_low": 59,
           "ci_high": 77
         },
@@ -5211,11 +5211,11 @@
         },
         "Jayce, Defender of Tomorrow": {
           "win_rate": 45,
-          "matches": 150,
+          "matches": 152,
           "wins": 68,
-          "losses": 82,
+          "losses": 84,
           "ci_low": 37,
-          "ci_high": 53
+          "ci_high": 54
         },
         "Nasus, Curator of the Sands": {
           "win_rate": 52,
@@ -6671,18 +6671,18 @@
         },
         "Master Yi, Wuju Bladesman": {
           "win_rate": 54,
-          "matches": 264,
+          "matches": 265,
           "wins": 143,
-          "losses": 121,
+          "losses": 122,
           "ci_low": 48,
           "ci_high": 60
         },
         "Irelia, Blade Dancer": {
           "win_rate": 49,
-          "matches": 222,
+          "matches": 223,
           "wins": 109,
-          "losses": 113,
-          "ci_low": 42,
+          "losses": 114,
+          "ci_low": 43,
           "ci_high": 56
         },
         "Rengar, Pridestalker": {
@@ -6734,10 +6734,10 @@
           "ci_high": 65
         },
         "Jayce, Defender of Tomorrow": {
-          "win_rate": 32,
-          "matches": 111,
-          "wins": 36,
-          "losses": 75,
+          "win_rate": 31,
+          "matches": 112,
+          "wins": 35,
+          "losses": 77,
           "ci_low": 23,
           "ci_high": 41
         },
@@ -6798,12 +6798,12 @@
           "ci_high": 70
         },
         "Viktor, Herald of the Arcane": {
-          "win_rate": 32,
-          "matches": 63,
+          "win_rate": 31,
+          "matches": 65,
           "wins": 20,
-          "losses": 43,
-          "ci_low": 21,
-          "ci_high": 45
+          "losses": 45,
+          "ci_low": 20,
+          "ci_high": 43
         },
         "Mel, Soul's Reflection": {
           "win_rate": 56,
@@ -7052,8 +7052,8 @@
         },
         "Irelia, Blade Dancer": {
           "win_rate": 49,
-          "matches": 260,
-          "wins": 127,
+          "matches": 261,
+          "wins": 128,
           "losses": 133,
           "ci_low": 43,
           "ci_high": 55
@@ -7091,10 +7091,10 @@
           "ci_high": 63
         },
         "Leblanc, Deceiver": {
-          "win_rate": 39,
-          "matches": 138,
-          "wins": 54,
-          "losses": 84,
+          "win_rate": 40,
+          "matches": 139,
+          "wins": 56,
+          "losses": 83,
           "ci_low": 31,
           "ci_high": 48
         },
@@ -7171,12 +7171,12 @@
           "ci_high": 70
         },
         "Fiora, Grand Duelist": {
-          "win_rate": 68,
-          "matches": 63,
-          "wins": 43,
+          "win_rate": 69,
+          "matches": 65,
+          "wins": 45,
           "losses": 20,
-          "ci_low": 55,
-          "ci_high": 79
+          "ci_low": 57,
+          "ci_high": 80
         },
         "Mel, Soul's Reflection": {
           "win_rate": 57,
