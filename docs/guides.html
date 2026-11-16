@@ -449,6 +449,11 @@
     [style*="margin-left:auto"] { margin-left: 0 !important; }
   }
 
+  /* Aviso de datos desactualizados (ver riftbound_data/estado.py): solo sale
+     si el scraper lleva dias sin completarse con exito. */
+  .stale-banner { background: #3a2d0a; border-bottom: 1px solid #eda100; color: #f5d37a; padding: 8px 20px; font-size: 13px; text-align: center; }
+  .stale-banner strong { color: #ffd45c; }
+
   
   main { max-width: 1200px; }
   .guide-card { padding: 16px 0; border-bottom: 1px solid var(--gridline); }
@@ -474,6 +479,13 @@
   </nav>
   <span class="sub"></span>
 </header>
+
+<div class="stale-banner" role="status">
+  <strong>Tournament data is out of date.</strong>
+  Last successful update: 2026-09-26 &middot; latest tournament in the database: 2026-09-12.
+  Decks, stats and matchups may not reflect recent events.
+</div>
+
 <main class="">
 
 
