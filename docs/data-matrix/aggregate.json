@@ -1,7 +1,7 @@
 {
   "source": "https://riftdecks.com/stats/winrate?metagame_id=4&date_range=all",
   "captured_by": "real Chrome via Playwright (riftbound_data.extract_table)",
-  "captured_at": "2026-11-26",
+  "captured_at": "2026-11-27",
   "legends": [
     {
       "name": "Kennen",
@@ -266,8 +266,8 @@
         },
         "Akali, Rogue Assassin": {
           "win_rate": 61,
-          "matches": 866,
-          "wins": 528,
+          "matches": 867,
+          "wins": 529,
           "losses": 338,
           "ci_low": 57,
           "ci_high": 64
@@ -1465,11 +1465,11 @@
         },
         "Vi, Piltover Enforcer": {
           "win_rate": 54,
-          "matches": 93,
-          "wins": 50,
+          "matches": 94,
+          "wins": 51,
           "losses": 43,
-          "ci_low": 43,
-          "ci_high": 64
+          "ci_low": 44,
+          "ci_high": 65
         },
         "Shen, Eye of Twilight": {
           "win_rate": 66,
@@ -3138,9 +3138,9 @@
       "opponents": {
         "Kennen, Heart of the Tempest": {
           "win_rate": 39,
-          "matches": 866,
+          "matches": 867,
           "wins": 338,
-          "losses": 528,
+          "losses": 529,
           "ci_low": 36,
           "ci_high": 43
         },
@@ -3686,11 +3686,11 @@
           "ci_high": 81
         },
         "Lucian, Purifier": {
-          "win_rate": 57,
-          "matches": 106,
+          "win_rate": 56,
+          "matches": 107,
           "wins": 60,
-          "losses": 46,
-          "ci_low": 47,
+          "losses": 47,
+          "ci_low": 46,
           "ci_high": 66
         },
         "Ivern, Green Father": {
@@ -8543,12 +8543,12 @@
           "ci_high": 71
         },
         "Diana, Scorn of the Moon": {
-          "win_rate": 43,
-          "matches": 106,
-          "wins": 46,
+          "win_rate": 44,
+          "matches": 107,
+          "wins": 47,
           "losses": 60,
           "ci_low": 34,
-          "ci_high": 53
+          "ci_high": 54
         },
         "Khazix, Voidreaver": {
           "win_rate": 39,
@@ -8719,12 +8719,12 @@
           "ci_high": 84
         },
         "Sivir, Battle Mistress": {
-          "win_rate": 39,
-          "matches": 18,
+          "win_rate": 37,
+          "matches": 19,
           "wins": 7,
-          "losses": 11,
-          "ci_low": 17,
-          "ci_high": 64
+          "losses": 12,
+          "ci_low": 16,
+          "ci_high": 62
         },
         "Poppy, Keeper of the Hammer": {
           "win_rate": 61,
@@ -9972,11 +9972,11 @@
         },
         "Rengar, Pridestalker": {
           "win_rate": 46,
-          "matches": 93,
+          "matches": 94,
           "wins": 43,
-          "losses": 50,
-          "ci_low": 36,
-          "ci_high": 57
+          "losses": 51,
+          "ci_low": 35,
+          "ci_high": 56
         },
         "Leblanc, Deceiver": {
           "win_rate": 31,
@@ -12337,12 +12337,12 @@
           "ci_high": 63
         },
         "Lucian, Purifier": {
-          "win_rate": 61,
-          "matches": 18,
-          "wins": 11,
+          "win_rate": 63,
+          "matches": 19,
+          "wins": 12,
           "losses": 7,
-          "ci_low": 36,
-          "ci_high": 83
+          "ci_low": 38,
+          "ci_high": 84
         },
         "Ivern, Green Father": {
           "win_rate": 70,
